@@ -1,0 +1,23 @@
+:root {
+  --red: #cc1526;
+  --white: #ffffff;
+  --purple: #2f1893;
+}
+
+.main-container {
+  text-align: center;
+  padding: 4rem;
+  color: var(--white);
+}
+
+.main-title {
+  font-size: 4rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  letter-spacing: 0.2rem;
+}
+
+.main-content {
+  font-size: 1rem;
+  line-height: 1.5;
+}

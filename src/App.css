@@ -40,4 +40,8 @@ body {
   height: 100vh;
 }
 
-/* BG Effect */
+.App {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
