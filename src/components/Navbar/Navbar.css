@@ -1,6 +1,39 @@
 #navbar {
+  position: relative;
+  padding: 58px 0;
+}
+
+#navbar .logo {
+  position: fixed;
+  margin-left: 60px;
+}
+
+#navbar .steps {
   display: flex;
   justify-content: center;
   align-items: center;
+  gap: 25px
 }
 
+#navbar .steps .step {
+  width: 70px;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 26px;
+  text-align: center;
+  color: white;
+  cursor: pointer;
+  transition: all 300ms;
+}
+
+#navbar .steps .step.active {
+  color: rgba(255, 255, 255, 0.3);
+}
+#navbar .steps .step.active:hover {
+  text-shadow: none;
+  cursor: default;
+}
+
+#navbar .steps .step:hover {
+  text-shadow: 0 0 10px white;
+}
