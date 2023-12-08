@@ -1,8 +1,10 @@
+/* Font Import */
 @import url("https://fonts.googleapis.com/css2?family=DM+Sans:opsz@9..40&display=swap");
 /* CSS Reset */
 :root {
   --red: #cc1526;
   --white: #ffffff;
+  --purple: #2f1893;
 }
 * {
   margin: 0;
@@ -31,4 +33,11 @@ section {
 body {
   line-height: 1;
   font-family: "DM Sans", sans-serif;
+  background-image: url(./assets/Background.png);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100vh;
 }
+
+/* BG Effect */
