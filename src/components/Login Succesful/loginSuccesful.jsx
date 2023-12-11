@@ -1,5 +1,5 @@
 import React from 'react';
-import './style.css';
+import './loginSuccesful.css';
 import reportWebVitals from './reportWebVitals';
 
 
@@ -8,7 +8,7 @@ const App = () => {
     <div>
       {/* Header */}
       <header>
-        <img class="logo" src={process.env.PUBLIC_URL + '/image/arcelik-logo.png'} alt="Logo" width="160" height="40"/>
+        <img class="logo" src={process.env.PUBLIC_URL + '/image/arcelik-logo.png'} alt="Logo" width="140" height="30"/>
       </header>
 
       {/* Content */}
