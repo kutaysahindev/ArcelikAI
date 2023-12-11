@@ -13,7 +13,7 @@ function App() {
 
   return (
     <div className="App">
-      <Navbar onItemClick={handleNavbarItemClick} />
+      <Navbar onItemClick={handleNavbarItemClick} selectedIndex={selectedIndex} />
       <Main selectedIndex={selectedIndex} />
       <Footer />
     </div>
