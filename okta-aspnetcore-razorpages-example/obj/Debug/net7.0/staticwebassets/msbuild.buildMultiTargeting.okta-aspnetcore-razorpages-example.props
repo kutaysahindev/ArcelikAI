@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="../build/okta-aspnetcore-razorpages-example.props" />
+</Project>

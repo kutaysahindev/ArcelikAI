@@ -1,0 +1,70 @@
+{
+  "format": 1,
+  "restore": {
+    "/Users/arthropoda/Documents/okta-aspnetcore-razorpages-example/okta-aspnetcore-razorpages-example/okta-aspnetcore-razorpages-example.csproj": {}
+  },
+  "projects": {
+    "/Users/arthropoda/Documents/okta-aspnetcore-razorpages-example/okta-aspnetcore-razorpages-example/okta-aspnetcore-razorpages-example.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/arthropoda/Documents/okta-aspnetcore-razorpages-example/okta-aspnetcore-razorpages-example/okta-aspnetcore-razorpages-example.csproj",
+        "projectName": "okta-aspnetcore-razorpages-example",
+        "projectPath": "/Users/arthropoda/Documents/okta-aspnetcore-razorpages-example/okta-aspnetcore-razorpages-example/okta-aspnetcore-razorpages-example.csproj",
+        "packagesPath": "/Users/arthropoda/.nuget/packages/",
+        "outputPath": "/Users/arthropoda/Documents/okta-aspnetcore-razorpages-example/okta-aspnetcore-razorpages-example/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/arthropoda/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net7.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net7.0": {
+            "targetAlias": "net7.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net7.0": {
+          "targetAlias": "net7.0",
+          "dependencies": {
+            "Okta.AspNetCore": {
+              "target": "Package",
+              "version": "[4.4.2, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.401/RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}
