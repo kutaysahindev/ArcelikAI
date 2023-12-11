@@ -28,6 +28,7 @@
 
 #navbar .steps .step.active {
   color: rgba(255, 255, 255, 0.3);
+  border-bottom: 3px solid rgba(255, 255, 255, 0.3);
 }
 #navbar .steps .step.active:hover {
   text-shadow: none;
