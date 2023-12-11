@@ -8,7 +8,7 @@ const App = () => {
     <div>
       {/* Header */}
       <header>
-        <img class="logo" src={process.env.PUBLIC_URL + '/image/arcelik-logo.png'} alt="Logo" width="160" height="40"/>
+        <img class="logo" src={process.env.PUBLIC_URL + '/assets/arcelik_logo_uzun 1.png'} alt="Logo" width="160" height="40"/>
       </header>
 
       {/* Content */}
