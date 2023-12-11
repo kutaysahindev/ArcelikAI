@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./Main.css";
+import { useOktaAuth } from "@okta/okta-react";
 
 const contentList = [
   {
@@ -35,13 +36,20 @@ const contentList = [
 
 const Main = ({ selectedIndex }) => {
   // const [animationClass, setAnimationClass] = useState("");
-  
+
   const isValidIndex = selectedIndex >= 0 && selectedIndex < contentList.length;
 
   const contentStyles = {
     fontSize: isValidIndex && selectedIndex === 0 ? "2.2rem" : "1.5rem",
   };
 
+  //Okta Hook
+  const { oktaAuth } = useOktaAuth();
+  const login = () => {
+    oktaAuth.signInWithRedirect();
+  };
+
+  // Deprecated Style Handler
   // useEffect(() => {
   //   if (isValidIndex) {
   //     setAnimationClass(
@@ -54,14 +62,22 @@ const Main = ({ selectedIndex }) => {
     <div className="main-container">
       {isValidIndex && (
         <div>
-          <p className={`main-title ${(isValidIndex && selectedIndex === 0) ? "animate-login" : "animate-other"}`}>
+          <p
+            className={`main-title ${
+              isValidIndex && selectedIndex === 0
+                ? "animate-login"
+                : "animate-other"
+            }`}
+          >
             {contentList[selectedIndex].title}
           </p>
           <p className="main-text" style={contentStyles}>
             {contentList[selectedIndex].content}{" "}
           </p>
           {selectedIndex === 0 && (
-            <button className="login-button">Login with Okta</button>
+            <button className="login-button" onClick={login}>
+              Login with Okta
+            </button>
           )}
         </div>
       )}
