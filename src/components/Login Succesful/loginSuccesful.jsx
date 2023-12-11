@@ -1,5 +1,5 @@
 import React from 'react';
-import './style.css';
+import './loginSuccesful.css';
 import reportWebVitals from './reportWebVitals';
 
 
