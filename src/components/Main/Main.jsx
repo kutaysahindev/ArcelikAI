@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./Main.css";
 
 const contentList = [
@@ -35,12 +35,34 @@ const contentList = [
 
 const Main = ({ selectedIndex }) => {
   const isValidIndex = selectedIndex >= 0 && selectedIndex < contentList.length;
+
+  const [animationClass, setAnimationClass] = useState("");
+
+  const contentStyles = {
+    fontSize: isValidIndex && selectedIndex === 0 ? "2.2rem" : "1.5rem",
+  };
+
+  useEffect(() => {
+    if (isValidIndex) {
+      setAnimationClass(
+        selectedIndex === 0 ? "animate-login" : "animate-other"
+      );
+    }
+  }, [selectedIndex, isValidIndex]);
+
   return (
     <div className="main-container">
       {isValidIndex && (
         <div>
-          <p className="main-title">{contentList[selectedIndex].title} </p>
-          <p className="main-content">{contentList[selectedIndex].content}</p>
+          <p className={`main-title ${animationClass}`}>
+            {contentList[selectedIndex].title}
+          </p>
+          <p className="main-text" style={contentStyles}>
+            {contentList[selectedIndex].content}{" "}
+          </p>
+          {selectedIndex === 0 && (
+            <button className="login-button">Login with Okta</button>
+          )}
         </div>
       )}
       {!isValidIndex && <p className="main-content">Invalid index selected</p>}
