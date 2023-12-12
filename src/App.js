@@ -1,13 +1,16 @@
+import React, { useEffect, useState } from "react";
 import "./App.css";
-import React, { useState } from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import { Security } from "@okta/okta-react";
-import { OktaAuth } from "@okta/okta-auth-js";
-import oktaConfig from "./oktaConfig";
 import Navbar from "./components/Navbar/Navbar";
 import Main from "./components/Main/Main";
 import Footer from "./components/Footer/Footer";
-import LoginCallback from "./components/LoginCallback";
+import { OktaAuth, toRelativeUrl } from "@okta/okta-auth-js";
+import { Security } from "@okta/okta-react";
+
+const oktaAuth = new OktaAuth({
+  issuer: "https://dev-16420108.okta.com/oauth2/default",
+  clientId: "0oadroi27bvehMs8M5d7",
+  redirectUri: window.location.origin + "/login/callback",
+});
 
 function App() {
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -16,24 +19,23 @@ function App() {
     setSelectedIndex(index);
   };
 
-  const oktaAuth = new OktaAuth(oktaConfig);
+  const restoreOriginalUri = async (_oktaAuth, originalUri) => {
+    window.location.replace(
+      toRelativeUrl(originalUri || "/", window.location.origin)
+    );
+  };
 
   return (
-    <Router>
-      <Security oktaAuth={oktaAuth}>
-        <div className="App">
-          <Navbar
-            onItemClick={handleNavbarItemClick}
-            selectedIndex={selectedIndex}
-          />
-          <Routes>
-            <Route path="/" element={<Main selectedIndex={selectedIndex} />} />
-            <Route path="/login/callback" element={<LoginCallback />} />
-          </Routes>
-          <Footer />
-        </div>
-      </Security>
-    </Router>
+    <Security oktaAuth={oktaAuth} restoreOriginalUri={restoreOriginalUri}>
+      <div className="App">
+        <Navbar
+          onItemClick={handleNavbarItemClick}
+          selectedIndex={selectedIndex}
+        />
+        <Main selectedIndex={selectedIndex} />
+        <Footer />
+      </div>
+    </Security>
   );
 }
 

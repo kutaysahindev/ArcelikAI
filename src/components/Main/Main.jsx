@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useOktaAuth } from "@okta/okta-react";
 import "./Main.css";
 
 const contentList = [
@@ -34,21 +35,30 @@ const contentList = [
 ];
 
 const Main = ({ selectedIndex }) => {
-  // const [animationClass, setAnimationClass] = useState("");
+  const { authState, oktaAuth } = useOktaAuth();
+  const [apiData, setApiData] = useState(null);
 
   const isValidIndex = selectedIndex >= 0 && selectedIndex < contentList.length;
+
+  useEffect(() => {
+    if (authState && authState.isAuthenticated) {
+      oktaAuth.getUser().then((userInfo) => {
+        // Example: Fetch user-specific data from your backend
+        fetch("https://your-api-endpoint/data", {
+          headers: {
+            Authorization: `Bearer ${authState.accessToken.accessToken}`,
+          },
+        })
+          .then((response) => response.json())
+          .then((data) => setApiData(data))
+          .catch((error) => console.error("Error fetching data:", error));
+      });
+    }
+  }, [authState, oktaAuth, selectedIndex]);
 
   const contentStyles = {
     fontSize: isValidIndex && selectedIndex === 0 ? "2.2rem" : "1.5rem",
   };
-
-  // useEffect(() => {
-  //   if (isValidIn  dex) {
-  //     setAnimationClass(
-  //       selectedIndex === 0 ? "animate-login" : "animate-other"
-  //     );
-  //   }
-  // }, [selectedIndex, isValidIndex]);
 
   return (
     <div className="main-container">
@@ -66,8 +76,24 @@ const Main = ({ selectedIndex }) => {
           <p className="main-text" style={contentStyles}>
             {contentList[selectedIndex].content}{" "}
           </p>
-          {selectedIndex === 0 && (
-            <button className="login-button">Login with Okta</button>
+          {authState && authState.isAuthenticated && selectedIndex === 0 && (
+            <div>
+              <button
+                className="login-button"
+                onClick={() => oktaAuth.signOut()}
+              >
+                Logout
+              </button>
+              {apiData && <p>Data from API: {JSON.stringify(apiData)}</p>}
+            </div>
+          )}
+          {selectedIndex === 0 && !authState?.isAuthenticated && (
+            <button
+              className="login-button"
+              onClick={() => oktaAuth.signInWithRedirect()}
+            >
+              Login with Okta
+            </button>
           )}
         </div>
       )}
