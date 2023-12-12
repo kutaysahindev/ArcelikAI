@@ -35,7 +35,7 @@ const contentList = [
 
 const Main = ({ selectedIndex }) => {
   // const [animationClass, setAnimationClass] = useState("");
-  
+
   const isValidIndex = selectedIndex >= 0 && selectedIndex < contentList.length;
 
   const contentStyles = {
@@ -43,7 +43,7 @@ const Main = ({ selectedIndex }) => {
   };
 
   // useEffect(() => {
-  //   if (isValidIndex) {
+  //   if (isValidIn  dex) {
   //     setAnimationClass(
   //       selectedIndex === 0 ? "animate-login" : "animate-other"
   //     );
@@ -54,7 +54,13 @@ const Main = ({ selectedIndex }) => {
     <div className="main-container">
       {isValidIndex && (
         <div>
-          <p className={`main-title ${(isValidIndex && selectedIndex === 0) ? "animate-login" : "animate-other"}`}>
+          <p
+            className={`main-title ${
+              isValidIndex && selectedIndex === 0
+                ? "animate-login"
+                : "animate-other"
+            }`}
+          >
             {contentList[selectedIndex].title}
           </p>
           <p className="main-text" style={contentStyles}>
