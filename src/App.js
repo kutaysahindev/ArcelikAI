@@ -17,7 +17,7 @@ const oktaAuth = new OktaAuth({
 });
 
 const restoreOriginalUri = async (_oktaAuth, originalUri) => {
-  window.location.assign(originalUri);
+  window.location.replace(originalUri || window.location.origin);
 };
 
 function App() {
