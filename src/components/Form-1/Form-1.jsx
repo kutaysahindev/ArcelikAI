@@ -9,16 +9,18 @@ const Form = () => {
   const [selectedModel, setSelectedModel] = useState('');
 
   const handleModelSelection = (model) => {
-    // Eğer buton daha önce seçiliyse, seçimi bırak
+    // if the button is already select it, deselect it.
     if (selectedModel === model) {
       setSelectedModel('');
     } else {
-      // Aksi halde butonu seç
+      // otherwise select the button.
       setSelectedModel(model);
     }
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (event) => {
+    // stops the form's normal submit process
+    event.preventDefault();
     // Form submit logic
     console.log('Form submitted:', { appName, welcomeMessage, systemPrompt, selectedModel });
   };
