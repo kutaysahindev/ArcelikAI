@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "r3VnlKokXWVKC0XW5nboe1Bu/LR9BhxPtz5y+pXczJUO6x7o9pjFSU4Epxc/eyNnMfXHVQPmnnC9vTS6oPiJHA==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\DocBarnecle\\source\\repos\\ArcelikMain\\ArcelikMain\\ArcelikMain.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\DocBarnecle\\.nuget\\packages\\microsoft.aspnetcore.spaproxy\\6.0.21\\microsoft.aspnetcore.spaproxy.6.0.21.nupkg.sha512"
+  ],
+  "logs": []
+}
