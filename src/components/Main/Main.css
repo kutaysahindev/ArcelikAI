@@ -62,6 +62,20 @@ html {
   font-size: 3.6rem;
   margin-top: -2rem;
 }
+ol,
+ul {
+  list-style-position: inside;
+}
+
+ol li,
+ul li {
+  text-align: left;
+  margin-bottom: 10px;
+}
+
+.add-margin-bottom {
+  margin-bottom: 2.5rem;
+}
 
 @media only screen and (max-width: 767px) {
   html {

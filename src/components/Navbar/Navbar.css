@@ -12,7 +12,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 25px
+  gap: 25px;
 }
 
 #navbar .steps .step {
@@ -36,7 +36,7 @@
 #navbar .steps .step.active::before {
   position: absolute;
   border-radius: 5px;
-  content: '';
+  content: "";
   width: 80px;
   height: 3px;
   bottom: -4px;
