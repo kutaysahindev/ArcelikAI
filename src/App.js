@@ -10,6 +10,7 @@ import { LoginCallback } from "@okta/okta-react"; // Add this line
 import RootLayout from "./layouts/RootLayout";
 import Home from "./pages/Home";
 import Form from "./pages/Form";
+import ArcelikLoading from "./components/Loading/ArcelikLoading"
 // import Navbar from "./components/Navbar/Navbar";
 // import Main from "./components/Main/Main";
 // import Footer from "./components/Footer/Footer";
@@ -26,6 +27,12 @@ const router = createBrowserRouter([
       {
         path: '/',
         element: <Home />,
+      },
+      {
+        path: 'login/callback',
+        // redirectUri: ,
+        // replace: true,
+        element: <LoginCallback />,
       },
       {
         path: 'form',
