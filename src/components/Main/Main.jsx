@@ -2,15 +2,27 @@ import React, { useEffect, useState } from "react";
 import { useOktaAuth } from "@okta/okta-react";
 import "./Main.css";
 import contentList from "./ContentData";
+import ArcelikLoading from '../Loading/ArcelikLoading'
 
 const Main = ({ selectedIndex }) => {
   const { authState, oktaAuth } = useOktaAuth();
   const [apiData, setApiData] = useState(null);
+  const [isLoading, setIsLoading] = useState(false)
+
+  // useEffect(() => {
+  //   // setIsLoading(true)
+  //   oktaAuth.handleLoginRedirect();
+  //   // setTimeout(() => {
+  //   //   setIsLoading(false)
+  //   // }, 1000);
+  // }, [oktaAuth]);
 
   const isValidIndex = selectedIndex >= 0 && selectedIndex < contentList.length;
 
   useEffect(() => {
+    console.log('authState: ', authState)
     if (authState && authState.isAuthenticated) {
+      // setIsLoading(true)
       oktaAuth.getUser().then((userInfo) => {
         // Example: Fetch user-specific data from your backend
         fetch("https://your-api-endpoint/data", {
@@ -20,9 +32,11 @@ const Main = ({ selectedIndex }) => {
         })
           .then((response) => response.json())
           .then((data) => setApiData(data))
-          .catch((error) => console.error("Error fetching data:", error));
+          .catch((error) => console.error("Error fetching data:", error))
+          .finally(() => setIsLoading(false))
       });
     }
+    // oktaAuth.handleLoginRedirect();
   }, [authState, oktaAuth, selectedIndex]);
 
   const contentStyles = {
@@ -31,6 +45,13 @@ const Main = ({ selectedIndex }) => {
 
   return (
     <div className="main-container">
+      {false && (
+        <div className='loading-container'>
+          <div className="loading-frame">
+            <ArcelikLoading />
+          </div>
+        </div>
+      )}
       {isValidIndex && (
         <div>
           <p

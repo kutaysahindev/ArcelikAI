@@ -1,0 +1,51 @@
+.ai-button-container {
+  /* display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 20px; */
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Three columns with equal width */
+  grid-template-rows: repeat(2, auto); /* Two rows with auto height */
+  row-gap: 10px;
+  column-gap: 20px;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.ai-button {
+  background: transparent;
+  padding: 10px;
+  border-radius: 10px;
+  user-select: none;
+  cursor: pointer;
+  border: 1px solid gray;
+}
+
+.ai-button:hover {
+  border-color: aquamarine;
+}
+
+.ai-button h4 {
+  font-size: 16px;
+  color: #1e0e62;
+}
+
+.ai-button p {
+  color: rgb(0, 0, 0);
+  font-size: 14px;
+  padding: 20px 0;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Three columns with equal width */
+  grid-template-rows: repeat(2, auto); /* Two rows with auto height */
+  gap: 10px;
+  width: 100%;
+}
+
+.grid-item {
+  background-color: #e0e0e0; /* Example background color */
+  padding: 20px;
+  text-align: center;
+}

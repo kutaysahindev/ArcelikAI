@@ -1,0 +1,36 @@
+.pt-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.period-container,
+.range-container {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.period-container input {
+  background: transparent;
+  border: 1px solid gray;
+  outline: none;
+  padding: 15px 10px;
+  border-radius: 10px;
+  box-sizing: border-box;
+}
+
+.period-container input::-webkit-outer-spin-button,
+.period-container input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.pt-container input {
+  display: block;
+  width: 100%;
+}
+
+/* .range-container input {
+  display: block;
+} */
