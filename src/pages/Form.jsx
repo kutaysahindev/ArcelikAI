@@ -1,4 +1,4 @@
-import { useState, useReducer } from "react";
+import React, { useState, useReducer, useEffect } from "react";
 import "./Form.css";
 import { useOktaAuth } from "@okta/okta-react";
 import AiButtons from "../components/Form/AiButtons";
@@ -67,13 +67,42 @@ export default function Form() {
   const stepCount = 2;
   const { authState } = useOktaAuth();
 
+  const [apiStatus, setApiStatus] = useState({
+    loading: false,
+    error: null,
+  });
+
   const handleInputChange = (field, value) => {
     dispatch({ type: "SET_INPUT", field, value });
   };
 
-  const handleInputReset = (e) => {
+  const handleInputReset = async (e) => {
     e.preventDefault();
-    dispatch({ type: "RESET" });
+
+    setApiStatus({ loading: true, error: null });
+
+    //API hallolunca comment'ten çıkartılacak
+    // try {
+    //   const response = await fetch("https://your-api-endpoint.com", {
+    //     method: "POST",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //     body: JSON.stringify(state),
+    //   });
+
+    //   if (response.ok) {
+    //     console.log("Data posted successfully");
+    //     dispatch({ type: "RESET" });
+    //   } else {
+    //     console.error("Failed to post data to the server");
+    //     setApiStatus({ loading: false, error: "Failed to post data" });
+    //   }
+    // } catch (error) {
+    //   console.error("Error posting data:", error);
+    //   setApiStatus({ loading: false, error: "Error posting data" });
+    // }
+    console.log(JSON.stringify(state, null, 2)); // API endpoint hazır olunca silinecek
   };
 
   const handleSteps = (e) => {
@@ -90,6 +119,11 @@ export default function Form() {
   //   e.preventDefault();
   //   console.log('state: ', state);
   // };
+  useEffect(() => {
+    return () => {
+      setApiStatus({ loading: false, error: null });
+    };
+  }, []);
 
   return (
     // <div className="">
@@ -133,8 +167,15 @@ export default function Form() {
           >
             {step > 1 ? "Previous" : "Next"}
           </button>
-          {step === 2 && <button onClick={handleInputReset}>Create</button>}
+          {step === 2 && (
+            <button onClick={handleInputReset} disabled={apiStatus.loading}>
+              {apiStatus.loading ? "Creating..." : "Create"}
+            </button>
+          )}
         </div>
+        {apiStatus.error && (
+          <div className="error-message">{apiStatus.error}</div>
+        )}
       </div>
     </form>
     //   ) : (
