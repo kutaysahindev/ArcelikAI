@@ -46,3 +46,20 @@ body {
   flex-direction: column;
   justify-content: space-between;
 }
+
+/* For really small screens */
+@media only screen and (min-device-width: 320px) and (max-device-width: 568px) and (-webkit-device-pixel-ratio: 2) {
+  html {
+    font-size: 40%;
+  }
+}
+
+/* For phone screens */
+@media only screen and (max-width: 767px) {
+  html {
+    font-size: 60%;
+  }
+  body {
+    background-repeat: repeat;
+  }
+}

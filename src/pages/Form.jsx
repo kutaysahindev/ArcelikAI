@@ -94,49 +94,49 @@ export default function Form() {
   return (
     // <div className="">
     //   {authState.isAuthenticated ? (
-        <form className="form-container">
-          <h2 className="step-title">Step {step}</h2>
-          <StepBar step={step} stepCount={stepCount} />
+    <form className="form-container">
+      <h2 className="step-title">Step {step}</h2>
+      <StepBar step={step} stepCount={stepCount} />
 
-          <div className="bottom">
-            <div className="content-container">
-              {step === 1 && (
-                <div className="step1">
-                  <InitialInputs
-                    state={state}
-                    handleInputChange={handleInputChange}
-                  />
-                  <AiButtons aiModals={aiModals} />
-                </div>
-              )}
-
-              {step === 2 && (
-                <div className="step2">
-                  <CheckBoxContainer
-                    state={state}
-                    handleInputChange={handleInputChange}
-                  />
-                  <UploadContainer />
-                  <PeriodAndTemperature
-                    state={state}
-                    handleInputChange={handleInputChange}
-                  />
-                </div>
-              )}
+      <div className="bottom">
+        <div className="content-container">
+          {step === 1 && (
+            <div className="step1">
+              <InitialInputs
+                state={state}
+                handleInputChange={handleInputChange}
+              />
+              <AiButtons aiModals={aiModals} />
             </div>
+          )}
 
-            <div className="button-container">
-              {/* <button onClick={handleInputReset}>reset</button> */}
-              <button
-                onClick={(e) => handleSteps(e)}
-                className={`${step > 1 ? "previous" : ""}`}
-              >
-                {step > 1 ? "Previous" : "Next"}
-              </button>
-              {step === 2 && <button onClick={handleInputReset}>Create</button>}
+          {step === 2 && (
+            <div className="step2">
+              <CheckBoxContainer
+                state={state}
+                handleInputChange={handleInputChange}
+              />
+              <UploadContainer />
+              <PeriodAndTemperature
+                state={state}
+                handleInputChange={handleInputChange}
+              />
             </div>
-          </div>
-        </form>
+          )}
+        </div>
+
+        <div className="button-container">
+          {/* <button onClick={handleInputReset}>reset</button> */}
+          <button
+            onClick={(e) => handleSteps(e)}
+            className={`${step > 1 ? "previous" : ""}`}
+          >
+            {step > 1 ? "Previous" : "Next"}
+          </button>
+          {step === 2 && <button onClick={handleInputReset}>Create</button>}
+        </div>
+      </div>
+    </form>
     //   ) : (
     //     <div className="">Not Logged in</div>
     //   )}
