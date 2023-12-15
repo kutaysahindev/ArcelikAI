@@ -1,0 +1,92 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100&display=swap');
+
+body{
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+}
+
+.form2-container {
+    background-color: #ffffffe4;
+    border-radius: 50px;
+    width: 50%;
+    margin: 0 auto;
+    text-align: center;
+    padding: 30px 30px 30px 30px;
+  }
+  
+  .checkbox-container {
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+    margin: 20px;
+  }
+  
+  .file-upload-container {
+    border: 2px dashed #ccc;
+    padding: 30px;
+    margin: 20px 0;
+    height: 8rem;
+    transition: background-color 0.9s;
+  }
+
+  .file-upload-container:hover{
+    cursor: pointer;
+    background-color: rgba(222, 187, 239, 0.587);
+  }
+
+  .conv{
+    width: 95%;
+    transition: background-color 0.9s;
+  }
+
+  input:hover{
+    background-color: rgb(244, 230, 253);
+  }
+  
+  .retention-period-container {
+    margin: 20px 0;
+  }
+
+  .model-value{
+    width: 40px;
+    height: 20px;
+    text-align: center;
+  }
+
+  .modelTempTiny{
+    font-weight: bold;
+    font-size: 20px;
+    color:rgb(147, 36, 36);
+  }
+  
+  .range-slider-container {
+    margin: 20px 0;
+  }
+  
+  .button-container {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 0;
+  }
+  
+  .previous-button{
+    width: 30rem;
+    background-color: red;
+    color: whitesmoke;
+    font-weight: bold;
+  }
+
+  .create-button{
+    width: 30rem;
+    background-color: red;
+    color: whitesmoke;
+    font-weight: bold;
+  }
+
+  /* Hover effect for buttons */
+  .previous-button:hover,
+  .create-button:hover {
+    background-color: #888;
+    color: #fff;
+  }
+  
