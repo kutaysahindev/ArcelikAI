@@ -1,0 +1,82 @@
+.form-container {
+  width: 885px;
+  min-height: 700px;
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.637);
+  backdrop-filter: blur(10px);
+  display: flex;
+  flex-direction: column;
+  
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.form-container .step-title {
+  text-align: center;
+  font-weight: 700;
+  font-size: 14px;
+  padding: 20px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.form-container .bottom {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+.step2 {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  /* transition: all 300ms; */
+}
+.button-container button {
+  background: #25dac5;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 40px;
+  font-size: 20px;
+  cursor: pointer;
+}
+.button-container .previous {
+  background: transparent;
+  color: #25dac5;
+  border: 2px solid #25dac5;
+}
+
+/* <div className="abc">
+  <div className="child" id="a">a</div>
+  <div className="child" id="b">b</div>
+  <div className="child" id="c">c</div>
+</div>
+
+.abc {
+  border: 5px solid black;
+  height: 100px;
+  display: flex;
+  flex-direction: column;
+}
+#a {
+  background-color: green;
+}
+#b {
+  background-color: blue;
+}
+#c {
+  position: relative;
+  background-color: rgb(255, 90, 239);
+  flex-grow: 1;
+} */
