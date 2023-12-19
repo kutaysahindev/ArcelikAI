@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 import "./UploadContainer.css";
 
-const UploadContainer = () => {
+const UploadContainer = ({ handleInputChange }) => {
   const [isDragging, setIsDragging] = useState(false);
   const [files, setFiles] = useState([]);
   const fileInputRef = useRef(null);
@@ -52,7 +52,7 @@ const UploadContainer = () => {
         method: "POST",
         body: formData,
       });
-
+      handleInputChange("pdfFiles", files);
       if (response.ok) {
         console.log("Files uploaded successfully!");
         // Add your success handling logic here
@@ -106,7 +106,7 @@ const UploadContainer = () => {
             ))}
           </ul>
         )}
-        {/* <button onClick={handleFileUpload}>Upload Files</button> */}
+        <button onClick={handleFileUpload}>Upload Files</button>
       </div>
     </>
   );

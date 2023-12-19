@@ -66,6 +66,7 @@ export default function Form() {
   const [state, dispatch] = useReducer(reducer, initialState);
   const stepCount = 2;
   const { authState } = useOktaAuth();
+  const [pdfFile, setPdfFile] = useState(null); //File upload
 
   const [apiStatus, setApiStatus] = useState({
     loading: false,
@@ -73,7 +74,11 @@ export default function Form() {
   });
 
   const handleInputChange = (field, value) => {
-    dispatch({ type: "SET_INPUT", field, value });
+    if (field === "pdfFile") {
+      setPdfFile(value);
+    } else {
+      dispatch({ type: "SET_INPUT", field, value });
+    }
   };
 
   const handleInputReset = async (e) => {
@@ -150,7 +155,7 @@ export default function Form() {
                 state={state}
                 handleInputChange={handleInputChange}
               />
-              <UploadContainer />
+              <UploadContainer handleInputChange={handleInputChange} />
               <PeriodAndTemperature
                 state={state}
                 handleInputChange={handleInputChange}
