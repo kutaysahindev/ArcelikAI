@@ -1,6 +1,7 @@
 .file-upload {
   min-height: 150px;
   border: 2px dashed gray;
+  background-color: rgba(128, 128, 128, 0.2);
   border-radius: 10px;
   padding: 40px;
   position: relative;
@@ -43,4 +44,13 @@ ul li span {
 ul li button {
   padding: 3px 5px;
   font-size: 12px;
+}
+
+.form-item-title {
+  display: block;
+  font-size: 1.4rem;
+  color: #1e0e62;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.2rem;
 }
