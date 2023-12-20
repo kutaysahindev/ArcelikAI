@@ -45,6 +45,14 @@ export default function Form() {
   //   error: null,
   // });
 
+  const getAiModals = (e) => {
+    e.preventDefault();
+    axios
+      .get('https://6582f75e02f747c8367abde3.mockapi.io/api/v1/modals')
+      .then((res) => console.log('res.data: ', res.data))
+      .catch((err) => console.error(err.message));
+  }
+
   const handleInputChange = (field, value) => {
     dispatch({ type: "SET_INPUT", field, value });
   };
@@ -116,6 +124,7 @@ export default function Form() {
 
             <div className="button-container">
               {/* <button onClick={handleInputReset}>reset</button> */}
+              <button onClick={e => getAiModals(e)}>GET</button>
               <button
                 onClick={(e) => handleSteps(e)}
                 className={`${step > 1 ? "previous" : ""}`}
