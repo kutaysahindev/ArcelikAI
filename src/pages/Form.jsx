@@ -53,16 +53,7 @@ export default function Form() {
     e.preventDefault();
     if (step > 1) setStep((prev) => prev - 1);
     else setStep((prev) => prev + 1);
-    // setStep(3);
   };
-
-  // const handleCheckbox = () => {
-  //   dispatch({ type: 'SET_INPUT', field, value });
-  // };
-  // const consoleH = (e) => {
-  //   e.preventDefault();
-  //   console.log('state: ', state);
-  // };
 
   const uploadHandler = (e) => {
     e.preventDefault();
@@ -79,12 +70,8 @@ export default function Form() {
     fd.append("cb2", state.cb2)
     fd.append("crPeriod", state.crPeriod)
     fd.append("modelTemperature", state.modelTemperature)
-    // fd.append('file', files);
     files.forEach((f,i) => fd.append(`file${i + 1}`, f));
 
-    // for (const key in files) {
-    //   fd.append(`file${key + 1}`, files[key]);
-    // }
     axios
       .post('http://httpbin.org/post', fd, {
         headers: { 'Custom-Header': 'value' },
