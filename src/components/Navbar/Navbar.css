@@ -105,7 +105,7 @@
 .popup-container {
   position: absolute;
   right: 0;
-  bottom: -6rem;
+  bottom: -4rem;
   display: flex;
   flex-direction: column;
   gap: 1rem;
