@@ -1,7 +1,7 @@
 #navbar {
   position: relative;
-  /* padding: 5.8rem 6rem; */
-  padding: 1rem 6rem;
+  padding: 5.8rem 6rem;
+  /* padding: 1rem 6rem; */
   display: flex;
   justify-content: space-between;
 }
@@ -105,7 +105,7 @@
 .popup-container {
   position: absolute;
   right: 0;
-  bottom: -6rem;
+  bottom: -4rem;
   display: flex;
   flex-direction: column;
   gap: 1rem;

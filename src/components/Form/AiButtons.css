@@ -19,14 +19,17 @@
   user-select: none;
   cursor: pointer;
   border: 1px solid gray;
+  transition: all 200ms;
 }
 
 .ai-button:hover {
-  border-color: rgb(59, 239, 179);
+  /* border-color: rgb(59, 239, 179); */
+  box-shadow: 0px 0px 8px 2px rgba(92, 92, 92, 0.666);
 }
 
 .ai-button h4 {
   font-size: 1.6rem;
+  font-weight: 600;
   color: #1e0e62;
 }
 
@@ -53,6 +56,7 @@
 .ai-button.selected {
   border-color: rgba(0, 0, 0, 0.2);
   background-color: rgba(0, 0, 0, 0.2);
+  border-color: #1e0e62;
 }
 
 @media only screen and (max-width: 768px) {
