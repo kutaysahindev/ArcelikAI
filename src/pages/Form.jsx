@@ -68,14 +68,48 @@ export default function Form() {
   const [state, dispatch] = useReducer(reducer, initialState);
   const stepCount = 2;
   const { authState } = useOktaAuth();
+  const [pdfFile, setPdfFile] = useState(null); //File upload
+
+  const [apiStatus, setApiStatus] = useState({
+    loading: false,
+    error: null,
+  });
 
   const handleInputChange = (field, value) => {
-    dispatch({ type: "SET_INPUT", field, value });
+    if (field === "pdfFile") {
+      setPdfFile(value);
+    } else {
+      dispatch({ type: "SET_INPUT", field, value });
+    }
   };
 
-  const handleInputReset = (e) => {
+  const handleInputReset = async (e) => {
     e.preventDefault();
-    dispatch({ type: "RESET" });
+
+    setApiStatus({ loading: true, error: null });
+
+    //API hallolunca comment'ten çıkartılacak
+    // try {
+    //   const response = await fetch("https://your-api-endpoint.com", {
+    //     method: "POST",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //     body: JSON.stringify(state),
+    //   });
+
+    //   if (response.ok) {
+    //     console.log("Data posted successfully");
+    //     dispatch({ type: "RESET" });
+    //   } else {
+    //     console.error("Failed to post data to the server");
+    //     setApiStatus({ loading: false, error: "Failed to post data" });
+    //   }
+    // } catch (error) {
+    //   console.error("Error posting data:", error);
+    //   setApiStatus({ loading: false, error: "Error posting data" });
+    // }
+    console.log(JSON.stringify(state, null, 2)); // API endpoint hazır olunca silinecek
   };
 
   const handleSteps = (e) => {
@@ -124,21 +158,21 @@ export default function Form() {
   return (
     // <div className="">
     //   {authState.isAuthenticated ? (
-        <form className="form-container">
-          <h2 className="step-title">Step {step}</h2>
-          <StepBar step={step} stepCount={stepCount} />
+    <form className="form-container">
+      <h2 className="step-title">Step {step}</h2>
+      <StepBar step={step} stepCount={stepCount} />
 
-          <div className="bottom">
-            <div className="content-container">
-              {step === 1 && (
-                <div className="step1">
-                  <InitialInputs
-                    state={state}
-                    handleInputChange={handleInputChange}
-                  />
-                  <AiButtons aiModals={aiModals} />
-                </div>
-              )}
+      <div className="bottom">
+        <div className="content-container">
+          {step === 1 && (
+            <div className="step1">
+              <InitialInputs
+                state={state}
+                handleInputChange={handleInputChange}
+              />
+              <AiButtons aiModals={aiModals} />
+            </div>
+          )}
 
               {step === 2 && (
                 <div className="step2">

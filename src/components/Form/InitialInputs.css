@@ -1,18 +1,18 @@
 .initial-inputs label {
   display: block;
-  font-size: 14px;
+  font-size: 1.4rem;
   color: #1e0e62;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 2px;
-  margin-bottom: 5px;
+  letter-spacing: 0.2rem;
+  margin-bottom: 0.5rem;
 }
 
 .first-two-inp {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 20px;
-  gap: 10px;
+  margin-bottom: 2rem;
+  gap: 1rem;
 }
 
 /* .one {
@@ -26,15 +26,15 @@
   flex: 1;
 }
 .three {
-  margin-bottom: 20px;
+  margin-bottom: 2rem;
 }
 
 .inputs {
   background: transparent;
   border: 1px solid gray;
   outline: none;
-  padding: 15px 10px;
-  border-radius: 10px;
+  padding: 1.5rem 1rem;
+  border-radius: 1rem;
   box-sizing: border-box;
 }
 
@@ -42,7 +42,7 @@
 .two input {
   width: 100%;
   /* min-width: 380px; */
-  height: 46px;
+  height: 4.6rem;
 }
 .three textarea {
   resize: none;

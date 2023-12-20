@@ -10,9 +10,9 @@
 
 .pnf-container .block {
   background: rgba(255, 255, 255, 0.178);
-  backdrop-filter: blur(10px);
-  padding: 30px;
-  border-radius: 10px;
+  backdrop-filter: blur(1rem);
+  padding: 3rem;
+  border-radius: 1rem;
 }
 
 .pnf-container h1 {
@@ -23,6 +23,6 @@
 }
 
 .pnf-container p {
-  font-size: 25px;
-  font-weight: 600px;
+  font-size: 2.5rem;
+  font-weight: 600;
 }
