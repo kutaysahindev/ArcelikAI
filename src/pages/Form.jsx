@@ -9,42 +9,12 @@ import CheckBoxContainer from "../components/Form/CheckboxContainer";
 import PeriodAndTemperature from "../components/Form/PeriodAndTemperature";
 import InitialInputs from "../components/Form/InitialInputs";
 
-const aiModals = [
-  {
-    id: 0,
-    name: "GPT-3.5",
-    description: "Advanced AI Language Modal",
-  },
-  {
-    id: 1,
-    name: "GPT-3.5 - 16K",
-    description: "Enhanced, large scale AI Modal",
-  },
-  {
-    id: 2,
-    name: "GPT-4",
-    description: "Cutting edge AI Modal",
-  },
-  {
-    id: 3,
-    name: "GPT-4 Turbo",
-    description: "High-speed, advanced AI Modal",
-  },
-  {
-    id: 4,
-    name: "Stable Diffusion",
-    description: "Innovative AI image generator",
-  },
-  {
-    id: 5,
-    name: "LLAMA2",
-    description: "Advanced AI Language Modal",
-  },
-];
+
 const initialState = {
   appName: "",
   welcomeMessage: "",
   systemPrompt: "",
+  aiModal: "",
   cb1: false,
   cb2: false,
   crPeriod: null,
@@ -67,49 +37,16 @@ export default function Form() {
   const [files, setFiles] = useState([]);
   const [state, dispatch] = useReducer(reducer, initialState);
   const stepCount = 2;
-  const { authState } = useOktaAuth();
-  const [pdfFile, setPdfFile] = useState(null); //File upload
+  // const { authState } = useOktaAuth();
+  // const [pdfFile, setPdfFile] = useState(null);
 
-  const [apiStatus, setApiStatus] = useState({
-    loading: false,
-    error: null,
-  });
+  // const [apiStatus, setApiStatus] = useState({
+  //   loading: false,
+  //   error: null,
+  // });
 
   const handleInputChange = (field, value) => {
-    if (field === "pdfFile") {
-      setPdfFile(value);
-    } else {
-      dispatch({ type: "SET_INPUT", field, value });
-    }
-  };
-
-  const handleInputReset = async (e) => {
-    e.preventDefault();
-
-    setApiStatus({ loading: true, error: null });
-
-    //API hallolunca comment'ten çıkartılacak
-    // try {
-    //   const response = await fetch("https://your-api-endpoint.com", {
-    //     method: "POST",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //     body: JSON.stringify(state),
-    //   });
-
-    //   if (response.ok) {
-    //     console.log("Data posted successfully");
-    //     dispatch({ type: "RESET" });
-    //   } else {
-    //     console.error("Failed to post data to the server");
-    //     setApiStatus({ loading: false, error: "Failed to post data" });
-    //   }
-    // } catch (error) {
-    //   console.error("Error posting data:", error);
-    //   setApiStatus({ loading: false, error: "Error posting data" });
-    // }
-    console.log(JSON.stringify(state, null, 2)); // API endpoint hazır olunca silinecek
+    dispatch({ type: "SET_INPUT", field, value });
   };
 
   const handleSteps = (e) => {
@@ -137,6 +74,7 @@ export default function Form() {
     fd.append("appName", state.appName)
     fd.append("welcomeMessage", state.welcomeMessage)
     fd.append("systemPrompt", state.systemPrompt)
+    fd.append("aiModal", state.aiModal)
     fd.append("cb1", state.cb1)
     fd.append("cb2", state.cb2)
     fd.append("crPeriod", state.crPeriod)
@@ -170,7 +108,7 @@ export default function Form() {
                 state={state}
                 handleInputChange={handleInputChange}
               />
-              <AiButtons aiModals={aiModals} />
+              <AiButtons handleInputChange={handleInputChange} />
             </div>
           )}
 

@@ -3,11 +3,13 @@ import { useOktaAuth } from "@okta/okta-react";
 import "./Main.css";
 import contentList from "./ContentData";
 import ArcelikLoading from '../Loading/ArcelikLoading'
+import { useSelector } from "react-redux";
 
 const Main = ({ selectedIndex }) => {
   const { authState, oktaAuth } = useOktaAuth();
   const [apiData, setApiData] = useState(null);
   const [isLoading, setIsLoading] = useState(false)
+  const nav = useSelector((slices) => slices.nav);
 
   // useEffect(() => {
   //   // setIsLoading(true)
@@ -17,7 +19,7 @@ const Main = ({ selectedIndex }) => {
   //   // }, 1000);
   // }, [oktaAuth]);
 
-  const isValidIndex = selectedIndex >= 0 && selectedIndex < contentList.length;
+  const isValidIndex = nav.index >= 0 && nav.index < contentList.length;
 
   useEffect(() => {
     console.log('authState: ', authState)
@@ -37,10 +39,10 @@ const Main = ({ selectedIndex }) => {
       });
     }
     // oktaAuth.handleLoginRedirect();
-  }, [authState, oktaAuth, selectedIndex]);
+  }, [authState, oktaAuth, nav.index]);
 
   const contentStyles = {
-    fontSize: isValidIndex && selectedIndex === 0 ? "2.2rem" : "1.5rem",
+    fontSize: isValidIndex && nav.index === 0 ? "2.2rem" : "1.5rem",
   };
 
   return (
@@ -56,17 +58,17 @@ const Main = ({ selectedIndex }) => {
         <div>
           <p
             className={`main-title ${
-              isValidIndex && selectedIndex === 0
+              isValidIndex && nav.index === 0
                 ? "animate-login"
                 : "animate-other"
             } add-margin-bottom`}
           >
-            {contentList[selectedIndex].title}
+            {contentList[nav.index].title}
           </p>
           <p className="main-text" style={contentStyles}>
-            {contentList[selectedIndex].content}{" "}
+            {contentList[nav.index].content}{" "}
           </p>
-          {authState && authState.isAuthenticated && selectedIndex === 0 && (
+          {authState && authState.isAuthenticated && nav.index === 0 && (
             <div>
               <button
                 className="login-button"
@@ -77,7 +79,7 @@ const Main = ({ selectedIndex }) => {
               {apiData && <p>Data from API: {JSON.stringify(apiData)}</p>}
             </div>
           )}
-          {selectedIndex === 0 && !authState?.isAuthenticated && (
+          {nav.index === 0 && !authState?.isAuthenticated && (
             <button
               className="login-button"
               onClick={() => oktaAuth.signInWithRedirect()}
