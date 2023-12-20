@@ -1,0 +1,50 @@
+.initial-inputs label {
+  display: block;
+  font-size: 1.4rem;
+  color: #1e0e62;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.first-two-inp {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+  gap: 1rem;
+}
+
+/* .one {
+  border: 3px solid red;
+}
+.two {
+  border: 3px solid blue;
+} */
+.one,
+.two {
+  flex: 1;
+}
+.three {
+  margin-bottom: 2rem;
+}
+
+.inputs {
+  background: transparent;
+  border: 1px solid gray;
+  outline: none;
+  padding: 1.5rem 1rem;
+  border-radius: 1rem;
+  box-sizing: border-box;
+}
+
+.one input,
+.two input {
+  width: 100%;
+  /* min-width: 380px; */
+  height: 4.6rem;
+}
+.three textarea {
+  resize: none;
+  width: 100%;
+}

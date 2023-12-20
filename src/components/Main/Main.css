@@ -9,6 +9,10 @@ html {
   font-size: 62.5%; /* 1rem = 10px */
 }
 
+body {
+  overflow: hidden;
+}
+
 .main-container {
   text-align: center;
   padding: 4rem;
@@ -17,6 +21,23 @@ html {
   max-height: fit-content;
   margin-top: 10rem;
   margin: 0 auto;
+}
+
+.main-container .loading-container {
+  position: fixed;
+  backdrop-filter: blur(10px);
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.main-container .loading-frame {
+  padding: 30px;
+  border-radius: 1000px;
+  background-color: rgba(255, 255, 255, 0.615);
 }
 
 .main-title {
@@ -77,14 +98,22 @@ ul li {
   margin-bottom: 2.5rem;
 }
 
+/* Media query for phone screens */
 @media only screen and (max-width: 767px) {
   html {
     font-size: 60%;
+  }
+  body {
+    overflow: auto;
   }
   .main-title {
     font-size: 4rem;
   }
   .main-container {
     max-width: fit-content;
+    margin-top: 5rem;
+  }
+  .login-button {
+    margin-top: 10rem;
   }
 }

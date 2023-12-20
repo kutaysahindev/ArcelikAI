@@ -1,25 +1,35 @@
 #navbar {
   position: relative;
-  padding: 58px 0;
+  padding: 5.8rem 0;
+  display: flex;
+  justify-content: space-between;
 }
 
 #navbar .logo {
-  position: fixed;
-  margin-left: 60px;
+  margin-left: 6rem;
 }
 
+.logo img {
+  margin-top: 0.65rem;
+}
 #navbar .steps {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 25px;
+  gap: 2.5rem;
+}
+
+.spacer::before {
+  content: " ";
+  flex-grow: 1;
+  margin-right: 19.6rem;
 }
 
 #navbar .steps .step {
-  width: 70px;
+  width: 7rem;
   font-weight: 500;
-  font-size: 18px;
-  line-height: 26px;
+  font-size: 1.8rem;
+  line-height: 2.6rem;
   text-align: center;
   color: white;
   cursor: pointer;
@@ -33,7 +43,7 @@
   /* border-bottom: 3px solid rgba(255, 255, 255, 0.3); */
 }
 /* this style pack is an alternative to the border-bottom property */
-#navbar .steps .step.active::before {
+/* #navbar .steps .step.active::before {
   position: absolute;
   border-radius: 5px;
   content: "";
@@ -41,10 +51,11 @@
   height: 3px;
   bottom: -4px;
   left: -4px;
-  /* left: auto;
-  right: auto; */
+  left: auto;
+  right: auto; 
   background-color: rgba(255, 255, 255, 0.3);
-}
+} */
+
 #navbar .steps .step.active:hover {
   text-shadow: none;
   cursor: default;
@@ -52,4 +63,48 @@
 
 #navbar .steps .step:hover {
   text-shadow: 0 0 10px white;
+}
+
+/* Media query for really small screens */
+@media only screen and (min-device-width: 320px) and (max-device-width: 568px) and (-webkit-device-pixel-ratio: 2) {
+  #navbar {
+    font-size: 2rem;
+    flex-direction: column;
+    margin: 0 4rem;
+  }
+  .spacer::before {
+    margin-right: 0;
+  }
+}
+
+/* Media query for phones */
+
+@media only screen and (max-width: 767px) {
+  #navbar {
+    font-size: 4rem;
+    flex-direction: column;
+    padding: 2.9rem 0;
+  }
+  .spacer::before {
+    margin-right: 0;
+  }
+  #navbar .logo {
+    position: fixed;
+    margin-left: 50vw;
+    transform: translate(-6.8rem, 85vh);
+  }
+  .logo img {
+    transform: scale(0.6);
+  }
+}
+
+/* Media query for tablets */
+@media only screen and (min-width: 768px) and (max-width: 1024px) {
+  #navbar {
+    display: flex;
+    justify-content: space-between;
+  }
+  .spacer::before {
+    margin-right: 0;
+  }
 }
