@@ -16,6 +16,7 @@ import ArcelikLoading from "./components/Loading/ArcelikLoading"
 // import Footer from "./components/Footer/Footer";
 // import Profile from "./Profile";
 import NotFound from "./pages/NotFound";
+import TestRedux from "./pages/TestRedux";
 
 
 const router = createBrowserRouter([
@@ -37,6 +38,10 @@ const router = createBrowserRouter([
       {
         path: 'form',
         element: <Form />,
+      },
+      {
+        path: 'test',
+        element: <TestRedux />,
       },
       // {
       //   path: 'about',

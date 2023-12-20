@@ -1,4 +1,5 @@
 import { useState, useReducer } from "react";
+import axios from "axios";
 import "./Form.css";
 import { useOktaAuth } from "@okta/okta-react";
 import AiButtons from "../components/Form/AiButtons";
@@ -63,6 +64,7 @@ const reducer = (state, action) => {
 
 export default function Form() {
   const [step, setStep] = useState(1);
+  const [files, setFiles] = useState([]);
   const [state, dispatch] = useReducer(reducer, initialState);
   const stepCount = 2;
   const { authState } = useOktaAuth();
@@ -91,6 +93,34 @@ export default function Form() {
   //   console.log('state: ', state);
   // };
 
+  const uploadHandler = (e) => {
+    e.preventDefault();
+    if (!files) {
+      alert('No files selected!');
+      return;
+    }
+    const fd = new FormData();
+    fd.append("appName", state.appName)
+    fd.append("welcomeMessage", state.welcomeMessage)
+    fd.append("systemPrompt", state.systemPrompt)
+    fd.append("cb1", state.cb1)
+    fd.append("cb2", state.cb2)
+    fd.append("crPeriod", state.crPeriod)
+    fd.append("modelTemperature", state.modelTemperature)
+    // fd.append('file', files);
+    files.forEach((f,i) => fd.append(`file${i + 1}`, f));
+
+    // for (const key in files) {
+    //   fd.append(`file${key + 1}`, files[key]);
+    // }
+    axios
+      .post('http://httpbin.org/post', fd, {
+        headers: { 'Custom-Header': 'value' },
+      })
+      .then((res) => console.log('res.data: ', res.data))
+      .catch((err) => console.error(err.message));
+  };
+
   return (
     // <div className="">
     //   {authState.isAuthenticated ? (
@@ -116,7 +146,7 @@ export default function Form() {
                     state={state}
                     handleInputChange={handleInputChange}
                   />
-                  <UploadContainer />
+                  <UploadContainer files={files} setFiles={setFiles} />
                   <PeriodAndTemperature
                     state={state}
                     handleInputChange={handleInputChange}
@@ -133,7 +163,7 @@ export default function Form() {
               >
                 {step > 1 ? "Previous" : "Next"}
               </button>
-              {step === 2 && <button onClick={handleInputReset}>Create</button>}
+              {step === 2 && <button onClick={e => uploadHandler(e)}>Create</button>}
             </div>
           </div>
         </form>

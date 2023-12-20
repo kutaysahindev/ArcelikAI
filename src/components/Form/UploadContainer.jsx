@@ -1,19 +1,19 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import './UploadContainer.css';
 
-const UploadContainer = () => {
+const UploadContainer = ({ files, setFiles }) => {
   const [isDragging, setIsDragging] = useState(false);
-  const [files, setFiles] = useState([]);
+  // const [files, setFiles] = useState([]);
   const fileInputRef = useRef(null);
 
   const selectFiles = () => {
     fileInputRef.current.click();
   };
 
-  const handleDragEnter = (e) => {
-    // e.preventDefault();
-    setIsDragging(true);
-  };
+  // const handleDragEnter = (e) => {
+  //   // e.preventDefault();
+  //   setIsDragging(true);
+  // };
 
   const handleDragLeave = (e) => {
     e.preventDefault();
@@ -31,6 +31,7 @@ const UploadContainer = () => {
 
     const droppedFiles = Array.from(e.dataTransfer.files);
     setFiles([...files, ...droppedFiles]);
+    // setFiles()
   };
 
   const handleFileRemove = (e, index) => {
@@ -40,31 +41,35 @@ const UploadContainer = () => {
     setFiles(newFiles);
   };
 
-  const handleFileUpload = async (e) => {
-    e.preventDefault();
-    // Add your file upload logic here
-    console.log('Uploading files:', files);
-    try {
-      const formData = new FormData();
-      files.forEach((file) => formData.append('files', file));
+  // const handleFileUpload = async (e) => {
+  //   e.preventDefault();
+  //   // Add your file upload logic here
+  //   console.log('Uploading files:', files);
+  //   try {
+  //     const formData = new FormData();
+  //     files.forEach((file) => formData.append('files', file));
 
-      const response = await fetch('https://example.com/upload', {
-        method: 'POST',
-        body: formData,
-      });
+  //     const response = await fetch('https://example.com/upload', {
+  //       method: 'POST',
+  //       body: formData,
+  //     });
 
-      if (response.ok) {
-        console.log('Files uploaded successfully!');
-        // Add your success handling logic here
-      } else {
-        console.error('File upload failed:', response.statusText);
-        // Add your error handling logic here
-      }
-    } catch (error) {
-      console.error('File upload failed:', error.message);
-      // Add your error handling logic here
-    }
-  };
+  //     if (response.ok) {
+  //       console.log('Files uploaded successfully!');
+  //       // Add your success handling logic here
+  //     } else {
+  //       console.error('File upload failed:', response.statusText);
+  //       // Add your error handling logic here
+  //     }
+  //   } catch (error) {
+  //     console.error('File upload failed:', error.message);
+  //     // Add your error handling logic here
+  //   }
+  // };
+  useEffect(() => {
+    console.log('files: ', files)
+  }, [files])
+  
 
   return (
     <div
@@ -73,7 +78,7 @@ const UploadContainer = () => {
       onDragOver={handleDragOver}
       onDrop={handleDrop}
     >
-      {!files.length > 0 ? (
+      {!files?.length > 0 ? (
         <div className="">
           {isDragging ? (
             <p className="select">Drop files here</p>
@@ -102,6 +107,7 @@ const UploadContainer = () => {
               </button>
             </li>
           ))}
+          {/* <li>{ files[0].name }</li> */}
         </ul>
       )}
       {/* <button onClick={handleFileUpload}>Upload Files</button> */}
