@@ -8,6 +8,7 @@ import StepBar from "../components/Form/StepBar";
 import CheckBoxContainer from "../components/Form/CheckboxContainer";
 import PeriodAndTemperature from "../components/Form/PeriodAndTemperature";
 import InitialInputs from "../components/Form/InitialInputs";
+import { useSelector } from "react-redux";
 
 
 const initialState = {
@@ -37,6 +38,7 @@ export default function Form() {
   const [files, setFiles] = useState([]);
   const [aiModals, setAiModals] = useState(null)
   const [state, dispatch] = useReducer(reducer, initialState);
+  const user = useSelector((state) => state.user);
   const stepCount = 2;
   // const { authState } = useOktaAuth();
   // const [pdfFile, setPdfFile] = useState(null);
@@ -94,8 +96,8 @@ export default function Form() {
   };
 
   return (
-    // <div className="">
-    //   {authState.isAuthenticated ? (
+    <>
+      {user.isSignedIn ? (
     <form className="form-container">
       <h2 className="step-title">Step {step}</h2>
       <StepBar step={step} stepCount={stepCount} />
@@ -140,9 +142,9 @@ export default function Form() {
             </div>
           </div>
         </form>
-    //   ) : (
-    //     <div className="">Not Logged in</div>
-    //   )}
-    // </div>
+      ) : (
+        <div className="">Not Logged in</div>
+      )}
+    </>
   );
 }
