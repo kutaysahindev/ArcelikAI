@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 // import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./App.css";
 
 import { OktaAuth } from "@okta/okta-auth-js";
@@ -10,38 +10,42 @@ import { LoginCallback } from "@okta/okta-react"; // Add this line
 import RootLayout from "./layouts/RootLayout";
 import Home from "./pages/Home";
 import Form from "./pages/Form";
-import ArcelikLoading from "./components/Loading/ArcelikLoading"
+import ArcelikLoading from "./components/Loading/ArcelikLoading";
 // import Navbar from "./components/Navbar/Navbar";
 // import Main from "./components/Main/Main";
 // import Footer from "./components/Footer/Footer";
 // import Profile from "./Profile";
 import NotFound from "./pages/NotFound";
 import TestRedux from "./pages/TestRedux";
-
+import Anteroom from "./pages/Anteroom";
 
 const router = createBrowserRouter([
   {
-    path: '/',
+    path: "/",
     element: <RootLayout />,
     // loader: <ArcelikLoader />,
     children: [
       {
-        path: '/',
+        path: "/",
         element: <Home />,
       },
       {
-        path: 'login/callback',
-        // redirectUri: ,
+        path: "login/callback",
+        redirectUri: "/anteroom",
         // replace: true,
         element: <LoginCallback />,
       },
       {
-        path: 'form',
+        path: "form",
         element: <Form />,
       },
       {
-        path: 'test',
+        path: "test",
         element: <TestRedux />,
+      },
+      {
+        path: "anteroom",
+        element: <Anteroom />,
       },
       // {
       //   path: 'about',
@@ -58,7 +62,7 @@ const router = createBrowserRouter([
       //   // ]
       // },
       {
-        path: '*',
+        path: "*",
         element: <NotFound />,
       },
     ],
@@ -87,9 +91,9 @@ function App() {
   // };
 
   return (
-      <Security oktaAuth={oktaAuth} restoreOriginalUri={restoreOriginalUri}>
-        <RouterProvider router={router} />
-      </Security>
+    <Security oktaAuth={oktaAuth} restoreOriginalUri={restoreOriginalUri}>
+      <RouterProvider router={router} />
+    </Security>
   );
   // return (
   //   <Router>
