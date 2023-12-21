@@ -1,4 +1,4 @@
-import { useState, useReducer } from "react";
+import { useState, useReducer, useEffect } from "react";
 import axios from "axios";
 import "./Form.css";
 import { useOktaAuth } from "@okta/okta-react";
@@ -8,6 +8,7 @@ import StepBar from "../components/Form/StepBar";
 import CheckBoxContainer from "../components/Form/CheckboxContainer";
 import PeriodAndTemperature from "../components/Form/PeriodAndTemperature";
 import InitialInputs from "../components/Form/InitialInputs";
+import { useSelector } from "react-redux";
 
 
 const initialState = {
@@ -35,7 +36,9 @@ const reducer = (state, action) => {
 export default function Form() {
   const [step, setStep] = useState(1);
   const [files, setFiles] = useState([]);
+  const [aiModals, setAiModals] = useState(null)
   const [state, dispatch] = useReducer(reducer, initialState);
+  const user = useSelector((state) => state.user);
   const stepCount = 2;
   // const { authState } = useOktaAuth();
   // const [pdfFile, setPdfFile] = useState(null);
@@ -44,14 +47,18 @@ export default function Form() {
   //   loading: false,
   //   error: null,
   // });
-
-  const getAiModals = (e) => {
-    e.preventDefault();
+  
+  const getAiModals = () => {
     axios
-      .get('https://6582f75e02f747c8367abde3.mockapi.io/api/v1/modals')
-      .then((res) => console.log('res.data: ', res.data))
+      .get("https://6582f75e02f747c8367abde3.mockapi.io/api/v1/modals")
+      // .then((res) => console.log("res.data: ", res.data))
+      .then((res) => setAiModals(res.data))
       .catch((err) => console.error(err.message));
-  }
+  };
+
+  useEffect(() => {
+    getAiModals();
+  }, []);
 
   const handleInputChange = (field, value) => {
     dispatch({ type: "SET_INPUT", field, value });
@@ -89,8 +96,8 @@ export default function Form() {
   };
 
   return (
-    // <div className="">
-    //   {authState.isAuthenticated ? (
+    <>
+      {user.isSignedIn ? (
     <form className="form-container">
       <h2 className="step-title">Step {step}</h2>
       <StepBar step={step} stepCount={stepCount} />
@@ -103,7 +110,7 @@ export default function Form() {
                 state={state}
                 handleInputChange={handleInputChange}
               />
-              <AiButtons handleInputChange={handleInputChange} />
+              <AiButtons aiModals={aiModals} handleInputChange={handleInputChange} />
             </div>
           )}
 
@@ -124,7 +131,7 @@ export default function Form() {
 
             <div className="button-container">
               {/* <button onClick={handleInputReset}>reset</button> */}
-              <button onClick={e => getAiModals(e)}>GET</button>
+              {/* <button onClick={e => getAiModals(e)}>GET</button> */}
               <button
                 onClick={(e) => handleSteps(e)}
                 className={`${step > 1 ? "previous" : ""}`}
@@ -135,9 +142,9 @@ export default function Form() {
             </div>
           </div>
         </form>
-    //   ) : (
-    //     <div className="">Not Logged in</div>
-    //   )}
-    // </div>
+      ) : (
+        <div className="">Not Logged in</div>
+      )}
+    </>
   );
 }

@@ -41,36 +41,10 @@ const UploadContainer = ({ files, setFiles }) => {
     setFiles(newFiles);
   };
 
-  // const handleFileUpload = async (e) => {
-  //   e.preventDefault();
-  //   // Add your file upload logic here
-  //   console.log('Uploading files:', files);
-  //   try {
-  //     const formData = new FormData();
-  //     files.forEach((file) => formData.append('files', file));
-
-  //     const response = await fetch('https://example.com/upload', {
-  //       method: 'POST',
-  //       body: formData,
-  //     });
-
-  //     if (response.ok) {
-  //       console.log('Files uploaded successfully!');
-  //       // Add your success handling logic here
-  //     } else {
-  //       console.error('File upload failed:', response.statusText);
-  //       // Add your error handling logic here
-  //     }
-  //   } catch (error) {
-  //     console.error('File upload failed:', error.message);
-  //     // Add your error handling logic here
-  //   }
-  // };
   useEffect(() => {
     console.log('files: ', files)
   }, [files])
   
-
   return (
     <div
       className={`file-upload ${isDragging ? 'dragging' : ''}`}
