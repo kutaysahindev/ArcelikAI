@@ -52,6 +52,13 @@
   border-radius: 4rem;
   font-size: 2rem;
   cursor: pointer;
+  user-select: none;
+  transition: all 150ms;
+}
+.button-container button:active {
+  transform: scale(0.95);
+  opacity: 0.8;
+  /* background: #1d0e62d5; */
 }
 .button-container .previous {
   background: transparent;

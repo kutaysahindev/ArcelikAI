@@ -12,6 +12,32 @@
   margin-bottom: 2rem;
 }
 
+.outline {
+  height: 90px;
+  /* background: #c40808c5; */
+  border-radius: 1rem;
+  /* overflow: hidden; */
+}
+.skeleton {
+  background-color: #e0e2e4b8;
+  /* The shine that's going to move across the skeleton: */
+  background-image: linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0));
+  /* width of the shine */
+  background-size: 40px 100%;
+  /* No need to repeat the shine effect */
+  background-repeat: no-repeat;
+  /* Place shine on the left side, with offset on the left based on the width of the shine - see background-size */
+  background-position: left -40px top 0;
+  /* increase animation time to see effect in 'slow-mo' */
+  animation: shine 1s ease infinite;
+}
+@keyframes shine {
+  to {
+    background-position: right -40px top 0;
+    /* Move shine from left to right, with offset on the right based on the width of the shine - see background-size */
+  }
+}
+
 .ai-button {
   background: transparent;
   padding: 1rem;
