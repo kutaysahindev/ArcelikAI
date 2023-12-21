@@ -10,6 +10,7 @@
   border: none;
   outline: none;
   background: #ebeaed;
+  accent-color: #1e0b73;
 }
 
 .checkbox-container input:active {

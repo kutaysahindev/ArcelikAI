@@ -30,6 +30,9 @@
   background-position: left -40px top 0;
   /* increase animation time to see effect in 'slow-mo' */
   animation: shine 1s ease infinite;
+  /* backgtr */
+  /* transform: rotate(-45deg); */
+  /* rotate: -45deg; */
 }
 @keyframes shine {
   to {
