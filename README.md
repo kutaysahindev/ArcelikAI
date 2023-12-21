@@ -1,6 +1,6 @@
 # React-ASP.NET Web API Project
 
-This repository contains a web application built using React for the frontend and ASP.NET for the backend. The project leverages various technologies and tools to enhance its functionality and user experience.
+This repository contains a web application built using React for the Front-end and ASP.NET for the Back-end. The project leverages various technologies and tools to enhance its functionality and user experience.
 
 ## Technologies Used
 
@@ -40,8 +40,8 @@ Visit `http://localhost:3000` in your browser to see the application in action.
 
 ## Configuration
 
-Detailed information about Back-end side will be available when it's finished.
+Detailed information about the Back-end side will be available when it's finished.
 
 ## Usage
 
-Any Arçelik employee can sign in to the platform with Okta and can create their personal AI model with custom prompts, knowledge base and vaious AI models. After creation request is given, user will be redirect to another platform.
+Any Arçelik employee can sign in to the platform with Okta and can create their personal AI model with custom prompts, knowledge base, and various AI models. After the creation request is given, the user will be redirected to another platform.
