@@ -9,7 +9,7 @@ import { userInfoUpdate } from "../../redux/userSlice";
 const Main = ({ selectedIndex }) => {
   const { authState, oktaAuth } = useOktaAuth();
   const [apiData, setApiData] = useState(null);
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(false);
   const nav = useSelector((slices) => slices.nav);
   const user = useSelector((slices) => slices.user);
   const dispatch = useDispatch();
@@ -65,13 +65,7 @@ const Main = ({ selectedIndex }) => {
 
   return (
     <div className="main-container">
-      {false && (
-        <div className='loading-container'>
-          <div className="loading-frame">
-            <ArcelikLoading />
-          </div>
-        </div>
-      )}
+      {/* <Anteroom /> */}
       {isValidIndex && (
         <div>
           <p

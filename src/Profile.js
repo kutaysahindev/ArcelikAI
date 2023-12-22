@@ -1,76 +1,36 @@
-// Profile.js
-
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 import { useOktaAuth } from "@okta/okta-react";
-import { Header, Icon, Table } from "semantic-ui-react";
 
 const Profile = () => {
-  const { authState, oktaAuth } = useOktaAuth();
+  const { authState } = useOktaAuth();
   const [userInfo, setUserInfo] = useState(null);
 
   useEffect(() => {
-    if (!authState || !authState.isAuthenticated) {
-      // When the user isn't authenticated, forget any user info
-      setUserInfo(null);
-    } else {
+    if (authState && authState.isAuthenticated) {
       setUserInfo(authState.idToken.claims);
-      // You can also get user information from the `/userinfo` endpoint
-      /*oktaAuth.getUser().then((info) => {
-        setUserInfo(info);
-      });*/
     }
-  }, [authState, oktaAuth]); // Update if authState changes
+  }, [authState]);
 
-  if (!userInfo) {
-    return (
-      <div>
-        <p>Fetching user profile...</p>
-      </div>
-    );
-  }
+  useEffect(() => {
+    // Post user information to the backend using Axios
+    const postUserData = async () => {
+      try {
+        const backendEndpoint = "https://your-backend-api.com/save-profile";
+        await axios.post(backendEndpoint, { userInfo });
+        console.log("User profile data sent to the backend");
+      } catch (error) {
+        console.error("Error sending user profile data to the backend", error);
+      }
+    };
 
-  return (
-    <div>
-      <div>
-        <Header as="h1">
-          <Icon name="drivers license" /> My User Profile (ID Token Claims){" "}
-        </Header>
-        <p>
-          Below is the information from your ID token obtained during the &nbsp;
-          <a href="https://developer.okta.com/docs/guides/implement-auth-code-pkce">
-            PKCE Flow
-          </a>{" "}
-          and is now stored in local storage.
-        </p>
-        <p>
-          This route is protected with the <code>&lt;SecureRoute&gt;</code>{" "}
-          component, ensuring that this page cannot be accessed until you have
-          authenticated.
-        </p>
-        <Table>
-          <thead>
-            <tr>
-              <th>Claim</th>
-              <th>Value</th>
-            </tr>
-          </thead>
-          <tbody>
-            {Object.entries(userInfo).map((claimEntry) => {
-              const claimName = claimEntry[0];
-              const claimValue = claimEntry[1];
-              const claimId = `claim-${claimName}`;
-              return (
-                <tr key={claimName}>
-                  <td>{claimName}</td>
-                  <td id={claimId}>{claimValue.toString()}</td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </Table>
-      </div>
-    </div>
-  );
+    // Check if userInfo is available before making the post request
+    if (userInfo) {
+      postUserData();
+    }
+  }, [userInfo]);
+
+  return null; // The component won't render anything on the page
 };
 
 export default Profile;
