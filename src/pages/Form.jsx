@@ -86,6 +86,9 @@ export default function Form() {
     fd.append("cb2", state.cb2)
     fd.append("crPeriod", state.crPeriod)
     fd.append("modelTemperature", state.modelTemperature)
+    fd.append("username", user.userInfo.name)
+    fd.append("email", user.userInfo.email)
+    fd.append("date", user.userInfo.date)
     files.forEach((f,i) => fd.append(`file${i + 1}`, f));
 
     axios
