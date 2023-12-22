@@ -18,7 +18,7 @@ const initialState = {
   aiModal: "",
   cb1: false,
   cb2: false,
-  crPeriod: null,
+  crPeriod: 0,
   modelTemperature: 0.5,
 };
 
@@ -58,6 +58,7 @@ export default function Form() {
 
   useEffect(() => {
     getAiModals();
+    // console.log('user: ', user)
   }, []);
 
   const handleInputChange = (field, value) => {

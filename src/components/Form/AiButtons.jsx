@@ -14,8 +14,8 @@ function AiButton({ handleInputChange, aiModals }) {
   return (
     <div className="ai-button-container">
       {!aiModals ? (
-        Array(6).fill(1).map(s => (
-          <div className='outline skeleton'></div>
+        Array(6).fill(1).map((s, i) => (
+          <div key={i} className='outline skeleton'></div>
         ))
       ) : (
         aiModals.map((modal) => (

@@ -3,10 +3,9 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   isSignedIn: false,
   userInfo: {
-    name: "hasan",
-    surname: "çelik",
-    email: "hsn@gmail.com",
-    age: 24, //null
+    name: "",
+    email: "",
+    date: "",
   }
 };
 
@@ -20,12 +19,19 @@ export const userSlice = createSlice({
     logUserOut: (state) => {
       state.isSignedIn = false;
     },
+    userInfoUpdate: (state, action) => {
+      // state.userInfo = {...state.userInfo, action.payload}
+      state.userInfo = action.payload;
+    },
   }
 })
+
+// () => dispatch(userInfoUpdate({name: userSlice.name, email: userSlice.email}))
 
 export const {
   signUserIn,
   logUserOut, 
+  userInfoUpdate,
 } = userSlice.actions;
 
 export default userSlice.reducer;

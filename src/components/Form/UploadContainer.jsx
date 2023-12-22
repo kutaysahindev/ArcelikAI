@@ -42,9 +42,9 @@ const UploadContainer = ({ files, setFiles }) => {
     setFiles(newFiles);
   };
 
-  useEffect(() => {
-    console.log('files: ', files)
-  }, [files])
+  // useEffect(() => {
+  //   console.log('files: ', files)
+  // }, [files])
   
   return (
     <div
