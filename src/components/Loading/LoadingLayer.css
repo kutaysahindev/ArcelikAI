@@ -6,11 +6,31 @@
   width: 100%;
   height: 100%;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+  gap: 4rem;
 }
 .loading-frame {
-  padding: 30px;
+  padding: 20px;
   border-radius: 1000px;
   background-color: rgba(255, 255, 255, 0.615);
+}
+
+.loading-container .message {
+  font-size: 15px;
+  background-color: rgba(255, 255, 255, 0.615);
+  border-radius: 10px;
+  padding: 10px 15px;
+  text-align: center;
+  user-select: none;
+}
+
+.loading-container .message .true {
+  color: #196c00;
+  font-weight: 900;
+}
+.loading-container .message .false {
+  color: #6c0000;
+  font-weight: 900;
 }

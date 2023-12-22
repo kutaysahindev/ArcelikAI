@@ -8,8 +8,8 @@
 
 .loader {
   position: relative;
-  width: 64px;
-  height: 64px;
+  width: 50px;
+  height: 50px;
 }
 .visible {
   opacity: 1;
@@ -20,12 +20,13 @@
 
 .custom-shape {
   /* fill: transparent; */
+  margin: 2px;
   stroke: #cd0d21;
   stroke-miterlimit: 10;
-  stroke-width: 5px;
+  stroke-width: 7px;
   stroke-dasharray: var(--strokeLength);
   stroke-dashoffset: var(--strokeLength);
-  animation: dash 3.5s ease-in-out infinite, fill-it 3.5s infinite;
+  animation: dash 2s ease-in-out infinite, fill-it 2s infinite;
 }
 
 @keyframes dash {

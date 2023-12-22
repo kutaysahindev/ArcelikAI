@@ -8,95 +8,47 @@ import { useDispatch, useSelector } from "react-redux";
 import { logUserOut, signUserIn } from "../redux/userSlice";
 
 const Anteroom = () => {
-  const { authState } = useOktaAuth();
-  const [isApproved, setIsApproved] = useState(false)
-  const [isLoading, setIsLoading] = useState(true);
-  const [shouldRender, setShouldRender] = useState(false);
-  const navigate = useNavigate();
+  const { authState, oktaAuth } = useOktaAuth();
+  const [isApproved, setIsApproved] = useState(null);
   const user = useSelector((slices) => slices.user);
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  const responseHandler = (status) => {
+    if (authState?.isAuthenticated && status === 200) {
+      setIsApproved(true);
+      dispatch(signUserIn());
+      setTimeout(() => {
+        navigate("/form");
+      }, 1500);
+    } else {
+      setIsApproved(false);
+      dispatch(logUserOut());
+      setTimeout(() => {
+        if(authState?.isAuthenticated) oktaAuth.signOut();
+        else navigate("/");
+      }, 1500);
+    }
+  };
+
   const approveHandler = async () => {
-    const uri = "https://6582f75e02f747c8367abde3.mockapi.io/api/v1/backendApproval";
-      axios
-      .get(uri)
-      .then((res) => setIsApproved(res.data[0].approve))
+    const endpoint =
+      "https://6582f75e02f747c8367abde3.mockapi.io/api/v1/backendApproval";
+    axios
+      .get(endpoint)
+      .then((res) => responseHandler(res.status))
       .catch((err) => console.error(err.message));
-  }
+  };
 
   useEffect(() => {
     approveHandler();
-  }, [])
+  }, []);
 
-  useEffect(() => {
-    if (authState?.isAuthenticated && isApproved) {
-      dispatch(signUserIn());
-      navigate('/form')
-    } else dispatch(logUserOut());
-  }, [authState, dispatch, isApproved, navigate]);
-
-  useEffect(() => {
-    const validateToken = async () => {
-      try {
-        if (authState && authState.isAuthenticated) {
-          // Example: Validate token with your backend
-          const response = await fetch(
-            "https://your-api-endpoint/validate-token",
-            {
-              headers: {
-                Authorization: `Bearer ${authState.accessToken.accessToken}`,
-              },
-            }
-          );
-
-          if (response.status === 200) {
-            // Token validation successful, redirect to /form page
-            navigate("/form");
-          } else if (response.status === 401) {
-            // Token validation failed, set shouldRender to true
-            setShouldRender(true);
-          } else {
-            // Handle other HTTP status codes accordingly
-            // console.error("Unexpected response:", response);
-          }
-        } else {
-          // User not authenticated, render Anteroom
-          setShouldRender(true);
-        }
-      } catch (error) {
-        console.error("Error during token validation:", error);
-        // Handle error and set shouldRender to true if needed
-        setShouldRender(false);
-      } finally {
-        // Stop loading animation
-        setIsLoading(false);
-      }
-    };
-
-    validateToken();
-  }, [authState, navigate]);
-
-  // Render Anteroom only when shouldRender is true
-  // return (
-  //   <>
-  //     {shouldRender ? (
-  //       <div className="loading-container">
-  //         <div className="loading-frame">
-  //           <LoadingLayer />
-  //         </div>
-  //       </div>
-  //     ) : (
-  //       <div>başaramadın</div>
-  //     )}
-  //   </>
-  // );
-  return !isApproved ? (
-    <div className="loading-container">
-      <div className="loading-frame">
-        <LoadingLayer />
-      </div>
-    </div>
-  ) : <div>Giriş Yapıldı</div>;
+  return (
+    <>
+      <LoadingLayer isApproved={isApproved} />
+    </>
+  );
 };
 
 export default Anteroom;
