@@ -10,6 +10,7 @@ function PeriodAndTemperature({ state, handleInputChange }) {
         <input
           type="number"
           id="periodInput"
+          className="text-input"
           value={state.crPeriod}
           onChange={(e) => handleInputChange("crPeriod", e.target.value)}
           min="0"

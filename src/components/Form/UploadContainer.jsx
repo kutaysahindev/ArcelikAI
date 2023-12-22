@@ -3,6 +3,7 @@ import './UploadContainer.css';
 
 const UploadContainer = ({ files, setFiles }) => {
   const [isDragging, setIsDragging] = useState(false);
+  const [isHover, setIsHover] = useState(false)
   // const [files, setFiles] = useState([]);
   const fileInputRef = useRef(null);
 
@@ -41,9 +42,9 @@ const UploadContainer = ({ files, setFiles }) => {
     setFiles(newFiles);
   };
 
-  useEffect(() => {
-    console.log('files: ', files)
-  }, [files])
+  // useEffect(() => {
+  //   console.log('files: ', files)
+  // }, [files])
   
   return (
     <div
@@ -51,14 +52,16 @@ const UploadContainer = ({ files, setFiles }) => {
       onDragLeave={handleDragLeave}
       onDragOver={handleDragOver}
       onDrop={handleDrop}
+      onMouseEnter={() => setIsHover(true)}
+      onMouseLeave={() => setIsHover(false)}
     >
       {!files?.length > 0 ? (
         <div className="">
           {isDragging ? (
-            <p className="select">Drop files here</p>
+            <p className="select bold">Drop files here</p>
           ) : (
             <p className="select" onClick={selectFiles}>
-              Drag and drop files here or Browse
+              Drag and drop files here or <span className={`${isHover ? "highlight" : ""}`}>Browse</span>
             </p>
           )}
           <input

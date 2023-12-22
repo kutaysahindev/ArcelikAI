@@ -18,7 +18,7 @@ const initialState = {
   aiModal: "",
   cb1: false,
   cb2: false,
-  crPeriod: null,
+  crPeriod: 0,
   modelTemperature: 0.5,
 };
 
@@ -58,6 +58,7 @@ export default function Form() {
 
   useEffect(() => {
     getAiModals();
+    // console.log('user: ', user)
   }, []);
 
   const handleInputChange = (field, value) => {
@@ -85,6 +86,9 @@ export default function Form() {
     fd.append("cb2", state.cb2)
     fd.append("crPeriod", state.crPeriod)
     fd.append("modelTemperature", state.modelTemperature)
+    fd.append("username", user.userInfo.name)
+    fd.append("email", user.userInfo.email)
+    fd.append("date", user.userInfo.date)
     files.forEach((f,i) => fd.append(`file${i + 1}`, f));
 
     axios

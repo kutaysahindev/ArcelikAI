@@ -11,7 +11,10 @@
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%); */
-  margin: 4rem auto;
+  margin: 0 auto;
+  /* margin-bottom: 100px; */
+  transition: all 300ms;
+  transition: height 0.3s ease;
 }
 
 .form-container .step-title {
@@ -29,6 +32,10 @@
   flex-direction: column;
   justify-content: space-between;
   padding: 2rem;
+}
+
+.form-container .text-input:focus {
+  border-color: #1e0e62;
 }
 
 .step2 {

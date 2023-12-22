@@ -8,7 +8,7 @@ function InitialInputs({ state, handleInputChange }) {
           <label>App Name</label>
           <input
             id="a-inp"
-            className="inputs"
+            className="inputs text-input"
             value={state.appName}
             onChange={(e) => handleInputChange('appName', e.target.value)}
           />
@@ -18,7 +18,7 @@ function InitialInputs({ state, handleInputChange }) {
           <label>Welcome Message</label>
           <input
             id="w-inp"
-            className="inputs"
+            className="inputs text-input"
             value={state.welcomeMessage}
             onChange={(e) =>
               handleInputChange('welcomeMessage', e.target.value)
@@ -31,7 +31,7 @@ function InitialInputs({ state, handleInputChange }) {
         <label>System Prompt</label>
         <textarea
           id="s-inp"
-          className="inputs"
+          className="inputs text-input"
           rows="10"
           value={state.systemPrompt}
           onChange={(e) => handleInputChange('systemPrompt', e.target.value)}

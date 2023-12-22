@@ -6,12 +6,12 @@ const TestRedux = () => {
   // const userInfo = useSelector((state) => state.user.userInfo);
   return (
     <div>
-      <div>TestRedux</div>
-      <p>{ String(user.isSignedIn) }</p>
-      <p>{ user.userInfo.name }</p>
-      <p>{ user.userInfo.surname }</p>
-      <p>{ user.userInfo.age }</p>
-      <p>nav: { nav.index }</p>
+      {/* <div>TestRedux</div> */}
+      <p style={{fontSize: "70px"}}>{ String(user.isSignedIn) }</p>
+      <p style={{fontSize: "70px"}}>{ user.userInfo.name }</p>
+      <p style={{fontSize: "70px"}}>{ user.userInfo.email }</p>
+      <p style={{fontSize: "70px"}}>{ user.userInfo.date }</p>
+      {/* <p>nav: { nav.index }</p> */}
     </div>
   );
 };
