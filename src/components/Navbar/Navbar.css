@@ -4,6 +4,7 @@
   /* padding: 1rem 6rem; */
   display: flex;
   justify-content: space-between;
+  z-index: 100;
 }
 
 #navbar .logo {
