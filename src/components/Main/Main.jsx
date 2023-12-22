@@ -4,14 +4,17 @@ import "./Main.css";
 import contentList from "./ContentData";
 import { useDispatch, useSelector } from "react-redux";
 import { userInfoUpdate } from "../../redux/userSlice";
+import { useNavigate } from "react-router-dom";
 
 const Main = ({ selectedIndex }) => {
   const { authState, oktaAuth } = useOktaAuth();
   const [apiData, setApiData] = useState(null);
   const nav = useSelector((slices) => slices.nav);
+  const user = useSelector((slices) => slices.user);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  const isValidIndex = nav.index >= 0 && nav.index < contentList.length; // Silme önemli aşağıda lazım oluyor conditional rendering yaparken
+  const isValidIndex = nav.index >= 0 && nav.index < contentList.length;
 
   useEffect(() => {
     // console.log('authState: ', authState)
@@ -35,6 +38,9 @@ const Main = ({ selectedIndex }) => {
         .getUser()
         .then((user) => console.log("USER: ", user))
         .catch((error) => console.error("Error fetching user info:", error));
+      // oktaAuth.getUser()
+      // .then(user => console.log('USER: ', user))
+      // .catch(error => console.error('Error fetching user info:', error));
 
       oktaAuth
         .getUser()
@@ -54,7 +60,7 @@ const Main = ({ selectedIndex }) => {
         .catch((error) => console.error("Error fetching user info:", error));
     }
     // oktaAuth.handleLoginRedirect();
-  }, [authState, oktaAuth, nav.index, dispatch]);
+  }, [authState, oktaAuth, dispatch]);
 
   const contentStyles = {
     fontSize: isValidIndex && nav.index === 0 ? "2.2rem" : "1.5rem",

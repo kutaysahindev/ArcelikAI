@@ -3,6 +3,7 @@
   padding: 5.8rem 6rem;
   display: flex;
   justify-content: space-between;
+  z-index: 100;
 }
 
 .logo img {

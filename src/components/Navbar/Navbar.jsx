@@ -16,12 +16,6 @@ const Navbar = ({ onItemClick, selectedIndex }) => {
   const location = useLocation();
   const { authState, oktaAuth } = useOktaAuth();
 
-  useEffect(() => {
-    if (authState?.isAuthenticated) {
-      dispatch(signUserIn());
-    } else dispatch(logUserOut());
-  }, [authState, dispatch]);
-
   return (
     <nav id="navbar">
       <div className="logo">
@@ -54,17 +48,23 @@ const Navbar = ({ onItemClick, selectedIndex }) => {
             Ethics & Security
           </div>
         </div>
-      ) : (
+      ) : location.pathname === "/form" ? (
         <h2 className="title">App Creation Wizard</h2>
+      ) : location.pathname === "/anteroom" ? (
+        <h2 className="title">Signing You In</h2>
+      ) : (
+        <h2 className="title"> </h2>
       )}
 
       <div className="right-container">
         <Link to="/" className="">
           Home
         </Link>
-        <Link to="/form" className="">
-          Form
-        </Link>
+        {user.isSignedIn && (
+          <Link to="/form" className="">
+            Form
+          </Link>
+        )}
         <FaRegCircleUser
           onClick={() => setIsPopup((prev) => !prev)}
           size={25}
