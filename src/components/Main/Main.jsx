@@ -2,13 +2,14 @@ import React, { useEffect, useState } from "react";
 import { useOktaAuth } from "@okta/okta-react";
 import "./Main.css";
 import contentList from "./ContentData";
-import ArcelikLoading from '../Loading/ArcelikLoading'
+import ArcelikLoading from "../Loading/ArcelikLoading";
+import Anteroom from "../../pages/Anteroom";
 import { useSelector } from "react-redux";
 
 const Main = ({ selectedIndex }) => {
   const { authState, oktaAuth } = useOktaAuth();
   const [apiData, setApiData] = useState(null);
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(false);
   const nav = useSelector((slices) => slices.nav);
 
   // useEffect(() => {
@@ -22,7 +23,7 @@ const Main = ({ selectedIndex }) => {
   const isValidIndex = nav.index >= 0 && nav.index < contentList.length;
 
   useEffect(() => {
-    console.log('authState: ', authState)
+    console.log("authState: ", authState);
     if (authState && authState.isAuthenticated) {
       // setIsLoading(true)
       oktaAuth.getUser().then((userInfo) => {
@@ -35,7 +36,7 @@ const Main = ({ selectedIndex }) => {
           .then((response) => response.json())
           .then((data) => setApiData(data))
           .catch((error) => console.error("Error fetching data:", error))
-          .finally(() => setIsLoading(false))
+          .finally(() => setIsLoading(false));
       });
     }
     // oktaAuth.handleLoginRedirect();
@@ -47,13 +48,7 @@ const Main = ({ selectedIndex }) => {
 
   return (
     <div className="main-container">
-      {false && (
-        <div className='loading-container'>
-          <div className="loading-frame">
-            <ArcelikLoading />
-          </div>
-        </div>
-      )}
+      {/* <Anteroom /> */}
       {isValidIndex && (
         <div>
           <p

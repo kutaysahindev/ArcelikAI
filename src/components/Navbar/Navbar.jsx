@@ -22,10 +22,10 @@ const Navbar = ({ onItemClick, selectedIndex }) => {
   // }
 
   useEffect(() => {
-    if(authState?.isAuthenticated) dispatch(signUserIn())
-    else dispatch(logUserOut())
-  }, [authState, dispatch])
-  
+    if (authState?.isAuthenticated) {
+      dispatch(signUserIn());
+    } else dispatch(logUserOut());
+  }, [authState, dispatch]);
 
   return (
     <nav id="navbar">
@@ -65,8 +65,12 @@ const Navbar = ({ onItemClick, selectedIndex }) => {
 
       {/* <div className="spacer"> </div> */}
       <div className="right-container">
-        <Link to="/" className="">Home</Link>
-        <Link to="/form" className="">Form</Link>
+        <Link to="/" className="">
+          Home
+        </Link>
+        <Link to="/form" className="">
+          Form
+        </Link>
         {/* <span
           className="material-symbols-outlined"
           onClick={() => setIsPopup((prev) => !prev)}
@@ -81,9 +85,13 @@ const Navbar = ({ onItemClick, selectedIndex }) => {
         </span>
         <div className={`popup-container ${isPopup ? "visible" : "hidden"}`}>
           {!user.isSignedIn ? (
-            <p className="btn" onClick={() => oktaAuth.signInWithRedirect()}>Log in</p>
-          ):(
-            <p className="btn" onClick={() => oktaAuth.signOut()}>Log out</p>
+            <p className="btn" onClick={() => oktaAuth.signInWithRedirect()}>
+              Log in
+            </p>
+          ) : (
+            <p className="btn" onClick={() => oktaAuth.signOut()}>
+              Log out
+            </p>
           )}
         </div>
       </div>
