@@ -10,7 +10,6 @@ import PeriodAndTemperature from "../components/Form/PeriodAndTemperature";
 import InitialInputs from "../components/Form/InitialInputs";
 import { useSelector } from "react-redux";
 
-
 const initialState = {
   appName: "",
   welcomeMessage: "",
@@ -36,18 +35,11 @@ const reducer = (state, action) => {
 export default function Form() {
   const [step, setStep] = useState(1);
   const [files, setFiles] = useState([]);
-  const [aiModals, setAiModals] = useState(null)
+  const [aiModals, setAiModals] = useState(null);
   const [state, dispatch] = useReducer(reducer, initialState);
   const user = useSelector((state) => state.user);
   const stepCount = 2;
-  // const { authState } = useOktaAuth();
-  // const [pdfFile, setPdfFile] = useState(null);
 
-  // const [apiStatus, setApiStatus] = useState({
-  //   loading: false,
-  //   error: null,
-  // });
-  
   const getAiModals = () => {
     axios
       .get("https://6582f75e02f747c8367abde3.mockapi.io/api/v1/modals")
@@ -58,7 +50,6 @@ export default function Form() {
 
   useEffect(() => {
     getAiModals();
-    // console.log('user: ', user)
   }, []);
 
   const handleInputChange = (field, value) => {
@@ -74,49 +65,52 @@ export default function Form() {
   const uploadHandler = (e) => {
     e.preventDefault();
     if (!files) {
-      alert('No files selected!');
+      alert("No files selected!");
       return;
     }
     const fd = new FormData();
-    fd.append("appName", state.appName)
-    fd.append("welcomeMessage", state.welcomeMessage)
-    fd.append("systemPrompt", state.systemPrompt)
-    fd.append("aiModal", state.aiModal)
-    fd.append("cb1", state.cb1)
-    fd.append("cb2", state.cb2)
-    fd.append("crPeriod", state.crPeriod)
-    fd.append("modelTemperature", state.modelTemperature)
-    fd.append("username", user.userInfo.name)
-    fd.append("email", user.userInfo.email)
-    fd.append("date", user.userInfo.date)
-    files.forEach((f,i) => fd.append(`file${i + 1}`, f));
+    fd.append("appName", state.appName);
+    fd.append("welcomeMessage", state.welcomeMessage);
+    fd.append("systemPrompt", state.systemPrompt);
+    fd.append("aiModal", state.aiModal);
+    fd.append("cb1", state.cb1);
+    fd.append("cb2", state.cb2);
+    fd.append("crPeriod", state.crPeriod);
+    fd.append("modelTemperature", state.modelTemperature);
+    fd.append("username", user.userInfo.name);
+    fd.append("email", user.userInfo.email);
+    fd.append("date", user.userInfo.date);
+    files.forEach((f, i) => fd.append(`file${i + 1}`, f));
 
     axios
-      .post('http://httpbin.org/post', fd, {
-        headers: { 'Custom-Header': 'value' },
+      .post("http://httpbin.org/post", fd, {
+        headers: { "Custom-Header": "value" },
       })
-      .then((res) => console.log('res.data: ', res.data))
+      .then((res) => console.log("res.data: ", res.data))
       .catch((err) => console.error(err.message));
   };
 
   return (
     <>
       {user.isSignedIn ? (
-    <form className="form-container">
-      <h2 className="step-title">Step {step}</h2>
-      <StepBar step={step} stepCount={stepCount} />
+        <form className="form-container">
+          <h2 className="step-title">Step {step}</h2>
+          <StepBar step={step} stepCount={stepCount} />
 
-      <div className="bottom">
-        <div className="content-container">
-          {step === 1 && (
-            <div className="step1">
-              <InitialInputs
-                state={state}
-                handleInputChange={handleInputChange}
-              />
-              <AiButtons aiModals={aiModals} handleInputChange={handleInputChange} />
-            </div>
-          )}
+          <div className="bottom">
+            <div className="content-container">
+              {step === 1 && (
+                <div className="step1">
+                  <InitialInputs
+                    state={state}
+                    handleInputChange={handleInputChange}
+                  />
+                  <AiButtons
+                    aiModals={aiModals}
+                    handleInputChange={handleInputChange}
+                  />
+                </div>
+              )}
 
               {step === 2 && (
                 <div className="step2">
@@ -134,20 +128,22 @@ export default function Form() {
             </div>
 
             <div className="button-container">
-              {/* <button onClick={handleInputReset}>reset</button> */}
-              {/* <button onClick={e => getAiModals(e)}>GET</button> */}
               <button
                 onClick={(e) => handleSteps(e)}
                 className={`${step > 1 ? "previous" : ""}`}
               >
                 {step > 1 ? "Previous" : "Next"}
               </button>
-              {step === 2 && <button onClick={e => uploadHandler(e)}>Create</button>}
+              {step === 2 && (
+                <button onClick={(e) => uploadHandler(e)}>Create</button>
+              )}
             </div>
           </div>
         </form>
       ) : (
-        <div className="">Not Logged in</div>
+        <div className="login-req-container">
+          <div className="login-req-text">Please Sign In</div>
+        </div>
       )}
     </>
   );

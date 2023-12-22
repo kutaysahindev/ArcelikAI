@@ -6,7 +6,7 @@ const initialState = {
     name: "",
     email: "",
     date: "",
-  }
+  },
 };
 
 export const userSlice = createSlice({
@@ -23,15 +23,9 @@ export const userSlice = createSlice({
       // state.userInfo = {...state.userInfo, action.payload}
       state.userInfo = action.payload;
     },
-  }
-})
+  },
+});
 
-// () => dispatch(userInfoUpdate({name: userSlice.name, email: userSlice.email}))
-
-export const {
-  signUserIn,
-  logUserOut, 
-  userInfoUpdate,
-} = userSlice.actions;
+export const { signUserIn, logUserOut, userInfoUpdate } = userSlice.actions;
 
 export default userSlice.reducer;

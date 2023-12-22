@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useOktaAuth } from "@okta/okta-react";
-// import ArcelikLoading from "../components/Loading/ArcelikLoading";
 import { useNavigate } from "react-router-dom";
 import LoadingLayer from "../components/Loading/LoadingLayer";
 

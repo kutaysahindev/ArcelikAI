@@ -7,12 +7,9 @@
   display: flex;
   flex-direction: column;
 
-  /* position: fixed;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%); */
   margin: 0 auto;
-  /* margin-bottom: 100px; */
+  margin-bottom: 2rem;
+
   transition: all 300ms;
   transition: height 0.3s ease;
 }
@@ -49,7 +46,6 @@
   justify-content: center;
   gap: 2rem;
   margin-top: 5rem;
-  /* transition: all 300ms; */
 }
 .button-container button {
   background: #1e0e62;
@@ -65,45 +61,26 @@
 .button-container button:active {
   transform: scale(0.95);
   opacity: 0.8;
-  /* background: #1d0e62d5; */
 }
 .button-container .previous {
   background: transparent;
-  /* background-color: rgba(255, 255, 255, 0.812); */
   color: #1e0e62;
   border: 0.2rem solid #1e0e62;
 }
-
-/* <div className="abc">
-  <div className="child" id="a">a</div>
-  <div className="child" id="b">b</div>
-  <div className="child" id="c">c</div>
-</div>
-
-.abc {
-  border: 5px solid black;
-  height: 100px;
+.login-req-container {
+  height: 65vh;
   display: flex;
-  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
-#a {
-  background-color: green;
-}
-#b {
-  background-color: blue;
-}
-#c {
-  position: relative;
-  background-color: rgb(255, 90, 239);
-  flex-grow: 1;
-} */
-@media only screen and (max-width: 767px) {
-  /* .form-container {
-    overflow: visible;
-    background: linear-gradient(
-      304deg,
-      rgba(82, 84, 165, 1) 0%,
-      rgba(141, 96, 161, 1) 100%
-    );
-  } */
+.login-req-text {
+  font-size: medium;
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.541);
+  padding: 4rem 8rem;
+  margin: 0 auto;
+  border-radius: 1rem;
+  border: 1px solid gray;
+  transition: all 200ms;
+  backdrop-filter: blur(0.7rem);
 }

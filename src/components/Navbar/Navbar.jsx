@@ -6,6 +6,7 @@ import { Link, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { logUserOut, signUserIn } from "../../redux/userSlice";
 import { setIndex } from "../../redux/navIndexSlice";
+import { FaRegCircleUser } from "react-icons/fa6";
 
 const Navbar = ({ onItemClick, selectedIndex }) => {
   const [isPopup, setIsPopup] = useState(false);
@@ -14,12 +15,6 @@ const Navbar = ({ onItemClick, selectedIndex }) => {
   const dispatch = useDispatch();
   const location = useLocation();
   const { authState, oktaAuth } = useOktaAuth();
-  // const navigate = useNavigate();
-
-  // const logInHandler = () => {
-  //   oktaAuth.signInWithRedirect();
-  //   dispatch(signUserIn())
-  // }
 
   useEffect(() => {
     if (authState?.isAuthenticated) {
@@ -63,7 +58,6 @@ const Navbar = ({ onItemClick, selectedIndex }) => {
         <h2 className="title">App Creation Wizard</h2>
       )}
 
-      {/* <div className="spacer"> </div> */}
       <div className="right-container">
         <Link to="/" className="">
           Home
@@ -71,18 +65,10 @@ const Navbar = ({ onItemClick, selectedIndex }) => {
         <Link to="/form" className="">
           Form
         </Link>
-        {/* <span
-          className="material-symbols-outlined"
+        <FaRegCircleUser
           onClick={() => setIsPopup((prev) => !prev)}
-        >
-          person
-        </span> */}
-        <span
-          className="material-symbols-outlined"
-          onClick={() => setIsPopup((prev) => !prev)}
-        >
-          account_circle
-        </span>
+          size={25}
+        />
         <div className={`popup-container ${isPopup ? "visible" : "hidden"}`}>
           {!user.isSignedIn ? (
             <p className="btn" onClick={() => oktaAuth.signInWithRedirect()}>

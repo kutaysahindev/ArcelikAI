@@ -1,4 +1,4 @@
-import './CheckBoxContainer.css';
+import "./CheckBoxContainer.css";
 
 function CheckBoxContainer({ state, handleInputChange }) {
   return (
@@ -8,7 +8,7 @@ function CheckBoxContainer({ state, handleInputChange }) {
           id="cb1"
           type="checkbox"
           checked={state.cb1}
-          onChange={(e) => handleInputChange('cb1', !state.cb1)}
+          onChange={(e) => handleInputChange("cb1", !state.cb1)}
         />
         <label htmlFor="cb1">Use knowledgebase</label>
       </div>
@@ -17,13 +17,10 @@ function CheckBoxContainer({ state, handleInputChange }) {
           id="cb2"
           type="checkbox"
           checked={state.cb2}
-          onChange={(e) => handleInputChange('cb2', !state.cb2)}
+          onChange={(e) => handleInputChange("cb2", !state.cb2)}
         />
         <label htmlFor="cb2">Enable uploading PDF Files</label>
       </div>
-      {/* <p>
-        {String(state.cb1)} - {String(state.cb2)}
-      </p> */}
     </div>
   );
 }

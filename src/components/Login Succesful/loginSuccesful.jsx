@@ -1,20 +1,30 @@
-import React from 'react';
-import './loginSuccesful.css';
-import reportWebVitals from './reportWebVitals';
-
+import React from "react";
+import "./loginSuccesful.css";
+import reportWebVitals from "./reportWebVitals";
 
 const App = () => {
   return (
     <div>
       {/* Header */}
       <header>
-        <img class="logo" src={process.env.PUBLIC_URL + '/assets/arcelik_logo_uzun 1.png'} alt="Logo" width="160" height="40"/>
+        <img
+          class="logo"
+          src={process.env.PUBLIC_URL + "/assets/arcelik_logo_uzun 1.png"}
+          alt="Logo"
+          width="160"
+          height="40"
+        />
       </header>
 
       {/* Content */}
       <div class="content-container">
-        <div class="content-box" >
-          <img src={process.env.PUBLIC_URL + '/assets/succes.png'} alt="succes-image" width="150" height="150" />
+        <div class="content-box">
+          <img
+            src={process.env.PUBLIC_URL + "/assets/succes.png"}
+            alt="success"
+            width="150"
+            height="150"
+          />
           <h2 class="login">Login Successful</h2>
         </div>
       </div>
@@ -30,4 +40,3 @@ const App = () => {
 export default App;
 
 reportWebVitals();
-
