@@ -5,6 +5,8 @@ import contentList from "./ContentData";
 import ArcelikLoading from '../Loading/ArcelikLoading'
 import { useDispatch, useSelector } from "react-redux";
 import { userInfoUpdate } from "../../redux/userSlice";
+import { useNavigate } from "react-router-dom";
+// import axios from 'axios'
 
 const Main = ({ selectedIndex }) => {
   const { authState, oktaAuth } = useOktaAuth();
@@ -13,6 +15,7 @@ const Main = ({ selectedIndex }) => {
   const nav = useSelector((slices) => slices.nav);
   const user = useSelector((slices) => slices.user);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   // useEffect(() => {
   //   // setIsLoading(true)
@@ -25,9 +28,12 @@ const Main = ({ selectedIndex }) => {
   const isValidIndex = nav.index >= 0 && nav.index < contentList.length;
 
   useEffect(() => {
+    if (authState?.isAuthenticated && !user.isSignedIn) navigate("/anteroom");
+  }, [authState, user.isSignedIn, navigate])
+  
+  useEffect(() => {
     // console.log('authState: ', authState)
     if (authState && authState.isAuthenticated) {
-      
       // setIsLoading(true)
       // oktaAuth.getUser().then((userInfo) => {
       //   // Example: Fetch user-specific data from your backend
@@ -43,9 +49,9 @@ const Main = ({ selectedIndex }) => {
       // });
       // console.log('DatA: ', oktaAuth.getUser().then(res => res))
 
-      oktaAuth.getUser()
-      .then(user => console.log('USER: ', user))
-      .catch(error => console.error('Error fetching user info:', error));
+      // oktaAuth.getUser()
+      // .then(user => console.log('USER: ', user))
+      // .catch(error => console.error('Error fetching user info:', error));
 
       oktaAuth.getUser()
       .then(user => {
@@ -57,7 +63,7 @@ const Main = ({ selectedIndex }) => {
 
     }
     // oktaAuth.handleLoginRedirect();
-  }, [authState, oktaAuth, nav.index, dispatch]);
+  }, [authState, oktaAuth, dispatch]);
 
   const contentStyles = {
     fontSize: isValidIndex && nav.index === 0 ? "2.2rem" : "1.5rem",
