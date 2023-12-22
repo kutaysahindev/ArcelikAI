@@ -3,12 +3,37 @@ import { useOktaAuth } from "@okta/okta-react";
 // import ArcelikLoading from "../components/Loading/ArcelikLoading";
 import { useNavigate } from "react-router-dom";
 import LoadingLayer from "../components/Loading/LoadingLayer";
+import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { logUserOut, signUserIn } from "../redux/userSlice";
 
 const Anteroom = () => {
   const { authState } = useOktaAuth();
+  const [isApproved, setIsApproved] = useState(false)
   const [isLoading, setIsLoading] = useState(true);
   const [shouldRender, setShouldRender] = useState(false);
   const navigate = useNavigate();
+  const user = useSelector((slices) => slices.user);
+  const dispatch = useDispatch();
+
+  const approveHandler = async () => {
+    const uri = "https://6582f75e02f747c8367abde3.mockapi.io/api/v1/backendApproval";
+      axios
+      .get(uri)
+      .then((res) => setIsApproved(res.data[0].approve))
+      .catch((err) => console.error(err.message));
+  }
+
+  useEffect(() => {
+    approveHandler();
+  }, [])
+
+  useEffect(() => {
+    if (authState?.isAuthenticated && isApproved) {
+      dispatch(signUserIn());
+      navigate('/form')
+    } else dispatch(logUserOut());
+  }, [authState, dispatch, isApproved, navigate]);
 
   useEffect(() => {
     const validateToken = async () => {
@@ -32,7 +57,7 @@ const Anteroom = () => {
             setShouldRender(true);
           } else {
             // Handle other HTTP status codes accordingly
-            console.error("Unexpected response:", response);
+            // console.error("Unexpected response:", response);
           }
         } else {
           // User not authenticated, render Anteroom
@@ -41,7 +66,7 @@ const Anteroom = () => {
       } catch (error) {
         console.error("Error during token validation:", error);
         // Handle error and set shouldRender to true if needed
-        setShouldRender(true);
+        setShouldRender(false);
       } finally {
         // Stop loading animation
         setIsLoading(false);
@@ -52,13 +77,26 @@ const Anteroom = () => {
   }, [authState, navigate]);
 
   // Render Anteroom only when shouldRender is true
-  return shouldRender ? (
+  // return (
+  //   <>
+  //     {shouldRender ? (
+  //       <div className="loading-container">
+  //         <div className="loading-frame">
+  //           <LoadingLayer />
+  //         </div>
+  //       </div>
+  //     ) : (
+  //       <div>başaramadın</div>
+  //     )}
+  //   </>
+  // );
+  return !isApproved ? (
     <div className="loading-container">
       <div className="loading-frame">
         <LoadingLayer />
       </div>
     </div>
-  ) : null;
+  ) : <div>Giriş Yapıldı</div>;
 };
 
 export default Anteroom;

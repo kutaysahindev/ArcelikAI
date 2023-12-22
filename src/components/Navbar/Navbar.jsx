@@ -21,11 +21,11 @@ const Navbar = ({ onItemClick, selectedIndex }) => {
   //   dispatch(signUserIn())
   // }
 
-  useEffect(() => {
-    if (authState?.isAuthenticated) {
-      dispatch(signUserIn());
-    } else dispatch(logUserOut());
-  }, [authState, dispatch]);
+  // useEffect(() => {
+  //   if (authState?.isAuthenticated) {
+  //     dispatch(signUserIn());
+  //   } else dispatch(logUserOut());
+  // }, [authState, dispatch]);
 
   return (
     <nav id="navbar">
@@ -59,8 +59,12 @@ const Navbar = ({ onItemClick, selectedIndex }) => {
             Ethics & Security
           </div>
         </div>
-      ) : (
+      ) : location.pathname === "/form" ? (
         <h2 className="title">App Creation Wizard</h2>
+      ) : location.pathname === "/anteroom" ? (
+        <h2 className="title">Signing You In</h2>
+      ) : (
+        <h2 className="title"> </h2>
       )}
 
       {/* <div className="spacer"> </div> */}
@@ -68,9 +72,11 @@ const Navbar = ({ onItemClick, selectedIndex }) => {
         <Link to="/" className="">
           Home
         </Link>
+        {user.isSignedIn &&
         <Link to="/form" className="">
           Form
         </Link>
+        }
         {/* <span
           className="material-symbols-outlined"
           onClick={() => setIsPopup((prev) => !prev)}
