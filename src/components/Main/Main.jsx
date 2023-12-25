@@ -44,7 +44,7 @@ const Main = () => {
       //  AXIOS - POSTING ACCESS TOKEN
       axios
         .post(
-          "https://localhost:7188/api/tokenvalidate/validate",
+          "https://localhost:7026/api/tokenvalidate/validate",
           {},
           {
             headers: {

@@ -7,8 +7,8 @@ function AiButton({ handleInputChange, aiModals }) {
   const [selectedButton, setSelectedButton] = useState(null);
 
   const handleButtonClick = (modal) => {
-    setSelectedButton(modal.id);
-    handleInputChange("aiModal", modal.name);
+    setSelectedButton(modal.Id);
+    handleInputChange("aiModal", modal.Name);
   };
 
   return (
@@ -21,13 +21,13 @@ function AiButton({ handleInputChange, aiModals }) {
         aiModals.map((modal) => (
           <div
             className={`ai-button ${
-              selectedButton === modal.id ? "selected" : ""
+              selectedButton === modal.Id ? "selected" : ""
             }`}
-            key={modal.id}
+            key={modal.Id}
             onClick={() => handleButtonClick(modal)}
           >
-            <h4>{modal.name}</h4>
-            <p>{modal.description}</p>
+            <h4>{modal.Name}</h4>
+            <p>{modal.ShortDescription}</p>
           </div>
         ))
       )}
