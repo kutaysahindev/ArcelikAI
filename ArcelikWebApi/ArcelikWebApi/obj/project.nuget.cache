@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "MA/AMI+OKuL40WvKnwg1zZtTZaP2yumI2RWkTsIJCyiqskWIW034n4FtbTW6/IWLHvOzOzKLHvYAm/NMDnJWiw==",
+  "dgSpecHash": "60e1Vd5K+d99UL+8VdUSKHdk2yNzFtO2qGdSCqOAmf9BfE/sM8My+AEVEx5K4vdg8OEQTu5g/LtZENeIemeDhg==",
   "success": true,
-  "projectFilePath": "/Users/arthropoda/Desktop/ArcelikAI/ArcelikWebApi/ArcelikWebApi/ArcelikWebApi.csproj",
+  "projectFilePath": "/Users/arthropoda/Desktop/ARCELIK/ArcelikAI/ArcelikWebApi/ArcelikWebApi/ArcelikWebApi.csproj",
   "expectedPackageFiles": [
     "/Users/arthropoda/.nuget/packages/azure.core/1.36.0/azure.core.1.36.0.nupkg.sha512",
     "/Users/arthropoda/.nuget/packages/azure.identity/1.7.0/azure.identity.1.7.0.nupkg.sha512",

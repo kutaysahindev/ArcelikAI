@@ -13,8 +13,8 @@ const Anteroom = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const responseHandler = (status) => {
-    if (authState?.isAuthenticated && status === 200) {
+  const responseHandler = () => {
+    if (authState?.isAuthenticated && user.isSignedIn) {
       setIsApproved(true);
       dispatch(signUserIn());
       setTimeout(() => {
@@ -27,22 +27,28 @@ const Anteroom = () => {
         if(authState?.isAuthenticated) oktaAuth.signOut();
         else navigate("/");
       }, 1500);
+      console.log('hata');
     }
   };
 
-  const approveHandler = async () => {
-    const endpoint =
-      "https://6582f75e02f747c8367abde3.mockapi.io/api/v1/backendApproval";
-    // AXIOS - GETTING APPROVAL FOR ACCESS TOKEN
-    axios
-      .get(endpoint)
-      .then((res) => responseHandler(res.status))
-      .catch((err) => console.error(err.message));
-  };
-
   useEffect(() => {
-    approveHandler();
-  }, []);
+    responseHandler();
+  }, [])
+  
+
+  // const approveHandler = async () => {
+  //   const endpoint =
+  //     "https://6582f75e02f747c8367abde3.mockapi.io/api/v1/backendApproval";
+  //   // AXIOS - GETTING APPROVAL FOR ACCESS TOKEN
+  //   axios
+  //     .get(endpoint)
+  //     .then((res) => responseHandler(res.status))
+  //     .catch((err) => console.error(err.message));
+  // };
+
+  // useEffect(() => {
+  //   approveHandler();
+  // }, []);
 
   return (
     <>

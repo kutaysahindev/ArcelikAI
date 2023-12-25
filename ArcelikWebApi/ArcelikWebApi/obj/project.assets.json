@@ -3730,11 +3730,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/arthropoda/Desktop/ArcelikAI/ArcelikWebApi/ArcelikWebApi/ArcelikWebApi.csproj",
+      "projectUniqueName": "/Users/arthropoda/Desktop/ARCELIK/ArcelikAI/ArcelikWebApi/ArcelikWebApi/ArcelikWebApi.csproj",
       "projectName": "ArcelikWebApi",
-      "projectPath": "/Users/arthropoda/Desktop/ArcelikAI/ArcelikWebApi/ArcelikWebApi/ArcelikWebApi.csproj",
+      "projectPath": "/Users/arthropoda/Desktop/ARCELIK/ArcelikAI/ArcelikWebApi/ArcelikWebApi/ArcelikWebApi.csproj",
       "packagesPath": "/Users/arthropoda/.nuget/packages/",
-      "outputPath": "/Users/arthropoda/Desktop/ArcelikAI/ArcelikWebApi/ArcelikWebApi/obj/",
+      "outputPath": "/Users/arthropoda/Desktop/ARCELIK/ArcelikAI/ArcelikWebApi/ArcelikWebApi/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/arthropoda/.nuget/NuGet/NuGet.Config"
