@@ -3,7 +3,7 @@ import { useOktaAuth } from "@okta/okta-react";
 import "./Main.css";
 import contentList from "./ContentData";
 import { useDispatch, useSelector } from "react-redux";
-import { approveHandler, signUserIn, userInfoUpdate } from "../../redux/userSlice";
+import { approveHandler, logUserOut, signUserIn, userInfoUpdate } from "../../redux/userSlice";
 // import { logUserOut, signUserIn } from "../redux/userSlice";
 import { useNavigate } from "react-router-dom";
 import axios from 'axios'
@@ -99,6 +99,8 @@ const Main = () => {
         .catch((error) => {
           // Handle error
           console.error("Error validating token:", error);
+          dispatch(logUserOut())
+          navigate('/anteroom')
         });
     //   const endpoint =
     //   "https://6582f75e02f747c8367abde3.mockapi.io/api/v1/backendApproval";
