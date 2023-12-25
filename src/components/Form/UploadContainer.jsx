@@ -1,20 +1,14 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import './UploadContainer.css';
 
 const UploadContainer = ({ files, setFiles }) => {
   const [isDragging, setIsDragging] = useState(false);
   const [isHover, setIsHover] = useState(false)
-  // const [files, setFiles] = useState([]);
   const fileInputRef = useRef(null);
 
   const selectFiles = () => {
     fileInputRef.current.click();
   };
-
-  // const handleDragEnter = (e) => {
-  //   // e.preventDefault();
-  //   setIsDragging(true);
-  // };
 
   const handleDragLeave = (e) => {
     e.preventDefault();
@@ -32,7 +26,6 @@ const UploadContainer = ({ files, setFiles }) => {
 
     const droppedFiles = Array.from(e.dataTransfer.files);
     setFiles([...files, ...droppedFiles]);
-    // setFiles()
   };
 
   const handleFileRemove = (e, index) => {
@@ -41,10 +34,6 @@ const UploadContainer = ({ files, setFiles }) => {
     newFiles.splice(index, 1);
     setFiles(newFiles);
   };
-
-  // useEffect(() => {
-  //   console.log('files: ', files)
-  // }, [files])
   
   return (
     <div
@@ -69,9 +58,7 @@ const UploadContainer = ({ files, setFiles }) => {
             type="file"
             multiple
             ref={fileInputRef}
-            // onChange={(e) => setFiles(e.target.files)}
             onChange={(e) => setFiles((prev) => [...prev, ...e.target.files])}
-            // onChange={(e) => setFiles([...files, ...e.target.files])}
           />
         </div>
       ) : (
@@ -84,10 +71,8 @@ const UploadContainer = ({ files, setFiles }) => {
               </button>
             </li>
           ))}
-          {/* <li>{ files[0].name }</li> */}
         </ul>
       )}
-      {/* <button onClick={handleFileUpload}>Upload Files</button> */}
     </div>
   );
 };

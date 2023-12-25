@@ -1,13 +1,13 @@
 .step-bar {
   position: relative;
   width: 100%;
-  height: 4px;
+  height: 0.4rem;
   background-color: gray;
   display: flex;
 }
 
 .active-step-bar {
-  height: 4px;
+  height: 0.4rem;
   background-color: #1e0e62;
   position: relative;
   border-radius: 10px;
