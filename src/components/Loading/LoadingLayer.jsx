@@ -10,7 +10,7 @@ const LoadingLayer = ({ isApproved }) => {
       {isApproved === null ? (
         <p className='message'>Checking</p>
       ) : isApproved === true ? (
-        <p className='message'>Signed in <span className='true'>seccessfully</span></p>
+        <p className='message'>Signed in <span className='true'>successfully</span></p>
       ) : (
         <p className='message'>Sign-in <span className='false'>failed</span></p>
       )}
