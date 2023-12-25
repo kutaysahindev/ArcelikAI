@@ -1,9 +1,6 @@
 * {
-  /* document.getElementsByClassName("cls-1")[0].getTotalLength(); */
   --strokeLength: 1178.824462890625;
   --arcelikColor: #cd0d21;
-  /* width: 100%;
-  height: 100vh; */
 }
 
 .loader {
@@ -19,7 +16,6 @@
 }
 
 .custom-shape {
-  /* fill: transparent; */
   margin: 2px;
   stroke: #cd0d21;
   stroke-miterlimit: 10;

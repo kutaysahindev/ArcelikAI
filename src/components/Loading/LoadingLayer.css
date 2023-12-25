@@ -1,6 +1,6 @@
 .loading-container {
   position: fixed;
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(1rem);
   left: 0;
   top: 0;
   width: 100%;
@@ -12,7 +12,7 @@
   gap: 4rem;
 }
 .loading-frame {
-  padding: 20px;
+  padding: 2rem;
   border-radius: 1000px;
   background-color: rgba(255, 255, 255, 0.615);
 }

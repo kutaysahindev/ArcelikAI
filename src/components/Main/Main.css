@@ -23,23 +23,6 @@ body {
   margin: 0 auto;
 }
 
-.main-container .loading-container {
-  position: fixed;
-  backdrop-filter: blur(10px);
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.main-container .loading-frame {
-  padding: 30px;
-  border-radius: 1000px;
-  background-color: rgba(255, 255, 255, 0.615);
-}
-
 .main-title {
   font-size: 7.2rem;
   font-weight: bold;
@@ -91,7 +74,7 @@ ul {
 ol li,
 ul li {
   text-align: left;
-  margin-bottom: 10px;
+  margin-bottom: 1rem;
 }
 
 .add-margin-bottom {

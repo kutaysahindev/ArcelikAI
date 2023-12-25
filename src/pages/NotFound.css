@@ -3,7 +3,8 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  min-height: 50rem;
+  max-height: max-content;
   text-align: center;
   user-select: none;
 }
@@ -16,9 +17,9 @@
 }
 
 .pnf-container h1 {
-  font-size: 60px;
+  font-size: 6rem;
   font-weight: 900;
-  margin-bottom: 10px;
+  margin-bottom: 1rem;
   color: red;
 }
 

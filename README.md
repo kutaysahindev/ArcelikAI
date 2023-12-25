@@ -40,7 +40,7 @@ Visit `http://localhost:3000` in your browser to see the application in action.
 
 ## Configuration
 
-Detailed information about the Back-end side will be available when it's finished.
+Not Ready Yet.
 
 ## Usage
 

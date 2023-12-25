@@ -1,31 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
+import { FaRegCircleUser } from "react-icons/fa6";
 import arclk from "../../assets/arcelik_logo_uzun 1.png";
 import "./Navbar.css";
 import { useOktaAuth } from "@okta/okta-react";
 import { Link, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { logUserOut, signUserIn } from "../../redux/userSlice";
 import { setIndex } from "../../redux/navIndexSlice";
 
-const Navbar = ({ onItemClick, selectedIndex }) => {
+const Navbar = () => {
   const [isPopup, setIsPopup] = useState(false);
   const nav = useSelector((slices) => slices.nav);
   const user = useSelector((slices) => slices.user);
   const dispatch = useDispatch();
   const location = useLocation();
   const { authState, oktaAuth } = useOktaAuth();
-  // const navigate = useNavigate();
-
-  // const logInHandler = () => {
-  //   oktaAuth.signInWithRedirect();
-  //   dispatch(signUserIn())
-  // }
-
-  // useEffect(() => {
-  //   if (authState?.isAuthenticated) {
-  //     dispatch(signUserIn());
-  //   } else dispatch(logUserOut());
-  // }, [authState, dispatch]);
 
   return (
     <nav id="navbar">
@@ -67,7 +55,6 @@ const Navbar = ({ onItemClick, selectedIndex }) => {
         <h2 className="title"> </h2>
       )}
 
-      {/* <div className="spacer"> </div> */}
       <div className="right-container">
         <Link to="/" className="">
           Home
@@ -77,18 +64,7 @@ const Navbar = ({ onItemClick, selectedIndex }) => {
           Form
         </Link>
         }
-        {/* <span
-          className="material-symbols-outlined"
-          onClick={() => setIsPopup((prev) => !prev)}
-        >
-          person
-        </span> */}
-        <span
-          className="material-symbols-outlined"
-          onClick={() => setIsPopup((prev) => !prev)}
-        >
-          account_circle
-        </span>
+        <FaRegCircleUser className="icon" size={25} onClick={() => setIsPopup((prev) => !prev)} />
         <div className={`popup-container ${isPopup ? "visible" : "hidden"}`}>
           {!user.isSignedIn ? (
             <p className="btn" onClick={() => oktaAuth.signInWithRedirect()}>

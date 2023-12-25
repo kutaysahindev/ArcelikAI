@@ -16,7 +16,6 @@ function PeriodAndTemperature({ state, handleInputChange }) {
           min="0"
           max="100"
         />
-        {/* <span>{state.crPeriod}</span> */}
       </div>
 
       <div className="range-container">

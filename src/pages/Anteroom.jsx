@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useOktaAuth } from "@okta/okta-react";
-// import ArcelikLoading from "../components/Loading/ArcelikLoading";
 import { useNavigate } from "react-router-dom";
 import LoadingLayer from "../components/Loading/LoadingLayer";
 import axios from "axios";
@@ -34,6 +33,7 @@ const Anteroom = () => {
   const approveHandler = async () => {
     const endpoint =
       "https://6582f75e02f747c8367abde3.mockapi.io/api/v1/backendApproval";
+    // AXIOS - GETTING APPROVAL FOR ACCESS TOKEN
     axios
       .get(endpoint)
       .then((res) => responseHandler(res.status))

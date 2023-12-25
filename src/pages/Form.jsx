@@ -1,7 +1,6 @@
 import { useState, useReducer, useEffect } from "react";
 import axios from "axios";
 import "./Form.css";
-import { useOktaAuth } from "@okta/okta-react";
 import AiButtons from "../components/Form/AiButtons";
 import UploadContainer from "../components/Form/UploadContainer";
 import StepBar from "../components/Form/StepBar";
@@ -9,7 +8,6 @@ import CheckBoxContainer from "../components/Form/CheckboxContainer";
 import PeriodAndTemperature from "../components/Form/PeriodAndTemperature";
 import InitialInputs from "../components/Form/InitialInputs";
 import { useSelector } from "react-redux";
-
 
 const initialState = {
   appName: "",
@@ -40,25 +38,17 @@ export default function Form() {
   const [state, dispatch] = useReducer(reducer, initialState);
   const user = useSelector((state) => state.user);
   const stepCount = 2;
-  // const { authState } = useOktaAuth();
-  // const [pdfFile, setPdfFile] = useState(null);
-
-  // const [apiStatus, setApiStatus] = useState({
-  //   loading: false,
-  //   error: null,
-  // });
   
+  //  AXIOS - GETTING AI MODELS
   const getAiModals = () => {
     axios
       .get("https://6582f75e02f747c8367abde3.mockapi.io/api/v1/modals")
-      // .then((res) => console.log("res.data: ", res.data))
       .then((res) => setAiModals(res.data))
       .catch((err) => console.error(err.message));
   };
 
   useEffect(() => {
     getAiModals();
-    // console.log('user: ', user)
   }, []);
 
   const handleInputChange = (field, value) => {
@@ -91,6 +81,7 @@ export default function Form() {
     fd.append("date", user.userInfo.date)
     files.forEach((f,i) => fd.append(`file${i + 1}`, f));
 
+    //  AXIOS - POSTING FORM DATA
     axios
       .post('http://httpbin.org/post', fd, {
         headers: { 'Custom-Header': 'value' },
@@ -134,8 +125,6 @@ export default function Form() {
             </div>
 
             <div className="button-container">
-              {/* <button onClick={handleInputReset}>reset</button> */}
-              {/* <button onClick={e => getAiModals(e)}>GET</button> */}
               <button
                 onClick={(e) => handleSteps(e)}
                 className={`${step > 1 ? "previous" : ""}`}
