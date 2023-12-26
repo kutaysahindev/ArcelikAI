@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { FaRegCircleUser } from "react-icons/fa6";
+import { LuLogOut, LuLogIn } from "react-icons/lu";
 import arclk from "../../assets/arcelik_logo_uzun 1.png";
 import "./Navbar.css";
 import { useOktaAuth } from "@okta/okta-react";
 import { Link, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { setIndex } from "../../redux/navIndexSlice";
+import { setIsLoading } from "../../redux/userSlice";
 
 const Navbar = () => {
   const [isPopup, setIsPopup] = useState(false);
@@ -59,21 +61,37 @@ const Navbar = () => {
         <Link to="/" className="">
           Home
         </Link>
-        {user.isSignedIn &&
-        <Link to="/form" className="">
-          Form
-        </Link>
-        }
-        <FaRegCircleUser className="icon" size={25} onClick={() => setIsPopup((prev) => !prev)} />
+        {user.isSignedIn && (
+          <Link to="/form" className="">
+            Form
+          </Link>
+        )}
+        <FaRegCircleUser
+          className="icon"
+          size={25}
+          onClick={() => setIsPopup((prev) => !prev)}
+        />
         <div className={`popup-container ${isPopup ? "visible" : "hidden"}`}>
           {!user.isSignedIn ? (
-            <p className="btn" onClick={() => oktaAuth.signInWithRedirect()}>
+            <p
+              className="btn"
+              onClick={() => {
+                oktaAuth.signInWithRedirect();
+                dispatch(setIsLoading(true));
+              }}
+            >
+              <LuLogIn />
               Log in
             </p>
           ) : (
-            <p className="btn" onClick={() => oktaAuth.signOut()}>
-              Log out
-            </p>
+            <div className="logout">
+              <p className="info">{user.userInfo.name}</p>
+              <p className="info">{user.userInfo.email}</p>
+              <p className="btn" onClick={() => oktaAuth.signOut()}>
+                <LuLogOut />
+                Log out
+              </p>
+            </div>
           )}
         </div>
       </div>

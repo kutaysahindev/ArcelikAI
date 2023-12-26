@@ -1,13 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+const localLoading = localStorage.getItem('isLoading') === "true" ? true : false
+
 const initialState = {
-  isSignedIn: false,
+  // isSignedIn: false,
+  isSignedIn: localStorage.getItem('isSignedIn') === "true" ? true : false,
+  isLoading: localLoading,
   userInfo: {
     name: "",
     email: "",
     date: "",
   },
-  approve: null,
 };
 
 export const userSlice = createSlice({
@@ -16,9 +19,16 @@ export const userSlice = createSlice({
   reducers: {
     signUserIn: (state) => {
       state.isSignedIn = true;
+      localStorage.setItem('isSignedIn', true);
     },
     logUserOut: (state) => {
       state.isSignedIn = false;
+      localStorage.setItem('isSignedIn', false);
+    },
+    setIsLoading: (state, action) => {
+      // state.userInfo = {...state.userInfo, action.payload}
+      state.isLoading = action.payload;
+      localStorage.setItem('isLoading', action.payload);
     },
     userInfoUpdate: (state, action) => {
       // state.userInfo = {...state.userInfo, action.payload}
@@ -36,7 +46,7 @@ export const {
   signUserIn,
   logUserOut, 
   userInfoUpdate,
-  approveHandler,
+  setIsLoading,
 } = userSlice.actions;
 
 export default userSlice.reducer;

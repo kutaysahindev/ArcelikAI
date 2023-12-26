@@ -3,7 +3,7 @@
   padding: 5.8rem 6rem;
   display: flex;
   justify-content: space-between;
-  z-index: 100;
+  /* z-index: 100; */
 }
 
 
@@ -86,9 +86,10 @@
 }
 
 .popup-container {
+  min-width: 12rem;
   position: absolute;
   right: 0;
-  bottom: -4rem;
+  top: 5rem;
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -105,12 +106,24 @@
   opacity: 0;
   display: none;
 }
+
+.popup-container .info {
+  color: rgba(255, 255, 255, 0.774);
+}
+.popup-container .info, .popup-container .btn {
+  padding: 10px 7px;
+}
 .popup-container .btn {
   cursor: pointer;
   transition: all 100ms;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 10px;
 }
 .popup-container .btn:hover {
-  color: rgba(255, 255, 255, 0.681);
+  /* color: rgba(255, 255, 255, 0.681); */
+  background-color: rgba(65, 65, 65, 0.491);
 }
 
 /* Media query for really small screens */

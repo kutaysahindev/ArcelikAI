@@ -3,10 +3,10 @@ import { useOktaAuth } from "@okta/okta-react";
 import "./Main.css";
 import contentList from "./ContentData";
 import { useDispatch, useSelector } from "react-redux";
-import { approveHandler, logUserOut, signUserIn, userInfoUpdate } from "../../redux/userSlice";
-// import { logUserOut, signUserIn } from "../redux/userSlice";
+import { logUserOut, setIsLoading, signUserIn, userInfoUpdate } from "../../redux/userSlice";
 import { useNavigate } from "react-router-dom";
 import axios from 'axios'
+import LoadingLayer from "../Loading/LoadingLayer";
 
 const Main = () => {
   const [isApproved, setIsApproved] = useState(null);
@@ -22,41 +22,6 @@ const Main = () => {
   // const dispatch = useDispatch();
 
   const isValidIndex = nav.index >= 0 && nav.index < contentList.length;
-
-  // const responseHandler = (status) => {
-  //   if (authState?.isAuthenticated && status === 200) {
-  //     setIsApproved(true);
-  //     dispatch(signUserIn());
-  //     setTimeout(() => {
-  //       navigate("/form");
-  //     }, 1500);
-  //   } else {
-  //     setIsApproved(false);
-  //     dispatch(logUserOut());
-  //     setTimeout(() => {
-  //       if(authState?.isAuthenticated) oktaAuth.signOut();
-  //       else navigate("/");
-  //     }, 1500);
-  //   }
-  // };
-
-  // const approveHandler = async () => {
-  //   const endpoint =
-  //     "https://6582f75e02f747c8367abde3.mockapi.io/api/v1/backendApproval";
-  //   // AXIOS - GETTING APPROVAL FOR ACCESS TOKEN
-  //   axios
-  //     .get(endpoint)
-  //     .then((res) => responseHandler(res.status))
-  //     .catch((err) => console.error(err.message));
-  // };
-
-  // useEffect(() => {
-  //   approveHandler();
-  // }, []);
-
-  // useEffect(() => {
-  //   if (authState?.isAuthenticated && !user.isSignedIn) navigate("/anteroom");
-  // }, [authState, user.isSignedIn, navigate]);
 
   useEffect(() => {
     oktaAuth
@@ -77,7 +42,7 @@ const Main = () => {
     // Ensure authState is available and user is authenticated
     if (authState && authState.isAuthenticated) {
       const accessToken = authState.accessToken.accessToken;
-      //  AXIOS - POSTING ACCESS TOKEN
+       // AXIOS - POSTING ACCESS TOKEN
       axios
         .post(
           "https://localhost:7026/api/tokenvalidate/validate",
@@ -93,11 +58,10 @@ const Main = () => {
           const status = res.status === 200 ? true : false;
           if (status) {
             dispatch(signUserIn())
-            navigate('/anteroom')
           }
         })
         .catch((error) => {
-          // Handle error
+          dispatch(logUserOut())
           console.error("Error validating token:", error);
           dispatch(logUserOut())
           navigate('/anteroom')
@@ -115,13 +79,27 @@ const Main = () => {
     //   })
     //   .catch((err) => console.error(err.message));
     }
-  }, [authState]);
+  }, [authState, dispatch]);
 
   const contentStyles = {
     fontSize: isValidIndex && nav.index === 0 ? "2.2rem" : "1.5rem",
   };
 
+  useEffect(() => {
+    let timerId
+    if(user.isLoading){
+      timerId = setTimeout(() => {
+        if(user.isSignedIn) navigate('/form')
+        dispatch(setIsLoading(false));
+      }, 3500);
+      }
+    return () => clearInterval(timerId);
+  }, [user.isLoading, dispatch, navigate, user.isSignedIn])
+  
+
   return (
+    <>
+    {user.isLoading && <LoadingLayer oktaSign={authState?.isAuthenticated} isApproved={user.isSignedIn} />}
     <div className="main-container">
       {isApproved && <h1>GİRİŞ</h1>}
       {isValidIndex && (
@@ -151,8 +129,11 @@ const Main = () => {
           {nav.index === 0 && !authState?.isAuthenticated && (
             <button
               className="login-button"
-              onClick={() => oktaAuth.signInWithRedirect()}
-            >
+              onClick={() => {
+                oktaAuth.signInWithRedirect()
+                dispatch(setIsLoading(true));
+              }}
+              >
               Login with Okta
             </button>
           )}
@@ -160,6 +141,7 @@ const Main = () => {
       )}
       {!isValidIndex && <p className="main-content">Invalid index selected</p>}
     </div>
+          </>
   );
 };
 
