@@ -6,7 +6,8 @@ const initialState = {
     name: "",
     email: "",
     date: "",
-  }
+  },
+  approve: null,
 };
 
 export const userSlice = createSlice({
@@ -23,6 +24,9 @@ export const userSlice = createSlice({
       // state.userInfo = {...state.userInfo, action.payload}
       state.userInfo = action.payload;
     },
+    approveHandler: (state, action) => {
+      state.approve = action.payload;
+    },
   }
 })
 
@@ -32,6 +36,7 @@ export const {
   signUserIn,
   logUserOut, 
   userInfoUpdate,
+  approveHandler,
 } = userSlice.actions;
 
 export default userSlice.reducer;

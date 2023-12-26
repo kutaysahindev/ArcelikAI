@@ -42,7 +42,8 @@ export default function Form() {
   //  AXIOS - GETTING AI MODELS
   const getAiModals = () => {
     axios
-      .get("https://6582f75e02f747c8367abde3.mockapi.io/api/v1/modals")
+      //.get("https://6582f75e02f747c8367abde3.mockapi.io/api/v1/modals")
+      .get("https://localhost:7026/api/models")
       .then((res) => setAiModals(res.data))
       .catch((err) => console.error(err.message));
   };
@@ -68,22 +69,21 @@ export default function Form() {
       return;
     }
     const fd = new FormData();
-    fd.append("appName", state.appName)
-    fd.append("welcomeMessage", state.welcomeMessage)
-    fd.append("systemPrompt", state.systemPrompt)
-    fd.append("aiModal", state.aiModal)
-    fd.append("cb1", state.cb1)
-    fd.append("cb2", state.cb2)
-    fd.append("crPeriod", state.crPeriod)
-    fd.append("modelTemperature", state.modelTemperature)
-    fd.append("username", user.userInfo.name)
-    fd.append("email", user.userInfo.email)
-    fd.append("date", user.userInfo.date)
-    files.forEach((f,i) => fd.append(`file${i + 1}`, f));
+    fd.append("AppName", state.appName)
+    fd.append("WelcomeMessage", state.welcomeMessage)
+    fd.append("SystemPrompt", state.systemPrompt)
+    fd.append("UseKnowledgebase", state.cb1)
+    fd.append("SelectedModel", state.selectedModel)
+    fd.append("EnableUploadPdfFile", state.cb2)
+    fd.append("ConversationRetentionPeriod", state.crPeriod)
+    fd.append("ModalTemperature", state.modelTemperature)
+    fd.append("Username", user.userInfo.name)
+    fd.append("Email", user.userInfo.email)
+    fd.append("Date", user.userInfo.date)
+    files.forEach((file) => {fd.append("Pdfs", file);});
 
-    //  AXIOS - POSTING FORM DATA
     axios
-      .post('http://httpbin.org/post', fd, {
+      .post('https://localhost:7026/api/CreateApp', fd, {
         headers: { 'Custom-Header': 'value' },
       })
       .then((res) => console.log('res.data: ', res.data))
