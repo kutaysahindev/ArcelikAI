@@ -3,9 +3,10 @@ import { useOktaAuth } from "@okta/okta-react";
 import "./Main.css";
 import contentList from "./ContentData";
 import { useDispatch, useSelector } from "react-redux";
-import { userInfoUpdate } from "../../redux/userSlice";
+import { logUserOut, setIsLoading, signUserIn, userInfoUpdate } from "../../redux/userSlice";
 import { useNavigate } from "react-router-dom";
 import axios from 'axios'
+import LoadingLayer from "../Loading/LoadingLayer";
 
 const Main = () => {
   const { authState, oktaAuth } = useOktaAuth();
@@ -15,10 +16,6 @@ const Main = () => {
   const navigate = useNavigate();
 
   const isValidIndex = nav.index >= 0 && nav.index < contentList.length;
-
-  useEffect(() => {
-    if (authState?.isAuthenticated && !user.isSignedIn) navigate("/anteroom");
-  }, [authState, user.isSignedIn, navigate]);
 
   useEffect(() => {
     oktaAuth
@@ -38,10 +35,8 @@ const Main = () => {
   useEffect(() => {
     // Ensure authState is available and user is authenticated
     if (authState && authState.isAuthenticated) {
-      // Extract the access token from the authState
       const accessToken = authState.accessToken.accessToken;
-
-      //  AXIOS - POSTING ACCESS TOKEN
+       // AXIOS - POSTING ACCESS TOKEN
       axios
         .post(
           "https://localhost:7188/api/tokenvalidate/validate",
@@ -53,22 +48,38 @@ const Main = () => {
             },
           }
         )
-        .then((response) => {
-          // Handle successful response
-          console.log("Token validation successful:", response.data);
+        .then((res) => {
+          const status = res.status === 200 ? true : false;
+          if (status) {
+            dispatch(signUserIn())
+          }
         })
         .catch((error) => {
-          // Handle error
+          dispatch(logUserOut())
           console.error("Error validating token:", error);
         });
     }
-  }, [authState]);
+  }, [authState, dispatch]);
 
   const contentStyles = {
     fontSize: isValidIndex && nav.index === 0 ? "2.2rem" : "1.5rem",
   };
 
+  useEffect(() => {
+    let timerId
+    if(user.isLoading){
+      timerId = setTimeout(() => {
+        if(user.isSignedIn) navigate('/form')
+        dispatch(setIsLoading(false));
+      }, 3500);
+      }
+    return () => clearInterval(timerId);
+  }, [user.isLoading, dispatch, navigate, user.isSignedIn])
+  
+
   return (
+    <>
+    {user.isLoading && <LoadingLayer oktaSign={authState?.isAuthenticated} isApproved={user.isSignedIn} />}
     <div className="main-container">
       {isValidIndex && (
         <div>
@@ -97,8 +108,11 @@ const Main = () => {
           {nav.index === 0 && !authState?.isAuthenticated && (
             <button
               className="login-button"
-              onClick={() => oktaAuth.signInWithRedirect()}
-            >
+              onClick={() => {
+                oktaAuth.signInWithRedirect()
+                dispatch(setIsLoading(true));
+              }}
+              >
               Login with Okta
             </button>
           )}
@@ -106,6 +120,7 @@ const Main = () => {
       )}
       {!isValidIndex && <p className="main-content">Invalid index selected</p>}
     </div>
+          </>
   );
 };
 

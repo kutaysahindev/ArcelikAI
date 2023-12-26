@@ -32,6 +32,7 @@ const reducer = (state, action) => {
 };
 
 export default function Form() {
+  const [isCreating, setIsCreating] = useState(false)
   const [step, setStep] = useState(1);
   const [files, setFiles] = useState([]);
   const [aiModals, setAiModals] = useState(null)
@@ -42,7 +43,7 @@ export default function Form() {
   //  AXIOS - GETTING AI MODELS
   const getAiModals = () => {
     axios
-      .get("https://6582f75e02f747c8367abde3.mockapi.io/api/v1/modals")
+      .get("https://localhost:7188/api/models")
       .then((res) => setAiModals(res.data))
       .catch((err) => console.error(err.message));
   };
@@ -63,7 +64,7 @@ export default function Form() {
 
   const uploadHandler = (e) => {
     e.preventDefault();
-    if (!files) {
+    if (files.length === 0 || state.appName === "" || state.aiModal === "") {
       alert('No files selected!');
       return;
     }
@@ -80,18 +81,21 @@ export default function Form() {
     fd.append("email", user.userInfo.email)
     fd.append("date", user.userInfo.date)
     files.forEach((f,i) => fd.append(`file${i + 1}`, f));
-
+    
     //  AXIOS - POSTING FORM DATA
     axios
-      .post('http://httpbin.org/post', fd, {
+      .post('https://localhost:7188/api/createapp', fd, {
         headers: { 'Custom-Header': 'value' },
       })
-      .then((res) => console.log('res.data: ', res.data))
+      .then((res) => {
+        console.log('res.data: ', res.data);
+        setIsCreating(true)})
       .catch((err) => console.error(err.message));
   };
 
   return (
     <>
+    
       {user.isSignedIn ? (
     <form className="form-container">
       <h2 className="step-title">Step {step}</h2>
@@ -131,12 +135,16 @@ export default function Form() {
               >
                 {step > 1 ? "Previous" : "Next"}
               </button>
-              {step === 2 && <button onClick={e => uploadHandler(e)}>Create</button>}
+              {step === 2 && <button onClick={e => uploadHandler(e)}>
+                {isCreating ? "Creating..." :  "Create"}
+                </button>}
             </div>
           </div>
         </form>
       ) : (
-        <div className="">Not Logged in</div>
+        <div className="login-req-container">
+          <div className="login-req-text">Please Sign In</div>
+        </div>
       )}
     </>
   );
