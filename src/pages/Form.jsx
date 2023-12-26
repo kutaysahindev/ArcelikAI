@@ -69,20 +69,19 @@ export default function Form() {
       return;
     }
     const fd = new FormData();
-    fd.append("appName", state.appName)
-    fd.append("welcomeMessage", state.welcomeMessage)
-    fd.append("systemPrompt", state.systemPrompt)
-    fd.append("aiModal", state.aiModal)
-    fd.append("cb1", state.cb1)
-    fd.append("cb2", state.cb2)
-    fd.append("crPeriod", state.crPeriod)
-    fd.append("modelTemperature", state.modelTemperature)
-    fd.append("username", user.userInfo.name)
-    fd.append("email", user.userInfo.email)
-    fd.append("date", user.userInfo.date)
-    files.forEach((f,i) => fd.append(`file${i + 1}`, f));
-    
-    //  AXIOS - POSTING FORM DATA
+    fd.append("AppName", state.appName)
+    fd.append("WelcomeMessage", state.welcomeMessage)
+    fd.append("SystemPrompt", state.systemPrompt)
+    fd.append("UseKnowledgebase", state.cb1)
+    fd.append("SelectedModel", state.aiModal)
+    fd.append("EnableUploadPdfFile", state.cb2)
+    fd.append("ConversationRetentionPeriod", state.crPeriod)
+    fd.append("ModalTemperature", state.modelTemperature)
+    fd.append("Username", user.userInfo.name)
+    fd.append("Email", user.userInfo.email)
+    fd.append("Date", user.userInfo.date)
+    files.forEach((file) => {fd.append("Pdfs", file);});
+
     axios
       .post('https://localhost:7188/api/createapp', fd, {
         headers: { 'Custom-Header': 'value' },
