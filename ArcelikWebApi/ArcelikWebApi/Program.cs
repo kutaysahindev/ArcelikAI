@@ -1,8 +1,11 @@
 ﻿using ArcelikWebApi.Data;
+using ArcelikWebApi.Middlewares;
+using ArcelikWebApi.Models;
 using ArcelikWebApi.Services;
 using Azure.Storage.Blobs;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.IdentityModel.Protocols;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
@@ -14,13 +17,14 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddSingleton<IConfigurationManager<OpenIdConnectConfiguration>>(provider =>
 {
-    var issuer = "https://dev-36035985.okta.com/oauth2/default";
+    var issuer = builder.Configuration["Authentication:Okta:Issuer"];
     var configurationManager = new ConfigurationManager<OpenIdConnectConfiguration>(
-        issuer + "/.well-known/oauth-authorization-server",
+        builder.Configuration["Authentication:Okta:ApiAuthorizationServer"],
         new OpenIdConnectConfigurationRetriever(),
-    new HttpDocumentRetriever());
+    new HttpDocumentRetriever());;
     return configurationManager;
 });
+
 
 builder.Services.AddScoped(_ =>
 {
@@ -45,10 +49,12 @@ options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoop
     new DefaultContractResolver());
 
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(
-builder.Configuration.GetConnectionString("DefaultConnection")));
-
+//builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Configuration["ConnectionStrings:DefaultConnection"]));
 
 var app = builder.Build();
+
+//app.UseMiddleware<TokenValidationMiddleware>();
 
 app.UseCors(options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 

@@ -73,7 +73,7 @@ export default function Form() {
     fd.append("WelcomeMessage", state.welcomeMessage)
     fd.append("SystemPrompt", state.systemPrompt)
     fd.append("UseKnowledgebase", state.cb1)
-    fd.append("SelectedModel", state.selectedModel)
+    fd.append("SelectedModel", state.aiModal)
     fd.append("EnableUploadPdfFile", state.cb2)
     fd.append("ConversationRetentionPeriod", state.crPeriod)
     fd.append("ModalTemperature", state.modelTemperature)
@@ -83,7 +83,8 @@ export default function Form() {
     files.forEach((file) => {fd.append("Pdfs", file);});
 
     axios
-      .post('https://localhost:7026/api/CreateApp', fd, {
+      //.post('https://localhost:7026/api/CreateApp', fd, {
+        .post("http://httpbin.org/post", fd, {
         headers: { 'Custom-Header': 'value' },
       })
       .then((res) => console.log('res.data: ', res.data))
