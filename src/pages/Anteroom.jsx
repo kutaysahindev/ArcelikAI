@@ -24,17 +24,16 @@ const Anteroom = () => {
       setIsApproved(false);
       dispatch(logUserOut());
       setTimeout(() => {
-        if(authState?.isAuthenticated) oktaAuth.signOut();
+        if (authState?.isAuthenticated) oktaAuth.signOut();
         else navigate("/");
       }, 1500);
-      console.log('hata');
+      console.log("hata");
     }
   };
 
   useEffect(() => {
     responseHandler();
-  }, [])
-  
+  }, []);
 
   // const approveHandler = async () => {
   //   const endpoint =
