@@ -48,8 +48,8 @@ const router = createBrowserRouter([
 ]);
 
 const oktaAuth = new OktaAuth({
-  issuer: "https://dev-36035985.okta.com/oauth2/default",
-  clientId: "0oadru54zlAMBE58n5d7",
+  issuer: "https://dev-16420108.okta.com/oauth2/default",
+  clientId: "0oadroi27bvehMs8M5d7",
   redirectUri: window.location.origin + "/login/callback",
 });
 
