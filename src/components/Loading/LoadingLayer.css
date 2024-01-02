@@ -1,5 +1,6 @@
 .loading-container {
   position: fixed;
+  z-index: 20;
   backdrop-filter: blur(1rem);
   left: 0;
   top: 0;

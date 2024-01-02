@@ -43,7 +43,8 @@ export default function Form() {
   //  AXIOS - GETTING AI MODELS
   const getAiModals = () => {
     axios
-      .get("https://localhost:7188/api/models")
+      // .get("https://localhost:7188/api/models")
+      .get("https://6582f75e02f747c8367abde3.mockapi.io/api/v1/modals")
       .then((res) => setAiModals(res.data))
       .catch((err) => console.error(err.message));
   };
@@ -82,8 +83,10 @@ export default function Form() {
     fd.append("Date", user.userInfo.date)
     files.forEach((file) => {fd.append("Pdfs", file);});
 
+    //  AXIOS - POSTING FORM DATA
     axios
-      .post('https://localhost:7188/api/createapp', fd, {
+      // .post('https://localhost:7188/api/createapp', fd, {
+      .post('https://6582f75e02f747c8367abde3.mockapi.io/api/v1/modals', fd, {
         headers: { 'Custom-Header': 'value' },
       })
       .then((res) => {

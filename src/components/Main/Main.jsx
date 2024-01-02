@@ -1,25 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useOktaAuth } from "@okta/okta-react";
 import "./Main.css";
 import contentList from "./ContentData";
 import { useDispatch, useSelector } from "react-redux";
-import { logUserOut, setIsLoading, signUserIn, userInfoUpdate } from "../../redux/userSlice";
+import { logUserOut, setIsLoading, setStatus, signUserIn, userInfoUpdate } from "../../redux/userSlice";
 import { useNavigate } from "react-router-dom";
 import axios from 'axios'
 import LoadingLayer from "../Loading/LoadingLayer";
 
 const Main = () => {
-  const [isApproved, setIsApproved] = useState(null);
   const { authState, oktaAuth } = useOktaAuth();
   const nav = useSelector((slices) => slices.nav);
   const user = useSelector((slices) => slices.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  // const { authState, oktaAuth } = useOktaAuth();
-  // const user = useSelector((slices) => slices.user);
-  // const navigate = useNavigate();
-  // const dispatch = useDispatch();
 
   const isValidIndex = nav.index >= 0 && nav.index < contentList.length;
 
@@ -43,17 +37,19 @@ const Main = () => {
     if (authState && authState.isAuthenticated) {
       const accessToken = authState.accessToken.accessToken;
        // AXIOS - POSTING ACCESS TOKEN
+      // axios
+      //   .post(
+      //     "https://localhost:7026/api/tokenvalidate/validate",
+      //     {},
+      //     {
+      //       headers: {
+      //         Authorization: `Bearer ${accessToken}`,
+      //         "Content-Type": "application/json",
+      //       },
+      //     }
+      //   )
       axios
-        .post(
-          "https://localhost:7026/api/tokenvalidate/validate",
-          {},
-          {
-            headers: {
-              Authorization: `Bearer ${accessToken}`,
-              "Content-Type": "application/json",
-            },
-          }
-        )
+        .get("https://6582f75e02f747c8367abde3.mocls")
         .then((res) => {
           const status = res.status === 200 ? true : false;
           if (status) {
@@ -62,24 +58,12 @@ const Main = () => {
         })
         .catch((error) => {
           dispatch(logUserOut())
+          dispatch(setStatus("f"))
           console.error("Error validating token:", error);
-          dispatch(logUserOut())
-          navigate('/anteroom')
         });
-    //   const endpoint =
-    //   "https://6582f75e02f747c8367abde3.mockapi.io/api/v1/backendApproval";
-    // axios
-    //   .get(endpoint)
-    //   .then((res) => {
-    //     const status = res.status === 200 ? true : false;
-    //     if (status) {
-    //       dispatch(signUserIn())
-    //       navigate('/anteroom')
-    //     }
-    //   })
-    //   .catch((err) => console.error(err.message));
     }
-  }, [authState, dispatch]);
+    else dispatch(logUserOut())
+  }, [authState]);
 
   const contentStyles = {
     fontSize: isValidIndex && nav.index === 0 ? "2.2rem" : "1.5rem",
@@ -101,7 +85,6 @@ const Main = () => {
     <>
     {user.isLoading && <LoadingLayer oktaSign={authState?.isAuthenticated} isApproved={user.isSignedIn} />}
     <div className="main-container">
-      {isApproved && <h1>GİRİŞ</h1>}
       {isValidIndex && (
         <div>
           <p
@@ -120,7 +103,10 @@ const Main = () => {
             <div>
               <button
                 className="login-button"
-                onClick={() => oktaAuth.signOut()}
+                onClick={() => {
+                  // dispatch(logUserOut())
+                  oktaAuth.signOut()
+                }}
               >
                 Logout
               </button>
