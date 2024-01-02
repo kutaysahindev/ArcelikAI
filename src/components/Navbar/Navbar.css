@@ -6,7 +6,8 @@
   /* z-index: 100; */
 }
 
-/* i add new image to assets. and that image is not stand fit. so i fixed width and height. */
+/* i add new image to assets. and that image doesn't stand fit. so i fixed width and height. */
+
 .logo img {
   margin-top: 0.65rem;
   height: 70%;
