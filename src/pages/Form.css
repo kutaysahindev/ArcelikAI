@@ -1,0 +1,89 @@
+.form-container {
+  max-width: 88rem;
+  min-height: fit-content;
+  border-radius: 1rem;
+  background-color: rgba(255, 255, 255, 0.741);
+  backdrop-filter: blur(10px);
+  display: flex;
+  flex-direction: column;
+
+  margin: 0 auto;
+  margin-bottom: 2rem;
+  transition: all 300ms;
+  transition: height 0.3s ease;
+}
+
+.form-container .step-title {
+  text-align: center;
+  font-weight: 700;
+  font-size: 1.4rem;
+  padding: 2rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2rem;
+}
+
+.form-container .bottom {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 2rem;
+}
+
+.form-container .text-input:focus {
+  border-color: #1e0e62;
+}
+
+.step2 {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 5rem;
+  /* transition: all 300ms; */
+}
+.button-container button {
+  background: #1e0e62;
+  color: white;
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 4rem;
+  font-size: 2rem;
+  cursor: pointer;
+  user-select: none;
+  transition: all 150ms;
+}
+.button-container button:active {
+  transform: scale(0.95);
+  opacity: 0.8;
+  /* background: #1d0e62d5; */
+}
+.button-container .previous {
+  background: transparent;
+  /* background-color: rgba(255, 255, 255, 0.812); */
+  color: #1e0e62;
+  border: 0.2rem solid #1e0e62;
+}
+.login-req-container {
+  height: 65vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  user-select: none;
+}
+.login-req-text {
+  font-size: medium;
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.541);
+  padding: 4rem 8rem;
+  margin: 0 auto;
+  border-radius: 1rem;
+  border: 1px solid gray;
+  transition: all 200ms;
+  backdrop-filter: blur(0.7rem);
+}

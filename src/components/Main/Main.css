@@ -9,6 +9,10 @@ html {
   font-size: 62.5%; /* 1rem = 10px */
 }
 
+body {
+  /* overflow: hidden; */
+}
+
 .main-container {
   text-align: center;
   padding: 4rem;
@@ -62,15 +66,37 @@ html {
   font-size: 3.6rem;
   margin-top: -2rem;
 }
+ol,
+ul {
+  list-style-position: inside;
+}
 
+ol li,
+ul li {
+  text-align: left;
+  margin-bottom: 1rem;
+}
+
+.add-margin-bottom {
+  margin-bottom: 2.5rem;
+}
+
+/* Media query for phone screens */
 @media only screen and (max-width: 767px) {
   html {
     font-size: 60%;
+  }
+  body {
+    overflow: auto;
   }
   .main-title {
     font-size: 4rem;
   }
   .main-container {
     max-width: fit-content;
+    margin-top: 5rem;
+  }
+  .login-button {
+    margin-top: 10rem;
   }
 }

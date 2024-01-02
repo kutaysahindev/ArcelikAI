@@ -1,64 +1,62 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100&display=swap");
 
 body {
-  background-image: url('Background.png');
+  background-image: url("Background.png");
   background-size: cover;
-  background-color: #eca3a3; /* veya istediğiniz renk kodunu kullanabilirsiniz */
-  margin: 0; /* varsayılan body margin'ini sıfırlamak için */
-  padding: 0; /* varsayılan body padding'ini sıfırlamak için */
-  font-family: 'Montserrat', sans-serif;
+  background-color: #eca3a3;
+  margin: 0; 
+  padding: 0; 
+  font-family: "Montserrat", sans-serif;
 }
-/* Header */
+
 header {
-    margin-top: 20px;
-  }
+  margin-top: 2rem;
+}
 
-  .logo{
-    margin-left: 50px;
-    margin-top: 40px;
-  }
-  
-  /* Content */
-  .content-container {
-    text-align: center;
-    margin-top: 70px;
-    justify-content: center;
-    align-items: center;
-    display: flex;
-    margin-bottom: 60px;
-  }
-  
-  .content-box {
-    background-color: rgba(255, 255, 255, 0.826);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-    width: 400px;
-    height: 300px;
-    border-radius: 50px;
-  }
-  
-  h2 {
-    margin-bottom: 10px;
-  }
-  
-  .login{
-    margin-top:50px;
-  }
-  /* Footer */
-  footer {
-    margin-top: 100px;
-    border-top: 2px solid #210101;
-    text-align: center;
-    padding: 10px;
-  }
+.logo {
+  margin-left: 5rem;
+  margin-top: 4rem;
+}
 
-  .arcelik-ai{
-    font-size: 24px;
-    margin-top:30px;
-    font-weight: bold;
-    text-shadow: 1px 1px 2px rgb(255, 255, 255);
-  }
-  
+.content-container {
+  text-align: center;
+  margin-top: 7rem;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  margin-bottom: 6rem;
+}
+
+.content-box {
+  background-color: rgba(255, 255, 255, 0.826);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  width: 40rem;
+  height: 30rem;
+  border-radius: 5rem;
+}
+
+h2 {
+  margin-bottom: 1rem;
+}
+
+.login {
+  margin-top: 5rem;
+}
+/* Footer */
+footer {
+  margin-top: 10rem;
+  border-top: 2px solid #210101;
+  text-align: center;
+  padding: 1rem;
+}
+
+.arcelik-ai {
+  font-size: 2.4rem;
+  margin-top: 3rem;
+  font-weight: bold;
+  text-shadow: 1px 1px 2px rgb(255, 255, 255);
+}

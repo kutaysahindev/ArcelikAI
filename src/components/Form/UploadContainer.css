@@ -1,0 +1,84 @@
+.file-upload {
+  min-height: 15rem;
+  border: 2px dashed gray;
+  background-color: rgba(128, 128, 128, 0.2);
+  border-radius: 10px;
+  padding: 4rem;
+  position: relative;
+  transition: all 400ms;
+  user-select: none;
+}
+
+.dragging {
+  background-color: rgb(30, 14, 98, 0.2);
+  border-color: #1e0a7a;
+  color: #1e0a7a;
+}
+
+.file-input {
+  display: none;
+}
+
+.select {
+  position: absolute;
+  opacity: 0.8;
+  cursor: pointer;
+  letter-spacing: 0.1rem;
+  word-spacing: 0.2rem;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+}
+
+.select.bold {
+  font-weight: 900;
+}
+.select .highlight {
+  color: #5204b8;
+  font-weight: 900;
+}
+
+.file-upload ul {
+  list-style: none;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  
+}
+.file-upload ul li {
+  background-color: rgba(128, 128, 128, 0.39);
+  border-radius: 1rem;
+  text-align: center;
+  padding: 0.5rem 1rem;
+  width: fit-content;
+  display: flex;
+  align-items: center;
+}
+.file-upload ul li span {
+  margin-right: 2rem;
+}
+.file-upload ul li button {
+  font-size: 2rem;
+  cursor: pointer;
+  background-color: transparent;
+  transition: all 200ms;
+}
+.file-upload ul li button:hover {
+  color: rgb(215, 0, 0);
+}
+
+.form-item-title {
+  display: block;
+  font-size: 1.4rem;
+  color: #1e0e62;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.2rem;
+}

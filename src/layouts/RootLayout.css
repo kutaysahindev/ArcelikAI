@@ -1,0 +1,9 @@
+/* .root-layout {
+  padding: 0 2rem;
+} */
+
+.root-layout .page-layout {
+  /* padding: 30px 0; */
+  padding: 0 1rem;
+  padding-bottom: 3.5rem;
+}

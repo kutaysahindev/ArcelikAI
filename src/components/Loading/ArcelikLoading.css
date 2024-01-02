@@ -1,0 +1,56 @@
+* {
+  --strokeLength: 1178.824462890625;
+  --arcelikColor: #cd0d21;
+}
+
+.loader {
+  position: relative;
+  width: 50px;
+  height: 50px;
+}
+.visible {
+  opacity: 1;
+}
+.hidden {
+  opacity: 0;
+}
+
+.custom-shape {
+  margin: 2px;
+  stroke: #cd0d21;
+  stroke-miterlimit: 10;
+  stroke-width: 7px;
+  stroke-dasharray: var(--strokeLength);
+  stroke-dashoffset: var(--strokeLength);
+  animation: dash 2s ease-in-out infinite, fill-it 2s infinite;
+}
+
+@keyframes dash {
+  0% {
+    stroke-dashoffset: -var(--strokeLength);
+  }
+  25% {
+    stroke-dashoffset: 0;
+  }
+  50% {
+    stroke-dashoffset: var(--strokeLength) / 2;
+  }
+  100% {
+    stroke-dashoffset: var(--strokeLength);
+  }
+}
+
+@keyframes fill-it {
+  0% {
+    fill: #cd0d2100;
+  }
+  25% {
+    fill: #cd0d2100;
+  }
+  50% {
+    fill: #cd0d21ff;
+  }
+  100% {
+    fill: #cd0d2100;
+  }
+}

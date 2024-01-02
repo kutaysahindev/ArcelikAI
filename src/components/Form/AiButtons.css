@@ -1,0 +1,82 @@
+.ai-button-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Three columns with equal width */
+  grid-template-rows: repeat(2, auto); /* Two rows with auto height */
+  row-gap: 1rem;
+  column-gap: 2rem;
+  width: 100%;
+  margin-bottom: 2rem;
+}
+
+.outline {
+  height: 90px;
+  /* background: #c40808c5; */
+  border-radius: 1rem;
+  /* overflow: hidden; */
+}
+.skeleton {
+  background-color: #e0e2e4b8;
+  background-image: linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0));
+  background-size: 40px 100%;
+  background-repeat: no-repeat;
+  background-position: left -40px top 0;
+  animation: shine 1s ease infinite;
+}
+@keyframes shine {
+  to {
+    background-position: right -40px top 0;
+  }
+}
+
+.ai-button {
+  background: transparent;
+  padding: 1rem;
+  border-radius: 1rem;
+  user-select: none;
+  cursor: pointer;
+  border: 1px solid gray;
+  transition: all 200ms;
+}
+
+.ai-button:hover {
+  /* border-color: rgb(59, 239, 179); */
+  box-shadow: 0px 0px 8px 2px rgba(92, 92, 92, 0.666);
+}
+
+.ai-button h4 {
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: #1e0e62;
+}
+
+.ai-button p {
+  color: rgb(0, 0, 0);
+  font-size: 1.4rem;
+  padding: 2rem 0;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); 
+  grid-template-rows: repeat(2, auto);
+  gap: 1rem;
+  width: 100%;
+}
+
+.grid-item {
+  background-color: #e0e0e0;
+  padding: 2rem;
+  text-align: center;
+}
+
+.ai-button.selected {
+  border-color: rgba(0, 0, 0, 0.2);
+  background-color: rgba(0, 0, 0, 0.2);
+  border-color: #1e0e62;
+}
+
+@media only screen and (max-width: 768px) {
+  .ai-button-container {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,30 @@
+﻿<Properties StartupConfiguration="{7F93A0A0-580C-444D-93DA-CCDA16F4155A}|https">
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore>
+      <Breakpoint file="/Users/arthropoda/Desktop/ARCELIK/ArcelikAI/ArcelikWebApi/ArcelikWebApi/Controllers/TokenValidateController.cs" relfile="ArcelikWebApi/Controllers/TokenValidateController.cs" line="58" column="1" />
+    </BreakpointStore>
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="ArcelikWebApi/Controllers/TokenValidateController.cs">
+    <Files>
+      <File FileName="ArcelikWebApi/Controllers/TokenValidateController.cs" Line="43" Column="1" />
+      <File FileName="ArcelikWebApi/Program.cs" />
+      <File FileName="ArcelikWebApi/Controllers/CreateAppController.cs" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="ArcelikWebApi" expanded="True">
+            <Node name="ArcelikWebApi" expanded="True">
+              <Node name="Controllers" expanded="True" />
+              <Node name="Models" expanded="True" />
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.ItemProperties.ArcelikWebApi PreferredExecutionTarget="/Applications/Google Chrome.app" />
+  <MultiItemStartupConfigurations />
+</Properties>

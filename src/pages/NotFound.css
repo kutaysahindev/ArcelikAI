@@ -1,0 +1,29 @@
+.pnf-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 50rem;
+  max-height: max-content;
+  text-align: center;
+  user-select: none;
+}
+
+.pnf-container .block {
+  background: rgba(255, 255, 255, 0.178);
+  backdrop-filter: blur(1rem);
+  padding: 3rem;
+  border-radius: 1rem;
+}
+
+.pnf-container h1 {
+  font-size: 6rem;
+  font-weight: 900;
+  margin-bottom: 1rem;
+  color: red;
+}
+
+.pnf-container p {
+  font-size: 2.5rem;
+  font-weight: 600;
+}
