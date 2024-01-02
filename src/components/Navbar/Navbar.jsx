@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { FaRegCircleUser } from "react-icons/fa6";
 import { LuLogOut, LuLogIn } from "react-icons/lu";
-import arclk from "../../assets/arcelik_logo_uzun 1.png";
+import arclk from "../../assets/global.png";
 import "./Navbar.css";
 import { useOktaAuth } from "@okta/okta-react";
 import { Link, useLocation } from "react-router-dom";
