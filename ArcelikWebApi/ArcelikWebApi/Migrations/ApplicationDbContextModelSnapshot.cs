@@ -63,10 +63,6 @@ namespace ArcelikWebApi.Migrations
                     b.Property<bool>("UseKnowledgebase")
                         .HasColumnType("bit");
 
-                    b.Property<string>("Username")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("WelcomeMessage")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");

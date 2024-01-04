@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace ArcelikWebApi.Migrations
 {
     /// <inheritdoc />
-    public partial class NEW : Migration
+    public partial class Latest_migraitons : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -25,7 +25,6 @@ namespace ArcelikWebApi.Migrations
                     ConversationRetentionPeriod = table.Column<int>(type: "int", nullable: false),
                     ModalTemperature = table.Column<float>(type: "real", nullable: false),
                     Pdfs_Urls = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Username = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Date = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },

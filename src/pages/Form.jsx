@@ -77,14 +77,14 @@ export default function Form() {
     fd.append("EnableUploadPdfFile", state.cb2)
     fd.append("ConversationRetentionPeriod", state.crPeriod)
     fd.append("ModalTemperature", state.modelTemperature)
-    fd.append("Username", user.userInfo.name)
-    fd.append("Email", user.userInfo.email)
-    fd.append("Date", user.userInfo.date)
+    fd.append("Username", user.userInfo.name) //formdatadan user bilgileri alınmayacak
+    fd.append("Email", user.userInfo.email) //formdatadan user bilgileri alınmayacak
+    fd.append("Date", user.userInfo.date) // date de gelmeyecek
     files.forEach((file) => {fd.append("Pdfs", file);});
 
     axios
-      //.post('https://localhost:7026/api/CreateApp', fd, {
-        .post("http://httpbin.org/post", fd, {
+      .post('https://localhost:7026/api/CreateApp', fd, {
+      //  .post("http://httpbin.org/post", fd, {
         headers: { 'Custom-Header': 'value' },
       })
       .then((res) => console.log('res.data: ', res.data))

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ArcelikWebApi.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231222103211_NEW")]
-    partial class NEW
+    [Migration("20240104114828_Latest_migraitons")]
+    partial class Latest_migraitons
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -65,10 +65,6 @@ namespace ArcelikWebApi.Migrations
 
                     b.Property<bool>("UseKnowledgebase")
                         .HasColumnType("bit");
-
-                    b.Property<string>("Username")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("WelcomeMessage")
                         .IsRequired()

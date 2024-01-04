@@ -25,13 +25,14 @@ builder.Services.AddSingleton<IConfigurationManager<OpenIdConnectConfiguration>>
     return configurationManager;
 });
 
-
 builder.Services.AddScoped(_ =>
 {
     return new BlobServiceClient(builder.Configuration.GetConnectionString("AzureBlobStorage"));
 });
 
 builder.Services.AddScoped<IBlobService, BlobService>();
+
+builder.Services.AddScoped<TokenValidationMiddleware>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -49,12 +50,9 @@ options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoop
     new DefaultContractResolver());
 
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(
-//builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Configuration["ConnectionStrings:DefaultConnection"]));
 
 var app = builder.Build();
-
-//app.UseMiddleware<TokenValidationMiddleware>();
 
 app.UseCors(options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
@@ -65,12 +63,13 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseMiddleware<TokenValidationMiddleware>();
+
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
 app.MapControllers();
-
 
 app.Run();
 

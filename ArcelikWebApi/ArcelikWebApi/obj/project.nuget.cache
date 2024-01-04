@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "60e1Vd5K+d99UL+8VdUSKHdk2yNzFtO2qGdSCqOAmf9BfE/sM8My+AEVEx5K4vdg8OEQTu5g/LtZENeIemeDhg==",
+  "dgSpecHash": "Be+qUBrDfD0R1xExp+o5VKucpplLpbIfucM8D0iFvktC8VGedA2nGu/HeM5r2W3ZmazC1bnVH8xRNqMkUidoqw==",
   "success": true,
   "projectFilePath": "/Users/arthropoda/Desktop/ARCELIK/ArcelikAI/ArcelikWebApi/ArcelikWebApi/ArcelikWebApi.csproj",
   "expectedPackageFiles": [
@@ -9,6 +9,8 @@
     "/Users/arthropoda/.nuget/packages/azure.storage.blobs/12.19.1/azure.storage.blobs.12.19.1.nupkg.sha512",
     "/Users/arthropoda/.nuget/packages/azure.storage.common/12.18.1/azure.storage.common.12.18.1.nupkg.sha512",
     "/Users/arthropoda/.nuget/packages/humanizer.core/2.14.1/humanizer.core.2.14.1.nupkg.sha512",
+    "/Users/arthropoda/.nuget/packages/microsoft.aspnetcore.http.abstractions/2.2.0/microsoft.aspnetcore.http.abstractions.2.2.0.nupkg.sha512",
+    "/Users/arthropoda/.nuget/packages/microsoft.aspnetcore.http.features/2.2.0/microsoft.aspnetcore.http.features.2.2.0.nupkg.sha512",
     "/Users/arthropoda/.nuget/packages/microsoft.aspnetcore.jsonpatch/6.0.25/microsoft.aspnetcore.jsonpatch.6.0.25.nupkg.sha512",
     "/Users/arthropoda/.nuget/packages/microsoft.aspnetcore.mvc.newtonsoftjson/6.0.25/microsoft.aspnetcore.mvc.newtonsoftjson.6.0.25.nupkg.sha512",
     "/Users/arthropoda/.nuget/packages/microsoft.aspnetcore.openapi/7.0.11/microsoft.aspnetcore.openapi.7.0.11.nupkg.sha512",

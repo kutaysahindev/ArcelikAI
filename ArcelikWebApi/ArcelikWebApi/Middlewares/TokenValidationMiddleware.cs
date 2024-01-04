@@ -1,68 +1,100 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Protocols;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
+using Microsoft.IdentityModel.Tokens;
+using System;
 using System.IdentityModel.Tokens.Jwt;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http.Abstractions;
+using System.Security.Claims;
 
 namespace ArcelikWebApi.Middlewares
 {
-    public class TokenValidationMiddleware
+    public class TokenValidationMiddleware : IMiddleware
     {
-        private readonly RequestDelegate _next;
+        private readonly IConfigurationManager<OpenIdConnectConfiguration> _configurationManager;
         private readonly IConfiguration _configuration;
         private readonly ILogger<TokenValidationMiddleware> _logger;
 
         public TokenValidationMiddleware(
-            RequestDelegate next,
+            IConfigurationManager<OpenIdConnectConfiguration> configurationManager,
             IConfiguration configuration,
             ILogger<TokenValidationMiddleware> logger)
         {
-            _next = next ?? throw new ArgumentNullException(nameof(next));
-            _configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
-            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            _configurationManager = configurationManager;
+            _configuration = configuration;
+            _logger = logger;
         }
 
-        public async Task InvokeAsync(HttpContext context)
+        public async Task InvokeAsync(HttpContext context, RequestDelegate next)
         {
-            var issuer = _configuration["Authentication:Okta:Issuer"];
-            var audience = _configuration["Authentication:Okta:Audience"];
-
-            var configurationManager = new ConfigurationManager<OpenIdConnectConfiguration>(
-                $"{issuer}/.well-known/oauth-authorization-server",
-                new OpenIdConnectConfigurationRetriever(),
-                new HttpDocumentRetriever());
-
             var accessToken = context.Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
+            var issuer = _configuration["Authentication:Okta:Issuer"];
 
-            var validatedToken = await ValidateToken(accessToken, issuer, configurationManager, audience);
+            var validatedToken = await ValidateToken(accessToken, issuer, _configurationManager);
 
             if (validatedToken == null)
             {
-                _logger.LogWarning("Token invalid");
-                context.Response.StatusCode = 401; // Unauthorized
+                _logger.LogError("Token validation failed");
+                context.Response.StatusCode = 401;
+                await context.Response.WriteAsync("Token validation failed");
                 return;
             }
 
-            // Extract user information from the validated token
-            var userId = validatedToken.Subject;
-            var userEmail = validatedToken.Claims.FirstOrDefault(c => c.Type == "email")?.Value;
+            // Accessing the claims from the validated token
+            var userEmailClaim = validatedToken.Claims.FirstOrDefault(c => c.Type == "sub");
 
-            // You can now use userId and userEmail as needed in your application
+            if (userEmailClaim != null && !string.IsNullOrEmpty(userEmailClaim.Value))
+            {
+                var userEmail = userEmailClaim.Value;
 
-            // Call the next middleware in the pipeline
-            await _next(context);
+                // Attach user email to the request
+                context.Items["UserEmail"] = userEmail;
+            }
+            
+            context.Response.StatusCode = 200;
+
+            await next(context);
         }
 
         private async Task<JwtSecurityToken> ValidateToken(
             string token,
             string issuer,
-            IConfigurationManager<OpenIdConnectConfiguration> configurationManager,
-            string audience)
+            IConfigurationManager<OpenIdConnectConfiguration> configurationManager)
         {
-            // Token validation logic (similar to your ValidateToken method)
-            // ...
+            if (string.IsNullOrEmpty(token)) throw new ArgumentNullException(nameof(token));
+            if (string.IsNullOrEmpty(issuer)) throw new ArgumentNullException(nameof(issuer));
 
-            return null; // Return the validated token or null if validation fails
+            var discoveryDocument = await configurationManager.GetConfigurationAsync(default);
+            var signingKeys = discoveryDocument.SigningKeys;
+
+            var validationParameters = new TokenValidationParameters
+            {
+                RequireExpirationTime = true,
+                RequireSignedTokens = true,
+                ValidateIssuer = true,
+                ValidIssuer = issuer,
+                ValidateIssuerSigningKey = true,
+                IssuerSigningKeys = signingKeys,
+                ValidateLifetime = true,
+                ValidateAudience = true,
+                ValidAudience = _configuration["Authentication:Okta:Audience"]
+            };
+
+            try
+            {
+                var principal = new JwtSecurityTokenHandler()
+                    .ValidateToken(token, validationParameters, out var rawValidatedToken);
+
+                return (JwtSecurityToken)rawValidatedToken;
+            }
+            catch (SecurityTokenValidationException ex)
+            {
+                _logger.LogError(ex, "Token validation failed: {ErrorMessage}", ex.Message);
+                return null;
+            }
         }
     }
 }
-

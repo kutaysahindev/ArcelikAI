@@ -8,6 +8,7 @@ using ArcelikWebApi.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using static System.Net.Mime.MediaTypeNames;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -19,20 +20,17 @@ namespace ArcelikWebApi.Controllers
     {
         private readonly ApplicationDbContext _applicationDbContext;
         private readonly IBlobService _blobService;
-        //private readonly IFileUploadService _fileUploadService;
 
         public CreateAppController(ApplicationDbContext applicationDbContext,IBlobService BlobService)
         {
             _applicationDbContext = applicationDbContext;
             _blobService = BlobService;
-            //_fileUploadService = fileUploadService;
         }
 
         [HttpGet]
         public async Task<IActionResult> Get()
         {
             var aiApps = await _applicationDbContext.AiApplications
-                //.Include(a => a.Pdfs) // Include the related PdfEntity records
                 .ToListAsync();
 
             return new JsonResult(aiApps);
@@ -41,8 +39,25 @@ namespace ArcelikWebApi.Controllers
         [HttpPost]
         public async Task<IActionResult> Post([FromForm] AddAiAppViewModel formData)
         {
+            // Retrieve user email from context.Items
+            var userEmailFromContext = HttpContext.Items["UserEmail"] as string;
+
+            // Additional check to ensure the email from the form matches the email from the token
+            if (!string.Equals(userEmailFromContext, formData.Email, StringComparison.OrdinalIgnoreCase))
+            {
+                // If emails don't match, return unauthorized
+                return Unauthorized(new { success = false, message = "Unauthorized: Email mismatch" });
+            }
+
             if (ModelState.IsValid)
             {
+                // Additional server-side validation for the date and time
+                if (!IsValidDateTime(formData.Date))
+                {
+                    // Return a response indicating invalid data
+                    return BadRequest(new { success = false, message = "Invalid date and time value." });
+                }
+
                 var aiApplication = new AiApplication()
                 {
                     id = Guid.NewGuid(),
@@ -55,10 +70,12 @@ namespace ArcelikWebApi.Controllers
                     ConversationRetentionPeriod = formData.ConversationRetentionPeriod,
                     ModalTemperature = formData.ModalTemperature,
                     Pdfs_Urls = string.Empty,
-                    Username = formData.Username,
-                    Email = formData.Email,
+                    Email = userEmailFromContext,
                     Date = formData.Date
                 };
+
+                //if(token user bilgileri ile modela attığın user bilgilerini karşışarştır)
+                //{eğer karşılaştırma başarasız olursa http 401 dön }
 
                 _applicationDbContext.AiApplications.Add(aiApplication);
 
@@ -82,6 +99,11 @@ namespace ArcelikWebApi.Controllers
             return Ok(new { success = false, message = "Form data couldnt received"});
         }
 
-     
+        private bool IsValidDateTime(DateTime dateTime)
+        {
+            // Example validation: Check if the date is not in the past
+            return dateTime > DateTime.UtcNow;
+        }
+
     }
 }
