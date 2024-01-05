@@ -9,25 +9,25 @@ const instance = axios.create({
   },
 });
 
+const setAuthHeader = (accessToken) => {
+  instance.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
+};
+
 export const validateToken = async (accessToken) => {
   try {
-    const response = await instance.post(
-      "/api/tokenvalidate/validate",
-      {},
-      {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      }
-    );
+    setAuthHeader(accessToken);
+
+    const response = await instance.post("/api/tokenvalidate/validate", {});
     return response.status;
   } catch (error) {
     throw error;
   }
 };
 
-export const getAiModals = async () => {
+export const getAiModals = async (accessToken) => {
   try {
+    setAuthHeader(accessToken);
+
     const response = await instance.get("/api/models");
     return response.data;
   } catch (error) {
@@ -35,8 +35,10 @@ export const getAiModals = async () => {
   }
 };
 
-export const createApp = async (formData) => {
+export const createApp = async (accessToken, formData) => {
   try {
+    setAuthHeader(accessToken);
+
     const response = await instance.post("/api/createapp", formData, {
       headers: {
         "Custom-Header": "value",
