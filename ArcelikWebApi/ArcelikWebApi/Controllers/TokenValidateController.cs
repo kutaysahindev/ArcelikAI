@@ -45,8 +45,6 @@ namespace ArcelikWebApi.Controllers
 
             if (validatedToken == null)
             {
-                Console.WriteLine("Token invalid");
-                // Return 401 status code to indicate unauthorized
                 return Unauthorized(new { message = "Token validation failed" });
             }
 

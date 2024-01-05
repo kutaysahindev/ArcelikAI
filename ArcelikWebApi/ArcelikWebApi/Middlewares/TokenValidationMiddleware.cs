@@ -9,6 +9,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http.Abstractions;
 using System.Security.Claims;
+using System.Net.NetworkInformation;
 
 namespace ArcelikWebApi.Middlewares
 {
@@ -55,7 +56,6 @@ namespace ArcelikWebApi.Middlewares
             }
             
             context.Response.StatusCode = 200;
-
             await next(context);
         }
 

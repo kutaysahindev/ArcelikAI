@@ -1,19 +1,14 @@
 ﻿<Properties StartupConfiguration="{7F93A0A0-580C-444D-93DA-CCDA16F4155A}|https">
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.ItemProperties.ArcelikWebApi PreferredExecutionTarget="/Applications/Google Chrome.app" />
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MultiItemStartupConfigurations />
-  <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
-  </MonoDevelop.Ide.DebuggingService.Breakpoints>
-  <MonoDevelop.Ide.Workbench ActiveDocument="ArcelikWebApi/Models/AddAiAppViewModel.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="ArcelikWebApi/Controllers/TokenValidationController.cs">
     <Files>
-      <File FileName="ArcelikWebApi/Controllers/TokenValidateController.cs" Line="43" Column="1" />
-      <File FileName="ArcelikWebApi/Program.cs" Line="52" Column="1" />
-      <File FileName="ArcelikWebApi/Middlewares/TokenValidationMiddleware.cs" Line="52" Column="1" />
-      <File FileName="ArcelikWebApi/Controllers/CreateAppController.cs" Line="54" Column="62" />
-      <File FileName="ArcelikWebApi/Data/ApplicationDbContext.cs" Line="13" Column="1" />
-      <File FileName="ArcelikWebApi/Models/AddAiAppViewModel.cs" Line="14" Column="1" />
-      <File FileName="ArcelikWebApi/Models/AiApplication.cs" Line="1" Column="1" />
-      <File FileName="ArcelikWebApi/Controllers/AiModelsController.cs" Line="1" Column="1" />
+      <File FileName="ArcelikWebApi/Controllers/TokenValidateController.cs" />
+      <File FileName="ArcelikWebApi/Program.cs" />
+      <File FileName="ArcelikWebApi/Middlewares/TokenValidationMiddleware.cs" />
+      <File FileName="ArcelikWebApi/Controllers/CreateAppController.cs" />
+      <File FileName="ArcelikWebApi/Controllers/TokenValidationController.cs" Line="13" Column="60" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -23,15 +18,15 @@
               <Node name="Controllers" expanded="True" />
               <Node name="Data" expanded="True" />
               <Node name="Middlewares" expanded="True" />
-              <Node name="Models">
-                <Node name="AddAiAppViewModel.cs" selected="True" />
-              </Node>
+              <Node name="Models" expanded="True" />
             </Node>
           </Node>
         </State>
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
-  <MonoDevelop.Ide.ItemProperties.ArcelikWebApi PreferredExecutionTarget="/Applications/Google Chrome.app" />
-  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
 </Properties>
