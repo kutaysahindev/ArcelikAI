@@ -9,6 +9,8 @@
 
 .logo img {
   margin-top: 0.65rem;
+  width: 9vw;
+  position: fixed;
 }
 
 #navbar .title {
