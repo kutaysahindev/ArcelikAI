@@ -71,8 +71,9 @@ namespace ArcelikWebApi.Controllers
                 }
 
                 aiApplication.Pdfs_Urls = string.Join(",",blobUrls);
-
+                var aiapp = aiApplication;
                 _applicationDbContext.SaveChanges();
+
 
       
 
