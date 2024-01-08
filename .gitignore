@@ -26,3 +26,6 @@ ArcelikWebApi/.vs/ArcelikWebApi/xs/UserPrefs.xml
 ArcelikWebApi/ArcelikWebApi/bin/Debug/net7.0/ArcelikWebApi
 ArcelikWebApi/ArcelikWebApi/obj/Debug/net7.0/ArcelikWebApi.csproj.CoreCompileInputs.cache
 ArcelikWebApi/ArcelikWebApi/obj/Debug/net7.0/ArcelikWebApi.dll
+
+/ArcelikWebApi/bin
+/ArcelikWebApi/obj
