@@ -8,6 +8,7 @@ import CheckBoxContainer from "../components/Form/CheckboxContainer";
 import PeriodAndTemperature from "../components/Form/PeriodAndTemperature";
 import InitialInputs from "../components/Form/InitialInputs";
 import { useSelector } from "react-redux";
+import { createApp, getAiModals } from "../api";
 
 const initialState = {
   appName: "",
@@ -39,18 +40,27 @@ export default function Form() {
   const [state, dispatch] = useReducer(reducer, initialState);
   const user = useSelector((state) => state.user);
   const stepCount = 2;
+  // const { authState, oktaAuth } = useOktaAuth();
 
   //  AXIOS - GETTING AI MODELS
-  const getAiModals = () => {
-    axios
-      .get("https://localhost:7026/api/models")
-      // .get("https://6582f75e02f747c8367abde3.mockapi.io/api/v1/modals")
-      .then((res) => setAiModals(res.data))
-      .catch((err) => console.error(err.message));
-  };
+  // const getAiModals = () => {
+  //   axios
+  //     .get("https://localhost:7026/api/models")
+  //     // .get("https://6582f75e02f747c8367abde3.mockapi.io/api/v1/modals")
+  //     .then((res) => setAiModals(res.data))
+  //     .catch((err) => console.error(err.message));
+  // };
 
   useEffect(() => {
-    getAiModals();
+    const fetchData = async () => {
+      try {
+        const models = await getAiModals(user.accessToken);
+        setAiModals(models);
+      } catch (error) {
+        throw error;
+      }
+    };
+    fetchData();
   }, []);
 
   const handleInputChange = (field, value) => {
@@ -63,12 +73,12 @@ export default function Form() {
     else setStep((prev) => prev + 1);
   };
 
-  const uploadHandler = (e) => {
+  const uploadHandler = async (e) => {
     e.preventDefault();
-    if (files.length === 0 || state.appName === "" || state.aiModal === "") {
-      alert("No files selected!");
-      return;
-    }
+    // if (files.length === 0 || state.appName === "" || state.aiModal === "") {
+    //   alert("No files selected!");
+    //   return;
+    // }
     const fd = new FormData();
     fd.append("AppName", state.appName);
     fd.append("WelcomeMessage", state.welcomeMessage);
@@ -78,7 +88,6 @@ export default function Form() {
     fd.append("EnableUploadPdfFile", state.cb2);
     fd.append("ConversationRetentionPeriod", state.crPeriod);
     fd.append("ModalTemperature", state.modelTemperature);
-    fd.append("Username", user.userInfo.name);
     fd.append("Email", user.userInfo.email);
     fd.append("Date", user.userInfo.date);
     files.forEach((file) => {
@@ -86,16 +95,30 @@ export default function Form() {
     });
 
     //  AXIOS - POSTING FORM DATA
-    axios
-      // .post('https://localhost:7188/api/createapp', fd, {
-      .post("https://localhost:7026/api/createapp", fd, {
-        headers: { "Custom-Header": "value" },
-      })
-      .then((res) => {
-        console.log("res.data: ", res.data);
-        setIsCreating(true);
-      })
-      .catch((err) => console.error(err.message));
+    // axios
+    //   // .post('https://localhost:7188/api/createapp', fd, {
+    //   .post("https://localhost:7026/api/createapp", fd, {
+    //     headers: {
+    //       "Custom-Header": "value",
+    //       "Content-Type": "multipart/form-data",
+    //     },
+    //   })
+    //   .then((res) => {
+    //     console.log("res.data: ", res.data);
+    //     setIsCreating(true);
+    //   })
+    //   .catch((err) => console.error(err.message));
+
+    const sendForm = async (fd) => {
+      try {
+        const response = await createApp(fd);
+        console.log("Response Data:", response.data);
+        setIsCreating(response);
+      } catch (error) {
+        console.log("Error sending form:", error);
+      }
+    };
+    await sendForm(fd);
   };
 
   return (

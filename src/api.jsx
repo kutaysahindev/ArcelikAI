@@ -1,4 +1,5 @@
 import axios from "axios";
+import { useOktaAuth } from "@okta/okta-react";
 
 const baseURL = "https://localhost:7026"; // Replace with your API base URL
 
@@ -9,26 +10,28 @@ const instance = axios.create({
   },
 });
 
+const setAuthHeader = (accessToken) => {
+  instance.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
+};
+
 export const validateToken = async (accessToken) => {
   try {
-    const response = await instance.post(
-      "/api/tokenvalidate/validate",
-      {},
-      {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      }
-    );
+    setAuthHeader(accessToken);
+
+    const response = await instance.post("/api/tokenvalidation/validation", {});
     return response.status;
   } catch (error) {
     throw error;
   }
 };
 
-export const getAiModals = async () => {
+export const getAiModals = async (accessToken) => {
+  const endpoint = "/api/models";
   try {
-    const response = await instance.get("/api/models");
+    setAuthHeader(accessToken);
+
+    const response = await instance.get(endpoint);
+    // const data = await response.json();
     return response.data;
   } catch (error) {
     throw error;
@@ -37,11 +40,15 @@ export const getAiModals = async () => {
 
 export const createApp = async (formData) => {
   try {
+    // setAuthHeader(accessToken);
+
     const response = await instance.post("/api/createapp", formData, {
       headers: {
         "Custom-Header": "value",
+        "Content-Type": "multipart/form-data",
       },
     });
+    console.log(response.data);
     return response.data;
   } catch (error) {
     throw error;

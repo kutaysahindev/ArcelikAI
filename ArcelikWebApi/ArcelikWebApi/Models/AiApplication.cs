@@ -26,8 +26,6 @@ namespace ArcelikWebApi.Models
 
         public string Pdfs_Urls { get; set; }
 
-        public string Username { get; set; }
-
         public string Email { get; set; }
 
         public DateTime Date { get; set; }

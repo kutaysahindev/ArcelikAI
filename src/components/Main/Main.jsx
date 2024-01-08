@@ -3,6 +3,7 @@ import { useOktaAuth } from "@okta/okta-react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   logUserOut,
+  setAccessToken,
   setIsLoading,
   setStatus,
   signUserIn,
@@ -42,6 +43,7 @@ const Main = () => {
   useEffect(() => {
     if (authState && authState.isAuthenticated) {
       const accessToken = authState.accessToken.accessToken;
+      dispatch(setAccessToken(accessToken));
 
       validateToken(accessToken)
         .then((status) => {
