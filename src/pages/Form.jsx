@@ -126,8 +126,9 @@ export default function Form() {
   return (
     <>
       {user.isSignedIn ? (
+        <div>
+        {isVideoWindowOpen && <VideoWindow />}
         <form className="form-container">
-          {isVideoWindowOpen && <VideoWindow />}
           <h2 className="step-title">Step {step}</h2>
           <StepBar step={step} stepCount={stepCount} />
 
@@ -151,12 +152,12 @@ export default function Form() {
                   <CheckBoxContainer
                     state={state}
                     handleInputChange={handleInputChange}
-                  />
+                    />
                   <UploadContainer files={files} setFiles={setFiles} />
                   <PeriodAndTemperature
                     state={state}
                     handleInputChange={handleInputChange}
-                  />
+                    />
                 </div>
               )}
             </div>
@@ -176,6 +177,7 @@ export default function Form() {
             </div>
           </div>
         </form>
+        </div>
       ) : (
         <div className="login-req-container">
           <div className="login-req-text">Please Sign In</div>
