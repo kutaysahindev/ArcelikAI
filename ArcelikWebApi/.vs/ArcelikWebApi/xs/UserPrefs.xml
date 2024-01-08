@@ -1,21 +1,18 @@
 ﻿<Properties StartupConfiguration="{7F93A0A0-580C-444D-93DA-CCDA16F4155A}|https">
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.ItemProperties.ArcelikWebApi PreferredExecutionTarget="/Applications/Google Chrome.app" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.Workbench ActiveDocument="ArcelikWebApi/Controllers/CreateAppController.cs">
     <Files>
-      <File FileName="ArcelikWebApi/Controllers/TokenValidateController.cs" />
-      <File FileName="ArcelikWebApi/Program.cs" />
-      <File FileName="ArcelikWebApi/Controllers/CreateAppController.cs" Line="68" Column="1" />
-      <File FileName="ArcelikWebApi/Controllers/AiModelsController.cs" Line="7" Column="17" />
-      <File FileName="ArcelikWebApi/Models/AIModels.cs" />
-      <File FileName="ArcelikWebApi/Services/BlobService.cs" Line="42" Column="1" />
+      <File FileName="ArcelikWebApi/Controllers/CreateAppController.cs" Line="46" Column="1" />
+      <File FileName="ArcelikWebApi/Services/BlobService.cs" Line="36" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="ArcelikWebApi">
             <Node name="ArcelikWebApi">
-              <Node name="Controllers">
+              <Node name="Controllers" expanded="True">
                 <Node name="CreateAppController.cs" selected="True" />
               </Node>
               <Node name="Models" expanded="True" />
@@ -26,12 +23,11 @@
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
-  <MultiItemStartupConfigurations />
-  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
-  <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
-  </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <Debugger.DebugSourceFolders>
     <String>/Users/kutaysahin/Desktop/Projects/arcelik-ai</String>
   </Debugger.DebugSourceFolders>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.ItemProperties.ArcelikWebApi PreferredExecutionTarget="/Applications/Google Chrome.app" />
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MultiItemStartupConfigurations />
 </Properties>

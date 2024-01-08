@@ -55,7 +55,6 @@ namespace ArcelikWebApi.Controllers
                     ConversationRetentionPeriod = formData.ConversationRetentionPeriod,
                     ModalTemperature = formData.ModalTemperature,
                     Pdfs_Urls = string.Empty,
-                    Username = formData.Username,
                     Email = formData.Email,
                     Date = formData.Date
                 };

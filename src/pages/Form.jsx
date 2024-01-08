@@ -73,7 +73,7 @@ export default function Form() {
     else setStep((prev) => prev + 1);
   };
 
-  const uploadHandler = (e) => {
+  const uploadHandler = async (e) => {
     e.preventDefault();
     // if (files.length === 0 || state.appName === "" || state.aiModal === "") {
     //   alert("No files selected!");
@@ -88,7 +88,6 @@ export default function Form() {
     fd.append("EnableUploadPdfFile", state.cb2);
     fd.append("ConversationRetentionPeriod", state.crPeriod);
     fd.append("ModalTemperature", state.modelTemperature);
-    fd.append("Username", user.userInfo.name);
     fd.append("Email", user.userInfo.email);
     fd.append("Date", user.userInfo.date);
     files.forEach((file) => {
@@ -113,12 +112,13 @@ export default function Form() {
     const sendForm = async (fd) => {
       try {
         const response = await createApp(fd);
+        console.log("Response Data:", response.data);
         setIsCreating(response);
       } catch (error) {
-        throw error;
+        console.log("Error sending form:", error);
       }
     };
-    sendForm();
+    await sendForm(fd);
   };
 
   return (
