@@ -3,6 +3,7 @@ import axios from "axios";
 import "./Form.css";
 import AiButtons from "../components/Form/AiButtons";
 import UploadContainer from "../components/Form/UploadContainer";
+import VideoWindow from "../components/Video/VideoWindow";
 import StepBar from "../components/Form/StepBar";
 import CheckBoxContainer from "../components/Form/CheckboxContainer";
 import PeriodAndTemperature from "../components/Form/PeriodAndTemperature";
@@ -38,6 +39,7 @@ export default function Form() {
   const [files, setFiles] = useState([]);
   const [aiModals, setAiModals] = useState(null);
   const [state, dispatch] = useReducer(reducer, initialState);
+  const {isVideoWindowOpen} = useSelector((state) => state.video);
   const user = useSelector((state) => state.user);
   const stepCount = 2;
   // const { authState, oktaAuth } = useOktaAuth();
@@ -125,6 +127,7 @@ export default function Form() {
     <>
       {user.isSignedIn ? (
         <form className="form-container">
+          {isVideoWindowOpen && <VideoWindow />}
           <h2 className="step-title">Step {step}</h2>
           <StepBar step={step} stepCount={stepCount} />
 
