@@ -1,10 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 // import axios from "axios";
 import "./AiButtons.css";
+import { driver } from "driver.js";
+import "driver.js/dist/driver.css";
 // import { aiModals } from "./aiModals";
 
 function AiButton({ handleInputChange, aiModals }) {
+
+
   const [selectedButton, setSelectedButton] = useState(null);
+
 
   const handleButtonClick = (modal) => {
     setSelectedButton(modal.Id);

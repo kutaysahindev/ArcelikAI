@@ -1,7 +1,10 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import './UploadContainer.css';
+import { driver } from "driver.js";
+import "driver.js/dist/driver.css";
 
 const UploadContainer = ({ files, setFiles }) => {
+
   const [isDragging, setIsDragging] = useState(false);
   const [isHover, setIsHover] = useState(false)
   const fileInputRef = useRef(null);
@@ -37,6 +40,7 @@ const UploadContainer = ({ files, setFiles }) => {
   
   return (
     <div
+      id="drag-cont"
       className={`file-upload ${isDragging ? 'dragging' : ''}`}
       onDragLeave={handleDragLeave}
       onDragOver={handleDragOver}

@@ -1,11 +1,15 @@
 import "./PeriodAndTemperature.css";
+import { driver } from "driver.js";
+import "driver.js/dist/driver.css";
+import React, { useState, useReducer, useRef, useEffect } from "react";
 
 function PeriodAndTemperature({ state, handleInputChange }) {
+
   return (
     <div className="pt-container">
       <div className="period-container">
         <label htmlFor="periodInput" className="form-item-title">
-          Conversation retention perıod (days)
+          Conversation retention period (days)
         </label>
         <input
           type="number"

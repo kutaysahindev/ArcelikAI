@@ -1,6 +1,10 @@
 import './CheckBoxContainer.css';
+import { driver } from "driver.js";
+import "driver.js/dist/driver.css";
+import React, { useState, useReducer, useRef, useEffect } from "react";
 
 function CheckBoxContainer({ state, handleInputChange }) {
+
   return (
     <div className="checkbox-container">
       <div className="cb-1">
