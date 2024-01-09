@@ -8,11 +8,13 @@ import StepBar from "../components/Form/StepBar";
 import CheckBoxContainer from "../components/Form/CheckboxContainer";
 import PeriodAndTemperature from "../components/Form/PeriodAndTemperature";
 import InitialInputs from "../components/Form/InitialInputs";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { createApp, getAiModals } from "../api";
 import { firstDriver, formDriver1, formDriver2 } from "../utils/guides";
 import { driver } from "driver.js";
 import "driver.js/dist/driver.css";
+import { setAccessToken } from "../redux/userSlice";
+import { useOktaAuth } from "@okta/okta-react";
 
 const initialState = {
   appName: "",
@@ -41,11 +43,12 @@ export default function Form() {
   const [step, setStep] = useState(1);
   const [files, setFiles] = useState([]);
   const [aiModals, setAiModals] = useState(null);
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const [state, dispatchR] = useReducer(reducer, initialState);
   const {isVideoWindowOpen} = useSelector((state) => state.video);
   const user = useSelector((state) => state.user);
+  const dispatch = useDispatch();
   const stepCount = 2;
-  // const { authState, oktaAuth } = useOktaAuth();
+  const { authState, oktaAuth } = useOktaAuth();
 
   useEffect(() => {
     if(!isVideoWindowOpen){
@@ -65,6 +68,10 @@ export default function Form() {
   // };
 
   useEffect(() => {
+    if(user.isSignedIn && authState && !user.accessToken) {
+      const aT = authState.accessToken.accessToken;
+      dispatch(setAccessToken(aT))
+    }
     const fetchData = async () => {
       try {
         const models = await getAiModals(user.accessToken);
@@ -73,11 +80,11 @@ export default function Form() {
         throw error;
       }
     };
-    if(user.isSignedIn) fetchData();
-  }, [user.accessToken, user.isSignedIn]);
+    if(user.isSignedIn && user.accessToken) fetchData();
+  }, [authState, user.accessToken, user.isSignedIn]);
 
   const handleInputChange = (field, value) => {
-    dispatch({ type: "SET_INPUT", field, value });
+    dispatchR({ type: "SET_INPUT", field, value });
   };
 
   const handleSteps = (e) => {
