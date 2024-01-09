@@ -62,7 +62,7 @@ const useVideoPlayer = () => {
   }, [currentTime, selectedVideo]);
 
   useEffect(() => {
-    console.log("progress: ", progress);
+    // console.log("progress: ", progress);
     if (progress > 95) setDetailsHandler("isCompleted", true);
     else return;
   }, [progress]);
@@ -73,7 +73,7 @@ const useVideoPlayer = () => {
 
   useEffect(() => {
     if (isCompleted){
-      console.log('selectedVideo: ', selectedVideo)
+      // console.log('selectedVideo: ', selectedVideo)
       dispatch(completeVideo(selectedVideo))
     }
   }, [isCompleted])

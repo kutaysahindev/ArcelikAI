@@ -7,10 +7,11 @@
 }
 
 
+.logo {
+  width: 10%;
+}
 .logo img {
-  margin-top: 0.65rem;
-  width: 9vw;
-  position: fixed;
+  width: 100%;
 }
 
 #navbar .title {

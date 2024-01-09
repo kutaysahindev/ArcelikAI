@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { IoCloseOutline, IoInformationCircleOutline } from "react-icons/io5";
 import CourseVideo from './CourseVideo'
 import { driver } from "driver.js";
-import { setSelectedVideo } from '../../redux/videoSlice';
+import { closeVideoWindow, setSelectedVideo } from '../../redux/videoSlice';
 import "driver.js/dist/driver.css";
 
 import './VideoWindow.css'
@@ -52,19 +52,19 @@ const driverObj = driver({
 });
 
 const VideoWindow = () => {
-  const {lastCompleted, selectedVideo} = useSelector((state) => state.video);
+  const {lastCompleted, selectedVideo, allCompleted} = useSelector((state) => state.video);
   const dispatch = useDispatch();
 
   const videoSelector = (num) => {
     dispatch(setSelectedVideo(num));
   }
     
-  useEffect(() => {
-    driverObj.drive();
-    //   setTimeout(() => {
-    //     driverObj.drive();
-    //   }, 1000);
-  }, [])
+  // useEffect(() => {
+  //   driverObj.drive();
+  //   //   setTimeout(() => {
+  //   //     driverObj.drive();
+  //   //   }, 1000);
+  // }, [])
   
   
   return (
@@ -72,8 +72,8 @@ const VideoWindow = () => {
       <div className='window'>
         <div className='head'>
           <button className='w-btn i' onClick={() => driverObj.drive()}><IoInformationCircleOutline size={20}/></button>
-          <h3>Video Course</h3>
-          <button className='w-btn x' disabled={(lastCompleted < 3)}><IoCloseOutline size={20}/></button>
+          <h3 className='title'>Video Course</h3>
+          <button className='w-btn x' onClick={() => dispatch(closeVideoWindow())} disabled={!allCompleted}><IoCloseOutline size={20}/></button>
         </div>
         <div className='video-tabs'>
           <button className={`v-btn ${selectedVideo === 1 ? "selected-video" : ""}`} onClick={() => videoSelector(1)} disabled={(1 > lastCompleted + 1)}>Video 1</button>
