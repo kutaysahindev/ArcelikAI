@@ -1,12 +1,16 @@
 * {
-  --strokeLength: 1178.824462890625;
+  /* document.getElementsByClassName("cls-1")[0].getTotalLength(); */
+  --strokeLength1: 2985.705810546875;
+  --strokeLength2: 7920;
   --arcelikColor: #cd0d21;
+  /* width: 100%;
+  height: 100vh; */
 }
 
 .loader {
   position: relative;
-  width: 50px;
-  height: 50px;
+  width: 6rem;
+  height: 6rem;
 }
 .visible {
   opacity: 1;
@@ -15,37 +19,67 @@
   opacity: 0;
 }
 
-.custom-shape {
-  margin: 2px;
+/* A */
+.arcelik-global2 .cls-1 {
+  fill: #fff;
   stroke: #cd0d21;
   stroke-miterlimit: 10;
-  stroke-width: 7px;
-  stroke-dasharray: var(--strokeLength);
-  stroke-dashoffset: var(--strokeLength);
-  animation: dash 2s ease-in-out infinite, fill-it 2s infinite;
+  stroke-width: 10px;
+  stroke-dasharray: var(--strokeLength1);
+  stroke-dashoffset: var(--strokeLength1);
+  animation: dash1G2 3.5s ease-in-out infinite;
 }
 
-@keyframes dash {
+/* FRAME */
+.arcelik-global2 .cls-2 {
+  /* fill: #ffffff; */
+  stroke: #cd0d21;
+  stroke-miterlimit: 10;
+  stroke-width: 15px;
+  stroke-dasharray: var(--strokeLength2);
+  stroke-dashoffset: var(--strokeLength2);
+  animation: dash2G2 3.5s ease-in-out infinite, fill-itG2 3.5s infinite;
+}
+
+@keyframes dash1G2 {
   0% {
-    stroke-dashoffset: -var(--strokeLength);
+    stroke-dashoffset: -var(--strokeLength1);
   }
   25% {
     stroke-dashoffset: 0;
   }
   50% {
-    stroke-dashoffset: var(--strokeLength) / 2;
+    stroke-dashoffset: var(--strokeLength1) / 2;
   }
   100% {
-    stroke-dashoffset: var(--strokeLength);
+    stroke-dashoffset: var(--strokeLength1);
   }
 }
 
-@keyframes fill-it {
+@keyframes dash2G2 {
+  0% {
+    stroke-dashoffset: -var(--strokeLength2);
+  }
+  25% {
+    stroke-dashoffset: 0;
+  }
+  50% {
+    stroke-dashoffset: var(--strokeLength2) / 2;
+  }
+  100% {
+    stroke-dashoffset: var(--strokeLength2);
+  }
+}
+
+@keyframes fill-itG2 {
   0% {
     fill: #cd0d2100;
   }
-  25% {
+  15% {
     fill: #cd0d2100;
+  }
+  25% {
+    fill: #cd0d21ff;
   }
   50% {
     fill: #cd0d21ff;
