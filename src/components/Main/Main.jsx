@@ -14,7 +14,8 @@ import LoadingLayer from "../Loading/LoadingLayer";
 
 import "./Main.css";
 import contentList from "./ContentData";
-import { validateToken } from "../../api"; // Import the validateToken function
+import { getVideoProgress, validateToken } from "../../api"; // Import the validateToken function
+import { closeVideoWindow, completeVideo } from "../../redux/videoSlice";
 
 const Main = () => {
   const { authState, oktaAuth } = useOktaAuth();
@@ -65,6 +66,22 @@ const Main = () => {
       dispatch(logUserOut());
     }
   }, [authState]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const video = await getVideoProgress(user.accessToken);
+        console.log("video progress: " + video);
+        dispatch(completeVideo(3));
+        dispatch(closeVideoWindow());
+      } catch (error) {
+        throw error;
+      }
+    };
+    if (user.isSignedIn && user.accessToken) {
+      fetchData();
+    }
+  }, [user.isSignedIn, user.accessToken]);
 
   const contentStyles = {
     fontSize: isValidIndex && nav.index === 0 ? "2.2rem" : "1.5rem",

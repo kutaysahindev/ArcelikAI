@@ -1,9 +1,9 @@
-import { useEffect, useRef, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { completeVideo } from '../redux/videoSlice';
+import { useEffect, useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { completeVideo } from "../redux/videoSlice";
 
 const useVideoPlayer = () => {
-  const {selectedVideo, completion} = useSelector((state) => state.video);
+  const { selectedVideo, completion } = useSelector((state) => state.video);
   const dispatch = useDispatch();
   const videoRef = useRef(null);
   const [videoDetails, setVideoDetails] = useState({
@@ -42,8 +42,11 @@ const useVideoPlayer = () => {
     const handleTimeUpdate = () => {
       if (!video.seeking) {
         setDetailsHandler("currentTime", video.currentTime);
-        if(videoDuration>0 && currentTime>0)
-        setDetailsHandler("progress",Math.ceil((currentTime / videoDuration) * 100));
+        if (videoDuration > 0 && currentTime > 0)
+          setDetailsHandler(
+            "progress",
+            Math.ceil((currentTime / videoDuration) * 100)
+          );
       }
     };
     const handleSeeking = () => {
@@ -63,7 +66,7 @@ const useVideoPlayer = () => {
 
   useEffect(() => {
     // console.log("progress: ", progress);
-    if (progress > 95) setDetailsHandler("isCompleted", true);
+    if (progress > 90) setDetailsHandler("isCompleted", true);
     else return;
   }, [progress]);
 
@@ -72,11 +75,11 @@ const useVideoPlayer = () => {
   // }, [videoRef.current?.currentSrc, selectedVideo])
 
   useEffect(() => {
-    if (isCompleted){
+    if (isCompleted) {
       // console.log('selectedVideo: ', selectedVideo)
-      dispatch(completeVideo(selectedVideo))
+      dispatch(completeVideo(selectedVideo));
     }
-  }, [isCompleted])
+  }, [isCompleted]);
 
   useEffect(() => {
     setVideoDetails({
@@ -85,10 +88,8 @@ const useVideoPlayer = () => {
       progress: 0,
       isCompleted: false,
       replay: false,
-    })
-  }, [selectedVideo])
-  
-  
+    });
+  }, [selectedVideo]);
 
   return {
     videoRef,

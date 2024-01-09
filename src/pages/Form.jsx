@@ -9,7 +9,7 @@ import CheckBoxContainer from "../components/Form/CheckboxContainer";
 import PeriodAndTemperature from "../components/Form/PeriodAndTemperature";
 import InitialInputs from "../components/Form/InitialInputs";
 import { useDispatch, useSelector } from "react-redux";
-import { createApp, getAiModals } from "../api";
+import { createApp, getAiModals, postVideoProgress } from "../api";
 import { firstDriver, formDriver1, formDriver2 } from "../utils/guides";
 import { driver } from "driver.js";
 import "driver.js/dist/driver.css";
@@ -44,19 +44,31 @@ export default function Form() {
   const [files, setFiles] = useState([]);
   const [aiModals, setAiModals] = useState(null);
   const [state, dispatchR] = useReducer(reducer, initialState);
-  const {isVideoWindowOpen} = useSelector((state) => state.video);
+  const { isVideoWindowOpen, allCompleted } = useSelector(
+    (state) => state.video
+  );
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const stepCount = 2;
   const { authState, oktaAuth } = useOktaAuth();
 
   useEffect(() => {
-    if(!isVideoWindowOpen){
-      if(step === 1) driver(formDriver1).drive();
-      if(step === 2) driver(formDriver2).drive();
+    const postVideo = async () => {
+      try {
+        const videoProg = await postVideoProgress(user.accessToken);
+      } catch (error) {
+        throw error;
+      }
+    };
+    if (allCompleted) postVideo();
+  }, [allCompleted, user.accessToken]);
+
+  useEffect(() => {
+    if (!isVideoWindowOpen) {
+      if (step === 1) driver(formDriver1).drive();
+      if (step === 2) driver(formDriver2).drive();
     }
-  }, [step, isVideoWindowOpen])
-  
+  }, [step, isVideoWindowOpen]);
 
   //  AXIOS - GETTING AI MODELS
   // const getAiModals = () => {
@@ -68,9 +80,9 @@ export default function Form() {
   // };
 
   useEffect(() => {
-    if(user.isSignedIn && authState && !user.accessToken) {
+    if (user.isSignedIn && authState && !user.accessToken) {
       const aT = authState.accessToken.accessToken;
-      dispatch(setAccessToken(aT))
+      dispatch(setAccessToken(aT));
     }
     const fetchData = async () => {
       try {
@@ -80,7 +92,7 @@ export default function Form() {
         throw error;
       }
     };
-    if(user.isSignedIn && user.accessToken) fetchData();
+    if (user.isSignedIn && user.accessToken) fetchData();
   }, [authState, user.accessToken, user.isSignedIn]);
 
   const handleInputChange = (field, value) => {
@@ -129,72 +141,72 @@ export default function Form() {
     //   })
     //   .catch((err) => console.error(err.message));
 
-    const sendForm = async (fd) => {
+    const sendForm = async (fd, accessToken) => {
       try {
-        const response = await createApp(fd);
+        const response = await createApp(fd, accessToken);
         console.log("Response Data:", response.data);
         setIsCreating(response);
       } catch (error) {
         console.log("Error sending form:", error);
       }
     };
-    await sendForm(fd);
+    await sendForm(fd, authState?.accessToken.accessToken);
   };
 
   return (
     <>
       {user.isSignedIn ? (
         <div>
-        {isVideoWindowOpen && <VideoWindow />}
-        <form className="form-container">
-          <h2 className="step-title">Step {step}</h2>
-          <StepBar step={step} stepCount={stepCount} />
+          {isVideoWindowOpen && <VideoWindow />}
+          <form className="form-container">
+            <h2 className="step-title">Step {step}</h2>
+            <StepBar step={step} stepCount={stepCount} />
 
-          <div className="bottom">
-            <div className="content-container">
-              {step === 1 && (
-                <div className="step1">
-                  <InitialInputs
-                    state={state}
-                    handleInputChange={handleInputChange}
-                  />
-                  <AiButtons
-                    aiModals={aiModals}
-                    handleInputChange={handleInputChange}
-                  />
-                </div>
-              )}
-
-              {step === 2 && (
-                <div className="step2">
-                  <CheckBoxContainer
-                    state={state}
-                    handleInputChange={handleInputChange}
+            <div className="bottom">
+              <div className="content-container">
+                {step === 1 && (
+                  <div className="step1">
+                    <InitialInputs
+                      state={state}
+                      handleInputChange={handleInputChange}
                     />
-                  <UploadContainer files={files} setFiles={setFiles} />
-                  <PeriodAndTemperature
-                    state={state}
-                    handleInputChange={handleInputChange}
+                    <AiButtons
+                      aiModals={aiModals}
+                      handleInputChange={handleInputChange}
                     />
-                </div>
-              )}
-            </div>
+                  </div>
+                )}
 
-            <div className="button-container">
-              <button
-                onClick={(e) => handleSteps(e)}
-                className={`${step > 1 ? "previous" : ""}`}
-              >
-                {step > 1 ? "Previous" : "Next"}
-              </button>
-              {step === 2 && (
-                <button onClick={(e) => uploadHandler(e)}>
-                  {isCreating ? "Creating..." : "Create"}
+                {step === 2 && (
+                  <div className="step2">
+                    <CheckBoxContainer
+                      state={state}
+                      handleInputChange={handleInputChange}
+                    />
+                    <UploadContainer files={files} setFiles={setFiles} />
+                    <PeriodAndTemperature
+                      state={state}
+                      handleInputChange={handleInputChange}
+                    />
+                  </div>
+                )}
+              </div>
+
+              <div className="button-container">
+                <button
+                  onClick={(e) => handleSteps(e)}
+                  className={`${step > 1 ? "previous" : ""}`}
+                >
+                  {step > 1 ? "Previous" : "Next"}
                 </button>
-              )}
+                {step === 2 && (
+                  <button onClick={(e) => uploadHandler(e)}>
+                    {isCreating ? "Creating..." : "Create"}
+                  </button>
+                )}
+              </div>
             </div>
-          </div>
-        </form>
+          </form>
         </div>
       ) : (
         <div className="login-req-container">

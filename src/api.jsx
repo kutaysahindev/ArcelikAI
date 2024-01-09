@@ -1,5 +1,4 @@
 import axios from "axios";
-import { useOktaAuth } from "@okta/okta-react";
 
 const baseURL = "https://localhost:7026"; // Replace with your API base URL
 
@@ -31,16 +30,15 @@ export const getAiModals = async (accessToken) => {
     setAuthHeader(accessToken);
 
     const response = await instance.get(endpoint);
-    // const data = await response.json();
     return response.data;
   } catch (error) {
     throw error;
   }
 };
 
-export const createApp = async (formData) => {
+export const createApp = async (formData, accessToken) => {
   try {
-    // setAuthHeader(accessToken);
+    setAuthHeader(accessToken);
 
     const response = await instance.post("/api/createapp", formData, {
       headers: {
@@ -48,6 +46,37 @@ export const createApp = async (formData) => {
         "Content-Type": "multipart/form-data",
       },
     });
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const getVideoProgress = async (accessToken) => {
+  const endpoint = "/api/uservideo/iswatched";
+  try {
+    setAuthHeader(accessToken);
+    const response = await instance.get(endpoint);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const postVideoProgress = async (accessToken) => {
+  try {
+    setAuthHeader(accessToken);
+
+    const response = await instance.post(
+      "/api/uservideo/iswatched",
+      { isWatched: true },
+      {
+        headers: {
+          "Custom-Header": "value",
+        },
+      }
+    );
     console.log(response.data);
     return response.data;
   } catch (error) {

@@ -15,6 +15,7 @@ namespace ArcelikWebApi.Data
 
         // DbSet for AiApplication
         public DbSet<AiApplication> AiApplications { get; set; }
+        public DbSet<Users> Users { get; set; }
 
         
         // DbSet for PdfEntity
