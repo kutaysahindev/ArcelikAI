@@ -10,6 +10,9 @@ import PeriodAndTemperature from "../components/Form/PeriodAndTemperature";
 import InitialInputs from "../components/Form/InitialInputs";
 import { useSelector } from "react-redux";
 import { createApp, getAiModals } from "../api";
+import { firstDriver, formDriver1, formDriver2 } from "../utils/guides";
+import { driver } from "driver.js";
+import "driver.js/dist/driver.css";
 
 const initialState = {
   appName: "",
@@ -44,6 +47,14 @@ export default function Form() {
   const stepCount = 2;
   // const { authState, oktaAuth } = useOktaAuth();
 
+  useEffect(() => {
+    if(!isVideoWindowOpen){
+      if(step === 1) driver(formDriver1).drive();
+      if(step === 2) driver(formDriver2).drive();
+    }
+  }, [step, isVideoWindowOpen])
+  
+
   //  AXIOS - GETTING AI MODELS
   // const getAiModals = () => {
   //   axios
@@ -62,8 +73,8 @@ export default function Form() {
         throw error;
       }
     };
-    fetchData();
-  }, []);
+    if(user.isSignedIn) fetchData();
+  }, [user.accessToken, user.isSignedIn]);
 
   const handleInputChange = (field, value) => {
     dispatch({ type: "SET_INPUT", field, value });
