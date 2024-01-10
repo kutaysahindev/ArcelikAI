@@ -58,6 +58,7 @@ export const getVideoProgress = async (accessToken) => {
   try {
     setAuthHeader(accessToken);
     const response = await instance.get(endpoint);
+    // console.log(response.data);
     return response.data;
   } catch (error) {
     throw error;

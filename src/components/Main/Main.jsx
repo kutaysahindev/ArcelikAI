@@ -71,9 +71,11 @@ const Main = () => {
     const fetchData = async () => {
       try {
         const video = await getVideoProgress(user.accessToken);
-        console.log("video progress: " + video);
-        dispatch(completeVideo(3));
-        dispatch(closeVideoWindow());
+        console.log("video completion: " + video);
+        if (String(video) !== "false") {
+          dispatch(completeVideo(3));
+          dispatch(closeVideoWindow());
+        }
       } catch (error) {
         throw error;
       }

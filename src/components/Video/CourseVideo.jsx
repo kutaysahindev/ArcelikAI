@@ -1,7 +1,5 @@
-import { useRef, useState, useEffect } from "react";
 import { FaPlay } from "react-icons/fa";
 import { FaForward, FaBackward } from "react-icons/fa6";
-import { MdOutlineReplay } from "react-icons/md";
 import { MdReportGmailerrorred } from "react-icons/md";
 import "./CourseVideo.css";
 
@@ -10,20 +8,15 @@ import sample2 from "../../assets/videos/sample2.mp4";
 import sample3 from "../../assets/videos/sample3.mp4";
 import useVideoPlayer from "../../hooks/useVideoPlayer";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  closeVideoWindow,
-  completeVideo,
-  setSelectedVideo,
-} from "../../redux/videoSlice";
+import { closeVideoWindow, setSelectedVideo } from "../../redux/videoSlice";
 
 const CourseVideo = () => {
-  // const videoRef = useRef(null);
   const dispatch = useDispatch();
-  const { selectedVideo, completion, lastCompleted, allCompleted } = useSelector(
+  const { selectedVideo, lastCompleted, allCompleted } = useSelector(
     (state) => state.video
   );
   const { videoRef, videoDetails, watchAgain } = useVideoPlayer();
-  const { videoDuration, currentTime, progress, isCompleted } = videoDetails;
+  const { progress, isCompleted } = videoDetails;
 
   const videoSelector = (num) => {
     dispatch(setSelectedVideo(selectedVideo + num));
@@ -39,7 +32,6 @@ const CourseVideo = () => {
           }}
         />
       </div>
-      {/* <p className={`${isCompleted ? 'completed' : ''}`}>Progress: {isCompleted ? "Completed" : progress+'%'}</p> */}
       <p className="info">
         Please watch the video from start to end without changing the playback
         rate and seeking
