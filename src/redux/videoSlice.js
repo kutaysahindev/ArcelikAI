@@ -4,6 +4,7 @@ const initialState = {
   isVideoWindowOpen: true,
   selectedVideo: 1,
   lastCompleted: 0,
+  allCompleted: false,
   completion: {
     video1: false,
     video2: false,
@@ -27,6 +28,7 @@ export const videoSlice = createSlice({
     completeVideo: (state, action) => {
       state.completion["video" + action.payload] = true;
       state.lastCompleted = action.payload;
+      if(action.payload===3) state.allCompleted = true;
     },
   },
 })

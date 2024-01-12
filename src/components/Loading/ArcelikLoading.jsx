@@ -1,18 +1,27 @@
+import React, { useState } from "react";
 import "./ArcelikLoading.css";
 
-export default function Arcelik1() {
+export default function ArcelikG2() {
+  const [isVisible, setIsVisible] = useState(true);
+  function toggleVisibility() {
+    setIsVisible((prevVisible) => !prevVisible);
+  }
   return (
-    <div className="loader">
+    <div
+      className={`loader ${isVisible ? "visible" : "hidden"}`}
+      onClick={toggleVisibility}
+    >
       <svg
-        className="custom-shape"
-        id="Layer_2"
-        data-name="Layer 2"
+        id="Layer_1"
+        className="arcelik-global2"
+        data-name="Layer 1"
         xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 393.86 373.98"
+        viewBox="0 0 968.89 968.89"
       >
+        <rect className="cls-2" x="5" y="5" width="958.89" height="958.89" />
         <path
           className="cls-1"
-          d="m304.43,3.79l86.55,237.84c-29.59,30.77-92.18,75.83-162.17,102.13-50.97,19.09-103.46,25.5-147.97,27.63L3.35,138.81c51.21-5.45,109.77-18.23,153.15-37.25,69.68-30.49,115.92-67.82,147.88-97.82l.05.06"
+          d="m719.63,832.73h-167.56l-16.75-119.68h-102.93l-16.76,119.68h-166.36L388.1,136.16h191.51l140.02,696.56Zm-201.07-240.56l-34.7-248.96-34.72,248.96h69.42Z"
         />
       </svg>
     </div>
