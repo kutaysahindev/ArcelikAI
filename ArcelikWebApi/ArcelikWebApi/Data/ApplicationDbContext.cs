@@ -1,8 +1,4 @@
-﻿using System;
-using static System.Net.Mime.MediaTypeNames;
-using System.Collections.Generic;
-using System.Reflection.Emit;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using ArcelikWebApi.Models;
 
 namespace ArcelikWebApi.Data

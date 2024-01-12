@@ -1,7 +1,6 @@
-﻿using System;
-namespace ArcelikWebApi.Models
+﻿namespace ArcelikWebApi.Models
 {
-	public class FileUpload
+    public class FileUpload
 	{
         public IFormFile Pdfs { get; set; }
     }

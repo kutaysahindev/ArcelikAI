@@ -1,15 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
-using Microsoft.IdentityModel.Protocols;
+﻿using Microsoft.IdentityModel.Protocols;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Microsoft.IdentityModel.Tokens;
-using System;
 using System.IdentityModel.Tokens.Jwt;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http.Abstractions;
-using System.Security.Claims;
-using System.Net.NetworkInformation;
 
 namespace ArcelikWebApi.Middlewares
 {

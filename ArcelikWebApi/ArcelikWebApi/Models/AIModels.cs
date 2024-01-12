@@ -1,5 +1,4 @@
-﻿using System;
-namespace ArcelikWebApi.Models
+﻿namespace ArcelikWebApi.Models
 {
     public class AIModels
     {

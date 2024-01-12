@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using ArcelikWebApi.Data;
+﻿using ArcelikWebApi.Data;
 using ArcelikWebApi.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -43,6 +42,10 @@ namespace ArcelikWebApi.Controllers
                     if (user != null)
                     {
                         user.isWatched = model.IsWatched;
+
+                        // Update minutes watched directly with seconds
+                        int videoDurationSeconds = model.VideoTimeWatched; // Assuming VideoTimeWatched is in seconds
+                        user.MinutesWatched += videoDurationSeconds / 60.0; // Directly update to the user model and apply it to the database with minutes
 
                         // Update the database
                         await _applicationDbContext.SaveChangesAsync();

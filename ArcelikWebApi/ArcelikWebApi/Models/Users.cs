@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace ArcelikWebApi.Models
 {
@@ -11,5 +10,7 @@ namespace ArcelikWebApi.Models
         public string Email { get; set; }
 
         public bool isWatched { get; set; }
+
+        public double MinutesWatched { get; set; } // Changed to double for decimal specify
     }
 }
