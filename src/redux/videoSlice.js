@@ -1,4 +1,5 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice } from "@reduxjs/toolkit";
+import { getVideos } from "../api";
 
 const initialState = {
   isVideoWindowOpen: true,
@@ -10,12 +11,20 @@ const initialState = {
     video2: false,
     video3: false,
   },
-}
+  videos: [
+    { id: 1, url: "video_url_1.mp4" },
+    { id: 2, url: "video_url_2.mp4" },
+    { id: 3, url: "video_url_3.mp4" },
+  ],
+};
 
 export const videoSlice = createSlice({
-  name: 'video',
+  name: "video",
   initialState,
   reducers: {
+    setVideos: (state, action) => {
+      state.videos = action.payload;
+    },
     closeVideoWindow: (state) => {
       state.isVideoWindowOpen = false;
     },
@@ -28,12 +37,27 @@ export const videoSlice = createSlice({
     completeVideo: (state, action) => {
       state.completion["video" + action.payload] = true;
       state.lastCompleted = action.payload;
-      if(action.payload===3) state.allCompleted = true;
+      if (action.payload === 3) state.allCompleted = true;
     },
   },
-})
+});
+
+export const fetchVideos = () => async (dispatch) => {
+  try {
+    const videos = await getVideos();
+    dispatch(setVideos(videos));
+  } catch (error) {
+    console.log("error fetching videos: ", error);
+  }
+};
 
 // Action creators are generated for each case reducer function
-export const { completeVideo, setSelectedVideo, closeVideoWindow, openVideoWindow } = videoSlice.actions
+export const {
+  completeVideo,
+  setSelectedVideo,
+  closeVideoWindow,
+  openVideoWindow,
+  setVideos,
+} = videoSlice.actions;
 
-export default videoSlice.reducer
+export default videoSlice.reducer;
