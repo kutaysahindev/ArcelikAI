@@ -37,22 +37,31 @@ namespace ArcelikWebApi.Controllers
                 if (userEmail != null)
                 {
                     // Find the user by email
-                    var user = await _applicationDbContext.Users.FirstOrDefaultAsync(u => u.Email == userEmail);
+                    //old code var user = await _applicationDbContext.Users.FirstOrDefaultAsync(u => u.Email == userEmail);
+
+                    var user = await _applicationDbContext.Users
+                        .Include(u => u.WatchedVideos)
+                        .FirstOrDefaultAsync(u => u.Email == userEmail);
 
                     if (user != null)
                     {
                         user.isWatched = model.IsWatched;
 
-                        var VideoTimeWatched = 10; // remove here after frontend sent videotimewatched
+                        var watchedVideo = new WatchedVideo
+                        {
+                            VideoId = model.VideoId,
+                            DurationInSeconds = model.DurationInSeconds
+                        };
 
-                        // Update minutes watched directly with seconds
-                        int videoDurationSeconds = VideoTimeWatched; // Assuming VideoTimeWatched is in seconds
-                        user.MinutesWatched += videoDurationSeconds / 60.0; // Directly update to the user model and apply it to the database with minutes
+                        user.WatchedVideos.Add(watchedVideo);
+
+                        // Update minutes watched directly with seconds, it may be deleted afterwards only seconds enough
+                        user.MinutesWatched += model.DurationInSeconds / 60.0;
 
                         // Update the database
                         await _applicationDbContext.SaveChangesAsync();
 
-                        return Ok("Update successful");
+                        return Ok("Update to database is successful");
                     }
                     else
                     {

@@ -2,7 +2,7 @@
 
 namespace ArcelikWebApi.Models
 {
-    public class Users
+    public class User
     {
         [Key]
         public Guid id { get; set; }

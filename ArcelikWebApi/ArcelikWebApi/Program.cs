@@ -17,7 +17,7 @@ builder.Services.AddSingleton<IConfigurationManager<OpenIdConnectConfiguration>>
     var configurationManager = new ConfigurationManager<OpenIdConnectConfiguration>(
         builder.Configuration["Authentication:Okta:ApiAuthorizationServer"],
         new OpenIdConnectConfigurationRetriever(),
-    new HttpDocumentRetriever()); ;
+    new HttpDocumentRetriever()); 
     return configurationManager;
 });
 

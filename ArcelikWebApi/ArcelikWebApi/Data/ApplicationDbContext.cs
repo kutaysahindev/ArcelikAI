@@ -11,22 +11,21 @@ namespace ArcelikWebApi.Data
 
         // DbSet for Tables
         public DbSet<AiApplication> AiApplications { get; set; }
-        public DbSet<Users> Users { get; set; }
+        public DbSet<User> Users { get; set; }
         public DbSet<WatchedVideo> WatchedVideo { get; set; }
-        public DbSet<Videos> Videos { get; set; }
+        public DbSet<Video> Videos { get; set; }
 
-    }
-    //Seed Video Data in DbContext:Seed your Video data in the ApplicationDbContext:
+        //Seed Video Data in DbContext:Seed your Video data in the ApplicationDbContext:
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            // Seed Video data
+            modelBuilder.Entity<Video>().HasData(
+                new Video { Id = 1, Title = "Video 1", DurationInSeconds = 5, BlobStorageUrl = "https://arcelikstorage.blob.core.windows.net/videos/sample1.mp4" },
+                new Video { Id = 2, Title = "Video 2", DurationInSeconds = 420, BlobStorageUrl = "https://arcelikstorage.blob.core.windows.net/videos/sample2.mp4" },
+                new Video { Id = 3, Title = "Video 3", DurationInSeconds = 240, BlobStorageUrl = "https://arcelikstorage.blob.core.windows.net/videos/sample3.mp4" }
+            );
 
-    public DbSet<Videos> Videos { get; set; }
-
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
-    {
-        modelBuilder.Entity<Video>().HasData(
-        new Video { Id = 1, Title = "Video 1", DurationInSeconds = 300, BlobStorageUrl = "your_blob_storage_url_1" },
-        new Video { Id = 2, Title = "Video 2", DurationInSeconds = 420, BlobStorageUrl = "your_blob_storage_url_2" },
-            new Video { Id = 3, Title = "Video 3", DurationInSeconds = 240, BlobStorageUrl = "your_blob_storage_url_3" }
-        );
+        }
     }
 }
 
