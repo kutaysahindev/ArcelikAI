@@ -1,6 +1,10 @@
 {
   "version": 2,
+<<<<<<< HEAD
   "dgSpecHash": "UhJYMbFwxRyKoUKUSjdd3LGqfDGKaHmL6GsWZ2RD0bnj2LvSsbwZ0baAmNRzXaNVwIASB9/+nAm/ouKG23c7Gg==",
+=======
+  "dgSpecHash": "6ORyO6OoAn3/CkkFZUKerihu2QIeQTlbSZT/zqLkNTDmQ3xE9JnpMKWwnXwE/HUD3k2BkpU7yDPtMTjxe5F06g==",
+>>>>>>> main
   "success": true,
   "projectFilePath": "D:\\Work\\Arcelik\\Projects\\ArcelikAI\\ArcelikWebApi\\ArcelikWebApi\\ArcelikWebApi.csproj",
   "expectedPackageFiles": [

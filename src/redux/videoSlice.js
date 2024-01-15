@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { getVideos } from "../api";
 
 const localLastCompleted = localStorage.getItem("lastCompleted") ? Number(localStorage.getItem("lastCompleted")) : 0;
 const localAllCompleted = localStorage.getItem("allCompleted") === "true" ? true : false;
@@ -17,12 +18,20 @@ const initialState = {
   },
   videoCount: localVideoCount,
   videoMark: localVideoMark,
+  videos: [
+    { id: 1, url: "video_url_1.mp4" },
+    { id: 2, url: "video_url_2.mp4" },
+    { id: 3, url: "video_url_3.mp4" },
+  ],
 };
 
 export const videoSlice = createSlice({
   name: "video",
   initialState,
   reducers: {
+    setVideos: (state, action) => {
+      state.videos = action.payload;
+    },
     closeVideoWindow: (state) => {
       state.isVideoWindowOpen = false;
     },
@@ -72,6 +81,15 @@ export const videoSlice = createSlice({
   },
 });
 
+export const fetchVideos = () => async (dispatch) => {
+  try {
+    const videos = await getVideos();
+    dispatch(setVideos(videos));
+  } catch (error) {
+    console.log("error fetching videos: ", error);
+  }
+};
+
 // Action creators are generated for each case reducer function
 export const {
   completeVideo,
@@ -81,7 +99,8 @@ export const {
   setVideoCount,
   setVideoMark,
   proceedAt,
-  completeAll
+  completeAll,
+  setVideos,
 } = videoSlice.actions;
 
 export default videoSlice.reducer;
