@@ -56,7 +56,7 @@ namespace ArcelikWebApi.Controllers
                         user.WatchedVideos.Add(watchedVideo);
 
                         // Update minutes watched directly with seconds, it may be deleted afterwards only seconds enough
-                        user.MinutesWatched += model.DurationInSeconds / 60.0;
+                        user.MinutesWatched += model.DurationInSeconds;
 
                         // Update the database
                         await _applicationDbContext.SaveChangesAsync();

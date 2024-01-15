@@ -2,12 +2,12 @@
 
 namespace ArcelikWebApi.Models
 {
-    public class User
+    public class Users
     {
         [Key]
         public Guid id { get; set; }
 
-        public string Email { get; set; }
+        public string? Email { get; set; }
 
         public bool isWatched { get; set; }
 

@@ -45,7 +45,7 @@ namespace ArcelikWebApi.Controllers
 
             if (isSaved == false)
             {
-                var Users = new User()
+                var Users = new Users()
                 {
                     id = Guid.NewGuid(),
                     Email = userEmailFromContext,
