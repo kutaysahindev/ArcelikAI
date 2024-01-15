@@ -1,19 +1,26 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice } from "@reduxjs/toolkit";
+
+const localLastCompleted = localStorage.getItem("lastCompleted") ? Number(localStorage.getItem("lastCompleted")) : 0;
+const localAllCompleted = localStorage.getItem("allCompleted") === "true" ? true : false;
+const localVideoCount = localStorage.getItem("videoCount") ? Number(localStorage.getItem("videoCount")) : 0;
+const localVideoMark = localStorage.getItem("videoMark") ? localStorage.getItem("videoMark") : {};
 
 const initialState = {
   isVideoWindowOpen: true,
   selectedVideo: 1,
-  lastCompleted: 0,
-  allCompleted: false,
+  lastCompleted: localLastCompleted,
+  allCompleted: localAllCompleted,
   completion: {
     video1: false,
     video2: false,
     video3: false,
   },
-}
+  videoCount: localVideoCount,
+  videoMark: localVideoMark,
+};
 
 export const videoSlice = createSlice({
-  name: 'video',
+  name: "video",
   initialState,
   reducers: {
     closeVideoWindow: (state) => {
@@ -26,14 +33,55 @@ export const videoSlice = createSlice({
       state.selectedVideo = action.payload;
     },
     completeVideo: (state, action) => {
-      state.completion["video" + action.payload] = true;
-      state.lastCompleted = action.payload;
-      if(action.payload===3) state.allCompleted = true;
+      if (state.selectedVideo > state.lastCompleted) {
+        state.completion["video" + action.payload] = true;
+        state.lastCompleted = action.payload;
+        localStorage.setItem("lastCompleted", action.payload);
+      }
+      if (state.videoCount > 0 && action.payload === state.videoCount) {
+        state.allCompleted = true;
+        localStorage.setItem("allCompleted", true);
+      }
+    },
+    setVideoCount: (state, action) => {
+      state.videoCount = action.payload;
+      localStorage.setItem("videoCount", action.payload);
+    },
+    proceedAt: (state, action) => {
+      const { video, time } = action.payload;
+      state.videoMark = action.payload;
+      state.selectedVideo = video;
+      state.completion["video" + video - 1] = true;
+      state.lastCompleted = video - 1;
+      localStorage.setItem("lastCompleted", video - 1);
+    },
+    completeAll: (state) => {
+      state.lastCompleted = state.videoCount;
+      localStorage.setItem("lastCompleted", state.videoCount);
+      state.allCompleted = true;
+      localStorage.setItem("allCompleted", true);
+      state.videoMark = {};
+      localStorage.setItem("videoMark", {});
+      closeVideoWindow();
+    },
+    setVideoMark: (state, action) => {
+      // const { video, time } = action.payload
+      state.videoMark = action.payload;
+      localStorage.setItem("videoMark", action.payload);
     },
   },
-})
+});
 
 // Action creators are generated for each case reducer function
-export const { completeVideo, setSelectedVideo, closeVideoWindow, openVideoWindow } = videoSlice.actions
+export const {
+  completeVideo,
+  setSelectedVideo,
+  closeVideoWindow,
+  openVideoWindow,
+  setVideoCount,
+  setVideoMark,
+  proceedAt,
+  completeAll
+} = videoSlice.actions;
 
-export default videoSlice.reducer
+export default videoSlice.reducer;

@@ -53,6 +53,12 @@ export default function Form() {
   const { authState, oktaAuth } = useOktaAuth();
 
   useEffect(() => {
+    if (isVideoWindowOpen) document.body.style.overflow = 'hidden';
+    else document.body.style.overflow = 'auto';
+    return () => document.body.style.overflow = 'auto';
+  }, [isVideoWindowOpen]);
+
+  useEffect(() => {
     const postVideo = async () => {
       try {
         const videoProg = await postVideoProgress(user.accessToken);
@@ -60,7 +66,7 @@ export default function Form() {
         throw error;
       }
     };
-    if (allCompleted) postVideo();
+    if (allCompleted && user.accessToken.length > 1) postVideo();
   }, [allCompleted, user.accessToken]);
 
   useEffect(() => {

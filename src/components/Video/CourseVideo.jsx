@@ -1,26 +1,38 @@
+import { useRef, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import useVideoPlayer from "../../hooks/useVideoPlayer";
+import { closeVideoWindow, setSelectedVideo } from "../../redux/videoSlice";
 import { FaPlay } from "react-icons/fa";
 import { FaForward, FaBackward } from "react-icons/fa6";
 import { MdReportGmailerrorred } from "react-icons/md";
 import "./CourseVideo.css";
-
-import sample1 from "../../assets/videos/sample1.mp4";
-import sample2 from "../../assets/videos/sample2.mp4";
-import sample3 from "../../assets/videos/sample3.mp4";
-import useVideoPlayer from "../../hooks/useVideoPlayer";
-import { useDispatch, useSelector } from "react-redux";
-import { closeVideoWindow, setSelectedVideo } from "../../redux/videoSlice";
+import { videos } from "../../utils/videos";
 
 const CourseVideo = () => {
+  const stateRef = useRef();
   const dispatch = useDispatch();
-  const { selectedVideo, lastCompleted, allCompleted } = useSelector(
+  const { selectedVideo, lastCompleted, allCompleted, videoCount } = useSelector(
     (state) => state.video
   );
   const { videoRef, videoDetails, watchAgain } = useVideoPlayer();
-  const { progress, isCompleted } = videoDetails;
+  const { currentTime, progress, isCompleted, status } = videoDetails;
+  stateRef.current = currentTime;
 
   const videoSelector = (num) => {
     dispatch(setSelectedVideo(selectedVideo + num));
   };
+
+  const postCurrentTime = (curr) => {
+    return;
+    console.log('Current Time:', curr);
+  };
+
+  useEffect(() => {
+    let intervalId;
+    const pCT = () => postCurrentTime(stateRef.current);
+    if (status) intervalId = setInterval(pCT, 2000);
+    return () => clearInterval(intervalId);
+  }, [status]);
 
   return (
     <div className="video-container" id={`${selectedVideo}-cont`}>
@@ -36,47 +48,17 @@ const CourseVideo = () => {
         Please watch the video from start to end without changing the playback
         rate and seeking
       </p>
-      {selectedVideo === 1 && (
-        <video
-          className="video"
-          ref={videoRef}
-          width="300"
-          height="300"
-          controls
-          controlsList="nodownload noplaybackrate "
-        >
-          <source src={sample1} type="video/mp4" />
-        </video>
-      )}
-      {selectedVideo === 2 && (
-        <video
-          className="video"
-          ref={videoRef}
-          width="300"
-          height="300"
-          controls
-          controlsList="nodownload noplaybackrate "
-        >
-          <source src={sample2} type="video/mp4" />
-        </video>
-      )}
-      {selectedVideo === 3 && (
-        <video
-          className="video"
-          ref={videoRef}
-          width="300"
-          height="300"
-          controls
-          controlsList="nodownload noplaybackrate "
-        >
-          <source src={sample3} type="video/mp4" />
-        </video>
-      )}
-      {(selectedVideo < 1 || selectedVideo > 3) && (
-        <div className="video-not-found">
-          <MdReportGmailerrorred size={40} /> <p>Video Not Found</p>
-        </div>
-      )}
+      <video
+        className="video"
+        ref={videoRef}
+        width="300"
+        height="300"
+        controls
+        controlsList="nodownload noplaybackrate "
+        src={videos[selectedVideo-1].src}
+        type="video/mp4"
+      />
+      {(selectedVideo<1 || selectedVideo>videoCount) && <div className="video-not-found"><MdReportGmailerrorred size={40}/> <p>Video Not Found</p></div>}
       {/* <p>Current Time: {currentTime.toFixed(2)} seconds</p> */}
       <div className="btn-container">
         <button
@@ -91,7 +73,7 @@ const CourseVideo = () => {
           <span>Watch Again</span>
           <FaPlay />
         </button>
-        {selectedVideo < 3 ? (
+        {selectedVideo < videoCount ? (
           <button
             className="btns next"
             onClick={() => videoSelector(1)}
@@ -110,8 +92,6 @@ const CourseVideo = () => {
           </button>
         )}
       </div>
-      {/* <button onClick={() => dispatch(completeVideo(selectedVideo))}>rdx</button>
-      <div>{ String(completion["video"+selectedVideo]) }</div> */}
     </div>
   );
 };
