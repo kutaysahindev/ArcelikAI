@@ -84,3 +84,13 @@ export const postVideoProgress = async (accessToken) => {
     throw error;
   }
 };
+
+export const getVideos = async (accessToken) => {
+  try {
+    setAuthHeader(accessToken);
+    const response = await instance.get("/api/videos");
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};

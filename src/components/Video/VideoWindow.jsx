@@ -3,7 +3,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { IoCloseOutline, IoInformationCircleOutline } from "react-icons/io5";
 import CourseVideo from "./CourseVideo";
 import { driver } from "driver.js";
-import { closeVideoWindow, setSelectedVideo } from "../../redux/videoSlice";
+import {
+  closeVideoWindow,
+  setSelectedVideo,
+  fetchVideos,
+} from "../../redux/videoSlice";
 import "driver.js/dist/driver.css";
 
 import "./VideoWindow.css";
@@ -18,6 +22,9 @@ const VideoWindow = () => {
   );
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    dispatch(fetchVideos());
+  }, [dispatch]);
   const videoSelector = (num) => {
     dispatch(setSelectedVideo(num));
   };
