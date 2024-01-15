@@ -1,12 +1,8 @@
 ﻿using ArcelikWebApi.Data;
 using ArcelikWebApi.Middlewares;
-using ArcelikWebApi.Models;
 using ArcelikWebApi.Services;
 using Azure.Storage.Blobs;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.FileProviders;
 using Microsoft.IdentityModel.Protocols;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Newtonsoft.Json.Serialization;

@@ -9,27 +9,24 @@ namespace ArcelikWebApi.Data
         {
         }
 
-        // DbSet for AiApplication
+        // DbSet for Tables
         public DbSet<AiApplication> AiApplications { get; set; }
         public DbSet<Users> Users { get; set; }
+        public DbSet<WatchedVideo> WatchedVideo { get; set; }
+        public DbSet<Videos> Videos { get; set; }
 
-        
-        // DbSet for PdfEntity
-        //public DbSet<PdfEntity> PdfEntities { get; set; }
+    }
+    //Seed Video Data in DbContext:Seed your Video data in the ApplicationDbContext:
 
-        /*
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            // Configure relationships
-            modelBuilder.Entity<AiApplication>()
-                .HasMany(a => a.Pdfs)
-                .WithOne(p => p.AiApplication)
-                .HasForeignKey(p => p.AiApplicationId);
+    public DbSet<Videos> Videos { get; set; }
 
-            base.OnModelCreating(modelBuilder);
-        }
-        */
-        
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<Video>().HasData(
+        new Video { Id = 1, Title = "Video 1", DurationInSeconds = 300, BlobStorageUrl = "your_blob_storage_url_1" },
+        new Video { Id = 2, Title = "Video 2", DurationInSeconds = 420, BlobStorageUrl = "your_blob_storage_url_2" },
+            new Video { Id = 3, Title = "Video 3", DurationInSeconds = 240, BlobStorageUrl = "your_blob_storage_url_3" }
+        );
     }
 }
 

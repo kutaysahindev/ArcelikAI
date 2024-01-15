@@ -43,8 +43,10 @@ namespace ArcelikWebApi.Controllers
                     {
                         user.isWatched = model.IsWatched;
 
+                        var VideoTimeWatched = 10; // remove here after frontend sent videotimewatched
+
                         // Update minutes watched directly with seconds
-                        int videoDurationSeconds = model.VideoTimeWatched; // Assuming VideoTimeWatched is in seconds
+                        int videoDurationSeconds = VideoTimeWatched; // Assuming VideoTimeWatched is in seconds
                         user.MinutesWatched += videoDurationSeconds / 60.0; // Directly update to the user model and apply it to the database with minutes
 
                         // Update the database

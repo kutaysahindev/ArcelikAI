@@ -1,15 +1,9 @@
 ﻿namespace ArcelikWebApi.Models
 {
-    public class IsWatchedModel
+    public class WatchedVideo
     {
-        public bool IsWatched { get; set; }
-
-        public int? VideoTimeWatched { get; set; }
-
         public int VideoId { get; set; }
-
         public int DurationInSeconds { get; set; }
+        // Add other properties as needed
     }
-
 }
-

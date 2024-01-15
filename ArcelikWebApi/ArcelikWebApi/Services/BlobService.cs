@@ -14,23 +14,7 @@ namespace ArcelikWebApi.Services
             _blobServiceClient = blobServiceClient; 
         }
 
-        /*
-        public async Task<string> Upload(AddAiAppViewModel addAiAppViewModel)
-        {
-            var containerName = "file-upload"; // Change this to your actual container name
-            var containerInstance = _blobServiceClient.GetBlobContainerClient(containerName);
-
-            var blobName = addAiAppViewModel.Pdfs.FileName;
-            var blobInstance = containerInstance.GetBlobClient(blobName);
-
-            await blobInstance.UploadAsync(addAiAppViewModel.Pdfs.OpenReadStream());
-
-            // Construct and return the Blob URL
-            return $"{containerInstance.Uri}/{blobName}";
-        }
-        */
-
-        
+      
         public async Task<string> Upload(IFormFile fileUpload)
         {
             var containerName = "file-upload"; // Change this to your actual container name

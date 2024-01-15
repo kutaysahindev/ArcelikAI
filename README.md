@@ -6,7 +6,7 @@ This repository contains a web application built using React for the Front-end a
 
 - **React**: A JavaScript library for building user interfaces.
 - **ASP.NET**: A web framework for building modern, cloud-based, and internet-connected applications.
-- **Okta**: Provides secure identity management with authentication and authorization services.
+- ****: Provides secure identity management with authentication and authorization services.
 - **Axios**: A promise-based HTTP client for making requests to the server.
 - **useReducer**: A React hook for managing complex state logic in functional components.
 - **React Router**: A library for handling navigation and routing in a React application.
