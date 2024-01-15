@@ -49,8 +49,10 @@ namespace ArcelikWebApi.Controllers
 
                         var watchedVideo = new WatchedVideo
                         {
-                            VideoId = model.VideoId,
-                            DurationInSeconds = model.DurationInSeconds
+                            //VideoId = model.VideoId, the code will be used when frontend sending data
+                            //DurationInSeconds = model.DurationInSeconds the code will be used when frontend sending data
+                            VideoId = 2,
+                            DurationInSeconds = 5
                         };
 
                         user.WatchedVideos.Add(watchedVideo);

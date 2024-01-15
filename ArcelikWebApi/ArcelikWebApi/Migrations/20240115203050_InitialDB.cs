@@ -40,13 +40,13 @@ namespace ArcelikWebApi.Migrations
                 columns: table => new
                 {
                     id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Email = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     isWatched = table.Column<bool>(type: "bit", nullable: false),
                     MinutesWatched = table.Column<double>(type: "float", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Users", x => x.id);
+                    table.PrimaryKey("PK_Users", x => new { x.id, x.Email });
                 });
 
             migrationBuilder.CreateTable(
@@ -72,16 +72,17 @@ namespace ArcelikWebApi.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     VideoId = table.Column<int>(type: "int", nullable: false),
                     DurationInSeconds = table.Column<int>(type: "int", nullable: false),
-                    Userid = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    Userid = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_WatchedVideo", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_WatchedVideo_Users_Userid",
-                        column: x => x.Userid,
+                        name: "FK_WatchedVideo_Users_Userid_Email",
+                        columns: x => new { x.Userid, x.Email },
                         principalTable: "Users",
-                        principalColumn: "id",
+                        principalColumns: new[] { "id", "Email" },
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -96,9 +97,9 @@ namespace ArcelikWebApi.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_WatchedVideo_Userid",
+                name: "IX_WatchedVideo_Userid_Email",
                 table: "WatchedVideo",
-                column: "Userid");
+                columns: new[] { "Userid", "Email" });
         }
 
         /// <inheritdoc />

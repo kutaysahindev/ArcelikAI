@@ -7,6 +7,7 @@ namespace ArcelikWebApi.Models
         [Key]
         public Guid id { get; set; }
 
+        [Key]
         public string? Email { get; set; }
 
         public bool isWatched { get; set; }

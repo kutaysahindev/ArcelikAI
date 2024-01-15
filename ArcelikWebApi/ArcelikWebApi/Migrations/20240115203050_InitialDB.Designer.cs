@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ArcelikWebApi.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240115170617_InitialDB")]
+    [Migration("20240115203050_InitialDB")]
     partial class InitialDB
     {
         /// <inheritdoc />
@@ -78,11 +78,10 @@ namespace ArcelikWebApi.Migrations
             modelBuilder.Entity("ArcelikWebApi.Models.Users", b =>
                 {
                     b.Property<Guid>("id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<double>("MinutesWatched")
                         .HasColumnType("float");
@@ -90,7 +89,7 @@ namespace ArcelikWebApi.Migrations
                     b.Property<bool>("isWatched")
                         .HasColumnType("bit");
 
-                    b.HasKey("id");
+                    b.HasKey("id", "Email");
 
                     b.ToTable("Users");
                 });
@@ -151,6 +150,9 @@ namespace ArcelikWebApi.Migrations
                     b.Property<int>("DurationInSeconds")
                         .HasColumnType("int");
 
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<Guid>("Userid")
                         .HasColumnType("uniqueidentifier");
 
@@ -159,7 +161,7 @@ namespace ArcelikWebApi.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Userid");
+                    b.HasIndex("Userid", "Email");
 
                     b.ToTable("WatchedVideo");
                 });
@@ -168,9 +170,8 @@ namespace ArcelikWebApi.Migrations
                 {
                     b.HasOne("ArcelikWebApi.Models.Users", "User")
                         .WithMany("WatchedVideos")
-                        .HasForeignKey("Userid")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("Userid", "Email")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("User");
                 });

@@ -17,17 +17,23 @@ namespace ArcelikWebApi.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Users>()
+                .HasKey(u => new { u.id, u.Email });
+
+            // Your other configurations...
+
             modelBuilder.Entity<WatchedVideo>()
                 .HasOne(wv => wv.User)
                 .WithMany(u => u.WatchedVideos)
-                .HasForeignKey(wv => wv.Userid)
-                .OnDelete(DeleteBehavior.Cascade); // Add a foreign key property to WatchedVideo for the relationship
+                .HasForeignKey(wv => new { wv.Userid, wv.Email })
+                .OnDelete(DeleteBehavior.Cascade);
 
             base.OnModelCreating(modelBuilder);
 
             //Seed Video Data in DbContext:Seed your Video data in the ApplicationDbContext:
 
-            // Seed Video data
+            //seeding Video data
+
             modelBuilder.Entity<Video>().HasData(
                 new Video { Id = 1, Title = "Video 1", DurationInSeconds = 5, BlobStorageUrl = "https://arcelikstorage.blob.core.windows.net/videos/sample1.mp4" },
                 new Video { Id = 2, Title = "Video 2", DurationInSeconds = 8, BlobStorageUrl = "https://arcelikstorage.blob.core.windows.net/videos/sample2.mp4" },
