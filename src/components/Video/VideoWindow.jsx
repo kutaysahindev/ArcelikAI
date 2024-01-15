@@ -3,18 +3,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { IoCloseOutline, IoInformationCircleOutline } from "react-icons/io5";
 import CourseVideo from "./CourseVideo";
 import { driver } from "driver.js";
-import {
-  closeVideoWindow,
-  setSelectedVideo,
-  fetchVideos,
-} from "../../redux/videoSlice";
+import { closeVideoWindow, setSelectedVideo, setVideoCount, fetchVideos } from "../../redux/videoSlice";
 import "driver.js/dist/driver.css";
 
 import "./VideoWindow.css";
-import sample1 from "../../assets/videos/sample1.mp4";
-import sample2 from "../../assets/videos/sample2.mp4";
-import sample3 from "../../assets/videos/sample3.mp4";
 import { videoDriver } from "../../utils/guides";
+import { videos } from "../../utils/videos";
 
 const VideoWindow = () => {
   const { lastCompleted, selectedVideo, allCompleted } = useSelector(
@@ -28,6 +22,13 @@ const VideoWindow = () => {
   const videoSelector = (num) => {
     dispatch(setSelectedVideo(num));
   };
+
+  // useEffect(() => {
+  //   console.log("first")
+  //   // PIN - THIS MUST BE SOMEWHERE ELSE (e.g. Main.jsx)
+  //   dispatch(setVideoCount(videos.length));
+  //   // if (videoMark.video >= 1) dispatch(setSelectedVideo(videoMark.video))
+  // }, [])
 
   // useEffect(() => {
   //   driverObj.drive();
@@ -50,33 +51,22 @@ const VideoWindow = () => {
           <button
             className="w-btn x"
             onClick={() => dispatch(closeVideoWindow())}
-            disabled={!allCompleted}
+            disabled={allCompleted}
           >
             <IoCloseOutline size={20} />
           </button>
         </div>
         <div className="video-tabs">
-          <button
-            className={`v-btn ${selectedVideo === 1 ? "selected-video" : ""}`}
-            onClick={() => videoSelector(1)}
-            disabled={1 > lastCompleted + 1}
-          >
-            Video 1
-          </button>
-          <button
-            className={`v-btn ${selectedVideo === 2 ? "selected-video" : ""}`}
-            onClick={() => videoSelector(2)}
-            disabled={2 > lastCompleted + 1}
-          >
-            Video 2
-          </button>
-          <button
-            className={`v-btn ${selectedVideo === 3 ? "selected-video" : ""}`}
-            onClick={() => videoSelector(3)}
-            disabled={3 > lastCompleted + 1}
-          >
-            Video 3
-          </button>
+        {videos.map((v) => (
+            <button
+              key={v.id}
+              className={`v-btn ${selectedVideo === v.id ? "selected-video" : ""}`}
+              onClick={() => videoSelector(v.id)}
+              disabled={v.id > lastCompleted + 1}
+            >
+              Video {v.id}
+            </button>
+          ))}
         </div>
         <div className="content">
           <CourseVideo />
