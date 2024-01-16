@@ -1,23 +1,38 @@
 ﻿<Properties StartupConfiguration="{7F93A0A0-580C-444D-93DA-CCDA16F4155A}|https">
-  <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
-  </MonoDevelop.Ide.DebuggingService.Breakpoints>
-  <MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <Debugger.DebugSourceFolders>
+    <String>/Users/kutaysahin/Desktop/Projects/arcelik-ai</String>
+  </Debugger.DebugSourceFolders>
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.Workbench ActiveDocument="ArcelikWebApi/Models/AddAiAppViewModel.cs">
+    <Files>
+      <File FileName="ArcelikWebApi/Models/AiApplication.cs" />
+      <File FileName="ArcelikWebApi/Data/ApplicationDbContext.cs" />
+      <File FileName="ArcelikWebApi/Middlewares/TokenValidationMiddleware.cs" />
+      <File FileName="ArcelikWebApi/Controllers/CreateAppController.cs" />
+      <File FileName="ArcelikWebApi/Properties/launchSettings.json" />
+      <File FileName="ArcelikWebApi/Models/IsWatchedModel.cs" />
+      <File FileName="ArcelikWebApi/Models/Users.cs" />
+      <File FileName="ArcelikWebApi/Models/AddAiAppViewModel.cs" Line="19" Column="31" />
+    </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
-          <Node name="ArcelikWebApi" expanded="True">
-            <Node name="ArcelikWebApi" expanded="True" />
+          <Node name="ArcelikWebApi">
+            <Node name="ArcelikWebApi">
+              <Node name="Models" expanded="True">
+                <Node name="AiApplication.cs" selected="True" />
+              </Node>
+              <Node name="Properties" expanded="True" />
+            </Node>
           </Node>
         </State>
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.ItemProperties.ArcelikWebApi PreferredExecutionTarget="/Applications/Google Chrome.app" />
-  <Debugger.DebugSourceFolders>
-    <String>/Users/kutaysahin/Desktop/Projects/arcelik-ai</String>
-  </Debugger.DebugSourceFolders>
-  <MultiItemStartupConfigurations />
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
 </Properties>
