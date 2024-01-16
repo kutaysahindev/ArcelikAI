@@ -7,13 +7,12 @@ namespace ArcelikWebApi.Models
         [Key]
         public Guid id { get; set; }
 
-        [Key]
-        public string? Email { get; set; }
+        public string Email { get; set; }
 
         public bool isWatched { get; set; }
 
-        public ICollection<WatchedVideo> WatchedVideos { get; set; } = new List<WatchedVideo>();
+        public List<UserVideo> WatchedVideos { get; set; }
 
-        public double MinutesWatched { get; set; } // Changed to double for decimal specify
+
     }
 }

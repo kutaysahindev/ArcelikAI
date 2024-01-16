@@ -1,10 +1,7 @@
 ﻿using ArcelikWebApi.Data;
-using ArcelikWebApi.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Linq;
-using System.Threading.Tasks;
+
 
 namespace ArcelikWebApi.Controllers
 {
@@ -20,13 +17,15 @@ namespace ArcelikWebApi.Controllers
         }
 
         [HttpGet("getUserVideoInfo")]
-        public async Task<IActionResult> getUserVideoInfo(string userEmail)
+        public async Task<IActionResult> getUserVideoInfo()
         {
             try
             {
                 // Fetch the user's information including isWatched value
+                var userEmail = HttpContext.Items["UserEmail"] as string;
                 var user = await _applicationDbContext.Users
                     .Include(u => u.WatchedVideos)
+                    .ThenInclude(uv => uv.Video)  // Include Video information for each UserVideo
                     .Where(u => u.Email == userEmail)
                     .FirstOrDefaultAsync();
 
@@ -36,7 +35,7 @@ namespace ArcelikWebApi.Controllers
                 }
 
                 // Get the latest watched video
-                var latestWatchedVideo = user.WatchedVideos.OrderByDescending(wv => wv.Id).FirstOrDefault();
+                var latestWatchedVideo = user.WatchedVideos.OrderByDescending(uv => uv.VideoId).FirstOrDefault();
 
                 if (latestWatchedVideo == null)
                 {
@@ -64,7 +63,7 @@ namespace ArcelikWebApi.Controllers
                 {
                     allCompleted = user.isWatched,
                     VideoMarkId = latestWatchedVideo.VideoId,
-                    VideoMarkTime = latestWatchedVideo.DurationInSeconds,
+                    VideoMarkTime = latestWatchedVideo.WatchedTimeInSeconds,
                     VideoCount = latestVideoId,
                     videoInfo = new
                     {
@@ -82,4 +81,3 @@ namespace ArcelikWebApi.Controllers
         }
     }
 }
-        

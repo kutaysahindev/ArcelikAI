@@ -12,21 +12,26 @@ namespace ArcelikWebApi.Data
         // DbSet for Tables
         public DbSet<AiApplication> AiApplications { get; set; }
         public DbSet<Users> Users { get; set; }
-        public DbSet<WatchedVideo> WatchedVideo { get; set; }
+        public DbSet<UserVideo> UserVideo { get; set; }
         public DbSet<Video> Videos { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Users>()
-                .HasKey(u => new { u.id, u.Email });
+            // Configure the many-to-many relationship
+            modelBuilder.Entity<UserVideo>()
+                .HasKey(uv => new { uv.Userid, uv.VideoId });
 
             // Your other configurations...
 
-            modelBuilder.Entity<WatchedVideo>()
-                .HasOne(wv => wv.User)
+            modelBuilder.Entity<UserVideo>()
+                .HasOne(uv => uv.User)
                 .WithMany(u => u.WatchedVideos)
-                .HasForeignKey(wv => new { wv.Userid, wv.Email })
-                .OnDelete(DeleteBehavior.Cascade);
+                .HasForeignKey(uv => uv.Userid);
+
+            modelBuilder.Entity<UserVideo>()
+                .HasOne(uv => uv.Video)
+                .WithMany(v => v.UsersWhoWatched) 
+                .HasForeignKey(uv => uv.VideoId);
 
             base.OnModelCreating(modelBuilder);
 
@@ -35,9 +40,9 @@ namespace ArcelikWebApi.Data
             //seeding Video data
 
             modelBuilder.Entity<Video>().HasData(
-                new Video { Id = 1, Title = "Video 1", DurationInSeconds = 5, BlobStorageUrl = "https://arcelikstorage.blob.core.windows.net/videos/sample1.mp4" },
-                new Video { Id = 2, Title = "Video 2", DurationInSeconds = 8, BlobStorageUrl = "https://arcelikstorage.blob.core.windows.net/videos/sample2.mp4" },
-                new Video { Id = 3, Title = "Video 3", DurationInSeconds = 10, BlobStorageUrl = "https://arcelikstorage.blob.core.windows.net/videos/sample3.mp4" }
+                new Video { Id = 1, Title = "Video 1", VideoDuration = 5, BlobStorageUrl = "https://arcelikstorage.blob.core.windows.net/videos/sample1.mp4" },
+                new Video { Id = 2, Title = "Video 2", VideoDuration = 8, BlobStorageUrl = "https://arcelikstorage.blob.core.windows.net/videos/sample2.mp4" },
+                new Video { Id = 3, Title = "Video 3", VideoDuration = 10, BlobStorageUrl = "https://arcelikstorage.blob.core.windows.net/videos/sample3.mp4" }
             );
 
         }

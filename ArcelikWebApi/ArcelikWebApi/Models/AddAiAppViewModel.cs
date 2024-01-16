@@ -19,7 +19,7 @@
 
         public float ModalTemperature { get; set; }
 
-        public List<IFormFile> Pdfs { get; set; }
+        public List<IFormFile>? Pdfs { get; set; }
 
         public string Email { get; set; }
 

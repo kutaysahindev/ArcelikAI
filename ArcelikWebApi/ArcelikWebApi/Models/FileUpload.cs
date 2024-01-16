@@ -2,7 +2,7 @@
 {
     public class FileUpload
 	{
-        public IFormFile Pdfs { get; set; }
+        public IFormFile? Pdfs { get; set; }
     }
 }
 

@@ -37,8 +37,6 @@ namespace ArcelikWebApi.Controllers
                 if (userEmail != null)
                 {
                     // Find the user by email
-                    //old code var user = await _applicationDbContext.Users.FirstOrDefaultAsync(u => u.Email == userEmail);
-
                     var user = await _applicationDbContext.Users
                         .Include(u => u.WatchedVideos)
                         .FirstOrDefaultAsync(u => u.Email == userEmail);
@@ -47,18 +45,30 @@ namespace ArcelikWebApi.Controllers
                     {
                         user.isWatched = model.IsWatched;
 
-                        var watchedVideo = new WatchedVideo
+                        // Check if the user has already watched the video (ornegin 2.videoda kaldı user 3.saniyede 
+                        // ve tekrar girdiğinde frontend bize VideoId 2 diye gönderecek bunu track edecegiz ve sadece saniyesinin
+                        // güncellenmesini sağlayacağız.
+                        var existingUserVideo = user.WatchedVideos
+                            .Find(uv => uv.VideoId == model.VideoId);
+
+                        if (existingUserVideo != null)
                         {
-                            VideoId = model.VideoId, //the code will be used when frontend sending data
-                            DurationInSeconds = model.DurationInSeconds //the code will be used when frontend sending data
-                            //VideoId = 2,
-                            //DurationInSeconds = 5
-                        };
+                            // Update the existing UserVideo entity
+                            existingUserVideo.WatchedTimeInSeconds = model.WatchedTimeInSeconds;
+                            // No need to add or update, as the entity is already being tracked
+                        }
+                        else
+                        {
+                            // Create a new UserVideo entity(eğer yeni bir video geçildiyse otomatik ekleyecek)
+                            var newUserVideo = new UserVideo
+                            {
+                                VideoId = model.VideoId,
+                                WatchedTimeInSeconds = model.WatchedTimeInSeconds,
+                            };
 
-                        user.WatchedVideos.Add(watchedVideo);
-
-                        // Update minutes watched directly with seconds, it may be deleted afterwards only seconds enough
-                        user.MinutesWatched += model.DurationInSeconds;
+                            // Add the new UserVideo to the user's watched videos
+                            user.WatchedVideos.Add(newUserVideo);
+                        }
 
                         // Update the database
                         await _applicationDbContext.SaveChangesAsync();
@@ -67,12 +77,12 @@ namespace ArcelikWebApi.Controllers
                     }
                     else
                     {
-                        return NotFound("User not found"); // Customize the response as needed
+                        return NotFound("User not found");
                     }
                 }
                 else
                 {
-                    return BadRequest("User email not provided in the request"); // Customize the response as needed
+                    return BadRequest("User email not provided in the request");
                 }
             }
             catch (Exception ex)

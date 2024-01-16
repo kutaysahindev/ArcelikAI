@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace ArcelikWebApi.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialDB : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -26,7 +26,7 @@ namespace ArcelikWebApi.Migrations
                     EnableUploadPdfFile = table.Column<bool>(type: "bit", nullable: false),
                     ConversationRetentionPeriod = table.Column<int>(type: "int", nullable: false),
                     ModalTemperature = table.Column<float>(type: "real", nullable: false),
-                    Pdfs_Urls = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Pdfs_Urls = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Date = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
@@ -40,13 +40,12 @@ namespace ArcelikWebApi.Migrations
                 columns: table => new
                 {
                     id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    isWatched = table.Column<bool>(type: "bit", nullable: false),
-                    MinutesWatched = table.Column<double>(type: "float", nullable: false)
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    isWatched = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Users", x => new { x.id, x.Email });
+                    table.PrimaryKey("PK_Users", x => x.id);
                 });
 
             migrationBuilder.CreateTable(
@@ -56,7 +55,7 @@ namespace ArcelikWebApi.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Title = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    DurationInSeconds = table.Column<int>(type: "int", nullable: false),
+                    VideoDuration = table.Column<int>(type: "int", nullable: false),
                     BlobStorageUrl = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
@@ -65,41 +64,44 @@ namespace ArcelikWebApi.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "WatchedVideo",
+                name: "UserVideo",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
                     VideoId = table.Column<int>(type: "int", nullable: false),
-                    DurationInSeconds = table.Column<int>(type: "int", nullable: false),
                     Userid = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                    WatchedTimeInSeconds = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_WatchedVideo", x => x.Id);
+                    table.PrimaryKey("PK_UserVideo", x => new { x.Userid, x.VideoId });
                     table.ForeignKey(
-                        name: "FK_WatchedVideo_Users_Userid_Email",
-                        columns: x => new { x.Userid, x.Email },
+                        name: "FK_UserVideo_Users_Userid",
+                        column: x => x.Userid,
                         principalTable: "Users",
-                        principalColumns: new[] { "id", "Email" },
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_UserVideo_Videos_VideoId",
+                        column: x => x.VideoId,
+                        principalTable: "Videos",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.InsertData(
                 table: "Videos",
-                columns: new[] { "Id", "BlobStorageUrl", "DurationInSeconds", "Title" },
+                columns: new[] { "Id", "BlobStorageUrl", "Title", "VideoDuration" },
                 values: new object[,]
                 {
-                    { 1, "https://arcelikstorage.blob.core.windows.net/videos/sample1.mp4", 5, "Video 1" },
-                    { 2, "https://arcelikstorage.blob.core.windows.net/videos/sample2.mp4", 8, "Video 2" },
-                    { 3, "https://arcelikstorage.blob.core.windows.net/videos/sample3.mp4", 10, "Video 3" }
+                    { 1, "https://arcelikstorage.blob.core.windows.net/videos/sample1.mp4", "Video 1", 5 },
+                    { 2, "https://arcelikstorage.blob.core.windows.net/videos/sample2.mp4", "Video 2", 8 },
+                    { 3, "https://arcelikstorage.blob.core.windows.net/videos/sample3.mp4", "Video 3", 10 }
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_WatchedVideo_Userid_Email",
-                table: "WatchedVideo",
-                columns: new[] { "Userid", "Email" });
+                name: "IX_UserVideo_VideoId",
+                table: "UserVideo",
+                column: "VideoId");
         }
 
         /// <inheritdoc />
@@ -109,13 +111,13 @@ namespace ArcelikWebApi.Migrations
                 name: "AiApplications");
 
             migrationBuilder.DropTable(
-                name: "Videos");
-
-            migrationBuilder.DropTable(
-                name: "WatchedVideo");
+                name: "UserVideo");
 
             migrationBuilder.DropTable(
                 name: "Users");
+
+            migrationBuilder.DropTable(
+                name: "Videos");
         }
     }
 }

@@ -2,8 +2,12 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ArcelikWebApi.Models;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+using Microsoft.IdentityModel.Protocols;
+using Microsoft.IdentityModel.Protocols.OpenIdConnect;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System;
+using ArcelikWebApi.Middlewares;
 
 namespace ArcelikWebApi.Controllers
 {
@@ -13,50 +17,82 @@ namespace ArcelikWebApi.Controllers
     {
         private readonly ApplicationDbContext _applicationDbContext;
 
-        public TokenValidationController(ApplicationDbContext applicationDbContext)
+        private readonly ILogger<TokenValidationController> _logger;
+
+        public TokenValidationController(ApplicationDbContext applicationDbContext,
+            ILogger<TokenValidationController> logger)
         {
             _applicationDbContext = applicationDbContext;
+            _logger = logger;
         }
 
         [HttpPost("validation")]
         public async Task<IActionResult> ValidateToken()
         {
-            var emails = await _applicationDbContext.Users
-                .Select(user => user.Email)
-                .ToListAsync();
-
-            // Retrieve user email from context.Items
-            var userEmailFromContext = HttpContext.Items["UserEmail"] as string;
-
-            if (userEmailFromContext == null)
+            try
             {
-                return Unauthorized(new { message = "Token validation failed" });
-            }
+                var emails = await _applicationDbContext.Users
+                    .Select(user => user.Email)
+                    .ToListAsync();
 
-            bool isSaved = false;
+                // Retrieve user email from context.Items
+                var userEmailFromContext = HttpContext.Items["UserEmail"] as string;
 
-            foreach (var email in emails)
-            {
-                if (email == userEmailFromContext)
+                if (userEmailFromContext == null)
                 {
-                    isSaved = true;
+                    return Unauthorized(new { message = "Token validation failed" });
                 }
-            }
 
-            if (isSaved == false)
-            {
-                var Users = new Users()
+                bool isSaved = false;
+
+                foreach (var email in emails)
                 {
-                    id = Guid.NewGuid(),
-                    Email = userEmailFromContext,
-                    isWatched = false
-                };
+                    if (email == userEmailFromContext)
+                    {
+                        isSaved = true;
+                    }
+                }
 
-                _applicationDbContext.Users.Add(Users);
-                _applicationDbContext.SaveChanges();
+                if (isSaved == false)
+                {
+                    var Users = new Users()
+                    {
+                        id = Guid.NewGuid(),
+                        Email = userEmailFromContext,
+                        isWatched = false
+                    };
+
+                    _applicationDbContext.Users.Add(Users);
+                    _applicationDbContext.SaveChanges();
+                }
+
+                return Ok("Token validation completed.");
+            }
+            catch (ArgumentException ex)
+            {
+                // Log the specific error
+                if (ex.Message.Contains("IDX12729"))
+                {
+                    return BadRequest(new { message = "Invalid token structure or length." });
+                }
+                else if (ex.Message.Contains("IDX10503"))
+                {
+                    return BadRequest(new { message = "Invalid token format." });
+                }
+
+                // Generic error response
+                return StatusCode(500, new { message = "Internal Server Error", details = ex.Message });
+
+            }
+            catch (Exception ex)
+            {
+                // Log any other unexpected exceptions
+                _logger.LogError(ex, "Unexpected error during token validation: {ErrorMessage}", ex.Message);
+
+                return StatusCode(500, new { message = "Internal Server Error", details = ex.Message });
             }
 
-            return Ok("Token validation completed.");
         }
     }
 }
+
