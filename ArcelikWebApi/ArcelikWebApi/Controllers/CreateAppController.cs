@@ -42,13 +42,6 @@ namespace ArcelikWebApi.Controllers
             // Retrieve user email from context.Items
             var userEmailFromContext = HttpContext.Items["UserEmail"] as string;
 
-            // Additional check to ensure the email from the form matches the email from the token
-            if (!string.Equals(userEmailFromContext, formData.Email, StringComparison.OrdinalIgnoreCase))
-            {
-                // If emails don't match, return unauthorized
-                return Unauthorized(new { success = false, message = "Unauthorized: Email mismatch" });
-            }
-
             if (ModelState.IsValid)
             {
                 //Additional server-side validation for the date and time
@@ -73,9 +66,6 @@ namespace ArcelikWebApi.Controllers
                     Email = userEmailFromContext,
                     Date = formData.Date
                 };
-
-                //if(token user bilgileri ile modela attığın user bilgilerini karşışarştır)
-                //{eğer karşılaştırma başarasız olursa http 401 dön }
 
                 _applicationDbContext.AiApplications.Add(aiApplication);
 

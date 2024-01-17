@@ -17,7 +17,7 @@ export const validateToken = async (accessToken) => {
   try {
     setAuthHeader(accessToken);
 
-    const response = await instance.post("/api/tokenvalidation/validation", {});
+    const response = await instance.post("/api/saveuser/save", {});
     return response.status;
   } catch (error) {
     throw error;

@@ -15,17 +15,17 @@ namespace ArcelikWebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class TokenValidationController : ControllerBase
+    public class SaveUserController : ControllerBase
     {
         private readonly ApplicationDbContext _applicationDbContext;
 
-        public TokenValidationController(ApplicationDbContext applicationDbContext)
+        public SaveUserController(ApplicationDbContext applicationDbContext)
         {
             _applicationDbContext = applicationDbContext;
         }
 
-        [HttpPost("validation")]
-        public async Task<IActionResult> ValidateToken()
+        [HttpPost("save")]
+        public async Task<IActionResult> saveUser()
         {
             var emails = await _applicationDbContext.Users
                 .Select(user => user.Email)
@@ -55,7 +55,9 @@ namespace ArcelikWebApi.Controllers
                 {
                     id = Guid.NewGuid(),
                     Email = userEmailFromContext,
-                    isWatched = false
+                    isWatchedAll = false,
+                    WatchedVideoId = 1,
+                    WatchedTimeInSeconds = 0
                 };
 
                 _applicationDbContext.Users.Add(Users);
