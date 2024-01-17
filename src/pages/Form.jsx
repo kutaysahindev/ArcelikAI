@@ -15,6 +15,7 @@ import { driver } from "driver.js";
 import "driver.js/dist/driver.css";
 import { setAccessToken } from "../redux/userSlice";
 import { useOktaAuth } from "@okta/okta-react";
+import { useNavigate } from "react-router-dom";
 
 const initialState = {
   appName: "",
@@ -52,10 +53,12 @@ export default function Form() {
   const stepCount = 2;
   const { authState, oktaAuth } = useOktaAuth();
 
+  const navigate = useNavigate();
+
   useEffect(() => {
-    if (isVideoWindowOpen) document.body.style.overflow = 'hidden';
-    else document.body.style.overflow = 'auto';
-    return () => document.body.style.overflow = 'auto';
+    if (isVideoWindowOpen) document.body.style.overflow = "hidden";
+    else document.body.style.overflow = "auto";
+    return () => (document.body.style.overflow = "auto");
   }, [isVideoWindowOpen]);
 
   useEffect(() => {
@@ -152,6 +155,13 @@ export default function Form() {
         const response = await createApp(fd, accessToken);
         console.log("Response Data:", response.data);
         setIsCreating(response);
+        // Check if the response indicates success (adjust this condition based on your API response structure)
+
+        //Şimdilik böyle, response alamadım çünkü form email-date'siz gitmiyor.
+        if (response.status === 200) {
+          // Redirect to the external URL upon successful response
+          window.location.href = "https://example.com";
+        }
       } catch (error) {
         console.log("Error sending form:", error);
       }

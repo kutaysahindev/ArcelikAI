@@ -3725,26 +3725,24 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\bulut\\.nuget\\packages\\": {}
+    "/Users/arthropoda/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Work\\Arcelik\\Projects\\ArcelikAI\\ArcelikWebApi\\ArcelikWebApi\\ArcelikWebApi.csproj",
+      "projectUniqueName": "/Users/arthropoda/projects/ArcelikAI/ArcelikWebApi/ArcelikWebApi/ArcelikWebApi.csproj",
       "projectName": "ArcelikWebApi",
-      "projectPath": "D:\\Work\\Arcelik\\Projects\\ArcelikAI\\ArcelikWebApi\\ArcelikWebApi\\ArcelikWebApi.csproj",
-      "packagesPath": "C:\\Users\\bulut\\.nuget\\packages\\",
-      "outputPath": "D:\\Work\\Arcelik\\Projects\\ArcelikAI\\ArcelikWebApi\\ArcelikWebApi\\obj\\",
+      "projectPath": "/Users/arthropoda/projects/ArcelikAI/ArcelikWebApi/ArcelikWebApi/ArcelikWebApi.csproj",
+      "packagesPath": "/Users/arthropoda/.nuget/packages/",
+      "outputPath": "/Users/arthropoda/projects/ArcelikAI/ArcelikWebApi/ArcelikWebApi/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\bulut\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "/Users/arthropoda/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net7.0"
       ],
       "sources": {
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -3821,16 +3819,8 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.401/RuntimeIdentifierGraph.json"
       }
     }
-  },
-  "logs": [
-    {
-      "code": "Undefined",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Problem reading the cache file D:\\Work\\Arcelik\\Projects\\ArcelikAI\\ArcelikWebApi\\ArcelikWebApi\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
-    }
-  ]
+  }
 }
