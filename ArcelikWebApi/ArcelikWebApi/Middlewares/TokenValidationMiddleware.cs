@@ -34,7 +34,7 @@ namespace ArcelikWebApi.Middlewares
             var accessToken = context.Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
             var issuer = _configuration["Authentication:Okta:Issuer"];
 
-            var validatedToken = await ValidateToken(accessToken, issuer, _configurationManager);
+            var validatedToken = await ValidateToken(accessToken, issuer, _configurationManager, context);
 
             if (validatedToken == null)
             {
@@ -62,7 +62,8 @@ namespace ArcelikWebApi.Middlewares
         private async Task<JwtSecurityToken> ValidateToken(
             string token,
             string issuer,
-            IConfigurationManager<OpenIdConnectConfiguration> configurationManager)
+            IConfigurationManager<OpenIdConnectConfiguration> configurationManager,
+            HttpContext context)
         {
             if (string.IsNullOrEmpty(token)) throw new ArgumentNullException(nameof(token));
             if (string.IsNullOrEmpty(issuer)) throw new ArgumentNullException(nameof(issuer));
@@ -90,11 +91,51 @@ namespace ArcelikWebApi.Middlewares
 
                 return (JwtSecurityToken)rawValidatedToken;
             }
+            catch (ArgumentException ex)
+            {
+                _logger.LogError(ex, "Token validation failed: {ErrorMessage}", ex.Message);
+
+                if (ex.Message.Contains("IDX10503")) // Token format issue
+                {
+                    context.Response.StatusCode = 422;
+                    await context.Response.WriteAsync("Invalid token format.");
+                }
+                else if (ex.Message.Contains("IDX12729")) // Token length or structure issue
+                {
+                    context.Response.StatusCode = 422;
+                    await context.Response.WriteAsync("Invalid token structure or length.");
+                }
+                else
+                {
+                    context.Response.StatusCode = 401;
+                    await context.Response.WriteAsync("Invalid token.");
+                }
+
+                return null;
+            }
             catch (SecurityTokenValidationException ex)
             {
                 _logger.LogError(ex, "Token validation failed: {ErrorMessage}", ex.Message);
+
+                if (ex.Message.Contains("IDX10503")) // Token format issue
+                {
+                    context.Response.StatusCode = 422;
+                    await context.Response.WriteAsync("Invalid token format.");
+                }
+                else if (ex.Message.Contains("IDX12729")) // Token length or structure issue
+                {
+                    context.Response.StatusCode = 422;
+                    await context.Response.WriteAsync("Invalid token structure or length.");
+                }
+                else
+                {
+                    context.Response.StatusCode = 401;
+                    await context.Response.WriteAsync("Invalid token.");
+                }
+
                 return null;
             }
+
         }
     }
 }
