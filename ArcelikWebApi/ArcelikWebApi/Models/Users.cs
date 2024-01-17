@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace ArcelikWebApi.Models
 {
@@ -10,6 +11,11 @@ namespace ArcelikWebApi.Models
 
         public string Email { get; set; }
 
-        public bool isWatched { get; set; }
+        public bool isWatchedAll { get; set; }
+
+        // Properties for watched video
+        public int WatchedVideoId { get; set; }
+        public Video WatchedVideo { get; set; }
+        public int WatchedTimeInSeconds { get; set; }
     }
 }
