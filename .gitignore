@@ -21,12 +21,12 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-# ArcelikWebApi/.vs/ArcelikWebApi/xs/project-cache/ArcelikWebApi-Debug.json
-# ArcelikWebApi/.vs/ArcelikWebApi/xs/UserPrefs.xml
-# ArcelikWebApi/ArcelikWebApi/bin/Debug/net7.0/ArcelikWebApi
-# ArcelikWebApi/ArcelikWebApi/obj/Debug/net7.0/ArcelikWebApi.csproj.CoreCompileInputs.cache
-# ArcelikWebApi/ArcelikWebApi/obj/Debug/net7.0/ArcelikWebApi.dll
+ArcelikWebApi/.vs/ArcelikWebApi/xs/project-cache/ArcelikWebApi-Debug.json
+ArcelikWebApi/.vs/ArcelikWebApi/xs/UserPrefs.xml
+ArcelikWebApi/ArcelikWebApi/bin/Debug/net7.0/ArcelikWebApi
+ArcelikWebApi/ArcelikWebApi/obj/Debug/net7.0/ArcelikWebApi.csproj.CoreCompileInputs.cache
+ArcelikWebApi/ArcelikWebApi/obj/Debug/net7.0/ArcelikWebApi.dll
 
-# /ArcelikWebApi/.vs/
-# /ArcelikWebApi/ArcelikWebApi/bin/
-# /ArcelikWebApi/ArcelikWebApi/obj/
+/ArcelikWebApi/.vs/
+/ArcelikWebApi/ArcelikWebApi/bin/
+/ArcelikWebApi/ArcelikWebApi/obj/

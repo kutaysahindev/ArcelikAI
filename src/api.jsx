@@ -54,7 +54,7 @@ export const createApp = async (formData, accessToken) => {
 };
 
 export const getVideoProgress = async (accessToken) => {
-  const endpoint = "/api/uservideo/iswatched";
+  const endpoint = "/api/uservideo/status";
   try {
     setAuthHeader(accessToken);
     const response = await instance.get(endpoint);
@@ -70,7 +70,7 @@ export const postVideoProgress = async (accessToken) => {
     setAuthHeader(accessToken);
 
     const response = await instance.post(
-      "/api/uservideo/iswatched",
+      "/api/uservideo/updatewatched",
       { isWatched: true },
       {
         headers: {
