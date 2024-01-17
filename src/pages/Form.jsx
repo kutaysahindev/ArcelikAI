@@ -64,12 +64,17 @@ export default function Form() {
   useEffect(() => {
     const postVideo = async () => {
       try {
-        const videoProg = await postVideoProgress(user.accessToken);
+        const videoProg = await postVideoProgress(user.accessToken, {
+          isWatchedAll: true,
+          WatchedVideoId: 1,
+          WatchedTimeInseconds: 0
+        });
       } catch (error) {
         throw error;
       }
     };
     if (allCompleted && user.accessToken.length > 1) postVideo();
+    console.log("bitti")
   }, [allCompleted, user.accessToken]);
 
   useEffect(() => {

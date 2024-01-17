@@ -6,14 +6,16 @@ import { FaPlay } from "react-icons/fa";
 import { FaForward, FaBackward } from "react-icons/fa6";
 import { MdReportGmailerrorred } from "react-icons/md";
 import "./CourseVideo.css";
-import { videos } from "../../utils/videos";
+import { postVideoProgress } from "../../api";
+// import { videos } from "../../utils/videos";
 
 const CourseVideo = () => {
   const stateRef = useRef();
   const dispatch = useDispatch();
-  const { selectedVideo, lastCompleted, allCompleted, videoCount } = useSelector(
+  const { selectedVideo, lastCompleted, allCompleted, videoCount, videos } = useSelector(
     (state) => state.video
   );
+  const user = useSelector((state) => state.user);
   const { videoRef, videoDetails, watchAgain } = useVideoPlayer();
   const { currentTime, progress, isCompleted, status } = videoDetails;
   stateRef.current = currentTime;
@@ -23,14 +25,26 @@ const CourseVideo = () => {
   };
 
   const postCurrentTime = (curr) => {
-    return;
-    console.log('Current Time:', curr);
+    // return;
+    // console.log('Current Time:', curr);
+    const postVideo = async () => {
+      try {
+        const videoProg = await postVideoProgress(user.accessToken, {
+          isWatchedAll: false,
+          WatchedVideoId: (selectedVideo===lastCompleted) ? selectedVideo+1 : selectedVideo,
+          WatchedTimeInseconds: (selectedVideo===lastCompleted) ? 0 : Math.floor(curr)
+        });
+      } catch (error) {
+        throw error;
+      }
+    };
+    if (user.accessToken.length > 1 && selectedVideo > lastCompleted) postVideo();
   };
 
   useEffect(() => {
     let intervalId;
     const pCT = () => postCurrentTime(stateRef.current);
-    if (status) intervalId = setInterval(pCT, 2000);
+    if (status) intervalId = setInterval(pCT, 1000);
     return () => clearInterval(intervalId);
   }, [status]);
 
@@ -55,7 +69,7 @@ const CourseVideo = () => {
         height="300"
         controls
         controlsList="nodownload noplaybackrate "
-        src={videos[selectedVideo-1].src}
+        src={videos[selectedVideo-1].BlobStorageUrl}
         type="video/mp4"
       />
       {(selectedVideo<1 || selectedVideo>videoCount) && <div className="video-not-found"><MdReportGmailerrorred size={40}/> <p>Video Not Found</p></div>}

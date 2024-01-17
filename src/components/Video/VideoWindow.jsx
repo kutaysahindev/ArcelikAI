@@ -8,16 +8,16 @@ import "driver.js/dist/driver.css";
 
 import "./VideoWindow.css";
 import { videoDriver } from "../../utils/guides";
-import { videos } from "../../utils/videos";
+// import { videos } from "../../utils/videos";
 
 const VideoWindow = () => {
-  const { lastCompleted, selectedVideo, allCompleted } = useSelector(
+  const { lastCompleted, selectedVideo, allCompleted, videos } = useSelector(
     (state) => state.video
   );
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchVideos());
+    // dispatch(fetchVideos());
   }, [dispatch]);
   const videoSelector = (num) => {
     dispatch(setSelectedVideo(num));
@@ -59,12 +59,12 @@ const VideoWindow = () => {
         <div className="video-tabs">
         {videos.map((v) => (
             <button
-              key={v.id}
-              className={`v-btn ${selectedVideo === v.id ? "selected-video" : ""}`}
-              onClick={() => videoSelector(v.id)}
-              disabled={v.id > lastCompleted + 1}
+              key={v.Id}
+              className={`v-btn ${selectedVideo === v.Id ? "selected-video" : ""}`}
+              onClick={() => videoSelector(v.Id)}
+              disabled={v.Id > lastCompleted + 1}
             >
-              Video {v.id}
+              Video {v.Id}
             </button>
           ))}
         </div>

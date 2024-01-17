@@ -1,9 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { completeVideo } from "../redux/videoSlice";
+import { postVideoProgress } from "../api";
 
 const useVideoPlayer = () => {
-  const { selectedVideo, completion, videoMark } = useSelector((state) => state.video);
+  const { selectedVideo, completion, videoMark, allCompleted } = useSelector((state) => state.video);
+  const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const videoRef = useRef(null);
   const [videoDetails, setVideoDetails] = useState({
@@ -29,7 +31,7 @@ const useVideoPlayer = () => {
 
   useEffect(() => {
     const video = videoRef.current;
-    console.log('isContinue: ', isContinue)
+    // console.log('isContinue: ', isContinue)
     if(videoMark.time > 2 && selectedVideo === videoMark.video && isContinue === "yes") {
       video.currentTime = videoMark.time;
       setDetailsHandler("currentTime", videoMark.time);
@@ -81,7 +83,21 @@ const useVideoPlayer = () => {
 
 
   useEffect(() => {
-    if (isCompleted) dispatch(completeVideo(selectedVideo));
+    const postVideo = async () => {
+      try {
+        const videoProg = await postVideoProgress(user.accessToken, {
+          isWatchedAll: allCompleted,
+          WatchedVideoId: selectedVideo+1,
+          WatchedTimeInseconds: 0
+        });
+      } catch (error) {
+        throw error;
+      }
+    };
+    if (isCompleted) {
+      dispatch(completeVideo(selectedVideo));
+      postVideo();
+    }
   }, [isCompleted]);
 
   useEffect(() => {

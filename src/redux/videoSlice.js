@@ -18,11 +18,7 @@ const initialState = {
   },
   videoCount: localVideoCount,
   videoMark: localVideoMark,
-  videos: [
-    { id: 1, url: "video_url_1.mp4" },
-    { id: 2, url: "video_url_2.mp4" },
-    { id: 3, url: "video_url_3.mp4" },
-  ],
+  videos: [],
 };
 
 export const videoSlice = createSlice({
@@ -58,6 +54,8 @@ export const videoSlice = createSlice({
     },
     proceedAt: (state, action) => {
       const { video, time } = action.payload;
+      state.allCompleted = false;
+      localStorage.setItem("allCompleted", false);
       state.videoMark = action.payload;
       state.selectedVideo = video;
       state.completion["video" + video - 1] = true;
@@ -71,7 +69,7 @@ export const videoSlice = createSlice({
       localStorage.setItem("allCompleted", true);
       state.videoMark = {};
       localStorage.setItem("videoMark", {});
-      closeVideoWindow();
+      state.isVideoWindowOpen = false;
     },
     setVideoMark: (state, action) => {
       // const { video, time } = action.payload

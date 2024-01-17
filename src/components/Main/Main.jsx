@@ -15,7 +15,7 @@ import LoadingLayer from "../Loading/LoadingLayer";
 import "./Main.css";
 import contentList from "./ContentData";
 import { getVideoProgress, validateToken } from "../../api"; // Import the validateToken function
-import { closeVideoWindow, completeAll, completeVideo, proceedAt, setSelectedVideo, setVideoCount, setVideoMark } from "../../redux/videoSlice";
+import { closeVideoWindow, completeAll, completeVideo, proceedAt, setSelectedVideo, setVideoCount, setVideoMark, setVideos } from "../../redux/videoSlice";
 import { videos } from "../../utils/videos";
 
 const Main = () => {
@@ -73,12 +73,11 @@ const Main = () => {
     const fetchData = async () => {
       try {
         const video = await getVideoProgress(user.accessToken);
-        console.log("video completion: " + video);
-        if (String(video) !== "false") {
-          dispatch(setVideoCount(10))
-          if(!"finished") dispatch(completeAll());
-          else dispatch(proceedAt({video: 7, time: 2}));
-        }
+        console.log('video (fetch): ', video)
+        dispatch(setVideos(video.VideoDetails))
+        dispatch(setVideoCount(video.VideoCount))
+        if(video.isWatchedAll) dispatch(completeAll());
+        else dispatch(proceedAt({video: video.WatchedVideoId, time: video.WatchedTimeInSeconds}));
       } catch (error) {
         throw error;
       }

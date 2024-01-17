@@ -10,7 +10,7 @@ export const videos = [
   },
   {
     id: 2,
-    src: sample2,
+    src: "https://arcelikstorage.blob.core.windows.net/videos/sample1.mp4",
     name: "İkinci",
   },
   {
