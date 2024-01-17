@@ -65,13 +65,17 @@ export const getVideoProgress = async (accessToken) => {
   }
 };
 
-export const postVideoProgress = async (accessToken) => {
+export const postVideoProgress = async (accessToken, videoCreds) => {
   try {
     setAuthHeader(accessToken);
 
     const response = await instance.post(
       "/api/uservideo/updatewatched",
-      { isWatched: true },
+      { 
+        isWatchedAll: videoCreds.isWatchedAll,
+        WatchedVideoId: videoCreds.WatchedVideoId,
+        WatchedTimeInseconds: videoCreds.WatchedTimeInseconds,
+      },
       {
         headers: {
           "Custom-Header": "value",

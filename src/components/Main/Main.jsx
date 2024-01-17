@@ -74,10 +74,10 @@ const Main = () => {
       try {
         const video = await getVideoProgress(user.accessToken);
         console.log('video (fetch): ', video)
-        // dispatch(setVideos(video.data.videos))
-        // dispatch(setVideoCount(10))
-        // if(!"finished") dispatch(completeAll());
-        // else dispatch(proceedAt({video: 7, time: 2}));
+        dispatch(setVideos(video.VideoDetails))
+        dispatch(setVideoCount(video.VideoCount))
+        if(video.isWatchedAll) dispatch(completeAll());
+        else dispatch(proceedAt({video: video.WatchedVideoId, time: video.WatchedTimeInSeconds}));
       } catch (error) {
         throw error;
       }
