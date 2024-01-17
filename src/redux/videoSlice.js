@@ -1,10 +1,20 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { getVideos } from "../api";
 
-const localLastCompleted = localStorage.getItem("lastCompleted") ? Number(localStorage.getItem("lastCompleted")) : 0;
-const localAllCompleted = localStorage.getItem("allCompleted") === "true" ? true : false;
-const localVideoCount = localStorage.getItem("videoCount") ? Number(localStorage.getItem("videoCount")) : 0;
-const localVideoMark = localStorage.getItem("videoMark") ? localStorage.getItem("videoMark") : {};
+const localLastCompleted = localStorage.getItem("lastCompleted")
+  ? Number(localStorage.getItem("lastCompleted"))
+  : 0;
+const localAllCompleted =
+  localStorage.getItem("allCompleted") === "true" ? true : false;
+const localVideoCount = localStorage.getItem("videoCount")
+  ? Number(localStorage.getItem("videoCount"))
+  : 0;
+const localVideoMark = localStorage.getItem("videoMark")
+  ? localStorage.getItem("videoMark")
+  : {};
+const localVideos = localStorage.getItem("videos")
+  ? localStorage.getItem("videos")
+  : [];
 
 const initialState = {
   isVideoWindowOpen: true,
@@ -18,7 +28,7 @@ const initialState = {
   },
   videoCount: localVideoCount,
   videoMark: localVideoMark,
-  videos: [],
+  videos: localVideos,
 };
 
 export const videoSlice = createSlice({
@@ -27,6 +37,7 @@ export const videoSlice = createSlice({
   reducers: {
     setVideos: (state, action) => {
       state.videos = action.payload;
+      localStorage.setItem("videos", action.payload);
     },
     closeVideoWindow: (state) => {
       state.isVideoWindowOpen = false;

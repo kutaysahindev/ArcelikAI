@@ -3,7 +3,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { IoCloseOutline, IoInformationCircleOutline } from "react-icons/io5";
 import CourseVideo from "./CourseVideo";
 import { driver } from "driver.js";
-import { closeVideoWindow, setSelectedVideo, setVideoCount, fetchVideos } from "../../redux/videoSlice";
+import {
+  closeVideoWindow,
+  setSelectedVideo,
+  setVideoCount,
+  fetchVideos,
+} from "../../redux/videoSlice";
 import "driver.js/dist/driver.css";
 
 import "./VideoWindow.css";
@@ -57,10 +62,12 @@ const VideoWindow = () => {
           </button>
         </div>
         <div className="video-tabs">
-        {videos.map((v) => (
+          {videos.map((v) => (
             <button
               key={v.Id}
-              className={`v-btn ${selectedVideo === v.Id ? "selected-video" : ""}`}
+              className={`v-btn ${
+                selectedVideo === v.Id ? "selected-video" : ""
+              }`}
               onClick={() => videoSelector(v.Id)}
               disabled={v.Id > lastCompleted + 1}
             >

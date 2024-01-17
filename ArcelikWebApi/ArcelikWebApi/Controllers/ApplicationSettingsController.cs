@@ -16,7 +16,7 @@ public class ApplicationSettingsController : ControllerBase
         _applicationDbContext = context;
     }
 
-    [HttpGet]
+    [HttpGet("getapplication")]
     public IActionResult GetApplicationSettings()
     {
         var applicationSettings = _applicationDbContext.ApplicationSettings.FirstOrDefault();

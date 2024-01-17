@@ -1,11 +1,12 @@
 import React, { useState, useRef } from "react";
 import "./UploadContainer.css";
+import { useSelector } from "react-redux";
 
 const UploadContainer = ({ files, setFiles }) => {
   const [isDragging, setIsDragging] = useState(false);
   const [isHover, setIsHover] = useState(false);
   const fileInputRef = useRef(null);
-
+  const { SupportedFileTypes } = useSelector((state) => state.settings);
   const selectFiles = () => {
     fileInputRef.current.click();
   };
@@ -59,7 +60,7 @@ const UploadContainer = ({ files, setFiles }) => {
       {!files?.length > 0 ? (
         <div className="">
           {isDragging ? (
-            <p className="select bold">Drop PDF files here</p>
+            <p className="select bold">Drop files here</p>
           ) : (
             <p className="select" onClick={selectFiles}>
               Drag and drop PDF files here or 
@@ -69,7 +70,7 @@ const UploadContainer = ({ files, setFiles }) => {
           <input
             className="file-input"
             type="file"
-            accept=".pdf"
+            accept={SupportedFileTypes.map((t) => `.${t}`).join(", ")}
             multiple
             ref={fileInputRef}
             onChange={handleFileInputChange}
