@@ -23,7 +23,7 @@ const CourseVideo = () => {
   };
 
   const postCurrentTime = (curr) => {
-    return;
+    // return;
     console.log('Current Time:', curr);
   };
 

@@ -18,11 +18,7 @@ const initialState = {
   },
   videoCount: localVideoCount,
   videoMark: localVideoMark,
-  videos: [
-    { id: 1, url: "video_url_1.mp4" },
-    { id: 2, url: "video_url_2.mp4" },
-    { id: 3, url: "video_url_3.mp4" },
-  ],
+  videos: [],
 };
 
 export const videoSlice = createSlice({

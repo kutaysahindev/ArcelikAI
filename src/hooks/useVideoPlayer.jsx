@@ -29,7 +29,7 @@ const useVideoPlayer = () => {
 
   useEffect(() => {
     const video = videoRef.current;
-    console.log('isContinue: ', isContinue)
+    // console.log('isContinue: ', isContinue)
     if(videoMark.time > 2 && selectedVideo === videoMark.video && isContinue === "yes") {
       video.currentTime = videoMark.time;
       setDetailsHandler("currentTime", videoMark.time);
