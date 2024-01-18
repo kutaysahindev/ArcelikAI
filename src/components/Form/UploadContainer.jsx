@@ -70,7 +70,11 @@ const UploadContainer = ({ files, setFiles }) => {
           <input
             className="file-input"
             type="file"
-            accept={SupportedFileTypes.map((t) => `.${t}`).join(", ")}
+            accept={
+              SupportedFileTypes.includes(",")
+                ? SupportedFileTypes.map((t) => `.${t}`).join(", ")
+                : `.${SupportedFileTypes}`
+            }
             multiple
             ref={fileInputRef}
             onChange={handleFileInputChange}
