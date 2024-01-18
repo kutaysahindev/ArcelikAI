@@ -64,14 +64,33 @@ export const getVideoProgress = async (accessToken) => {
     throw error;
   }
 };
-
+export const postTutorialProgress = async (accessToken) => {
+  try {
+    setAuthHeader(accessToken);
+    const response = await instance.post(
+      "/api/uservideo/updatetutorial",
+      {
+        isTutorialDone: true,
+      },
+      {
+        headers: {
+          "Custom-Header": "value",
+        },
+      }
+    );
+    // console.log(response.data);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
 export const postVideoProgress = async (accessToken, videoCreds) => {
   try {
     setAuthHeader(accessToken);
 
     const response = await instance.post(
       "/api/uservideo/updatewatched",
-      { 
+      {
         isWatchedAll: videoCreds.isWatchedAll,
         WatchedVideoId: videoCreds.WatchedVideoId,
         WatchedTimeInseconds: videoCreds.WatchedTimeInseconds,
@@ -93,6 +112,17 @@ export const getVideos = async (accessToken) => {
   try {
     setAuthHeader(accessToken);
     const response = await instance.get("/api/videos");
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+export const getSettings = async (accessToken) => {
+  try {
+    setAuthHeader(accessToken);
+    const response = await instance.get(
+      "/api/application-settings/getapplication"
+    );
     return response.data;
   } catch (error) {
     throw error;

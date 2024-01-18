@@ -63,8 +63,10 @@ namespace ArcelikWebApi.Controllers
                         Email = userEmailFromContext,
                         isWatchedAll = false,
                         WatchedVideoId = 1,
-                        WatchedTimeInSeconds = 0
+                        WatchedTimeInSeconds = 0,
+                        isTutorialDone = false
                     };
+                    
 
                     _applicationDbContext.Users.Add(Users);
                     _applicationDbContext.SaveChanges();

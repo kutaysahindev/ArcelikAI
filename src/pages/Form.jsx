@@ -9,11 +9,16 @@ import CheckBoxContainer from "../components/Form/CheckboxContainer";
 import PeriodAndTemperature from "../components/Form/PeriodAndTemperature";
 import InitialInputs from "../components/Form/InitialInputs";
 import { useDispatch, useSelector } from "react-redux";
-import { createApp, getAiModals, postVideoProgress } from "../api";
+import {
+  createApp,
+  getAiModals,
+  postVideoProgress,
+  postTutorialProgress,
+} from "../api";
 import { firstDriver, formDriver1, formDriver2 } from "../utils/guides";
 import { driver } from "driver.js";
 import "driver.js/dist/driver.css";
-import { setAccessToken } from "../redux/userSlice";
+import { setAccessToken, setIsTutorialDone } from "../redux/userSlice";
 import { useOktaAuth } from "@okta/okta-react";
 import { useNavigate } from "react-router-dom";
 
@@ -53,7 +58,7 @@ export default function Form() {
   const stepCount = 2;
   const { authState, oktaAuth } = useOktaAuth();
 
-  const navigate = useNavigate();
+  const { LandingUrl } = useSelector((state) => state.settings);
 
   useEffect(() => {
     if (isVideoWindowOpen) document.body.style.overflow = "hidden";
@@ -67,20 +72,30 @@ export default function Form() {
         const videoProg = await postVideoProgress(user.accessToken, {
           isWatchedAll: true,
           WatchedVideoId: 1,
-          WatchedTimeInseconds: 0
+          WatchedTimeInseconds: 0,
         });
       } catch (error) {
         throw error;
       }
     };
     if (allCompleted && user.accessToken.length > 1) postVideo();
-    console.log("bitti")
   }, [allCompleted, user.accessToken]);
 
   useEffect(() => {
-    if (!isVideoWindowOpen) {
+    const postTProgress = async () => {
+      try {
+        await postTutorialProgress(user.accessToken);
+      } catch (error) {
+        throw error;
+      }
+    };
+    if (!isVideoWindowOpen && !user.isTutorialDone) {
       if (step === 1) driver(formDriver1).drive();
-      if (step === 2) driver(formDriver2).drive();
+      if (step === 2) {
+        driver(formDriver2).drive();
+        dispatch(setIsTutorialDone(true));
+        postTProgress();
+      }
     }
   }, [step, isVideoWindowOpen]);
 
@@ -134,7 +149,6 @@ export default function Form() {
     fd.append("EnableUploadPdfFile", state.cb2);
     fd.append("ConversationRetentionPeriod", state.crPeriod);
     fd.append("ModalTemperature", state.modelTemperature);
-    fd.append("Email", user.userInfo.email);
     fd.append("Date", user.userInfo.date);
     files.forEach((file) => {
       fd.append("Pdfs", file);
@@ -159,14 +173,12 @@ export default function Form() {
       try {
         const response = await createApp(fd, accessToken);
         console.log("Response Data:", response.data);
+        console.log("ha bu response: ", response);
         setIsCreating(response);
         // Check if the response indicates success (adjust this condition based on your API response structure)
 
-        //Şimdilik böyle, response alamadım çünkü form email-date'siz gitmiyor.
-        if (response.status === 200) {
-          // Redirect to the external URL upon successful response
-          window.location.href = "https://example.com";
-        }
+        // Redirect to the external URL upon successful response
+        window.location.href = LandingUrl;
       } catch (error) {
         console.log("Error sending form:", error);
       }

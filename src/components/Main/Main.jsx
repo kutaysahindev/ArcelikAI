@@ -5,6 +5,7 @@ import {
   logUserOut,
   setAccessToken,
   setIsLoading,
+  setIsTutorialDone,
   setStatus,
   signUserIn,
   userInfoUpdate,
@@ -14,9 +15,19 @@ import LoadingLayer from "../Loading/LoadingLayer";
 
 import "./Main.css";
 import contentList from "./ContentData";
-import { getVideoProgress, validateToken } from "../../api"; // Import the validateToken function
-import { closeVideoWindow, completeAll, completeVideo, proceedAt, setSelectedVideo, setVideoCount, setVideoMark, setVideos } from "../../redux/videoSlice";
+import { getSettings, getVideoProgress, validateToken } from "../../api"; // Import the validateToken function
+import {
+  closeVideoWindow,
+  completeAll,
+  completeVideo,
+  proceedAt,
+  setSelectedVideo,
+  setVideoCount,
+  setVideoMark,
+  setVideos,
+} from "../../redux/videoSlice";
 import { videos } from "../../utils/videos";
+import { updateSettings } from "../../redux/settingSlice";
 
 const Main = () => {
   const { authState, oktaAuth } = useOktaAuth();
@@ -73,17 +84,34 @@ const Main = () => {
     const fetchData = async () => {
       try {
         const video = await getVideoProgress(user.accessToken);
-        console.log('video (fetch): ', video)
-        dispatch(setVideos(video.VideoDetails))
-        dispatch(setVideoCount(video.VideoCount))
-        if(video.isWatchedAll) dispatch(completeAll());
-        else dispatch(proceedAt({video: video.WatchedVideoId, time: video.WatchedTimeInSeconds}));
+        console.log("video (fetch): ", video);
+        dispatch(setIsTutorialDone(video.isTutorialDone));
+        dispatch(setVideos(video.VideoDetails));
+        dispatch(setVideoCount(video.VideoCount));
+        if (video.isWatchedAll) dispatch(completeAll());
+        else
+          dispatch(
+            proceedAt({
+              video: video.WatchedVideoId,
+              time: video.WatchedTimeInSeconds,
+            })
+          );
+      } catch (error) {
+        throw error;
+      }
+    };
+    const fetchSettings = async () => {
+      try {
+        const settings = await getSettings(user.accessToken);
+        console.log("ayar ", settings);
+        dispatch(updateSettings(settings));
       } catch (error) {
         throw error;
       }
     };
     if (user.isSignedIn && user.accessToken) {
       fetchData();
+      fetchSettings();
     }
   }, [user.isSignedIn, user.accessToken]);
 

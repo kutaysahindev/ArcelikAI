@@ -68,16 +68,19 @@ namespace ArcelikWebApi.Controllers
                 };
 
                 _applicationDbContext.AiApplications.Add(aiApplication);
-
-                var blobUrls = new List<string>();
-
-                foreach (var pdfFile in formData.Pdfs)
+                if(formData.Pdfs != null)
                 {
-                    string blobUrl = await _blobService.Upload(pdfFile);
-                    blobUrls.Add(blobUrl);
+                    var blobUrls = new List<string>();
+
+                    foreach (var pdfFile in formData.Pdfs)
+                    {
+                        string blobUrl = await _blobService.Upload(pdfFile);
+                        blobUrls.Add(blobUrl);
+                    }
+                aiApplication.Pdfs_Urls = string.Join(",", blobUrls);
                 }
 
-                aiApplication.Pdfs_Urls = string.Join(",", blobUrls);
+
 
                 _applicationDbContext.SaveChanges();
 
