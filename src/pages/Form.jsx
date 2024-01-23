@@ -1,5 +1,4 @@
 import { useState, useReducer, useEffect } from "react";
-import axios from "axios";
 import "./Form.css";
 import AiButtons from "../components/Form/AiButtons";
 import UploadContainer from "../components/Form/UploadContainer";
@@ -15,12 +14,11 @@ import {
   postVideoProgress,
   postTutorialProgress,
 } from "../api";
-import { firstDriver, formDriver1, formDriver2 } from "../utils/guides";
+import { formDriver1, formDriver2 } from "../utils/guides";
 import { driver } from "driver.js";
 import "driver.js/dist/driver.css";
 import { setAccessToken, setIsTutorialDone } from "../redux/userSlice";
 import { useOktaAuth } from "@okta/okta-react";
-import { useNavigate } from "react-router-dom";
 
 const initialState = {
   appName: "",

@@ -13,7 +13,6 @@ import "driver.js/dist/driver.css";
 
 import "./VideoWindow.css";
 import { videoDriver } from "../../utils/guides";
-// import { videos } from "../../utils/videos";
 
 const VideoWindow = () => {
   const { lastCompleted, selectedVideo, allCompleted, videos } = useSelector(

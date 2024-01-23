@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useOktaAuth } from "@okta/okta-react";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -26,7 +26,6 @@ import {
   setVideoMark,
   setVideos,
 } from "../../redux/videoSlice";
-import { videos } from "../../utils/videos";
 import { updateSettings } from "../../redux/settingSlice";
 
 const Main = () => {

@@ -7,7 +7,6 @@ import { FaForward, FaBackward } from "react-icons/fa6";
 import { MdReportGmailerrorred } from "react-icons/md";
 import "./CourseVideo.css";
 import { postVideoProgress } from "../../api";
-// import { videos } from "../../utils/videos";
 
 const CourseVideo = () => {
   const stateRef = useRef();
