@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { questions } from "../utils/questions";
 
 const initialState = {
-  isQuizWindowOpen: true,
+  isQuizWindowOpen: false,
   selectedQuestion: 1,
   questions: questions
 }
