@@ -19,6 +19,7 @@ import { driver } from "driver.js";
 import "driver.js/dist/driver.css";
 import { setAccessToken, setIsTutorialDone } from "../redux/userSlice";
 import { useOktaAuth } from "@okta/okta-react";
+import Window from "../components/Window/Window";
 
 const initialState = {
   appName: "",
@@ -51,6 +52,7 @@ export default function Form() {
   const { isVideoWindowOpen, allCompleted } = useSelector(
     (state) => state.video
   );
+  const { isQuizWindowOpen } = useSelector((state) => state.quiz);
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const stepCount = 2;
@@ -189,6 +191,7 @@ export default function Form() {
       {user.isSignedIn ? (
         <div>
           {isVideoWindowOpen && <VideoWindow />}
+          {isQuizWindowOpen && <Window content="quiz" />}
           <form className="form-container">
             <h2 className="step-title">Step {step}</h2>
             <StepBar step={step} stepCount={stepCount} />

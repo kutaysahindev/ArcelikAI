@@ -1,0 +1,56 @@
+.question {
+  display: flex;
+  gap: 10px;
+}
+
+.question .title {
+  font-size: 20px;
+  font-weight: 800;
+  margin-bottom: 20px;
+}
+
+ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+}
+.option{
+  width: 250px;
+  font-size: 20px;
+  font-weight: 600;
+  background: rgb(174, 174, 174);
+  border-radius: 10px;
+  padding: 15px 20px;
+  margin: 3px 0;
+  user-select: none;
+  cursor: pointer;
+}
+.selected {
+  background-color: rgb(93, 200, 200);
+}
+
+.drag-and-sort .list.l-dragging {
+  /* background: rgba(31, 134, 134, 0.422); */
+}
+.drag-and-sort .option.o-dragging {
+  background: rgb(93, 200, 200);
+  opacity: 0.7;
+}
+
+.multi-select input {
+  margin-right: 10px;
+  accent-color: rgb(31, 134, 134);
+  cursor: pointer;
+}
+
+.open-ended input {
+  width: 250px;
+  background: rgb(174, 174, 174);
+  border-radius: 10px;
+  padding: 15px 20px;
+  margin: 3px 0;
+  outline: none;
+  border: none;
+  font-size: 20px;
+  font-weight: 600;
+}
