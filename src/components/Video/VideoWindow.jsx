@@ -27,20 +27,6 @@ const VideoWindow = () => {
     dispatch(setSelectedVideo(num));
   };
 
-  // useEffect(() => {
-  //   console.log("first")
-  //   // PIN - THIS MUST BE SOMEWHERE ELSE (e.g. Main.jsx)
-  //   dispatch(setVideoCount(videos.length));
-  //   // if (videoMark.video >= 1) dispatch(setSelectedVideo(videoMark.video))
-  // }, [])
-
-  // useEffect(() => {
-  //   driverObj.drive();
-  //   //   setTimeout(() => {
-  //   //     driverObj.drive();
-  //   //   }, 1000);
-  // }, [])
-
   return (
     <div className="video-section">
       <div className="window">
