@@ -128,3 +128,30 @@ export const getSettings = async (accessToken) => {
     throw error;
   }
 };
+
+//Quiz - Get
+export const getQuestions = async (accessToken) => {
+  const endpoint = "/api/questions";
+  try {
+    setAuthHeader(accessToken);
+
+    const response = await instance.get(endpoint);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+//Quiz - Post
+export const postQuestionResponses = async (accessToken, responses) => {
+  const endpoint = "/api/questions/responses";
+  try {
+    setAuthHeader(accessToken);
+
+    const response = await instance.post(endpoint, responses);
+
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
