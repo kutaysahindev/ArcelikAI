@@ -2,10 +2,10 @@ import { createSlice } from "@reduxjs/toolkit";
 import { questions } from "../utils/questions";
 
 const initialState = {
-  isQuizWindowOpen: false,
+  isQuizWindowOpen: true,
   selectedQuestion: 1,
-  questions: questions
-}
+  questions: questions,
+};
 
 export const quizSlice = createSlice({
   name: "quiz",
@@ -20,13 +20,10 @@ export const quizSlice = createSlice({
     setSelectedQuestion: (state, action) => {
       state.selectedQuestion = action.payload;
     },
-  }
+  },
 });
 
-export const {
-  closeQuizWindow,
-  openQuizWindow,
-  setSelectedQuestion
-} = quizSlice.actions;
+export const { closeQuizWindow, openQuizWindow, setSelectedQuestion } =
+  quizSlice.actions;
 
 export default quizSlice.reducer;

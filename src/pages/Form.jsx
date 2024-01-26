@@ -189,9 +189,9 @@ export default function Form() {
   return (
     <>
       {user.isSignedIn ? (
-        <div>
-          {isVideoWindowOpen && <VideoWindow />}
-          {isQuizWindowOpen && <Window content="quiz" />}
+        <div className="window-container">
+          {/* {isVideoWindowOpen && <VideoWindow />} */}
+          {isQuizWindowOpen && <Window content="video" />}
           <form className="form-container">
             <h2 className="step-title">Step {step}</h2>
             <StepBar step={step} stepCount={stepCount} />
