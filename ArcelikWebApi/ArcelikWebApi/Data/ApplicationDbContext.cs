@@ -18,6 +18,7 @@ namespace ArcelikWebApi.Data
         public DbSet<Users> Users { get; set; }
         public DbSet<Video> Videos { get; set; }
         public DbSet<ApplicationSettings> ApplicationSettings { get; set; }
+        public DbSet<Quiz> Quizzes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

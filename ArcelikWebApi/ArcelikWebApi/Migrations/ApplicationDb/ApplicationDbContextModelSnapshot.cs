@@ -4,19 +4,16 @@ using ArcelikWebApi.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace ArcelikWebApi.Migrations
+namespace ArcelikWebApi.Migrations.ApplicationDb
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240117065818_New")]
-    partial class New
+    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
     {
-        /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -69,6 +66,9 @@ namespace ArcelikWebApi.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("testest")
+                        .HasColumnType("int");
+
                     b.HasKey("id");
 
                     b.ToTable("AiApplications");
@@ -118,6 +118,9 @@ namespace ArcelikWebApi.Migrations
 
                     b.Property<int>("WatchedVideoId")
                         .HasColumnType("int");
+
+                    b.Property<bool>("isTutorialDone")
+                        .HasColumnType("bit");
 
                     b.Property<bool>("isWatchedAll")
                         .HasColumnType("bit");

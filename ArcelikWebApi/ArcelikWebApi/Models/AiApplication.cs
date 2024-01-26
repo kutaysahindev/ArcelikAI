@@ -29,7 +29,7 @@ namespace ArcelikWebApi.Models
         public string Email { get; set; }
 
         public DateTime Date { get; set; }
-        
+
     }
 }
 
