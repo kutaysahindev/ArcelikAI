@@ -20,6 +20,7 @@ import "driver.js/dist/driver.css";
 import { setAccessToken, setIsTutorialDone } from "../redux/userSlice";
 import { useOktaAuth } from "@okta/okta-react";
 import Window from "../components/Window/Window";
+import WGButtonContainer from "../components/Form/WGButtonContainer";
 
 const initialState = {
   appName: "",
@@ -52,6 +53,9 @@ export default function Form() {
   const { isVideoWindowOpen, allCompleted } = useSelector(
     (state) => state.video
   );
+  const { isWindowOpen, windowContent } = useSelector(
+    (state) => state.window
+  );
   const { isQuizWindowOpen } = useSelector((state) => state.quiz);
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
@@ -61,10 +65,10 @@ export default function Form() {
   const { LandingUrl } = useSelector((state) => state.settings);
 
   useEffect(() => {
-    if (isVideoWindowOpen) document.body.style.overflow = "hidden";
+    if (isWindowOpen) document.body.style.overflow = "hidden";
     else document.body.style.overflow = "auto";
     return () => (document.body.style.overflow = "auto");
-  }, [isVideoWindowOpen]);
+  }, [isWindowOpen]);
 
   useEffect(() => {
     const postVideo = async () => {
@@ -89,15 +93,19 @@ export default function Form() {
         throw error;
       }
     };
-    if (!isVideoWindowOpen && !user.isTutorialDone) {
-      if (step === 1) driver(formDriver1).drive();
-      if (step === 2) {
+    if (!isWindowOpen && user.isTutorialDone !== "second") {
+      if (step === 1 && user.isTutorialDone === "none") {
+        driver(formDriver1).drive();
+        dispatch(setIsTutorialDone("first"));
+        postTProgress();
+      }
+      if (step === 2 && user.isTutorialDone === "first") {
         driver(formDriver2).drive();
-        dispatch(setIsTutorialDone(true));
+        dispatch(setIsTutorialDone("second"));
         postTProgress();
       }
     }
-  }, [step, isVideoWindowOpen]);
+  }, [step, isWindowOpen]);
 
   //  AXIOS - GETTING AI MODELS
   // const getAiModals = () => {
@@ -190,10 +198,12 @@ export default function Form() {
     <>
       {user.isSignedIn ? (
         <div>
-          {isVideoWindowOpen && <VideoWindow />}
-          {isQuizWindowOpen && <Window content="quiz" />}
+          {isWindowOpen && <Window content={windowContent} />}
           <form className="form-container">
-            <h2 className="step-title">Step {step}</h2>
+            <div className="step-title">
+              <h2>Step {step}</h2>
+              <WGButtonContainer step={step} />
+            </div>
             <StepBar step={step} stepCount={stepCount} />
 
             <div className="bottom">

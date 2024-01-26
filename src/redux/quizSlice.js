@@ -2,9 +2,10 @@ import { createSlice } from "@reduxjs/toolkit";
 import { questions } from "../utils/questions";
 
 const initialState = {
-  isQuizWindowOpen: false,
+  isQuizWindowOpen: true,
   selectedQuestion: 1,
-  questions: questions
+  questions: questions,
+  result: "undone" // undone passed failed
 }
 
 export const quizSlice = createSlice({
@@ -19,6 +20,9 @@ export const quizSlice = createSlice({
     },
     setSelectedQuestion: (state, action) => {
       state.selectedQuestion = action.payload;
+    },
+    setResult: (state, action) => {
+      state.result = action.payload;
     },
   }
 });
