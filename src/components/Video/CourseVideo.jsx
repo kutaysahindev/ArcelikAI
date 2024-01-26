@@ -11,9 +11,8 @@ import { postVideoProgress } from "../../api";
 const CourseVideo = () => {
   const stateRef = useRef();
   const dispatch = useDispatch();
-  const { selectedVideo, lastCompleted, allCompleted, videoCount, videos } = useSelector(
-    (state) => state.video
-  );
+  const { selectedVideo, lastCompleted, allCompleted, videoCount, videos } =
+    useSelector((state) => state.video);
   const user = useSelector((state) => state.user);
   const { videoRef, videoDetails, watchAgain } = useVideoPlayer();
   const { currentTime, progress, isCompleted, status } = videoDetails;
@@ -30,14 +29,17 @@ const CourseVideo = () => {
       try {
         const videoProg = await postVideoProgress(user.accessToken, {
           isWatchedAll: false,
-          WatchedVideoId: (selectedVideo===lastCompleted) ? selectedVideo+1 : selectedVideo,
-          WatchedTimeInseconds: (selectedVideo===lastCompleted) ? 0 : Math.floor(curr)
+          WatchedVideoId:
+            selectedVideo === lastCompleted ? selectedVideo + 1 : selectedVideo,
+          WatchedTimeInseconds:
+            selectedVideo === lastCompleted ? 0 : Math.floor(curr),
         });
       } catch (error) {
         throw error;
       }
     };
-    if (user.accessToken.length > 1 && selectedVideo > lastCompleted) postVideo();
+    if (user.accessToken.length > 1 && selectedVideo > lastCompleted)
+      postVideo();
   };
 
   useEffect(() => {
@@ -57,10 +59,10 @@ const CourseVideo = () => {
           }}
         />
       </div>
-      <p className="info">
+      {/* <p className="info">
         Please watch the video from start to end without changing the playback
         rate and seeking
-      </p>
+      </p> */}
       <video
         className="video"
         ref={videoRef}
@@ -68,10 +70,14 @@ const CourseVideo = () => {
         height="300"
         controls
         controlsList="nodownload noplaybackrate "
-        src={videos[selectedVideo-1].BlobStorageUrl}
+        src={videos[selectedVideo - 1].BlobStorageUrl}
         type="video/mp4"
       />
-      {(selectedVideo<1 || selectedVideo>videoCount) && <div className="video-not-found"><MdReportGmailerrorred size={40}/> <p>Video Not Found</p></div>}
+      {(selectedVideo < 1 || selectedVideo > videoCount) && (
+        <div className="video-not-found">
+          <MdReportGmailerrorred size={40} /> <p>Video Not Found</p>
+        </div>
+      )}
       {/* <p>Current Time: {currentTime.toFixed(2)} seconds</p> */}
       <div className="btn-container">
         <button
