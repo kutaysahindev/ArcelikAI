@@ -64,7 +64,8 @@ const Main = () => {
           dispatch(logUserOut());
           dispatch(setStatus("f"));
           console.error("Error validating token:", error);
-        });
+          // dispatch(setIsLoading(false));
+        })
     } else {
       dispatch(logUserOut());
     }
