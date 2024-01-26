@@ -1,4 +1,4 @@
-.video-container{
+.video-container {
   border-radius: 10px;
   height: 100%;
   display: flex;
@@ -6,7 +6,6 @@
   /* PIN CHANGE */
   justify-content: space-between;
   align-items: center;
-  gap: 20px;
 }
 
 .video-container .progress-bar {
@@ -55,7 +54,7 @@
   align-items: center;
 }
 
- .btns {
+.btns {
   padding: 1.5rem 1rem;
   background-color: rgba(102, 102, 102, 0.645);
   color: #3b0052;
@@ -72,13 +71,13 @@
   gap: 10px;
   font-size: 1.2rem;
 }
-.video-container .btn-container .previous, 
+.video-container .btn-container .previous,
 .video-container .btn-container .next {
   flex: 1;
 }
 .video-container .btn-container .close {
   flex: 1;
-  color: rgb(139, 0, 0)
+  color: rgb(139, 0, 0);
 }
 .video-container .btn-container .again {
   flex: 3;

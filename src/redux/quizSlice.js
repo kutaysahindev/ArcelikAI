@@ -27,10 +27,7 @@ export const quizSlice = createSlice({
   }
 });
 
-export const {
-  closeQuizWindow,
-  openQuizWindow,
-  setSelectedQuestion
-} = quizSlice.actions;
+export const { closeQuizWindow, openQuizWindow, setSelectedQuestion } =
+  quizSlice.actions;
 
 export default quizSlice.reducer;
