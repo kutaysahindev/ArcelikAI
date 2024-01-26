@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ArcelikWebApi.Models
 {
@@ -10,7 +11,8 @@ namespace ArcelikWebApi.Models
 
 		public string Question { get; set; }
 
-        public Dictionary<int, string>? Options { get; set; }
+		[NotMapped]
+        public List<string?> Options { get; set; }
 
 		public string Answer { get; set; }
 
