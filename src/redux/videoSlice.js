@@ -13,7 +13,7 @@ const localVideoMark = localStorage.getItem("videoMark")
   ? localStorage.getItem("videoMark")
   : {};
 const localVideos = localStorage.getItem("videos")
-  ? localStorage.getItem("videos")
+  ? JSON.parse(localStorage.getItem("videos"))
   : [];
 
 const initialState = {
@@ -37,7 +37,7 @@ export const videoSlice = createSlice({
   reducers: {
     setVideos: (state, action) => {
       state.videos = action.payload;
-      localStorage.setItem("videos", action.payload);
+      localStorage.setItem("videos", JSON.stringify(action.payload));
     },
     closeVideoWindow: (state) => {
       state.isVideoWindowOpen = false;
@@ -80,6 +80,7 @@ export const videoSlice = createSlice({
       localStorage.setItem("allCompleted", true);
       state.videoMark = {};
       localStorage.setItem("videoMark", {});
+      // FIXME OLD LOGIC
       state.isVideoWindowOpen = false;
     },
     setVideoMark: (state, action) => {

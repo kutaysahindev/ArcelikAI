@@ -14,7 +14,7 @@ const initialState = {
     email: "",
     date: "",
   },
-  isTutorialDone: false,
+  isTutorialDone: "",
 };
 
 export const userSlice = createSlice({
