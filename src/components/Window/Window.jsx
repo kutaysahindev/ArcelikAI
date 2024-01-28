@@ -1,3 +1,4 @@
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { closeVideoWindow, setSelectedVideo } from "../../redux/videoSlice";
 import { driver } from "driver.js";
@@ -8,6 +9,7 @@ import WindowTabs from "./WindowTabs";
 import WindowContent from "./WindowContent";
 import { questions } from "../../utils/questions";
 import { setSelectedQuestion } from "../../redux/quizSlice";
+import BottomContent from "./BottomContent";
 
 const Window = ({ content }) => {
   const { lastCompleted, selectedVideo, videos } = useSelector(
@@ -16,63 +18,6 @@ const Window = ({ content }) => {
   const { selectedQuestion } = useSelector((state) => state.quiz);
   const dispatch = useDispatch();
   let properties = {};
-
-  // const handleVideoSelect = (num) => {
-  //   dispatch(setSelectedVideo(num));
-  // };
-
-  // const handleQuestionSelect = (num) => {
-  //   dispatch(setSelectedQuestion(num));
-  // };
-
-  // const handleInfoDriverClick = () => {
-  //   driver(videoDriver).drive();
-  // };
-
-  // const handleCloseVideoWindow = () => {
-  //   dispatch(closeVideoWindow());
-  // };
-
-  // const contentHandler = () => {
-  //   if (content === "quiz"){
-  //     return (
-  //       <>
-  //         <WindowHeader
-  //           content="quiz"
-  //           onClose={handleCloseVideoWindow}
-  //           onInfoClick={handleInfoDriverClick}
-  //         />
-  //         <WindowTabs
-  //           content="quiz"
-  //           tabs={questions}
-  //           selectedContent={selectedQuestion}
-  //           lastCompleted={lastCompleted}
-  //           onSelect={handleQuestionSelect}
-  //         />
-  //         <WindowContent content="quiz" />
-  //       </>
-  //     )
-  //   }
-  //   if (content === "video"){
-  //     return (
-  //       <>
-  //         <WindowHeader
-  //           content="video"
-  //           onClose={handleCloseVideoWindow}
-  //           onInfoClick={handleInfoDriverClick}
-  //         />
-  //         <WindowTabs
-  //           content="video"
-  //           tabs={videos}
-  //           selectedContent={selectedVideo}
-  //           lastCompleted={lastCompleted}
-  //           onSelect={handleVideoSelect}
-  //         />
-  //         <WindowContent content="video" />
-  //       </>
-  //     )
-  //   }
-  // }
 
   if (content === "quiz") {
     properties = {
@@ -96,11 +41,6 @@ const Window = ({ content }) => {
     };
   }
 
-  // return (
-  //   <div className="window">
-  //     { contentHandler() }
-  //   </div>
-  // );
   return (
     <div className="window">
       <WindowHeader
@@ -118,6 +58,7 @@ const Window = ({ content }) => {
         />
         <WindowContent content={properties.content} />
       </div>
+      <BottomContent />
     </div>
   );
 };
