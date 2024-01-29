@@ -116,7 +116,7 @@ const Main = () => {
       timerId = setTimeout(() => {
         if (user.isSignedIn) navigate("/form");
         dispatch(setIsLoading(false));
-      }, 3500);
+      }, 4500);
     }
     return () => clearInterval(timerId);
   }, [user.isLoading, dispatch, navigate, user.isSignedIn]);
