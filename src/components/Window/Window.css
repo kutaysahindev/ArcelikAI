@@ -98,3 +98,37 @@
   align-items: center;
   gap: 20px;
 }
+
+.window .bottom-content {
+  display: flex;
+  flex-direction: row;
+  border-top: 2px solid #ebeaed;
+  justify-content: center;
+  gap: 20px;
+  max-width: 73rem;
+  margin: 0 auto;
+}
+
+.window .text-title {
+  color: #1e0e62;
+  font-family: "DM Sans";
+  font-size: 1.4rem;
+  font-weight: 500;
+  line-height: 2rem;
+  margin-top: 1.4rem;
+}
+
+.window .container {
+  max-width: 25rem;
+  justify-content: center;
+}
+
+.window .container p {
+  color: rgba(21, 20, 57, 0.604);
+  margin-top: 1.2rem;
+  font-family: "DM Sans";
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.8rem;
+}
