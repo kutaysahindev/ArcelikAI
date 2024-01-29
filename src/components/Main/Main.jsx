@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useOktaAuth } from "@okta/okta-react";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -26,7 +26,6 @@ import {
   setVideoMark,
   setVideos,
 } from "../../redux/videoSlice";
-import { videos } from "../../utils/videos";
 import { updateSettings } from "../../redux/settingSlice";
 
 const Main = () => {
@@ -60,21 +59,13 @@ const Main = () => {
       dispatch(setAccessToken(accessToken));
 
       validateToken(accessToken)
-        .then((status) => {
-          if (status === 200) {
-            // Check against the specific status code
-            dispatch(signUserIn());
-          } else {
-            dispatch(logUserOut());
-            dispatch(setStatus("f"));
-            console.error("Token validation failed with status:", status);
-          }
-        })
+        .then(() =>  dispatch(signUserIn()))
         .catch((error) => {
           dispatch(logUserOut());
           dispatch(setStatus("f"));
           console.error("Error validating token:", error);
-        });
+          // dispatch(setIsLoading(false));
+        })
     } else {
       dispatch(logUserOut());
     }
@@ -85,9 +76,9 @@ const Main = () => {
       try {
         const video = await getVideoProgress(user.accessToken);
         console.log("video (fetch): ", video);
-        dispatch(setIsTutorialDone(video.isTutorialDone));
         dispatch(setVideos(video.VideoDetails));
         dispatch(setVideoCount(video.VideoCount));
+        if(video.isTutorialDone)dispatch(setIsTutorialDone("0done"));
         if (video.isWatchedAll) dispatch(completeAll());
         else
           dispatch(
@@ -125,7 +116,7 @@ const Main = () => {
       timerId = setTimeout(() => {
         if (user.isSignedIn) navigate("/form");
         dispatch(setIsLoading(false));
-      }, 3500);
+      }, 4500);
     }
     return () => clearInterval(timerId);
   }, [user.isLoading, dispatch, navigate, user.isSignedIn]);

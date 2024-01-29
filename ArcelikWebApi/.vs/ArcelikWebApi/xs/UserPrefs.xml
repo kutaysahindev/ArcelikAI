@@ -1,41 +1,25 @@
 ﻿<Properties StartupConfiguration="{7F93A0A0-580C-444D-93DA-CCDA16F4155A}|https">
-  <MultiItemStartupConfigurations />
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.ItemProperties.ArcelikWebApi PreferredExecutionTarget="/Applications/Google Chrome.app" />
-  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
-  <Debugger.DebugSourceFolders>
-    <String>/Users/kutaysahin/Desktop/Projects/arcelik-ai</String>
-  </Debugger.DebugSourceFolders>
-  <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
-  </MonoDevelop.Ide.DebuggingService.Breakpoints>
-  <MonoDevelop.Ide.Workbench ActiveDocument="ArcelikWebApi/Controllers/UserVideoController.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="ArcelikWebApi/Controllers/ApplicationSettingsController.cs">
     <Files>
-      <File FileName="ArcelikWebApi/Controllers/UserVideoController.cs" Line="19" Column="45" />
-      <File FileName="ArcelikWebApi/Models/Users.cs" Line="21" Column="2" />
-      <File FileName="ArcelikWebApi/Data/ApplicationDbContext.cs" Line="32" Column="134" />
-      <File FileName="ArcelikWebApi/Models/Video.cs" Line="11" Column="50" />
-      <File FileName="ArcelikWebApi/Models/ApplicationSettings.cs" Line="6" Column="2" />
-      <File FileName="ArcelikWebApi/Models/AIModels.cs" Line="1" Column="1" />
-      <File FileName="ArcelikWebApi/Migrations/20240117065818_New.cs" Line="14" Column="66" />
-      <File FileName="ArcelikWebApi/Controllers/ApplicationSettingsController.cs" Line="52" Column="1" />
-      <File FileName="ArcelikWebApi/Controllers/VideoController.cs" Line="24" Column="9" />
-      <File FileName="ArcelikWebApi/Controllers/AiModelsController.cs" Line="3" Column="19" />
-      <File FileName="ArcelikWebApi/Models/WatchedVideoUpdateRequest.cs" Line="6" Column="33" />
-      <File FileName="ArcelikWebApi/Controllers/SaveUserController.cs" Line="27" Column="25" />
-      <File FileName="ArcelikWebApi/Middlewares/TokenValidationMiddleware.cs" Line="37" Column="1" />
-      <File FileName="ArcelikWebApi/Program.cs" Line="35" Column="1" />
+      <File FileName="ArcelikWebApi/Models/Users.cs" />
+      <File FileName="ArcelikWebApi/Controllers/SaveUserController.cs" />
+      <File FileName="ArcelikWebApi/Controllers/UserVideoController.cs" />
+      <File FileName="ArcelikWebApi/Middlewares/TokenValidationMiddleware.cs" />
+      <File FileName="ArcelikWebApi/Controllers/CreateAppController.cs" />
+      <File FileName="ArcelikWebApi/Controllers/ApplicationSettingsController.cs" Line="9" Column="25" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="ArcelikWebApi">
-            <Node name="ArcelikWebApi">
-              <Node name="Controllers">
-                <Node name="UserVideoController.cs" selected="True" />
+            <Node name="ArcelikWebApi" expanded="True">
+              <Node name="Controllers" expanded="True">
+                <Node name="ApplicationSettingsController.cs" selected="True" />
               </Node>
               <Node name="Data" expanded="True" />
               <Node name="Middlewares" expanded="True" />
+              <Node name="Migrations" expanded="True" />
               <Node name="Models" expanded="True" />
               <Node name="Properties" expanded="True" />
             </Node>
@@ -44,4 +28,13 @@
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
+  <Debugger.DebugSourceFolders>
+    <String>/Users/kutaysahin/Desktop/Projects/arcelik-ai</String>
+  </Debugger.DebugSourceFolders>
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
 </Properties>
