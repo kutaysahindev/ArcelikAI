@@ -52,6 +52,9 @@ options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoop
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(
 builder.Configuration["ConnectionStrings:DefaultConnection"]));
 
+builder.Services.AddDbContext<NewDbContext>(options => options.UseSqlServer(
+    builder.Configuration["ConnectionStrings:DefaultConnection"]));
+
 var app = builder.Build();
 
 app.UseCors(options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());

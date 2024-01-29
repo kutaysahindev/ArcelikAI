@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace ArcelikWebApi.Migrations
+namespace ArcelikWebApi.Migrations.ApplicationDb
 {
     [DbContext(typeof(ApplicationDbContext))]
     partial class ApplicationDbContextModelSnapshot : ModelSnapshot
@@ -100,6 +100,30 @@ namespace ArcelikWebApi.Migrations
                         });
                 });
 
+            modelBuilder.Entity("ArcelikWebApi.Models.Quiz", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
+
+                    b.Property<string>("Answer")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Point")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Question")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("id");
+
+                    b.ToTable("Quizzes");
+                });
+
             modelBuilder.Entity("ArcelikWebApi.Models.Users", b =>
                 {
                     b.Property<Guid>("id")
@@ -116,8 +140,17 @@ namespace ArcelikWebApi.Migrations
                     b.Property<int>("WatchedVideoId")
                         .HasColumnType("int");
 
+                    b.Property<bool>("isTutorialDone")
+                        .HasColumnType("bit");
+
                     b.Property<bool>("isWatchedAll")
                         .HasColumnType("bit");
+
+                    b.Property<int>("quizPoint")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("secondsSpendOnQuiz")
+                        .HasColumnType("int");
 
                     b.HasKey("id");
 
