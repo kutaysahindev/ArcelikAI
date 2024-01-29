@@ -9,6 +9,7 @@ import WindowTabs from "./WindowTabs";
 import WindowContent from "./WindowContent";
 import { questions } from "../../utils/questions";
 import { setSelectedQuestion } from "../../redux/quizSlice";
+import { closeWindow } from "../../redux/windowSlice";
 import BottomContent from "./BottomContent";
 
 const Window = ({ content }) => {
@@ -22,7 +23,7 @@ const Window = ({ content }) => {
   if (content === "quiz") {
     properties = {
       content: content,
-      onClose: () => dispatch(closeVideoWindow()),
+      onClose: () => dispatch(closeWindow()),
       onInfoClick: () => driver(videoDriver).drive(),
       tabs: questions,
       selectedContent: selectedQuestion,
@@ -32,7 +33,7 @@ const Window = ({ content }) => {
   if (content === "video") {
     properties = {
       content: content,
-      onClose: () => dispatch(closeVideoWindow()),
+      onClose: () => dispatch(closeWindow()),
       onInfoClick: () => driver(videoDriver).drive(),
       tabs: videos,
       selectedContent: selectedVideo,
