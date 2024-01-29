@@ -1,4 +1,5 @@
 ﻿<Properties StartupConfiguration="{7F93A0A0-580C-444D-93DA-CCDA16F4155A}|https">
+  <MonoDevelop.Ide.ItemProperties.ArcelikWebApi PreferredExecutionTarget="/Applications/Google Chrome.app" />
   <MonoDevelop.Ide.Workbench ActiveDocument="ArcelikWebApi/Controllers/ApplicationSettingsController.cs">
     <Files>
       <File FileName="ArcelikWebApi/Models/Users.cs" />
@@ -13,7 +14,9 @@
         <State name="__root__">
           <Node name="ArcelikWebApi">
             <Node name="ArcelikWebApi" expanded="True">
-              <Node name="Controllers" expanded="True" />
+              <Node name="Controllers" expanded="True">
+                <Node name="ApplicationSettingsController.cs" selected="True" />
+              </Node>
               <Node name="Data" expanded="True" />
               <Node name="Middlewares" expanded="True" />
               <Node name="Migrations" expanded="True" />
@@ -28,7 +31,6 @@
   <Debugger.DebugSourceFolders>
     <String>/Users/kutaysahin/Desktop/Projects/arcelik-ai</String>
   </Debugger.DebugSourceFolders>
-  <MonoDevelop.Ide.ItemProperties.ArcelikWebApi PreferredExecutionTarget="/Applications/Google Chrome.app" />
   <MultiItemStartupConfigurations />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
