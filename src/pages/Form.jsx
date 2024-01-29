@@ -2,7 +2,6 @@ import { useState, useReducer, useEffect } from "react";
 import "./Form.css";
 import AiButtons from "../components/Form/AiButtons";
 import UploadContainer from "../components/Form/UploadContainer";
-import VideoWindow from "../components/Video/VideoWindow";
 import StepBar from "../components/Form/StepBar";
 import CheckBoxContainer from "../components/Form/CheckboxContainer";
 import PeriodAndTemperature from "../components/Form/PeriodAndTemperature";
@@ -20,7 +19,6 @@ import "driver.js/dist/driver.css";
 import { setAccessToken, setIsTutorialDone } from "../redux/userSlice";
 import { useOktaAuth } from "@okta/okta-react";
 import Window from "../components/Window/Window";
-import WGButtonContainer from "../components/Form/WGButtonContainer";
 import FormHeader from "../components/Form/FormHeader";
 
 const initialState = {

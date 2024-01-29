@@ -9,6 +9,7 @@ import WindowContent from "./WindowContent";
 import { questions } from "../../utils/questions";
 import { setSelectedQuestion } from "../../redux/quizSlice";
 import { closeWindow } from "../../redux/windowSlice";
+import WindowButtons from "./WindowButtons";
 
 const Window = ({ content }) => {
   const { lastCompleted, selectedVideo, videos } = useSelector(
@@ -153,12 +154,16 @@ const Window = ({ content }) => {
   // );
   return (
     <div className="window">
+      <WindowButtons
+        onClose={properties.onClose}
+        onInfoClick={properties.onInfoClick}
+      />
       <WindowHeader
         content={properties.content}
         onClose={properties.onClose}
         onInfoClick={properties.onInfoClick}
       />
-      <div className="tab-content">
+      <div className="tabs-and-content">
         <WindowTabs
           content={properties.content}
           tabs={properties.tabs}

@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   isWindowOpen: true,
-  windowContent: "video"
+  windowContent: "quiz"
 }
 
 export const windowSlice = createSlice({
@@ -18,13 +18,18 @@ export const windowSlice = createSlice({
     setWindowContent: (state, action) => {
       state.windowContent = action.payload;
     },
+    toggleWindowContent: (state) => {
+      if(state.windowContent === "quiz") state.windowContent = "video";
+      else if(state.windowContent === "video") state.windowContent = "quiz";
+    },
   }
 });
 
 export const {
   closeWindow,
   openWindow,
-  setWindowContent
+  setWindowContent,
+  toggleWindowContent
 } = windowSlice.actions;
 
 export default windowSlice.reducer;
