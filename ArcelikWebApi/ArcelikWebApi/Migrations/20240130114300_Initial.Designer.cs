@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ArcelikWebApi.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240126100042_QuizMigration")]
-    partial class QuizMigration
+    [Migration("20240130114300_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -103,28 +103,76 @@ namespace ArcelikWebApi.Migrations
                         });
                 });
 
-            modelBuilder.Entity("ArcelikWebApi.Models.Quiz", b =>
+            modelBuilder.Entity("ArcelikWebApi.Models.Quiz.Answers", b =>
                 {
-                    b.Property<int>("id")
+                    b.Property<int>("AnswerID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AnswerID"));
 
-                    b.Property<string>("Answer")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Point")
+                    b.Property<int>("ChoiceID")
                         .HasColumnType("int");
 
-                    b.Property<string>("Question")
+                    b.Property<bool>("IsCorrect")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("PartialScore")
+                        .HasColumnType("int");
+
+                    b.Property<int>("QuestionID")
+                        .HasColumnType("int");
+
+                    b.HasKey("AnswerID");
+
+                    b.HasIndex("ChoiceID")
+                        .IsUnique();
+
+                    b.HasIndex("QuestionID");
+
+                    b.ToTable("Answers");
+                });
+
+            modelBuilder.Entity("ArcelikWebApi.Models.Quiz.Choices", b =>
+                {
+                    b.Property<int>("ChoiceID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ChoiceID"));
+
+                    b.Property<string>("ChoiceText")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("QuestionID")
+                        .HasColumnType("int");
+
+                    b.HasKey("ChoiceID");
+
+                    b.HasIndex("QuestionID");
+
+                    b.ToTable("Choices");
+                });
+
+            modelBuilder.Entity("ArcelikWebApi.Models.Quiz.Questions", b =>
+                {
+                    b.Property<int>("QuestionID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("QuestionID"));
+
+                    b.Property<string>("QuestionText")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("id");
+                    b.Property<string>("QuestionType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                    b.ToTable("Quizzes");
+                    b.HasKey("QuestionID");
+
+                    b.ToTable("Questions");
                 });
 
             modelBuilder.Entity("ArcelikWebApi.Models.Users", b =>
@@ -136,6 +184,9 @@ namespace ArcelikWebApi.Migrations
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("SecondsSpendOnQuiz")
+                        .HasColumnType("int");
 
                     b.Property<int>("WatchedTimeInSeconds")
                         .HasColumnType("int");
@@ -150,9 +201,6 @@ namespace ArcelikWebApi.Migrations
                         .HasColumnType("bit");
 
                     b.Property<int>("quizPoint")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("secondsSpendOnQuiz")
                         .HasColumnType("int");
 
                     b.HasKey("id");
@@ -209,6 +257,36 @@ namespace ArcelikWebApi.Migrations
                         });
                 });
 
+            modelBuilder.Entity("ArcelikWebApi.Models.Quiz.Answers", b =>
+                {
+                    b.HasOne("ArcelikWebApi.Models.Quiz.Choices", "Choices")
+                        .WithOne("Answers")
+                        .HasForeignKey("ArcelikWebApi.Models.Quiz.Answers", "ChoiceID")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("ArcelikWebApi.Models.Quiz.Questions", "Questions")
+                        .WithMany("Answers")
+                        .HasForeignKey("QuestionID")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Choices");
+
+                    b.Navigation("Questions");
+                });
+
+            modelBuilder.Entity("ArcelikWebApi.Models.Quiz.Choices", b =>
+                {
+                    b.HasOne("ArcelikWebApi.Models.Quiz.Questions", "Questions")
+                        .WithMany("Choices")
+                        .HasForeignKey("QuestionID")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Questions");
+                });
+
             modelBuilder.Entity("ArcelikWebApi.Models.Users", b =>
                 {
                     b.HasOne("ArcelikWebApi.Models.Video", "WatchedVideo")
@@ -218,6 +296,19 @@ namespace ArcelikWebApi.Migrations
                         .IsRequired();
 
                     b.Navigation("WatchedVideo");
+                });
+
+            modelBuilder.Entity("ArcelikWebApi.Models.Quiz.Choices", b =>
+                {
+                    b.Navigation("Answers")
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("ArcelikWebApi.Models.Quiz.Questions", b =>
+                {
+                    b.Navigation("Answers");
+
+                    b.Navigation("Choices");
                 });
 #pragma warning restore 612, 618
         }
