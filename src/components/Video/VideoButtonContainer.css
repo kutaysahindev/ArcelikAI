@@ -3,13 +3,14 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 8px;
+  gap: 16px;
 
   position: absolute;
-  width: 300px;
   bottom: 10px;
   z-index: -1;
   transition: bottom 0.3s ease-in-out;
+  padding-top: 15px;
+  /* background: red; */
 }
 
 .btn-container.hovered {
