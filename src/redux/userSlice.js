@@ -14,6 +14,7 @@ const initialState = {
     email: "",
     date: "",
   },
+  isTutorialDone: "",
 };
 
 export const userSlice = createSlice({
@@ -43,6 +44,9 @@ export const userSlice = createSlice({
     setAccessToken: (state, action) => {
       state.accessToken = action.payload;
     },
+    setIsTutorialDone: (state, action) => {
+      state.isTutorialDone = action.payload;
+    },
   },
 });
 
@@ -55,6 +59,7 @@ export const {
   setIsLoading,
   setStatus,
   setAccessToken,
+  setIsTutorialDone,
 } = userSlice.actions;
 
 export default userSlice.reducer;

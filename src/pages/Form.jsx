@@ -1,27 +1,25 @@
-import { useState, useReducer, useEffect, useRef } from "react";
-import axios from "axios";
+import { useState, useReducer, useEffect } from "react";
 import "./Form.css";
 import AiButtons from "../components/Form/AiButtons";
 import UploadContainer from "../components/Form/UploadContainer";
-import VideoWindow from "../components/Video/VideoWindow";
 import StepBar from "../components/Form/StepBar";
 import CheckBoxContainer from "../components/Form/CheckboxContainer";
 import PeriodAndTemperature from "../components/Form/PeriodAndTemperature";
 import InitialInputs from "../components/Form/InitialInputs";
-<<<<<<< HEAD
-import { useSelector } from "react-redux";
-import { createApp, getAiModals } from "../api";
-import { driver } from "driver.js";
-import "driver.js/dist/driver.css";
-=======
 import { useDispatch, useSelector } from "react-redux";
-import { createApp, getAiModals, postVideoProgress } from "../api";
-import { firstDriver, formDriver1, formDriver2 } from "../utils/guides";
+import {
+  createApp,
+  getAiModals,
+  postVideoProgress,
+  postTutorialProgress,
+} from "../api";
+import { formDriver1, formDriver2 } from "../utils/guides";
 import { driver } from "driver.js";
 import "driver.js/dist/driver.css";
-import { setAccessToken } from "../redux/userSlice";
+import { setAccessToken, setIsTutorialDone } from "../redux/userSlice";
 import { useOktaAuth } from "@okta/okta-react";
->>>>>>> 1e478f51bd820d870f2c4b089ead8ec79b5015bb
+import Window from "../components/Window/Window";
+import FormHeader from "../components/Form/FormHeader";
 
 const initialState = {
   appName: "",
@@ -54,25 +52,36 @@ export default function Form() {
   const { isVideoWindowOpen, allCompleted } = useSelector(
     (state) => state.video
   );
+  const { isWindowOpen, windowContent } = useSelector(
+    (state) => state.window
+  );
+  const { isQuizWindowOpen } = useSelector((state) => state.quiz);
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const stepCount = 2;
-<<<<<<< HEAD
-    const formRef = useRef(null);
-  const driverObj = driver();
-  // const { authState, oktaAuth } = useOktaAuth();
-=======
   const { authState, oktaAuth } = useOktaAuth();
+
+  const { LandingUrl } = useSelector((state) => state.settings);
+
+  useEffect(() => {
+    if (isWindowOpen) document.body.style.overflow = "hidden";
+    else document.body.style.overflow = "auto";
+    return () => (document.body.style.overflow = "auto");
+  }, [isWindowOpen]);
 
   useEffect(() => {
     const postVideo = async () => {
       try {
-        const videoProg = await postVideoProgress(user.accessToken);
+        const videoProg = await postVideoProgress(user.accessToken, {
+          isWatchedAll: true,
+          WatchedVideoId: 1,
+          WatchedTimeInseconds: 0,
+        });
       } catch (error) {
         throw error;
       }
     };
-    if (allCompleted) postVideo();
+    if (allCompleted && user.accessToken.length > 1) postVideo();
   }, [allCompleted, user.accessToken]);
 
   useEffect(() => {
@@ -81,7 +90,6 @@ export default function Form() {
       if (step === 2) driver(formDriver2).drive();
     }
   }, [step, isVideoWindowOpen]);
->>>>>>> 1e478f51bd820d870f2c4b089ead8ec79b5015bb
 
   //  AXIOS - GETTING AI MODELS
   // const getAiModals = () => {
@@ -91,6 +99,27 @@ export default function Form() {
   //     .then((res) => setAiModals(res.data))
   //     .catch((err) => console.error(err.message));
   // };
+    const postTProgress = async () => {
+      try {
+        await postTutorialProgress(user.accessToken);
+      } catch (error) {
+        throw error;
+      }
+    };
+    if (!isWindowOpen && user.isTutorialDone !== "second") {
+      if (step === 1 && user.isTutorialDone === "none") {
+        driver(formDriver1).drive();
+        dispatch(setIsTutorialDone("first"));
+        postTProgress();
+      }
+      else if (step === 2 && user.isTutorialDone === "first") {
+        driver(formDriver2).drive();
+        dispatch(setIsTutorialDone("second"));
+        postTProgress();
+      }
+      else return;
+    }
+  }, [step, isWindowOpen]);
 
   useEffect(() => {
     if (user.isSignedIn && authState && !user.accessToken) {
@@ -207,10 +236,7 @@ export default function Form() {
 
   const uploadHandler = async (e) => {
     e.preventDefault();
-    // if (files.length === 0 || state.appName === "" || state.aiModal === "") {
-    //   alert("No files selected!");
-    //   return;
-    // }
+
     const fd = new FormData();
     fd.append("AppName", state.appName);
     fd.append("WelcomeMessage", state.welcomeMessage);
@@ -220,32 +246,16 @@ export default function Form() {
     fd.append("EnableUploadPdfFile", state.cb2);
     fd.append("ConversationRetentionPeriod", state.crPeriod);
     fd.append("ModalTemperature", state.modelTemperature);
-    fd.append("Email", user.userInfo.email);
     fd.append("Date", user.userInfo.date);
     files.forEach((file) => {
       fd.append("Pdfs", file);
     });
 
-    //  AXIOS - POSTING FORM DATA
-    // axios
-    //   // .post('https://localhost:7188/api/createapp', fd, {
-    //   .post("https://localhost:7026/api/createapp", fd, {
-    //     headers: {
-    //       "Custom-Header": "value",
-    //       "Content-Type": "multipart/form-data",
-    //     },
-    //   })
-    //   .then((res) => {
-    //     console.log("res.data: ", res.data);
-    //     setIsCreating(true);
-    //   })
-    //   .catch((err) => console.error(err.message));
-
     const sendForm = async (fd, accessToken) => {
       try {
         const response = await createApp(fd, accessToken);
-        console.log("Response Data:", response.data);
         setIsCreating(response);
+        window.location.href = LandingUrl;
       } catch (error) {
         console.log("Error sending form:", error);
       }
@@ -257,9 +267,10 @@ export default function Form() {
     <>
       {user.isSignedIn ? (
         <div>
-          {isVideoWindowOpen && <VideoWindow />}
+          <Window content={windowContent} visibility={isWindowOpen} />
+          {/* {isWindowOpen && <Window content={windowContent} visiblity={isWindowOpen} />} */}
           <form className="form-container">
-            <h2 className="step-title">Step {step}</h2>
+            <FormHeader step={step}/>
             <StepBar step={step} stepCount={stepCount} />
 
             <div className="bottom">
@@ -315,4 +326,3 @@ export default function Form() {
       )}
     </>
   );
-}

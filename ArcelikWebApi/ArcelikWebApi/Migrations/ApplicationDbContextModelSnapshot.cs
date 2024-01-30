@@ -49,7 +49,6 @@ namespace ArcelikWebApi.Migrations
                         .HasColumnType("real");
 
                     b.Property<string>("Pdfs_Urls")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SelectedModel")
@@ -63,10 +62,6 @@ namespace ArcelikWebApi.Migrations
                     b.Property<bool>("UseKnowledgebase")
                         .HasColumnType("bit");
 
-                    b.Property<string>("Username")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("WelcomeMessage")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -74,6 +69,119 @@ namespace ArcelikWebApi.Migrations
                     b.HasKey("id");
 
                     b.ToTable("AiApplications");
+                });
+
+            modelBuilder.Entity("ArcelikWebApi.Models.ApplicationSettings", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
+
+                    b.Property<string>("LandingUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SupportedFileTypes")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("id");
+
+                    b.ToTable("ApplicationSettings");
+
+                    b.HasData(
+                        new
+                        {
+                            id = 1,
+                            LandingUrl = "Somelink will be here",
+                            SupportedFileTypes = "Pdf"
+                        });
+                });
+
+            modelBuilder.Entity("ArcelikWebApi.Models.Users", b =>
+                {
+                    b.Property<Guid>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("WatchedTimeInSeconds")
+                        .HasColumnType("int");
+
+                    b.Property<int>("WatchedVideoId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("isWatchedAll")
+                        .HasColumnType("bit");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("WatchedVideoId");
+
+                    b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("ArcelikWebApi.Models.Video", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("BlobStorageUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("VideoDuration")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Videos");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            BlobStorageUrl = "https://arcelikstorage.blob.core.windows.net/videos/sample1.mp4",
+                            Title = "Video 1",
+                            VideoDuration = 5
+                        },
+                        new
+                        {
+                            Id = 2,
+                            BlobStorageUrl = "https://arcelikstorage.blob.core.windows.net/videos/sample2.mp4",
+                            Title = "Video 2",
+                            VideoDuration = 8
+                        },
+                        new
+                        {
+                            Id = 3,
+                            BlobStorageUrl = "https://arcelikstorage.blob.core.windows.net/videos/sample3.mp4",
+                            Title = "Video 3",
+                            VideoDuration = 10
+                        });
+                });
+
+            modelBuilder.Entity("ArcelikWebApi.Models.Users", b =>
+                {
+                    b.HasOne("ArcelikWebApi.Models.Video", "WatchedVideo")
+                        .WithMany()
+                        .HasForeignKey("WatchedVideoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("WatchedVideo");
                 });
 #pragma warning restore 612, 618
         }

@@ -42,13 +42,6 @@ namespace ArcelikWebApi.Controllers
             // Retrieve user email from context.Items
             var userEmailFromContext = HttpContext.Items["UserEmail"] as string;
 
-            // Additional check to ensure the email from the form matches the email from the token
-            if (!string.Equals(userEmailFromContext, formData.Email, StringComparison.OrdinalIgnoreCase))
-            {
-                // If emails don't match, return unauthorized
-                return Unauthorized(new { success = false, message = "Unauthorized: Email mismatch" });
-            }
-
             if (ModelState.IsValid)
             {
                 //Additional server-side validation for the date and time
@@ -74,20 +67,20 @@ namespace ArcelikWebApi.Controllers
                     Date = formData.Date
                 };
 
-                //if(token user bilgileri ile modela attığın user bilgilerini karşışarştır)
-                //{eğer karşılaştırma başarasız olursa http 401 dön }
-
                 _applicationDbContext.AiApplications.Add(aiApplication);
-
-                var blobUrls = new List<string>();
-
-                foreach (var pdfFile in formData.Pdfs)
+                if(formData.Pdfs != null)
                 {
-                    string blobUrl = await _blobService.Upload(pdfFile);
-                    blobUrls.Add(blobUrl);
+                    var blobUrls = new List<string>();
+
+                    foreach (var pdfFile in formData.Pdfs)
+                    {
+                        string blobUrl = await _blobService.Upload(pdfFile);
+                        blobUrls.Add(blobUrl);
+                    }
+                aiApplication.Pdfs_Urls = string.Join(",", blobUrls);
                 }
 
-                aiApplication.Pdfs_Urls = string.Join(",", blobUrls);
+
 
                 _applicationDbContext.SaveChanges();
 

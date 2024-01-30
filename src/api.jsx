@@ -17,7 +17,7 @@ export const validateToken = async (accessToken) => {
   try {
     setAuthHeader(accessToken);
 
-    const response = await instance.post("/api/tokenvalidation/validation", {});
+    const response = await instance.post("/api/saveuser/save", {});
     return response.status;
   } catch (error) {
     throw error;
@@ -54,7 +54,7 @@ export const createApp = async (formData, accessToken) => {
 };
 
 export const getVideoProgress = async (accessToken) => {
-  const endpoint = "/api/uservideo/iswatched";
+  const endpoint = "/api/uservideo/status";
   try {
     setAuthHeader(accessToken);
     const response = await instance.get(endpoint);
@@ -64,20 +64,91 @@ export const getVideoProgress = async (accessToken) => {
     throw error;
   }
 };
-
-export const postVideoProgress = async (accessToken) => {
+export const postTutorialProgress = async (accessToken) => {
   try {
     setAuthHeader(accessToken);
-
     const response = await instance.post(
-      "/api/uservideo/iswatched",
-      { isWatched: true },
+      "/api/uservideo/updatetutorial",
+      {
+        isTutorialDone: true,
+      },
       {
         headers: {
           "Custom-Header": "value",
         },
       }
     );
+    // console.log(response.data);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+export const postVideoProgress = async (accessToken, videoCreds) => {
+  try {
+    setAuthHeader(accessToken);
+
+    const response = await instance.post(
+      "/api/uservideo/updatewatched",
+      {
+        isWatchedAll: videoCreds.isWatchedAll,
+        WatchedVideoId: videoCreds.WatchedVideoId,
+        WatchedTimeInseconds: videoCreds.WatchedTimeInseconds,
+      },
+      {
+        headers: {
+          "Custom-Header": "value",
+        },
+      }
+    );
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const getVideos = async (accessToken) => {
+  try {
+    setAuthHeader(accessToken);
+    const response = await instance.get("/api/videos");
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+export const getSettings = async (accessToken) => {
+  try {
+    setAuthHeader(accessToken);
+    const response = await instance.get(
+      "/api/application-settings/getapplication"
+    );
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+//Quiz - Get
+export const getQuestions = async (accessToken) => {
+  const endpoint = "/api/questions";
+  try {
+    setAuthHeader(accessToken);
+
+    const response = await instance.get(endpoint);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+//Quiz - Post
+export const postQuestionResponses = async (accessToken, responses) => {
+  const endpoint = "/api/questions/responses";
+  try {
+    setAuthHeader(accessToken);
+
+    const response = await instance.post(endpoint, responses);
+
     console.log(response.data);
     return response.data;
   } catch (error) {

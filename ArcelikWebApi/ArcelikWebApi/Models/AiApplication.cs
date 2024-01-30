@@ -24,7 +24,7 @@ namespace ArcelikWebApi.Models
 
         public float ModalTemperature { get; set; }
 
-        public string Pdfs_Urls { get; set; }
+        public string? Pdfs_Urls { get; set; }
 
         public string Email { get; set; }
 

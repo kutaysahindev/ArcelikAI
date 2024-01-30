@@ -1,0 +1,59 @@
+.video-container .btn-container {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+
+  position: absolute;
+  bottom: 10px;
+  z-index: -1;
+  transition: bottom 0.3s ease-in-out;
+  padding-top: 15px;
+  /* background: red; */
+}
+
+.btn-container.hovered {
+  bottom: -40px;
+}
+
+.btns {
+  padding: 1.2rem 1rem;
+  background-color: rgb(219, 219, 219);
+  border-radius: 10px;
+  color: #3b0052;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  /* color: white; */
+  border: none;
+  outline: none;
+  cursor: pointer;
+  font-family: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-size: 1.2rem;
+}
+.video-container .btn-container .previous,
+.video-container .btn-container .next {
+  flex: 1;
+}
+.video-container .btn-container .close {
+  flex: 1;
+  color: rgb(139, 0, 0);
+}
+.video-container .btn-container .again {
+  flex: 3;
+}
+
+.video-container .btn-container .btns:hover {
+  background-color: rgba(170, 169, 169, 0.645);
+}
+
+.video-container .btn-container .btns:disabled {
+  background-color: rgb(69, 69, 69);
+  color: rgb(130, 130, 130);
+  cursor: default;
+  /* cursor: not-allowed; */
+}

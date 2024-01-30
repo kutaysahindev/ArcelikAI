@@ -94,13 +94,13 @@ export const videoDriver = {
     {
       element: ".video-section .window",
       popover: {
-        title: "🗔 Video Window",
+        title: "🗔 Video Course",
         description:
-          "This window guides you on how to create your app. Once you complete it, it will not show up again.",
+          "This course guides you on how to create your app. Once you complete it, it will not show up again.",
       },
     },
     {
-      element: ".video-tabs",
+      element: ".window-tabs",
       popover: {
         title: "🖇 Videos",
         description:
@@ -114,22 +114,92 @@ export const videoDriver = {
       popover: {
         title: "⏯ Video",
         description:
-          "Please watch the each video from start to end without changing the playback rate and seeking",
+          "Please watch the each video from start to end without changing the playback rate and without seeking. You can navigate to other videos and watch the current video again. Hover over the video to see the related buttons.",
       },
     },
-    {
-      element: ".again",
-      popover: {
-        title: "🔄 Watch Again",
-        description: "You can watch again the video by clicking to this button",
-      },
-    },
+    // {
+    //   element: ".again",
+    //   popover: {
+    //     title: "🔄 Watch Again",
+    //     description: "You can watch again the video by clicking to this button",
+    //   },
+    // },
     {
       element: ".w-btn.x",
       popover: {
         title: "❌ Close the window",
         description:
           "After finishing all the videos, you can close the dialog. Also, the next button (⏩) will turn into a close button by the end",
+      },
+    },
+    {
+      element: ".quiz-btn",
+      popover: {
+        title: "📝 Take the quiz",
+        description:
+          "If you complete all the videos in the course, you will be able to take the exam.",
+      },
+    },
+    // {
+    //   popover: {
+    //     title: "✨That's it ",
+    //     description: "You can now create your custom app",
+    //   },
+    // },
+  ],
+};
+
+export const QuizDriver = {
+  showProgress: true,
+  showButtons: ["next", "previous"],
+  steps: [
+    {
+      element: ".video-section .window",
+      popover: {
+        title: "📝 Quiz",
+        description:
+          "There will be questions related to the previous video course. If you pass the test you will be able to create your AI app.",
+      },
+    },
+    {
+      element: ".window-tabs",
+      popover: {
+        title: "🖇 Questions",
+        description:
+          "You can navigate through the questions here. You can start from any question you want.",
+        // side: "bottom",
+        // align: "start",
+      },
+    },
+    {
+      element: ".question",
+      popover: {
+        title: "❓ Question",
+        description:
+          "There are 5 types of questions in total. Single Selection, Multiple Selection, Drag and Sort, Open-Ended, and True or False questions.",
+      },
+    },
+    // {
+    //   element: ".again",
+    //   popover: {
+    //     title: "🔄 Watch Again",
+    //     description: "You can watch again the video by clicking to this button",
+    //   },
+    // },
+    {
+      element: ".w-btn.x",
+      popover: {
+        title: "❌ Close the window",
+        description:
+          "If you close the window before sending the quiz, you will lose your progress and one of two attempts to take the quiz.",
+      },
+    },
+    {
+      element: ".send-btn",
+      popover: {
+        title: "📤 Send your answers",
+        description:
+          "You can send your answers by clicking this button.",
       },
     },
     {

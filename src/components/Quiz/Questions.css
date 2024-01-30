@@ -1,0 +1,66 @@
+.question {
+  display: flex;
+  gap: 10px;
+  height: 300px;
+  /* background: red; */
+  overflow-y: auto;
+  padding-right: 1rem;
+}
+
+.question .title {
+  font-size: 20px;
+  font-weight: 800;
+  margin-bottom: 20px;
+}
+
+ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+}
+.option{
+  width: 250px;
+  font-size: 20px;
+  font-weight: 600;
+  background: rgb(235, 235, 235);
+  border-radius: 10px;
+  padding: 15px 20px;
+  margin: 3px 0;
+  user-select: none;
+  cursor: pointer;
+}
+.option:hover {
+  background: rgb(213, 213, 213);
+}
+.selected {
+  background-color: rgb(93, 200, 200);
+}
+.selected:hover {
+  background-color: rgb(78, 172, 172);
+}
+
+.drag-and-sort .list.l-dragging {
+  /* background: rgba(31, 134, 134, 0.422); */
+}
+.drag-and-sort .option.o-dragging {
+  background: rgb(93, 200, 200);
+  opacity: 0.7;
+}
+
+.multi-select input {
+  margin-right: 10px;
+  accent-color: rgb(31, 134, 134);
+  cursor: pointer;
+}
+
+.open-ended input {
+  width: 250px;
+  background: rgb(235, 235, 235);
+  border-radius: 10px;
+  padding: 15px 20px;
+  margin: 3px 0;
+  outline: none;
+  border: none;
+  font-size: 20px;
+  font-weight: 600;
+}

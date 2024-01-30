@@ -1,14 +1,14 @@
-import React, { useState, useRef, useEffect } from 'react';
-import './UploadContainer.css';
-import { driver } from "driver.js";
-import "driver.js/dist/driver.css";
+import  { useState, useRef } from "react";
+import "./UploadContainer.css";
+import { useSelector } from "react-redux";
+
 
 const UploadContainer = ({ files, setFiles }) => {
 
   const [isDragging, setIsDragging] = useState(false);
-  const [isHover, setIsHover] = useState(false)
+  const [isHover, setIsHover] = useState(false);
   const fileInputRef = useRef(null);
-
+  const { SupportedFileTypes } = useSelector((state) => state.settings);
   const selectFiles = () => {
     fileInputRef.current.click();
   };
@@ -28,7 +28,11 @@ const UploadContainer = ({ files, setFiles }) => {
     setIsDragging(false);
 
     const droppedFiles = Array.from(e.dataTransfer.files);
-    setFiles([...files, ...droppedFiles]);
+    // Filter out non-PDF files
+    const pdfFiles = droppedFiles.filter(
+      (file) => file.type === "application/pdf"
+    );
+    setFiles([...files, ...pdfFiles]);
   };
 
   const handleFileRemove = (e, index) => {
@@ -37,11 +41,18 @@ const UploadContainer = ({ files, setFiles }) => {
     newFiles.splice(index, 1);
     setFiles(newFiles);
   };
-  
+
+  const handleFileInputChange = (e) => {
+    // Filter out non-PDF files
+    const pdfFiles = Array.from(e.target.files).filter(
+      (file) => file.type === "application/pdf"
+    );
+    setFiles((prev) => [...prev, ...pdfFiles]);
+  };
+
   return (
     <div
-      id="drag-cont"
-      className={`file-upload ${isDragging ? 'dragging' : ''}`}
+      className={`file-upload ${isDragging ? "dragging" : ""}`}
       onDragLeave={handleDragLeave}
       onDragOver={handleDragOver}
       onDrop={handleDrop}
@@ -54,15 +65,21 @@ const UploadContainer = ({ files, setFiles }) => {
             <p className="select bold">Drop files here</p>
           ) : (
             <p className="select" onClick={selectFiles}>
-              Drag and drop files here or <span className={`${isHover ? "highlight" : ""}`}>Browse</span>
+              Drag and drop PDF files here or 
+              <span className={`${isHover ? "highlight" : ""}`}>Browse</span>
             </p>
           )}
           <input
             className="file-input"
             type="file"
+            accept={
+              SupportedFileTypes.includes(",")
+                ? SupportedFileTypes.map((t) => `.${t}`).join(", ")
+                : `.${SupportedFileTypes}`
+            }
             multiple
             ref={fileInputRef}
-            onChange={(e) => setFiles((prev) => [...prev, ...e.target.files])}
+            onChange={handleFileInputChange}
           />
         </div>
       ) : (

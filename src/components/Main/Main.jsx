@@ -1,10 +1,11 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useOktaAuth } from "@okta/okta-react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   logUserOut,
   setAccessToken,
   setIsLoading,
+  setIsTutorialDone,
   setStatus,
   signUserIn,
   userInfoUpdate,
@@ -14,13 +15,24 @@ import LoadingLayer from "../Loading/LoadingLayer";
 
 import "./Main.css";
 import contentList from "./ContentData";
-import { getVideoProgress, validateToken } from "../../api"; // Import the validateToken function
-import { closeVideoWindow, completeVideo } from "../../redux/videoSlice";
+import { getSettings, getVideoProgress, validateToken } from "../../api"; // Import the validateToken function
+import {
+  closeVideoWindow,
+  completeAll,
+  completeVideo,
+  proceedAt,
+  setSelectedVideo,
+  setVideoCount,
+  setVideoMark,
+  setVideos,
+} from "../../redux/videoSlice";
+import { updateSettings } from "../../redux/settingSlice";
 
 const Main = () => {
   const { authState, oktaAuth } = useOktaAuth();
   const nav = useSelector((slices) => slices.nav);
   const user = useSelector((slices) => slices.user);
+  const { videoCount } = useSelector((slices) => slices.video);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -47,21 +59,13 @@ const Main = () => {
       dispatch(setAccessToken(accessToken));
 
       validateToken(accessToken)
-        .then((status) => {
-          if (status === 200) {
-            // Check against the specific status code
-            dispatch(signUserIn());
-          } else {
-            dispatch(logUserOut());
-            dispatch(setStatus("f"));
-            console.error("Token validation failed with status:", status);
-          }
-        })
+        .then(() =>  dispatch(signUserIn()))
         .catch((error) => {
           dispatch(logUserOut());
           dispatch(setStatus("f"));
           console.error("Error validating token:", error);
-        });
+          // dispatch(setIsLoading(false));
+        })
     } else {
       dispatch(logUserOut());
     }
@@ -71,17 +75,34 @@ const Main = () => {
     const fetchData = async () => {
       try {
         const video = await getVideoProgress(user.accessToken);
-        console.log("video completion: " + video);
-        if (String(video) !== "false") {
-          dispatch(completeVideo(3));
-          dispatch(closeVideoWindow());
-        }
+        console.log("video (fetch): ", video);
+        dispatch(setVideos(video.VideoDetails));
+        dispatch(setVideoCount(video.VideoCount));
+        if(video.isTutorialDone)dispatch(setIsTutorialDone("0done"));
+        if (video.isWatchedAll) dispatch(completeAll());
+        else
+          dispatch(
+            proceedAt({
+              video: video.WatchedVideoId,
+              time: video.WatchedTimeInSeconds,
+            })
+          );
+      } catch (error) {
+        throw error;
+      }
+    };
+    const fetchSettings = async () => {
+      try {
+        const settings = await getSettings(user.accessToken);
+        console.log("ayar ", settings);
+        dispatch(updateSettings(settings));
       } catch (error) {
         throw error;
       }
     };
     if (user.isSignedIn && user.accessToken) {
       fetchData();
+      fetchSettings();
     }
   }, [user.isSignedIn, user.accessToken]);
 
@@ -95,7 +116,7 @@ const Main = () => {
       timerId = setTimeout(() => {
         if (user.isSignedIn) navigate("/form");
         dispatch(setIsLoading(false));
-      }, 3500);
+      }, 4500);
     }
     return () => clearInterval(timerId);
   }, [user.isLoading, dispatch, navigate, user.isSignedIn]);
