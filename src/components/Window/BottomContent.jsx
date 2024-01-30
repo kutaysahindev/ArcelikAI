@@ -1,8 +1,14 @@
+<<<<<<< Updated upstream
 import { FaCheckCircle } from "react-icons/fa";
 import { FaPlayCircle } from "react-icons/fa";
 import { FaPenNib } from "react-icons/fa";
 import { IoIosPaperPlane } from "react-icons/io";
+=======
+//Imports
+import React from "react";
+>>>>>>> Stashed changes
 
+//Functional component to hold & render bottom component text components
 const BottomContent = () => {
   const bottomContentData = [
     {

@@ -1,3 +1,4 @@
+//This data gets updated from DB
 [
   {
     "file_types": ["png", "jpg", "pdf"],

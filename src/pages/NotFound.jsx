@@ -1,3 +1,4 @@
+//Imports
 import "./NotFound.css";
 
 const NotFound = () => {

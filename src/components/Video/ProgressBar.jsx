@@ -1,4 +1,5 @@
-import './ProgressBar.css'
+//Imports
+import "./ProgressBar.css";
 
 const ProgressBar = ({ isCompleted, progress }) => {
   return (
@@ -10,6 +11,6 @@ const ProgressBar = ({ isCompleted, progress }) => {
         }}
       />
     </div>
-  )
-}
-export default ProgressBar
+  );
+};
+export default ProgressBar;

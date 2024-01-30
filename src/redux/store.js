@@ -1,3 +1,4 @@
+//Imports
 import { configureStore } from "@reduxjs/toolkit";
 import userReducer from "./userSlice";
 import navIndexReducer from "./navIndexSlice";

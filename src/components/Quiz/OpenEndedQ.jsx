@@ -1,3 +1,4 @@
+//Imports
 import { useState } from "react";
 import "./Questions.css";
 import { RxInput } from "react-icons/rx";
@@ -17,9 +18,13 @@ export const OpenEndedQ = ({ id, addRes, question }) => {
       <RxInput size={30} />
       <div>
         <h3 className="title">{question}</h3>
+<<<<<<< Updated upstream
         <input value={text} onChange={(e) => onType(e.target.value)}/>
+=======
+        <input onChange={(e) => setResponse(e.target.value)} />
+>>>>>>> Stashed changes
       </div>
       {/* <p>response: { response }</p> */}
     </div>
-  )
-}
+  );
+};

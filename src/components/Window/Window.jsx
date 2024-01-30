@@ -1,3 +1,4 @@
+//Imports
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { closeVideoWindow, setSelectedVideo } from "../../redux/videoSlice";
@@ -43,6 +44,7 @@ const Window = ({ content, visibility }) => {
     };
   }
 
+  //This component renders the overlay screen on form component
   return (
     <div className={`window ${visibility ? "slide" : ""}`}>
       <WindowButtons

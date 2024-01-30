@@ -1,13 +1,17 @@
+//Imports
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { completeVideo } from "../redux/videoSlice";
 import { postVideoProgress } from "../api";
 
 const useVideoPlayer = () => {
-  const { selectedVideo, completion, videoMark, allCompleted } = useSelector((state) => state.video);
+  const { selectedVideo, completion, videoMark, allCompleted } = useSelector(
+    (state) => state.video
+  );
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const videoRef = useRef(null);
+  //Video player settings, some will be updated from DB later on
   const [videoDetails, setVideoDetails] = useState({
     status: false,
     videoDuration: 0,
@@ -17,8 +21,14 @@ const useVideoPlayer = () => {
     replay: false,
     isContinue: "yes",
   });
-  const { videoDuration, currentTime, progress, isCompleted, replay, isContinue } =
-    videoDetails;
+  const {
+    videoDuration,
+    currentTime,
+    progress,
+    isCompleted,
+    replay,
+    isContinue,
+  } = videoDetails;
 
   const setDetailsHandler = (field, value) => {
     setVideoDetails((prev) => ({ ...prev, [field]: value }));
@@ -32,7 +42,11 @@ const useVideoPlayer = () => {
   useEffect(() => {
     const video = videoRef.current;
     // console.log('isContinue: ', isContinue)
-    if(videoMark.time > 2 && selectedVideo === videoMark.video && isContinue === "yes") {
+    if (
+      videoMark.time > 2 &&
+      selectedVideo === videoMark.video &&
+      isContinue === "yes"
+    ) {
       video.currentTime = videoMark.time;
       setDetailsHandler("currentTime", videoMark.time);
     }
@@ -55,13 +69,10 @@ const useVideoPlayer = () => {
     };
     const handleSeeking = () => {
       const delta = video.currentTime - currentTime;
-      if (selectedVideo === videoMark.video && isContinue  === "yes") {
-        // video.currentTime = videoMark.time;
-        // setDetailsHandler("currentTime", videoMark.time);
+      if (selectedVideo === videoMark.video && isContinue === "yes") {
         setDetailsHandler("isContinue", "no");
         // video.play();
-      }
-      else if (Math.abs(delta) > 0.01) {
+      } else if (Math.abs(delta) > 0.01) {
         console.log("Seeking is disabled");
         video.currentTime = currentTime;
         // video.play();
@@ -81,14 +92,13 @@ const useVideoPlayer = () => {
     else return;
   }, [progress]);
 
-
   useEffect(() => {
     const postVideo = async () => {
       try {
         const videoProg = await postVideoProgress(user.accessToken, {
           isWatchedAll: allCompleted,
-          WatchedVideoId: selectedVideo+1,
-          WatchedTimeInseconds: 0
+          WatchedVideoId: selectedVideo + 1,
+          WatchedTimeInseconds: 0,
         });
       } catch (error) {
         throw error;

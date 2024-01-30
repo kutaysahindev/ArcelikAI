@@ -1,3 +1,4 @@
+//This file contains the tutorial info at form overlay
 export const formDriver1 = {
   showProgress: true,
   steps: [

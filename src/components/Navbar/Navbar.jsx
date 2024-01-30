@@ -21,7 +21,6 @@ const Navbar = () => {
     <nav id="navbar">
       <div className="logo">
         <img className="" src={arclk} alt="arcelik" />
-        {/* <p>Arçelik</p> */}
       </div>
       {location.pathname === "/" ? (
         <div className="steps">

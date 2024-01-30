@@ -1,4 +1,5 @@
-import './ProgressBar.css'
+//Imports
+import "./ProgressBar.css";
 
 const FullProgressBar = ({ isCompleted, progress }) => {
   return (
@@ -10,6 +11,6 @@ const FullProgressBar = ({ isCompleted, progress }) => {
         }}
       />
     </div>
-  )
-}
-export default FullProgressBar
+  );
+};
+export default FullProgressBar;

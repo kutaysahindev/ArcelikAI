@@ -1,6 +1,8 @@
+//Imports
 import React, { useState } from "react";
 import "./ArcelikLoading.css";
 
+//Main screen loading animation SVG
 export default function ArcelikG2() {
   const [isVisible, setIsVisible] = useState(true);
   function toggleVisibility() {

@@ -1,3 +1,4 @@
+//Imports
 import Main from "../components/Main/Main";
 
 const Home = () => {

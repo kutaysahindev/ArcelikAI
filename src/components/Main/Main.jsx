@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+//Imports
 import { useEffect } from "react";
 import { useOktaAuth } from "@okta/okta-react";
 import { useDispatch, useSelector } from "react-redux";
@@ -12,7 +14,6 @@ import {
 } from "../../redux/userSlice";
 import { useNavigate } from "react-router-dom";
 import LoadingLayer from "../Loading/LoadingLayer";
-
 import "./Main.css";
 import contentList from "./ContentData";
 import { getSettings, getVideoProgress, validateToken } from "../../api"; // Import the validateToken function
@@ -28,6 +29,7 @@ import {
 } from "../../redux/videoSlice";
 import { updateSettings } from "../../redux/settingSlice";
 
+//Main Component
 const Main = () => {
   const { authState, oktaAuth } = useOktaAuth();
   const nav = useSelector((slices) => slices.nav);
@@ -38,10 +40,12 @@ const Main = () => {
 
   const isValidIndex = nav.index >= 0 && nav.index < contentList.length;
 
+  //Fetching user data through Okta
   useEffect(() => {
     oktaAuth
       .getUser()
       .then((user) => {
+        // Convert timezone to check data reliability
         const myDate = new Date(user.headers.date);
         const newDate = myDate.toLocaleString("en-US", {
           timezone: "Europe/Istanbul",
@@ -53,24 +57,25 @@ const Main = () => {
       .catch((error) => console.error("Error fetching user info:", error));
   }, [oktaAuth, dispatch]);
 
+  //Token validation through back-end
   useEffect(() => {
     if (authState && authState.isAuthenticated) {
       const accessToken = authState.accessToken.accessToken;
       dispatch(setAccessToken(accessToken));
 
       validateToken(accessToken)
-        .then(() =>  dispatch(signUserIn()))
+        .then(() => dispatch(signUserIn()))
         .catch((error) => {
           dispatch(logUserOut());
           dispatch(setStatus("f"));
           console.error("Error validating token:", error);
-          // dispatch(setIsLoading(false));
-        })
+        });
     } else {
       dispatch(logUserOut());
     }
   }, [authState]);
 
+  //Fetch tutorial & user info from DB
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -78,7 +83,7 @@ const Main = () => {
         console.log("video (fetch): ", video);
         dispatch(setVideos(video.VideoDetails));
         dispatch(setVideoCount(video.VideoCount));
-        if(video.isTutorialDone)dispatch(setIsTutorialDone("0done"));
+        if (video.isTutorialDone) dispatch(setIsTutorialDone("0done"));
         if (video.isWatchedAll) dispatch(completeAll());
         else
           dispatch(
@@ -91,13 +96,14 @@ const Main = () => {
         throw error;
       }
     };
+
+    //Fetch user settings from DB
     const fetchSettings = async () => {
       try {
         const settings = await getSettings(user.accessToken);
-        console.log("ayar ", settings);
         dispatch(updateSettings(settings));
       } catch (error) {
-        throw error;
+        console.error("Error fetching user settings", error);
       }
     };
     if (user.isSignedIn && user.accessToken) {
@@ -110,6 +116,7 @@ const Main = () => {
     fontSize: isValidIndex && nav.index === 0 ? "2.2rem" : "1.5rem",
   };
 
+  //Animation timeout
   useEffect(() => {
     let timerId;
     if (user.isLoading) {

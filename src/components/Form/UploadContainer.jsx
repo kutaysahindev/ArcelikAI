@@ -1,3 +1,4 @@
+//Imports
 import React, { useState, useRef } from "react";
 import "./UploadContainer.css";
 import { useSelector } from "react-redux";
@@ -11,6 +12,7 @@ const UploadContainer = ({ files, setFiles }) => {
     fileInputRef.current.click();
   };
 
+  //Handle file upload & removal events
   const handleDragLeave = (e) => {
     e.preventDefault();
     setIsDragging(false);
@@ -26,6 +28,7 @@ const UploadContainer = ({ files, setFiles }) => {
     setIsDragging(false);
 
     const droppedFiles = Array.from(e.dataTransfer.files);
+
     // Filter out non-PDF files
     const pdfFiles = droppedFiles.filter(
       (file) => file.type === "application/pdf"
@@ -57,6 +60,7 @@ const UploadContainer = ({ files, setFiles }) => {
       onMouseEnter={() => setIsHover(true)}
       onMouseLeave={() => setIsHover(false)}
     >
+      {/* Upload files */}
       {!files?.length > 0 ? (
         <div className="">
           {isDragging ? (
@@ -82,6 +86,7 @@ const UploadContainer = ({ files, setFiles }) => {
         </div>
       ) : (
         <ul>
+          {/* Display uploaded files */}
           {files.map((file, index) => (
             <li key={index}>
               <span>{file.name}</span>

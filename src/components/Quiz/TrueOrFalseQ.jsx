@@ -1,3 +1,4 @@
+//Imports
 import { useState } from "react";
 import "./Questions.css";
 import { RiListRadio } from "react-icons/ri";
@@ -26,8 +27,13 @@ export const TrueOrFalseQ = ({ id, addRes, question }) => {
           </li>
           <li
             className={selection === "false" ? "selected option" : "option"}
+<<<<<<< Updated upstream
             onClick={() => handleOptionSelect("false")}
             >
+=======
+            onClick={() => setSelection("false")}
+          >
+>>>>>>> Stashed changes
             False
           </li>
         </ul>

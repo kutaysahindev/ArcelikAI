@@ -1,3 +1,4 @@
+//Imports
 import React, { useEffect, useState } from "react";
 import { useOktaAuth } from "@okta/okta-react";
 import { useNavigate } from "react-router-dom";
@@ -27,27 +28,13 @@ const Anteroom = () => {
         if (authState?.isAuthenticated) oktaAuth.signOut();
         else navigate("/");
       }, 1500);
-      console.log("hata");
+      console.log("Error while signing out, check anteroom");
     }
   };
 
   useEffect(() => {
     responseHandler();
   }, []);
-
-  // const approveHandler = async () => {
-  //   const endpoint =
-  //     "https://6582f75e02f747c8367abde3.mockapi.io/api/v1/backendApproval";
-  //   // AXIOS - GETTING APPROVAL FOR ACCESS TOKEN
-  //   axios
-  //     .get(endpoint)
-  //     .then((res) => responseHandler(res.status))
-  //     .catch((err) => console.error(err.message));
-  // };
-
-  // useEffect(() => {
-  //   approveHandler();
-  // }, []);
 
   return (
     <>

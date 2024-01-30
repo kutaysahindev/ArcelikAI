@@ -1,8 +1,10 @@
-import './InitialInputs.css';
+//Imports
+import "./InitialInputs.css";
 
 function InitialInputs({ state, handleInputChange }) {
   return (
     <div className="initial-inputs">
+      {/* Step 1 - Text Inputs */}
       <div className="first-two-inp">
         <div className="one">
           <label>App Name</label>
@@ -10,7 +12,7 @@ function InitialInputs({ state, handleInputChange }) {
             id="a-inp"
             className="inputs text-input"
             value={state.appName}
-            onChange={(e) => handleInputChange('appName', e.target.value)}
+            onChange={(e) => handleInputChange("appName", e.target.value)}
           />
         </div>
 
@@ -21,7 +23,7 @@ function InitialInputs({ state, handleInputChange }) {
             className="inputs text-input"
             value={state.welcomeMessage}
             onChange={(e) =>
-              handleInputChange('welcomeMessage', e.target.value)
+              handleInputChange("welcomeMessage", e.target.value)
             }
           />
         </div>
@@ -34,7 +36,7 @@ function InitialInputs({ state, handleInputChange }) {
           className="inputs text-input"
           rows="10"
           value={state.systemPrompt}
-          onChange={(e) => handleInputChange('systemPrompt', e.target.value)}
+          onChange={(e) => handleInputChange("systemPrompt", e.target.value)}
         />
       </div>
     </div>

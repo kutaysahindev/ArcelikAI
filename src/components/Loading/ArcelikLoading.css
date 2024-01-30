@@ -1,10 +1,7 @@
 * {
-  /* document.getElementsByClassName("cls-1")[0].getTotalLength(); */
   --strokeLength1: 2985.705810546875;
   --strokeLength2: 7920;
   --arcelikColor: #cd0d21;
-  /* width: 100%;
-  height: 100vh; */
 }
 
 .loader {

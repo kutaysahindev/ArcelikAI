@@ -1,4 +1,4 @@
-// import React from "react";
+//Imports
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./App.css";
 
@@ -10,7 +10,6 @@ import RootLayout from "./layouts/RootLayout";
 import Home from "./pages/Home";
 import Form from "./pages/Form";
 import NotFound from "./pages/NotFound";
-import TestRedux from "./pages/TestRedux";
 import Anteroom from "./pages/Anteroom";
 
 const router = createBrowserRouter([
@@ -30,10 +29,6 @@ const router = createBrowserRouter([
       {
         path: "form",
         element: <Form />,
-      },
-      {
-        path: "test",
-        element: <TestRedux />,
       },
       {
         path: "anteroom",

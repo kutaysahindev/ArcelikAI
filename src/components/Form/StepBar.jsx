@@ -1,4 +1,5 @@
-import './StepBar.css';
+//Imports
+import "./StepBar.css";
 
 function StepBar({ step, stepCount }) {
   return (

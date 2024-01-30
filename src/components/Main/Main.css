@@ -9,10 +9,6 @@ html {
   font-size: 62.5%; /* 1rem = 10px */
 }
 
-body {
-  /* overflow: hidden; */
-}
-
 .main-container {
   text-align: center;
   padding: 4rem;

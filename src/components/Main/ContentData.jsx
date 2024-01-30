@@ -1,3 +1,5 @@
+/* eslint-disable react/no-unescaped-entities */
+//Functional component to hold necessary text on main screen
 const contentList = [
   {
     title: "Arçelik AI Platform",

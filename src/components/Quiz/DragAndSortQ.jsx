@@ -1,10 +1,16 @@
+<<<<<<< Updated upstream
 import { useEffect, useState } from "react";
+=======
+//Imports
+import { useState } from "react";
+>>>>>>> Stashed changes
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import "./Questions.css";
 import { RiListOrdered2 } from "react-icons/ri";
 import { PiSortAscendingBold, PiSortDescendingBold } from "react-icons/pi";
 import { useSelector } from "react-redux";
 
+<<<<<<< Updated upstream
 
 export const DragAndSortQ = ({ id, addRes, question, options }) => {
   const { responses } = useSelector(state => state.quiz);
@@ -14,7 +20,12 @@ export const DragAndSortQ = ({ id, addRes, question, options }) => {
     addRes(id, sortedOptions)
   }, [sortedOptions])
   
+=======
+export const DragAndSortQ = ({ question, options }) => {
+  const [sortedOptions, setSortedOptions] = useState(options);
+>>>>>>> Stashed changes
 
+  // Handle drag & drop logic
   function handleOnDragEnd(result) {
     if (!result.destination) return;
     const items = Array.from(sortedOptions);
@@ -29,27 +40,44 @@ export const DragAndSortQ = ({ id, addRes, question, options }) => {
       <div>
         <h3 className="title">{question}</h3>
         <DragDropContext onDragEnd={handleOnDragEnd}>
-            <Droppable droppableId="sortedOptions">
-              {(provided, snapshot) => (
-                <ul className={`list ${snapshot.isDraggingOver ? 'l-dragging' : ''}`} {...provided.droppableProps} ref={provided.innerRef}>
-                  {sortedOptions.map(({oID, option}, index) => {
-                    return (
-                      <Draggable key={String(oID)} draggableId={String(oID)} index={index}>
-                        {(provided, snapshot) => 
-                          <li className={`option ${snapshot.isDragging ? 'o-dragging' : ''}`} ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
-                            { option }
-                          </li>
-                        }
-                      </Draggable>
-                    );
-                  })}
-                  {provided.placeholder}
-                </ul>
-              )}
-            </Droppable>
-          </DragDropContext>
-        </div>
-        {/* <p>order: { sortedOptions.map(o => <span key={o.oID}>{ o.option } - </span>) }</p> */}
+          <Droppable droppableId="sortedOptions">
+            {(provided, snapshot) => (
+              <ul
+                className={`list ${
+                  snapshot.isDraggingOver ? "l-dragging" : ""
+                }`}
+                {...provided.droppableProps}
+                ref={provided.innerRef}
+              >
+                {sortedOptions.map(({ oID, option }, index) => {
+                  return (
+                    <Draggable
+                      key={String(oID)}
+                      draggableId={String(oID)}
+                      index={index}
+                    >
+                      {(provided, snapshot) => (
+                        <li
+                          className={`option ${
+                            snapshot.isDragging ? "o-dragging" : ""
+                          }`}
+                          ref={provided.innerRef}
+                          {...provided.draggableProps}
+                          {...provided.dragHandleProps}
+                        >
+                          {option}
+                        </li>
+                      )}
+                    </Draggable>
+                  );
+                })}
+                {provided.placeholder}
+              </ul>
+            )}
+          </Droppable>
+        </DragDropContext>
+      </div>
+      {/* <p>order: { sortedOptions.map(o => <span key={o.oID}>{ o.option } - </span>) }</p> */}
     </div>
-  )
-}
+  );
+};

@@ -1,3 +1,4 @@
+//Impotrs
 import { useRef, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import useVideoPlayer from "../../hooks/useVideoPlayer";
@@ -46,19 +47,20 @@ const CourseVideo = () => {
 
   return (
     <div className="video-container" id={`${selectedVideo}-cont`}>
-      <FullProgressBar isCompleted={isCompleted} progress={progress}/>
+      <FullProgressBar isCompleted={isCompleted} progress={progress} />
       {/* <ProgressBar isCompleted={isCompleted} progress={progress}/> */}
       {/* <p className="info">
         Please watch the video from start to end without changing the playback
         rate and seeking
       </p> */}
-      
-      {(selectedVideo < 1 || selectedVideo > videoCount) ? (
+
+      {selectedVideo < 1 || selectedVideo > videoCount ? (
         <div className="video-not-found">
           <MdReportGmailerrorred size={40} /> <p>Video Not Found</p>
         </div>
       ) : (
-        <div className='vc'
+        <div
+          className="vc"
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
         >
