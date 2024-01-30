@@ -1,13 +1,21 @@
-import React, { useState } from 'react';
+import { useEffect, useState } from 'react';
 import "./Questions.css";
 import { RiListRadio } from 'react-icons/ri';
 import { TbListLetters } from "react-icons/tb";
+import { useSelector } from 'react-redux';
 
-export const SingleSelectQ = ({ question, options }) => {
-  const [selectedOption, setSelectedOption] = useState(null);
+export const SingleSelectQ = ({ id, addRes, question, options }) => {
+  const { responses } = useSelector(state => state.quiz)
+  const [selectedOption, setSelectedOption] = useState(responses["Q"+id]);
+
+  // useEffect(() => {
+  //   console.log('response: ', responses["Q"+id])
+  // }, [])
+  
 
   const handleOptionSelect = (option) => {
     setSelectedOption(option);
+    addRes(id, option);
   };
 
   return (
