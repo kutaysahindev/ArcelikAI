@@ -29,7 +29,7 @@ const VideoButtonContainer = ({ watchAgain, isHovered }) => {
     else if(selectedVideo === videoCount && result !== "passed") {
       btnProps = {
         class: "quiz",
-        onClick: () => setWindowContent("quiz"),
+        onClick: () => dispatch(setWindowContent("quiz")),
         disabled: !allCompleted,
         text: "Quiz",
         icon: <FaPenNib />,

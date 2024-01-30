@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { closeVideoWindow, setSelectedVideo } from "../../redux/videoSlice";
 import { driver } from "driver.js";
 import "./Window.css";
-import { videoDriver } from "../../utils/guides";
+import { QuizDriver, videoDriver } from "../../utils/guides";
 import WindowHeader from "./WindowHeader";
 import WindowTabs from "./WindowTabs";
 import WindowContent from "./WindowContent";
@@ -13,7 +13,7 @@ import { closeWindow } from "../../redux/windowSlice";
 import BottomContent from "./BottomContent";
 import WindowButtons from "./WindowButtons";
 
-const Window = ({ content }) => {
+const Window = ({ content, visibility }) => {
   const { lastCompleted, selectedVideo, videos } = useSelector(
     (state) => state.video
   );
@@ -25,7 +25,7 @@ const Window = ({ content }) => {
     properties = {
       content: content,
       onClose: () => dispatch(closeWindow()),
-      onInfoClick: () => driver(videoDriver).drive(),
+      onInfoClick: () => driver(QuizDriver).drive(),
       tabs: questions,
       selectedContent: selectedQuestion,
       onSelect: (num) => dispatch(setSelectedQuestion(num)),
@@ -44,7 +44,7 @@ const Window = ({ content }) => {
   }
 
   return (
-    <div className="window">
+    <div className={`window ${visibility ? "slide" : ""}`}>
       <WindowButtons
         onClose={properties.onClose}
         onInfoClick={properties.onInfoClick}
@@ -54,7 +54,7 @@ const Window = ({ content }) => {
         onClose={properties.onClose}
         onInfoClick={properties.onInfoClick}
       />
-      <div className="tabs-and-content">
+      <div className={`tabs-and-content ${content === "quiz" && "reversed"}`}>
         <WindowTabs
           content={properties.content}
           tabs={properties.tabs}

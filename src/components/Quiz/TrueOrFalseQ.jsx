@@ -1,9 +1,17 @@
 import { useState } from "react";
 import "./Questions.css";
 import { RiListRadio } from "react-icons/ri";
+import { useSelector } from "react-redux";
 
-export const TrueOrFalseQ = ({ question }) => {
-  const [selection, setSelection] = useState("");
+export const TrueOrFalseQ = ({ id, addRes, question }) => {
+  const { responses } = useSelector(state => state.quiz);
+  const [selection, setSelection] = useState(responses["Q"+id] ? responses["Q"+id] : "");
+
+  const handleOptionSelect = (opt) => {
+    setSelection(opt);
+    addRes(id, opt);
+  }
+
   return (
     <div className="question true-or-false">
       <RiListRadio size={30} />
@@ -12,13 +20,13 @@ export const TrueOrFalseQ = ({ question }) => {
         <ul>
           <li
             className={selection === "true" ? "selected option" : "option"}
-            onClick={() => setSelection("true")}
+            onClick={() => handleOptionSelect("true")}
           >
             True
           </li>
           <li
             className={selection === "false" ? "selected option" : "option"}
-            onClick={() => setSelection("false")}
+            onClick={() => handleOptionSelect("false")}
             >
             False
           </li>

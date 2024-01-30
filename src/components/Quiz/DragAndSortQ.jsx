@@ -1,12 +1,20 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import "./Questions.css";
-import { RiListOrdered2 } from "react-icons/ri";
-import { PiSortAscendingBold, PiSortDescendingBold } from "react-icons/pi";
+// import { RiListOrdered2 } from "react-icons/ri";
+import { PiSortAscendingBold } from "react-icons/pi";
+// import { PiSortAscendingBold, PiSortDescendingBold } from "react-icons/pi";
+import { useSelector } from "react-redux";
 
 
-export const DragAndSortQ = ({ question, options }) => {
-  const [sortedOptions, setSortedOptions] = useState(options);
+export const DragAndSortQ = ({ id, addRes, question, options }) => {
+  const { responses } = useSelector(state => state.quiz);
+  const [sortedOptions, setSortedOptions] = useState(responses["Q"+id] ? responses["Q"+id] :options);
+
+  useEffect(() => {
+    addRes(id, sortedOptions)
+  }, [sortedOptions])
+  
 
   function handleOnDragEnd(result) {
     if (!result.destination) return;
