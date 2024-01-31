@@ -1,11 +1,12 @@
 import "./PeriodAndTemperature.css";
 
 function PeriodAndTemperature({ state, handleInputChange }) {
+  //Step 2 - Model Temperature & Retention period settings
   return (
     <div className="pt-container">
       <div className="period-container">
         <label htmlFor="periodInput" className="form-item-title">
-          Conversation retention perıod (days)
+          Conversation retention period (days)
         </label>
         <input
           type="number"

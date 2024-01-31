@@ -1,5 +1,9 @@
 ﻿<Properties StartupConfiguration="{7F93A0A0-580C-444D-93DA-CCDA16F4155A}|https">
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.ItemProperties.ArcelikWebApi PreferredExecutionTarget="/Applications/Google Chrome.app" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.Workbench ActiveDocument="ArcelikWebApi/Controllers/ApplicationSettingsController.cs">
     <Files>
       <File FileName="ArcelikWebApi/Models/Users.cs" />
@@ -13,10 +17,8 @@
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="ArcelikWebApi">
-            <Node name="ArcelikWebApi" expanded="True">
-              <Node name="Controllers" expanded="True">
-                <Node name="ApplicationSettingsController.cs" selected="True" />
-              </Node>
+            <Node name="ArcelikWebApi">
+              <Node name="Controllers" expanded="True" />
               <Node name="Data" expanded="True" />
               <Node name="Middlewares" expanded="True" />
               <Node name="Migrations" expanded="True" />
@@ -28,13 +30,9 @@
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
+  <MultiItemStartupConfigurations />
   <Debugger.DebugSourceFolders>
     <String>/Users/kutaysahin/Desktop/Projects/arcelik-ai</String>
   </Debugger.DebugSourceFolders>
-  <MultiItemStartupConfigurations />
-  <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
-  </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
 </Properties>
