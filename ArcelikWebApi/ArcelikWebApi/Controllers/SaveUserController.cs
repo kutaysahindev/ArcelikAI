@@ -64,7 +64,8 @@ namespace ArcelikWebApi.Controllers
                         isWatchedAll = false,
                         WatchedVideoId = 1,
                         WatchedTimeInSeconds = 0,
-                        isTutorialDone = false
+                        isTutorialDone = false,
+                        QuizPoint = 0
                     };
                     
 
