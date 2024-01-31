@@ -13,7 +13,7 @@
 }
 
 .video-container .full-progress-bar {
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   width: 100%;
@@ -25,5 +25,7 @@
   background: #00b76e;
   /* box-shadow: 0px 2px 8px 1px  #2605b8; */
   border-radius: 0 20px 20px 0;
-  transition:  300ms;
+  transition-duration: 300ms;
+  /* transition-delay: 200ms; */
+  transition-property: width;
 }

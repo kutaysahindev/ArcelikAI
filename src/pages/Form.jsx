@@ -98,22 +98,14 @@ export default function Form() {
         dispatch(setIsTutorialDone("first"));
         postTProgress();
       }
-      if (step === 2 && user.isTutorialDone === "first") {
+      else if (step === 2 && user.isTutorialDone === "first") {
         driver(formDriver2).drive();
         dispatch(setIsTutorialDone("second"));
         postTProgress();
       }
+      else return;
     }
   }, [step, isWindowOpen]);
-
-  //  AXIOS - GETTING AI MODELS
-  // const getAiModals = () => {
-  //   axios
-  //     .get("https://localhost:7026/api/models")
-  //     // .get("https://6582f75e02f747c8367abde3.mockapi.io/api/v1/modals")
-  //     .then((res) => setAiModals(res.data))
-  //     .catch((err) => console.error(err.message));
-  // };
 
   useEffect(() => {
     if (user.isSignedIn && authState && !user.accessToken) {
@@ -143,10 +135,7 @@ export default function Form() {
 
   const uploadHandler = async (e) => {
     e.preventDefault();
-    // if (files.length === 0 || state.appName === "" || state.aiModal === "") {
-    //   alert("No files selected!");
-    //   return;
-    // }
+
     const fd = new FormData();
     fd.append("AppName", state.appName);
     fd.append("WelcomeMessage", state.welcomeMessage);
@@ -161,30 +150,10 @@ export default function Form() {
       fd.append("Pdfs", file);
     });
 
-    //  AXIOS - POSTING FORM DATA
-    // axios
-    //   // .post('https://localhost:7188/api/createapp', fd, {
-    //   .post("https://localhost:7026/api/createapp", fd, {
-    //     headers: {
-    //       "Custom-Header": "value",
-    //       "Content-Type": "multipart/form-data",
-    //     },
-    //   })
-    //   .then((res) => {
-    //     console.log("res.data: ", res.data);
-    //     setIsCreating(true);
-    //   })
-    //   .catch((err) => console.error(err.message));
-
     const sendForm = async (fd, accessToken) => {
       try {
         const response = await createApp(fd, accessToken);
-        console.log("Response Data:", response.data);
-        console.log("ha bu response: ", response);
         setIsCreating(response);
-        // Check if the response indicates success (adjust this condition based on your API response structure)
-
-        // Redirect to the external URL upon successful response
         window.location.href = LandingUrl;
       } catch (error) {
         console.log("Error sending form:", error);
@@ -197,7 +166,8 @@ export default function Form() {
     <>
       {user.isSignedIn ? (
         <div>
-          {isWindowOpen && <Window content={windowContent} />}
+          <Window content={windowContent} visibility={isWindowOpen} />
+          {/* {isWindowOpen && <Window content={windowContent} visiblity={isWindowOpen} />} */}
           <form className="form-container">
             <FormHeader step={step}/>
             <StepBar step={step} stepCount={stepCount} />

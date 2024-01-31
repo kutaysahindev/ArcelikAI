@@ -35,20 +35,6 @@ const Anteroom = () => {
     responseHandler();
   }, []);
 
-  // const approveHandler = async () => {
-  //   const endpoint =
-  //     "https://6582f75e02f747c8367abde3.mockapi.io/api/v1/backendApproval";
-  //   // AXIOS - GETTING APPROVAL FOR ACCESS TOKEN
-  //   axios
-  //     .get(endpoint)
-  //     .then((res) => responseHandler(res.status))
-  //     .catch((err) => console.error(err.message));
-  // };
-
-  // useEffect(() => {
-  //   approveHandler();
-  // }, []);
-
   return (
     <>
       <LoadingLayer isApproved={isApproved} />

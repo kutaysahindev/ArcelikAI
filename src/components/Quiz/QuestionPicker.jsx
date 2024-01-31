@@ -5,31 +5,43 @@ import { SingleSelectQ } from "./SingleSelectQ";
 import { TrueOrFalseQ } from "./TrueOrFalseQ";
 import { useSelector } from "react-redux";
 import "./Questions.css";
+import { useDispatch } from "react-redux";
+import { addResponse } from "../../redux/quizSlice";
+import TimeBar from "./TimeBar";
 
 const QuestionPicker = () => {
   const { selectedQuestion, questions } = useSelector((state) => state.quiz);
-  const { questionType, question, options } = questions.at(selectedQuestion-1);
+  const { questionType, question, options, Id } = questions.at(selectedQuestion-1);
+  const dispatch = useDispatch();
+  let qElement;
+
+  const addResponseHandler = (qID, oID) => {
+    // dispatch(addResponse({Id: qID, oID: oID}));
+    // dispatch(addResponse({["Q"+qID]: oID}));
+    dispatch(addResponse({key:"Q"+qID, value: oID}));
+  }
 
   const theQuestion = () => {
     if(questionType === "ss")
-    return <SingleSelectQ question={question} options={options}/>
+    qElement = <SingleSelectQ id={Id} question={question} options={options} addRes={addResponseHandler}/>
     
     if(questionType === "ms")
-    return <MultiSelectQ question={question} options={options}/>
+    qElement = <MultiSelectQ id={Id} question={question} options={options} addRes={addResponseHandler}/>
 
     if(questionType === "das")
-    return <DragAndSortQ question={question} options={options}/>
+    qElement = <DragAndSortQ id={Id} question={question} options={options} addRes={addResponseHandler}/>
 
     if(questionType === "oe")
-    return <OpenEndedQ question={question}/>
+    qElement = <OpenEndedQ id={Id} question={question} addRes={addResponseHandler}/>
 
     if(questionType === "tof")
-    return <TrueOrFalseQ question={question}/>
+    qElement = <TrueOrFalseQ id={Id} question={question} addRes={addResponseHandler}/>
   }
-
+  theQuestion();
   return (
     <>
-      { theQuestion() }
+      <TimeBar duration={120}/>
+      { qElement }
     </>
   )
 }

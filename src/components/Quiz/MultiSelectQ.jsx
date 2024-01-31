@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import "./Questions.css";
 import { RiListCheck3 } from 'react-icons/ri';
+import { useSelector } from 'react-redux';
 
-export const MultiSelectQ = ({ question, options }) => {
-  const [selectedOptions, setSelectedOptions] = useState([]);
+export const MultiSelectQ = ({ id, addRes, question, options }) => {
+  const { responses } = useSelector(state => state.quiz);
+  const [selectedOptions, setSelectedOptions] = useState(responses["Q"+id] ? responses["Q"+id] : []);
 
   const handleOptionSelect = (option) => {
     const updatedSelection = [...selectedOptions];
@@ -11,6 +13,7 @@ export const MultiSelectQ = ({ question, options }) => {
     if (updatedSelection.includes(option)) updatedSelection.splice(selectedIndex, 1);
     else updatedSelection.push(option);
     setSelectedOptions(updatedSelection);
+    addRes(id, updatedSelection)
   };
 
   return (
@@ -23,6 +26,7 @@ export const MultiSelectQ = ({ question, options }) => {
             <li onClick={() => handleOptionSelect(oID)} key={index} className={selectedOptions.includes(oID) ? 'selected option' : 'option'}>
                 <input
                   type="checkbox"
+                  onChange={() => handleOptionSelect(oID)}
                   checked={selectedOptions.includes(oID)}
                   />
                 <span>{option}</span>

@@ -15,14 +15,19 @@
 
 .vc {
   position: relative;
-  z-index: 2;
+  /* z-index: 2; */
+  width: 45rem;
+  height: 25rem;
 }
 
 .video-container .video {
+  width: 100%;
+  height: 100%;
+  /* z-index: -20; */
+  border: 2px solid #1e0e62;
   border-radius: 10px;
-  /* width: 45rem;
-  height: 25rem; */
-  z-index: 2;
+  background: #ffffff;
+  /* box-shadow: 5px 5px 15px 2px rgba(128, 128, 128, 0.54); */
 }
 
 .video-container .video-not-found {

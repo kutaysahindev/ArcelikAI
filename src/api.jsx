@@ -141,6 +141,7 @@ export const getQuestions = async (accessToken) => {
     throw error;
   }
 };
+
 //Quiz - Post
 export const postQuestionResponses = async (accessToken, responses) => {
   const endpoint = "/api/questions/responses";

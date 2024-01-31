@@ -1,6 +1,10 @@
 .question {
   display: flex;
   gap: 10px;
+  height: 300px;
+  /* background: red; */
+  overflow-y: auto;
+  padding-right: 1rem;
 }
 
 .question .title {
@@ -18,15 +22,21 @@ ul {
   width: 250px;
   font-size: 20px;
   font-weight: 600;
-  background: rgb(174, 174, 174);
+  background: rgb(235, 235, 235);
   border-radius: 10px;
   padding: 15px 20px;
   margin: 3px 0;
   user-select: none;
   cursor: pointer;
 }
+.option:hover {
+  background: rgb(213, 213, 213);
+}
 .selected {
   background-color: rgb(93, 200, 200);
+}
+.selected:hover {
+  background-color: rgb(78, 172, 172);
 }
 
 .drag-and-sort .list.l-dragging {
@@ -45,7 +55,7 @@ ul {
 
 .open-ended input {
   width: 250px;
-  background: rgb(174, 174, 174);
+  background: rgb(235, 235, 235);
   border-radius: 10px;
   padding: 15px 20px;
   margin: 3px 0;

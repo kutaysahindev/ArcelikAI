@@ -1,0 +1,39 @@
+.time-bar {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  width: 100%;
+  height: 50px;
+  transition: top 0.5s ease-in-out;
+  background-color: rgb(222, 222, 222);
+  z-index: 20;
+  /* display: flex;
+  justify-content: center;
+  align-items: center; */
+}
+.time-bar.hovered {
+  top: 0;
+}
+.time-bar .time {
+  background: #e20000;
+  /* border-radius: 0 100px 100px 0; */
+  transition: 300ms;
+  height: 100%;
+}
+.time-bar .text {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 30px;
+  font-weight: 900;
+  color: white;
+  -webkit-text-stroke: 1px white;
+  text-shadow: 0 0 5px black;
+  z-index: 102;
+  user-select: none;
+}
