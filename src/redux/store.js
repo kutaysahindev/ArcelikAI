@@ -15,4 +15,7 @@ export const store = configureStore({
     quiz: quizReducer,
     window: windowReducer,
   },
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware({
+    serializableCheck: false
+  }),
 });

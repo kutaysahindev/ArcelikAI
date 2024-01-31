@@ -1,16 +1,21 @@
 import { useEffect, useState } from "react";
 import './TimeBar.css'
+import { hideModal, setModalContext, setWindowContent } from "../../redux/windowSlice";
+import { useDispatch } from "react-redux";
 
 const TimeBar = ({ duration }) => {
   const [time, setTime] = useState(duration);
   const [isHovered, setIsHovered] = useState(false);
+  const [isPaused, setIsPaused] = useState(false);
+  const dispatch = useDispatch();
   const hours = Math.floor(time / 3600);
   const minutes = Math.floor((time % 3600) / 60);
   const seconds = time % 60;
 
   useEffect(() => {
+    if (isPaused) return
+    console.log("first")
     const flow = setInterval(() => {
-      // console.log("first")
       setTime((prev) => (prev > 0 ? prev - 1 : prev));
       // setTime(prev => prev>0 ? prev-1 : prev);
       // if (time > 0) console.log('time: ', time)
@@ -21,6 +26,27 @@ const TimeBar = ({ duration }) => {
   const timeFormatter = (time) => {
     return time < 10 ? `0${time}` : time;
   }
+
+  const showModal = () => {
+    dispatch(setModalContext({
+      title: "Time Is Up",
+      description: "Your time is up. If you choose to leave, you lose one attempt of two. Do you want to send your answers?",
+      disabled: true,
+      buttonA: "Leave",
+      actionA: () => {
+        dispatch(hideModal())
+        dispatch(setWindowContent("video"))
+      },
+      buttonB: "Send",
+      actionB: () => console.log("Quiz was sent"),
+      // actionB: () => setIsPaused(true),
+    }))
+  }
+
+  useEffect(() => {
+    if (time === 0) showModal();
+  }, [time])
+  
 
   return (
     <div

@@ -29,7 +29,6 @@ export const quizSlice = createSlice({
       // state.responses.push(action.payload)
       const { key, value } = action.payload;
       state.responses[key] = value;
-
     }
   }
 });
