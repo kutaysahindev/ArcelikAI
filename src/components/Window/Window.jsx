@@ -9,15 +9,17 @@ import WindowTabs from "./WindowTabs";
 import WindowContent from "./WindowContent";
 import { questions } from "../../utils/questions";
 import { setSelectedQuestion } from "../../redux/quizSlice";
-import { closeWindow } from "../../redux/windowSlice";
+import { closeWindow, hideModal } from "../../redux/windowSlice";
 import BottomContent from "./BottomContent";
 import WindowButtons from "./WindowButtons";
+import WarningModal from "../Modal/WarningModal";
 
 const Window = ({ content, visibility }) => {
   const { lastCompleted, selectedVideo, videos } = useSelector(
     (state) => state.video
   );
   const { selectedQuestion } = useSelector((state) => state.quiz);
+  const { isModal, modalProps } = useSelector((state) => state.window);
   const dispatch = useDispatch();
   let properties = {};
 
@@ -45,7 +47,20 @@ const Window = ({ content, visibility }) => {
 
   return (
     <div className={`window ${visibility ? "slide" : ""}`}>
+      {isModal &&
+        <WarningModal
+          title={modalProps.title}
+          description={modalProps.description}
+          disabled={modalProps.disabled}
+          buttonA={modalProps.buttonA}
+          actionA={modalProps.actionA}
+          buttonB={modalProps.buttonB}
+          actionB={modalProps.actionB}
+          // cancel={modalProps.concel}
+        />
+      }
       <WindowButtons
+        content={properties.content}
         onClose={properties.onClose}
         onInfoClick={properties.onInfoClick}
       />
