@@ -4,16 +4,19 @@ using ArcelikWebApi.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace ArcelikWebApi.Migrations.ApplicationDb
+namespace ArcelikWebApi.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240130074004_new")]
+    partial class @new
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -100,6 +103,51 @@ namespace ArcelikWebApi.Migrations.ApplicationDb
                         });
                 });
 
+            modelBuilder.Entity("ArcelikWebApi.Models.Options", b =>
+                {
+                    b.Property<int>("QuestionId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Option1")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Option2")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Option3")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Option4")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("QuestionId");
+
+                    b.ToTable("Options");
+                });
+
+            modelBuilder.Entity("ArcelikWebApi.Models.Questions", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
+
+                    b.Property<int>("Answer")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Point")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Question")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("id");
+
+                    b.ToTable("Questions");
+                });
+
             modelBuilder.Entity("ArcelikWebApi.Models.Users", b =>
                 {
                     b.Property<Guid>("id")
@@ -182,6 +230,17 @@ namespace ArcelikWebApi.Migrations.ApplicationDb
                         });
                 });
 
+            modelBuilder.Entity("ArcelikWebApi.Models.Options", b =>
+                {
+                    b.HasOne("ArcelikWebApi.Models.Questions", "Question")
+                        .WithOne("Options")
+                        .HasForeignKey("ArcelikWebApi.Models.Options", "QuestionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Question");
+                });
+
             modelBuilder.Entity("ArcelikWebApi.Models.Users", b =>
                 {
                     b.HasOne("ArcelikWebApi.Models.Video", "WatchedVideo")
@@ -191,6 +250,12 @@ namespace ArcelikWebApi.Migrations.ApplicationDb
                         .IsRequired();
 
                     b.Navigation("WatchedVideo");
+                });
+
+            modelBuilder.Entity("ArcelikWebApi.Models.Questions", b =>
+                {
+                    b.Navigation("Options")
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

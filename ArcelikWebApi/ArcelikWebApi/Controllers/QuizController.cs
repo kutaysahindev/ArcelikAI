@@ -6,7 +6,7 @@ using ArcelikWebApi.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+/*// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace ArcelikWebApi.Controllers
 {
@@ -23,15 +23,16 @@ namespace ArcelikWebApi.Controllers
         [HttpGet("get")]
         public async Task<IActionResult> Get()
         {
-            var quiz = await _applicationDbContext.Quizzes
-                .Select(q => new
-                {
-                    q.id,
-                    q.Question,
-                    q.Options,
-                    q.Point
-                })
-                .ToListAsync();
+            var questionDetailsList = _applicationDbContext.Questions
+               .Include(q => q.Options)
+               .Select(q => new 
+               {
+                   q.QuestionText,
+                   q.Point,
+                   Options = q.Options.Select(o => o.Option).ToList()
+               })
+               .ToList();
+
 
             var userquiz = await _applicationDbContext.Users
                 .Select(q => new
@@ -42,7 +43,7 @@ namespace ArcelikWebApi.Controllers
 
             var combinedData = new
             {
-                Quiz = quiz,
+                Quiz = questionDetailsList,
                 UserQuiz = userquiz
             };
 
@@ -54,3 +55,4 @@ namespace ArcelikWebApi.Controllers
 
 }
 
+*/

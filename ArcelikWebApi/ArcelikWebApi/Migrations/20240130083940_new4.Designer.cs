@@ -4,16 +4,19 @@ using ArcelikWebApi.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace ArcelikWebApi.Migrations.ApplicationDb
+namespace ArcelikWebApi.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240130083940_new4")]
+    partial class new4
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -71,6 +74,42 @@ namespace ArcelikWebApi.Migrations.ApplicationDb
                     b.ToTable("AiApplications");
                 });
 
+            modelBuilder.Entity("ArcelikWebApi.Models.Answers", b =>
+                {
+                    b.Property<int>("AnswerId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AnswerId"));
+
+                    b.Property<string>("Answer")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("QuestionId")
+                        .HasColumnType("int");
+
+                    b.HasKey("AnswerId");
+
+                    b.HasIndex("QuestionId");
+
+                    b.ToTable("Answers");
+
+                    b.HasData(
+                        new
+                        {
+                            AnswerId = 1,
+                            Answer = "Paris",
+                            QuestionId = 1
+                        },
+                        new
+                        {
+                            AnswerId = 2,
+                            Answer = "London",
+                            QuestionId = 1
+                        });
+                });
+
             modelBuilder.Entity("ArcelikWebApi.Models.ApplicationSettings", b =>
                 {
                     b.Property<int>("id")
@@ -97,6 +136,101 @@ namespace ArcelikWebApi.Migrations.ApplicationDb
                             id = 1,
                             LandingUrl = "Somelink will be here",
                             SupportedFileTypes = "Pdf"
+                        });
+                });
+
+            modelBuilder.Entity("ArcelikWebApi.Models.Options", b =>
+                {
+                    b.Property<int>("OptionId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OptionId"));
+
+                    b.Property<string>("Option")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("QuestionId")
+                        .HasColumnType("int");
+
+                    b.HasKey("OptionId");
+
+                    b.HasIndex("QuestionId");
+
+                    b.ToTable("Options");
+
+                    b.HasData(
+                        new
+                        {
+                            OptionId = 1,
+                            Option = "Paris",
+                            QuestionId = 1
+                        },
+                        new
+                        {
+                            OptionId = 2,
+                            Option = "London",
+                            QuestionId = 1
+                        },
+                        new
+                        {
+                            OptionId = 3,
+                            Option = "Berlin",
+                            QuestionId = 1
+                        },
+                        new
+                        {
+                            OptionId = 4,
+                            Option = "Madrid",
+                            QuestionId = 1
+                        });
+                });
+
+            modelBuilder.Entity("ArcelikWebApi.Models.Questions", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
+
+                    b.Property<int>("Point")
+                        .HasColumnType("int");
+
+                    b.Property<string>("QuestionText")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("QuestionType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("id");
+
+                    b.ToTable("Questions");
+
+                    b.HasData(
+                        new
+                        {
+                            id = 1,
+                            Point = 10,
+                            QuestionText = "What is the capital of France?",
+                            QuestionType = "Multiple Choice"
+                        },
+                        new
+                        {
+                            id = 2,
+                            Point = 15,
+                            QuestionText = "Who wrote 'Romeo and Juliet'?",
+                            QuestionType = "Multiple Choice"
+                        },
+                        new
+                        {
+                            id = 3,
+                            Point = 10,
+                            QuestionText = "What is the chemical symbol for water?",
+                            QuestionType = "Multiple Choice"
                         });
                 });
 
@@ -182,6 +316,28 @@ namespace ArcelikWebApi.Migrations.ApplicationDb
                         });
                 });
 
+            modelBuilder.Entity("ArcelikWebApi.Models.Answers", b =>
+                {
+                    b.HasOne("ArcelikWebApi.Models.Questions", "Question")
+                        .WithMany("Answers")
+                        .HasForeignKey("QuestionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Question");
+                });
+
+            modelBuilder.Entity("ArcelikWebApi.Models.Options", b =>
+                {
+                    b.HasOne("ArcelikWebApi.Models.Questions", "Question")
+                        .WithMany("Options")
+                        .HasForeignKey("QuestionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Question");
+                });
+
             modelBuilder.Entity("ArcelikWebApi.Models.Users", b =>
                 {
                     b.HasOne("ArcelikWebApi.Models.Video", "WatchedVideo")
@@ -191,6 +347,13 @@ namespace ArcelikWebApi.Migrations.ApplicationDb
                         .IsRequired();
 
                     b.Navigation("WatchedVideo");
+                });
+
+            modelBuilder.Entity("ArcelikWebApi.Models.Questions", b =>
+                {
+                    b.Navigation("Answers");
+
+                    b.Navigation("Options");
                 });
 #pragma warning restore 612, 618
         }

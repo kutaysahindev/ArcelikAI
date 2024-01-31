@@ -4,16 +4,19 @@ using ArcelikWebApi.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace ArcelikWebApi.Migrations.ApplicationDb
+namespace ArcelikWebApi.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240130081418_new3")]
+    partial class new3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -71,6 +74,48 @@ namespace ArcelikWebApi.Migrations.ApplicationDb
                     b.ToTable("AiApplications");
                 });
 
+            modelBuilder.Entity("ArcelikWebApi.Models.Answers", b =>
+                {
+                    b.Property<int>("QuestionId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Answer1")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Answer2")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Answer3")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Answer4")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("QuestionId");
+
+                    b.ToTable("Answers");
+
+                    b.HasData(
+                        new
+                        {
+                            QuestionId = 1,
+                            Answer1 = "Paris",
+                            Answer2 = "London"
+                        },
+                        new
+                        {
+                            QuestionId = 2,
+                            Answer1 = "William Shakespeare"
+                        },
+                        new
+                        {
+                            QuestionId = 3,
+                            Answer1 = "H2O",
+                            Answer2 = "CO2",
+                            Answer3 = "O2"
+                        });
+                });
+
             modelBuilder.Entity("ArcelikWebApi.Models.ApplicationSettings", b =>
                 {
                     b.Property<int>("id")
@@ -97,6 +142,94 @@ namespace ArcelikWebApi.Migrations.ApplicationDb
                             id = 1,
                             LandingUrl = "Somelink will be here",
                             SupportedFileTypes = "Pdf"
+                        });
+                });
+
+            modelBuilder.Entity("ArcelikWebApi.Models.Options", b =>
+                {
+                    b.Property<int>("QuestionId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Option1")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Option2")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Option3")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Option4")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("QuestionId");
+
+                    b.ToTable("Options");
+
+                    b.HasData(
+                        new
+                        {
+                            QuestionId = 1,
+                            Option1 = "Paris",
+                            Option2 = "London",
+                            Option3 = "Berlin",
+                            Option4 = "Madrid"
+                        },
+                        new
+                        {
+                            QuestionId = 2,
+                            Option1 = "William Shakespeare",
+                            Option2 = "Jane Austen",
+                            Option3 = "Charles Dickens",
+                            Option4 = "Mark Twain"
+                        },
+                        new
+                        {
+                            QuestionId = 3,
+                            Option1 = "H2O",
+                            Option2 = "CO2",
+                            Option3 = "O2",
+                            Option4 = "NaCl"
+                        });
+                });
+
+            modelBuilder.Entity("ArcelikWebApi.Models.Questions", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
+
+                    b.Property<int>("Point")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Question")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("id");
+
+                    b.ToTable("Questions");
+
+                    b.HasData(
+                        new
+                        {
+                            id = 1,
+                            Point = 10,
+                            Question = "What is the capital of France?"
+                        },
+                        new
+                        {
+                            id = 2,
+                            Point = 15,
+                            Question = "Who wrote 'Romeo and Juliet'?"
+                        },
+                        new
+                        {
+                            id = 3,
+                            Point = 10,
+                            Question = "What is the chemical symbol for water?"
                         });
                 });
 
@@ -182,6 +315,28 @@ namespace ArcelikWebApi.Migrations.ApplicationDb
                         });
                 });
 
+            modelBuilder.Entity("ArcelikWebApi.Models.Answers", b =>
+                {
+                    b.HasOne("ArcelikWebApi.Models.Questions", "Question")
+                        .WithOne("Answers")
+                        .HasForeignKey("ArcelikWebApi.Models.Answers", "QuestionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Question");
+                });
+
+            modelBuilder.Entity("ArcelikWebApi.Models.Options", b =>
+                {
+                    b.HasOne("ArcelikWebApi.Models.Questions", "Question")
+                        .WithOne("Options")
+                        .HasForeignKey("ArcelikWebApi.Models.Options", "QuestionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Question");
+                });
+
             modelBuilder.Entity("ArcelikWebApi.Models.Users", b =>
                 {
                     b.HasOne("ArcelikWebApi.Models.Video", "WatchedVideo")
@@ -191,6 +346,15 @@ namespace ArcelikWebApi.Migrations.ApplicationDb
                         .IsRequired();
 
                     b.Navigation("WatchedVideo");
+                });
+
+            modelBuilder.Entity("ArcelikWebApi.Models.Questions", b =>
+                {
+                    b.Navigation("Answers")
+                        .IsRequired();
+
+                    b.Navigation("Options")
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

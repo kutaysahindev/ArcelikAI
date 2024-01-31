@@ -18,15 +18,11 @@ namespace ArcelikWebApi.Data
         public DbSet<Users> Users { get; set; }
         public DbSet<Video> Videos { get; set; }
         public DbSet<ApplicationSettings> ApplicationSettings { get; set; }
-        public DbSet<Quiz> Quizzes { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Users>()
-                .HasOne(u => u.WatchedVideo)
-                .WithMany()
-                .HasForeignKey(u => u.WatchedVideoId);
-
+         
             modelBuilder.Entity<Video>().HasData(
                 new Video { Id = 1, Title = "Video 1", VideoDuration = 5, BlobStorageUrl = "https://arcelikstorage.blob.core.windows.net/videos/sample1.mp4" },
                 new Video { Id = 2, Title = "Video 2", VideoDuration = 8, BlobStorageUrl = "https://arcelikstorage.blob.core.windows.net/videos/sample2.mp4" },
@@ -38,7 +34,7 @@ namespace ArcelikWebApi.Data
                 new ApplicationSettings { id = 1, LandingUrl = "Somelink will be here", SupportedFileTypes = "Pdf" });
 
        
-
+            
         }
 
     } 
