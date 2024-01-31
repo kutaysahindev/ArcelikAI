@@ -100,7 +100,7 @@ export const videoDriver = {
       },
     },
     {
-      element: ".video-tabs",
+      element: ".window-tabs",
       popover: {
         title: "🖇 Videos",
         description:

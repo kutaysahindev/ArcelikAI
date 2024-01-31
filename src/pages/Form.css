@@ -14,12 +14,22 @@
 }
 
 .form-container .step-title {
-  text-align: center;
+  /* position: relative; */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #1e0e62;
+  -webkit-text-stroke: 0.5px #1e0e62;
+  /* text-stroke: 4px #1e0e62; */
+  /* text-align: center; */
   font-weight: 700;
   font-size: 1.4rem;
   padding: 2rem;
   text-transform: uppercase;
   letter-spacing: 0.2rem;
+}
+.form-container .step-title .header-btn {
+  cursor: pointer;
 }
 
 .form-container .bottom {
