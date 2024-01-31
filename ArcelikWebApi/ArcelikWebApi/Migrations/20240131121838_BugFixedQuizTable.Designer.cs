@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ArcelikWebApi.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240130124035_ThreeQuestions")]
-    partial class ThreeQuestions
+    [Migration("20240131121838_BugFixedQuizTable")]
+    partial class BugFixedQuizTable
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -112,6 +112,7 @@ namespace ArcelikWebApi.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ChoiceID"));
 
                     b.Property<string>("ChoiceText")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("QuestionID")
@@ -183,6 +184,30 @@ namespace ArcelikWebApi.Migrations
                             ChoiceID = 10,
                             ChoiceText = "False",
                             QuestionID = 3
+                        },
+                        new
+                        {
+                            ChoiceID = 11,
+                            ChoiceText = "Linked List",
+                            QuestionID = 5
+                        },
+                        new
+                        {
+                            ChoiceID = 12,
+                            ChoiceText = "Binary Search Tree",
+                            QuestionID = 5
+                        },
+                        new
+                        {
+                            ChoiceID = 13,
+                            ChoiceText = "Hash Table",
+                            QuestionID = 5
+                        },
+                        new
+                        {
+                            ChoiceID = 14,
+                            ChoiceText = "Binary Search",
+                            QuestionID = 5
                         });
                 });
 
@@ -250,6 +275,75 @@ namespace ArcelikWebApi.Migrations
                         });
                 });
 
+            modelBuilder.Entity("ArcelikWebApi.Models.Quiz.CorrectSorting", b =>
+                {
+                    b.Property<int>("CorrectSortingID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CorrectSortingID"));
+
+                    b.Property<int>("QuestionID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SortingOrder")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SortingScore")
+                        .HasColumnType("int");
+
+                    b.HasKey("CorrectSortingID");
+
+                    b.HasIndex("QuestionID")
+                        .IsUnique();
+
+                    b.ToTable("CorrectSorting");
+
+                    b.HasData(
+                        new
+                        {
+                            CorrectSortingID = 1,
+                            QuestionID = 5,
+                            SortingOrder = 14131112,
+                            SortingScore = 15
+                        });
+                });
+
+            modelBuilder.Entity("ArcelikWebApi.Models.Quiz.CorrectText", b =>
+                {
+                    b.Property<int>("CorrectTextID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CorrectTextID"));
+
+                    b.Property<string>("CorrectTextAnswer")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("QuestionID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TextScore")
+                        .HasColumnType("int");
+
+                    b.HasKey("CorrectTextID");
+
+                    b.HasIndex("QuestionID")
+                        .IsUnique();
+
+                    b.ToTable("CorrectText");
+
+                    b.HasData(
+                        new
+                        {
+                            CorrectTextID = 1,
+                            CorrectTextAnswer = "1",
+                            QuestionID = 4,
+                            TextScore = 5
+                        });
+                });
+
             modelBuilder.Entity("ArcelikWebApi.Models.Quiz.Questions", b =>
                 {
                     b.Property<int>("QuestionID")
@@ -288,6 +382,18 @@ namespace ArcelikWebApi.Migrations
                             QuestionID = 3,
                             QuestionText = "Is the sky blue?",
                             QuestionType = "TrueFalse"
+                        },
+                        new
+                        {
+                            QuestionID = 4,
+                            QuestionText = "The complexity of bubble sort algorithm is _______ to the square of the number of elements.",
+                            QuestionType = "FillInTheBlank"
+                        },
+                        new
+                        {
+                            QuestionID = 5,
+                            QuestionText = "Arrange the following data structures in ascending order of their average time complexity for searching: Linked List, Binary Search Tree, Hash Table, Array",
+                            QuestionType = "Sorting"
                         });
                 });
 
@@ -301,7 +407,7 @@ namespace ArcelikWebApi.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("SecondsSpendOnQuiz")
+                    b.Property<int>("QuizPoint")
                         .HasColumnType("int");
 
                     b.Property<int>("WatchedTimeInSeconds")
@@ -315,9 +421,6 @@ namespace ArcelikWebApi.Migrations
 
                     b.Property<bool>("isWatchedAll")
                         .HasColumnType("bit");
-
-                    b.Property<int>("quizPoint")
-                        .HasColumnType("int");
 
                     b.HasKey("id");
 
@@ -403,6 +506,28 @@ namespace ArcelikWebApi.Migrations
                     b.Navigation("Questions");
                 });
 
+            modelBuilder.Entity("ArcelikWebApi.Models.Quiz.CorrectSorting", b =>
+                {
+                    b.HasOne("ArcelikWebApi.Models.Quiz.Questions", "Questions")
+                        .WithOne("CorrectSorting")
+                        .HasForeignKey("ArcelikWebApi.Models.Quiz.CorrectSorting", "QuestionID")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Questions");
+                });
+
+            modelBuilder.Entity("ArcelikWebApi.Models.Quiz.CorrectText", b =>
+                {
+                    b.HasOne("ArcelikWebApi.Models.Quiz.Questions", "Questions")
+                        .WithOne("CorrectText")
+                        .HasForeignKey("ArcelikWebApi.Models.Quiz.CorrectText", "QuestionID")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Questions");
+                });
+
             modelBuilder.Entity("ArcelikWebApi.Models.Users", b =>
                 {
                     b.HasOne("ArcelikWebApi.Models.Video", "WatchedVideo")
@@ -425,6 +550,12 @@ namespace ArcelikWebApi.Migrations
                     b.Navigation("Choices");
 
                     b.Navigation("CorrectChoices");
+
+                    b.Navigation("CorrectSorting")
+                        .IsRequired();
+
+                    b.Navigation("CorrectText")
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

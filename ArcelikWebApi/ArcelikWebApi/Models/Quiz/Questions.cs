@@ -18,6 +18,10 @@ namespace ArcelikWebApi.Models.Quiz
 
         public ICollection<CorrectChoices> CorrectChoices { get; set; }
 
+        public CorrectText CorrectText { get; set; }
+
+        public CorrectSorting CorrectSorting { get; set; }
+
     }
 }
 

@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace ArcelikWebApi.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class BugFixedQuizTable : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -85,13 +85,55 @@ namespace ArcelikWebApi.Migrations
                     ChoiceID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     QuestionID = table.Column<int>(type: "int", nullable: false),
-                    ChoiceText = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    ChoiceText = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Choices", x => x.ChoiceID);
                     table.ForeignKey(
                         name: "FK_Choices_Questions_QuestionID",
+                        column: x => x.QuestionID,
+                        principalTable: "Questions",
+                        principalColumn: "QuestionID",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "CorrectSorting",
+                columns: table => new
+                {
+                    CorrectSortingID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    QuestionID = table.Column<int>(type: "int", nullable: false),
+                    SortingOrder = table.Column<int>(type: "int", nullable: false),
+                    SortingScore = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CorrectSorting", x => x.CorrectSortingID);
+                    table.ForeignKey(
+                        name: "FK_CorrectSorting_Questions_QuestionID",
+                        column: x => x.QuestionID,
+                        principalTable: "Questions",
+                        principalColumn: "QuestionID",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "CorrectText",
+                columns: table => new
+                {
+                    CorrectTextID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    QuestionID = table.Column<int>(type: "int", nullable: false),
+                    CorrectTextAnswer = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    TextScore = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CorrectText", x => x.CorrectTextID);
+                    table.ForeignKey(
+                        name: "FK_CorrectText_Questions_QuestionID",
                         column: x => x.QuestionID,
                         principalTable: "Questions",
                         principalColumn: "QuestionID",
@@ -106,8 +148,7 @@ namespace ArcelikWebApi.Migrations
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     isWatchedAll = table.Column<bool>(type: "bit", nullable: false),
                     isTutorialDone = table.Column<bool>(type: "bit", nullable: false),
-                    quizPoint = table.Column<int>(type: "int", nullable: false),
-                    SecondsSpendOnQuiz = table.Column<int>(type: "int", nullable: true),
+                    QuizPoint = table.Column<int>(type: "int", nullable: false),
                     WatchedVideoId = table.Column<int>(type: "int", nullable: false),
                     WatchedTimeInSeconds = table.Column<int>(type: "int", nullable: false)
                 },
@@ -123,27 +164,26 @@ namespace ArcelikWebApi.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Answers",
+                name: "CorrectChoices",
                 columns: table => new
                 {
-                    AnswerID = table.Column<int>(type: "int", nullable: false)
+                    CorrectChoiceID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     QuestionID = table.Column<int>(type: "int", nullable: false),
                     ChoiceID = table.Column<int>(type: "int", nullable: false),
-                    IsCorrect = table.Column<bool>(type: "bit", nullable: false),
                     PartialScore = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Answers", x => x.AnswerID);
+                    table.PrimaryKey("PK_CorrectChoices", x => x.CorrectChoiceID);
                     table.ForeignKey(
-                        name: "FK_Answers_Choices_ChoiceID",
+                        name: "FK_CorrectChoices_Choices_ChoiceID",
                         column: x => x.ChoiceID,
                         principalTable: "Choices",
                         principalColumn: "ChoiceID",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Answers_Questions_QuestionID",
+                        name: "FK_CorrectChoices_Questions_QuestionID",
                         column: x => x.QuestionID,
                         principalTable: "Questions",
                         principalColumn: "QuestionID",
@@ -156,6 +196,18 @@ namespace ArcelikWebApi.Migrations
                 values: new object[] { 1, "Somelink will be here", "Pdf" });
 
             migrationBuilder.InsertData(
+                table: "Questions",
+                columns: new[] { "QuestionID", "QuestionText", "QuestionType" },
+                values: new object[,]
+                {
+                    { 1, "What is the capital of France?", "MultipleChoice" },
+                    { 2, "Which of the following are prime numbers?", "MultipleChoiceAndAnswers" },
+                    { 3, "Is the sky blue?", "TrueFalse" },
+                    { 4, "The complexity of bubble sort algorithm is _______ to the square of the number of elements.", "FillInTheBlank" },
+                    { 5, "Arrange the following data structures in ascending order of their average time complexity for searching: Linked List, Binary Search Tree, Hash Table, Array", "Sorting" }
+                });
+
+            migrationBuilder.InsertData(
                 table: "Videos",
                 columns: new[] { "Id", "BlobStorageUrl", "Title", "VideoDuration" },
                 values: new object[,]
@@ -165,21 +217,76 @@ namespace ArcelikWebApi.Migrations
                     { 3, "https://arcelikstorage.blob.core.windows.net/videos/sample3.mp4", "Video 3", 10 }
                 });
 
-            migrationBuilder.CreateIndex(
-                name: "IX_Answers_ChoiceID",
-                table: "Answers",
-                column: "ChoiceID",
-                unique: true);
+            migrationBuilder.InsertData(
+                table: "Choices",
+                columns: new[] { "ChoiceID", "ChoiceText", "QuestionID" },
+                values: new object[,]
+                {
+                    { 1, "Berlin", 1 },
+                    { 2, "Paris", 1 },
+                    { 3, "London", 1 },
+                    { 4, "Madrid", 1 },
+                    { 5, "2", 2 },
+                    { 6, "5", 2 },
+                    { 7, "8", 2 },
+                    { 8, "11", 2 },
+                    { 9, "True", 3 },
+                    { 10, "False", 3 },
+                    { 11, "Linked List", 5 },
+                    { 12, "Binary Search Tree", 5 },
+                    { 13, "Hash Table", 5 },
+                    { 14, "Binary Search", 5 }
+                });
 
-            migrationBuilder.CreateIndex(
-                name: "IX_Answers_QuestionID",
-                table: "Answers",
-                column: "QuestionID");
+            migrationBuilder.InsertData(
+                table: "CorrectSorting",
+                columns: new[] { "CorrectSortingID", "QuestionID", "SortingOrder", "SortingScore" },
+                values: new object[] { 1, 5, 14131112, 15 });
+
+            migrationBuilder.InsertData(
+                table: "CorrectText",
+                columns: new[] { "CorrectTextID", "CorrectTextAnswer", "QuestionID", "TextScore" },
+                values: new object[] { 1, "1", 4, 5 });
+
+            migrationBuilder.InsertData(
+                table: "CorrectChoices",
+                columns: new[] { "CorrectChoiceID", "ChoiceID", "PartialScore", "QuestionID" },
+                values: new object[,]
+                {
+                    { 1, 2, 10, 1 },
+                    { 2, 5, 1, 2 },
+                    { 3, 6, 1, 2 },
+                    { 4, 8, 1, 2 },
+                    { 5, 9, 10, 3 }
+                });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Choices_QuestionID",
                 table: "Choices",
                 column: "QuestionID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CorrectChoices_ChoiceID",
+                table: "CorrectChoices",
+                column: "ChoiceID",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CorrectChoices_QuestionID",
+                table: "CorrectChoices",
+                column: "QuestionID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CorrectSorting_QuestionID",
+                table: "CorrectSorting",
+                column: "QuestionID",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CorrectText_QuestionID",
+                table: "CorrectText",
+                column: "QuestionID",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Users_WatchedVideoId",
@@ -194,10 +301,16 @@ namespace ArcelikWebApi.Migrations
                 name: "AiApplications");
 
             migrationBuilder.DropTable(
-                name: "Answers");
+                name: "ApplicationSettings");
 
             migrationBuilder.DropTable(
-                name: "ApplicationSettings");
+                name: "CorrectChoices");
+
+            migrationBuilder.DropTable(
+                name: "CorrectSorting");
+
+            migrationBuilder.DropTable(
+                name: "CorrectText");
 
             migrationBuilder.DropTable(
                 name: "Users");

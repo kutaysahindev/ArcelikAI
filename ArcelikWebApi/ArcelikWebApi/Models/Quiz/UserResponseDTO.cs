@@ -2,8 +2,15 @@
 {
     public class UserResponseDTO
     {
-        public int SelectedQuestionID { get; set; }
-        public int SelectedChoiceID { get; set; }
+        public int ReceivedQuestionID { get; set; }
+
+        public string ReceivedQuestionType { get; set; }
+
+        public int ReceivedChoiceID { get; set; }
+
+        public string ReceivedTextAnswer { get; set; }
+
+        public int ReceivedSortingOrder { get; set; }
     }
 
 }

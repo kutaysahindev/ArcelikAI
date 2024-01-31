@@ -15,9 +15,7 @@ namespace ArcelikWebApi.Models
 
         public bool isTutorialDone { get; set; }
 
-        public int quizPoint { get; set; }
-
-        public int? SecondsSpendOnQuiz {get; set;}
+        public int QuizPoint { get; set; }
 
         // Properties for watched video
         public int WatchedVideoId { get; set; }
