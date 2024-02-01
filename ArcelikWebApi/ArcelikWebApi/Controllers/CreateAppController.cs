@@ -88,7 +88,7 @@ namespace ArcelikWebApi.Controllers
 
                 return Ok(new { success = true, message = "Form data received successfully", data = aiApplication });
             }
-            // return BadRequest(new { success = false, errors = ModelState.Values.SelectMany(v => v.Errors.Select(e => e.ErrorMessage)) });
+
             return Ok(new { success = false, message = "Form data couldnt received" });
         }
 

@@ -34,8 +34,6 @@ namespace ArcelikWebApi.Data
                 .WithMany()
                 .HasForeignKey(u => u.WatchedVideoId);
 
-            //modelBuilder.Entity<CorrectSorting>().HasKey(c => c.CorrectSortingID);
-
             //Relationship between choices and Questions
             modelBuilder.Entity<Choices>()
                  .HasOne(q => q.Questions)

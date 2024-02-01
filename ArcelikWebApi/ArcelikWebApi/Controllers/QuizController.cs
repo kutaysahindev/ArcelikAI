@@ -1,12 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ArcelikWebApi.Data;
 using ArcelikWebApi.Models.Quiz;
-using Azure;
-using ArcelikWebApi.Models;
 
 namespace ArcelikWebApi.Controllers
 {
@@ -21,7 +16,7 @@ namespace ArcelikWebApi.Controllers
             _context = context;
         }
 
-        // GET: api/Quiz
+        // GET: api/quiz
         [HttpGet("questions")]
         public async Task<ActionResult<IEnumerable<QuestionDTO>>> GetQuestions()
         {
@@ -45,13 +40,13 @@ namespace ArcelikWebApi.Controllers
         }
 
 
-        // POST: api/Quiz/submit
+        // POST: api/quiz/submit
         [HttpPost("submit")]
         public async Task<ActionResult> SubmitQuiz([FromBody] List<UserResponseDTO> userResponses)
         {
             try
             {
-                int overallScore = 0;
+                int OverallScore = 0;
 
                 foreach (var response in userResponses)
                 {
@@ -59,13 +54,13 @@ namespace ArcelikWebApi.Controllers
                     {
                         case "das": // DragAndSort Question Type
                             // Find the correct sorting order for the given question ID
-                            var sortingOrder = await _context.CorrectSorting
+                            var SortingOrder = await _context.CorrectSorting
                                     .Where(cs => cs.QuestionID == response.ReceivedQuestionID)
                                     .Select(cs => cs.SortingOrder)
                                     .FirstOrDefaultAsync();
 
-                            // Compare user's sorting order with the correct one
-                            if (sortingOrder != null && response.ReceivedSortingOrder == sortingOrder)
+                            // Compare user's sorting order with the correct one, null olmasını kıyaslamaya gerek yok
+                            if (SortingOrder != null && response.ReceivedSortingOrder == SortingOrder)
                             {
                                 // User's sorting order is correct
                                 var SortingScore = await _context.CorrectSorting
@@ -73,7 +68,7 @@ namespace ArcelikWebApi.Controllers
                                             .Select(cs => cs.SortingScore)
                                             .FirstOrDefaultAsync();
 
-                                overallScore += SortingScore;
+                                OverallScore += SortingScore;
                             }
   
                             break;
@@ -96,7 +91,7 @@ namespace ArcelikWebApi.Controllers
                                                     .Select(ct => ct.TextScore)
                                                     .FirstOrDefaultAsync();
 
-                                overallScore += TextScore;
+                                OverallScore += TextScore;
                             }
    
                             break;
@@ -118,10 +113,10 @@ namespace ArcelikWebApi.Controllers
     
                            foreach (var CorrectChoice in CorrectChoices)
                             {
-                                overallScore += CorrectChoice.PartialScore;
+                                OverallScore += CorrectChoice.PartialScore;
                                 // Process choiceId and partialScore as needed
                             }
-                            var asd = overallScore;
+                            var asd = OverallScore;
                             //// Split the user's received choice ID into individual choices
                             break;
                     }
@@ -136,8 +131,8 @@ namespace ArcelikWebApi.Controllers
                                     .Where(u => u.Email == userEmailFromContext)
                                     .FirstOrDefault();
 
-                // Add overallScore to QuizPoint column where userID == userID
-                user.QuizPoint = overallScore;
+                // Add OverallScore to QuizPoint column where userID == userID
+                user.QuizPoint = OverallScore;
                 await _context.SaveChangesAsync();
 
                 // Optionally, you can save user responses to the database or perform other operations here
