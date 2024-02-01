@@ -1,56 +1,123 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using ArcelikWebApi.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+using ArcelikWebApi.Data;
+using ArcelikWebApi.Models.Quiz;
+using Azure;
 
 namespace ArcelikWebApi.Controllers
 {
     [Route("api/[controller]")]
+    [ApiController]
     public class QuizController : ControllerBase
     {
-        public readonly ApplicationDbContext _applicationDbContext;
+        private readonly ApplicationDbContext _context;
 
-        public QuizController(ApplicationDbContext applicationDbContext)
+        public QuizController(ApplicationDbContext context)
         {
-            _applicationDbContext = applicationDbContext;
+            _context = context;
         }
 
-        [HttpGet("get")]
-        public async Task<IActionResult> Get()
+        // GET: api/Quiz
+        [HttpGet("questions")]
+        public async Task<ActionResult<IEnumerable<QuestionDTO>>> GetQuestions()
         {
-            var quiz = await _applicationDbContext.Quizzes
-                .Select(q => new
+            var questions = await _context.Questions
+                .Include(q => q.Choices)
+                .Select(q => new QuestionDTO
                 {
-                    q.id,
-                    q.Question,
-                    q.Options,
-                    q.Point
+                    QuestionID = q.QuestionID,
+                    QuestionText = q.QuestionText,
+                    QuestionType = q.QuestionType,
+                    Choices = q.Choices.Select(c => new ChoiceDTO
+                    {
+                        ChoiceID = c.ChoiceID,
+                        ChoiceText = c.ChoiceText
+                    }).ToList()
                 })
                 .ToListAsync();
 
-            var userquiz = await _applicationDbContext.Users
-                .Select(q => new
-                {
-                    q.secondsSpendOnQuiz
-                })
-                .ToListAsync();
+            return Ok(questions);
 
-            var combinedData = new
+        }
+
+
+        // POST: api/Quiz/submit
+        [HttpPost("submit")]
+        public async Task<ActionResult> SubmitQuiz([FromBody] List<UserResponseDTO> userResponses)
+        {
+            try
             {
-                Quiz = quiz,
-                UserQuiz = userquiz
-            };
+                foreach (var response in userResponses)
+                {
+                    switch (response.ReceivedQuestionType)
+                    {
+                        case "das":
+                            // Find the correct sorting order for the given question ID
+                            var sortingOrder = await _context.CorrectSorting
+                                    .Where(cs => cs.QuestionID == response.ReceivedQuestionID)
+                                    .Select(cs => cs.SortingOrder)
+                                    .FirstOrDefaultAsync();
 
-            return Ok(combinedData);
+                            // Compare user's sorting order with the correct one
+                            if (sortingOrder != null && response.ReceivedSortingOrder == sortingOrder)
+                            {
+                                // User's sorting order is correct
+                                
+                            }
+                            else
+                            {
+                                // User's sorting order is incorrect
+                               
+                            }
+                            break;
+
+                        case "oe":
+                            // Find the correct text answer for the given question ID
+                            //var correctText = await _context.CorrectText.FirstOrDefaultAsync(ct => ct.QuestionID == response.QuestionID);
+                            var correctText = await _context.CorrectText
+                                    .Where(ct => ct.QuestionID == response.ReceivedQuestionID)
+                                    .Select(ct => ct.CorrectTextAnswer)
+                                    .FirstOrDefaultAsync();
+                            // Compare user's text answer with the correct one (case insensitive)
+                            if (correctText != null && response.ReceivedTextAnswer.ToLower() == correctText.ToLower())
+                            {
+                                // User's text answer is correct
+                                
+                            }
+                            else
+                            {
+                                // User's text answer is incorrect
+                               
+                            }
+                            break;
+
+                        default: // Assuming MultipleChoice or other question types
+                                 // Find the correct choices for the given question ID
+                                 // Fetch the correct choices for the given question ID from the CorrectChoices table
+                            var correctChoices = await _context.CorrectChoices
+                                .Where(cc => cc.QuestionID == response.ReceivedQuestionID)
+                                .Select(cc => cc.ChoiceID)
+                                .ToListAsync();
+
+                            //// Split the user's received choice ID into individual choices
+                            
+
+                            break;
+                    }
+                }
+
+                // Optionally, you can save user responses to the database or perform other operations here
+
+                return Ok(userResponses);
+            }
+            catch (Exception ex)
+            {
+                // Handle exceptions
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
         }
-           
     }
-
-
 }
-

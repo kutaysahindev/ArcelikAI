@@ -4,7 +4,7 @@ import { questions } from "../utils/questions";
 const initialState = {
   isQuizWindowOpen: true,
   selectedQuestion: 1,
-  questions: questions,
+  questions: [],
   responses: {},
   result: "undone" // undone passed failed
 }
@@ -19,6 +19,9 @@ export const quizSlice = createSlice({
     openQuizWindow: (state) => {
       state.isQuizWindowOpen = true;
     },
+    setQuestions: (state, action) => {
+      state.questions = action.payload;
+    },
     setSelectedQuestion: (state, action) => {
       state.selectedQuestion = action.payload;
     },
@@ -29,12 +32,11 @@ export const quizSlice = createSlice({
       // state.responses.push(action.payload)
       const { key, value } = action.payload;
       state.responses[key] = value;
-
     }
   }
 });
 
-export const { closeQuizWindow, openQuizWindow, setSelectedQuestion, addResponse } =
+export const { closeQuizWindow, openQuizWindow, setSelectedQuestion, addResponse, setQuestions } =
   quizSlice.actions;
 
 export default quizSlice.reducer;
