@@ -19,7 +19,7 @@ namespace ArcelikWebApi.Controllers
         // Get iswatched attirubute from db.
         // GET: api/uservideo/iswatched
         [HttpGet("status")]
-        public async Task<IActionResult> GetIsWatchedStatus()
+        public async Task<IActionResult> GetUserVideoStatus()
         {
             var userEmail = HttpContext.Items["UserEmail"] as string;
 

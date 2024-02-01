@@ -102,8 +102,8 @@ namespace ArcelikWebApi.Controllers
                                 .Select(cc => cc.ChoiceID)
                                 .ToListAsync();
 
-                           
-
+                            //// Split the user's received choice ID into individual choices
+                            
 
                             break;
                     }
