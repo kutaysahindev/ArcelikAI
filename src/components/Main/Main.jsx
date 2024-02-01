@@ -15,7 +15,7 @@ import LoadingLayer from "../Loading/LoadingLayer";
 
 import "./Main.css";
 import contentList from "./ContentData";
-import { getSettings, getVideoProgress, validateToken } from "../../api"; // Import the validateToken function
+import { getQuestions, getSettings, getVideoProgress, validateToken } from "../../api"; // Import the validateToken function
 import {
   closeVideoWindow,
   completeAll,
@@ -27,6 +27,7 @@ import {
   setVideos,
 } from "../../redux/videoSlice";
 import { updateSettings } from "../../redux/settingSlice";
+import { setQuestions } from "../../redux/quizSlice";
 
 const Main = () => {
   const { authState, oktaAuth } = useOktaAuth();
@@ -100,9 +101,27 @@ const Main = () => {
         throw error;
       }
     };
+    const fetchQuiz = async () => {
+      try {
+        const quiz = await getQuestions(user.accessToken);
+        console.log('quiz: ', quiz)
+        const newQuiz = quiz.map(q => {
+          const newChoices = q.Choices.map(c => {return {oID: c.ChoiceID, option: c.ChoiceText}})
+          return({
+            Id: q.QuestionID,
+            questionType: q.QuestionType,
+            question: q.QuestionText,
+            options: newChoices,
+          })})
+        dispatch(setQuestions(newQuiz))
+      } catch (error) {
+        throw error;
+      }
+    };
     if (user.isSignedIn && user.accessToken) {
       fetchData();
       fetchSettings();
+      fetchQuiz();
     }
   }, [user.isSignedIn, user.accessToken]);
 
