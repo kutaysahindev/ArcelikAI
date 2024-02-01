@@ -23,8 +23,7 @@ export const questions = [
         option: "86",
       },
     ],
-    time: 20,
-    points: 20,
+  
   },
   {
     Id: 2,
