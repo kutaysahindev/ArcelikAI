@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using ArcelikWebApi.Data;
 using ArcelikWebApi.Models.Quiz;
 using Azure;
+using ArcelikWebApi.Models;
 
 namespace ArcelikWebApi.Controllers
 {
@@ -50,11 +51,13 @@ namespace ArcelikWebApi.Controllers
         {
             try
             {
+                int overallScore = 0;
+
                 foreach (var response in userResponses)
                 {
                     switch (response.ReceivedQuestionType)
                     {
-                        case "das":
+                        case "das": // DragAndSort Question Type
                             // Find the correct sorting order for the given question ID
                             var sortingOrder = await _context.CorrectSorting
                                     .Where(cs => cs.QuestionID == response.ReceivedQuestionID)
@@ -65,49 +68,77 @@ namespace ArcelikWebApi.Controllers
                             if (sortingOrder != null && response.ReceivedSortingOrder == sortingOrder)
                             {
                                 // User's sorting order is correct
-                                
+                                var SortingScore = await _context.CorrectSorting
+                                            .Where(cs => cs.QuestionID == response.ReceivedQuestionID)
+                                            .Select(cs => cs.SortingScore)
+                                            .FirstOrDefaultAsync();
+
+                                overallScore += SortingScore;
                             }
-                            else
-                            {
-                                // User's sorting order is incorrect
-                               
-                            }
+  
                             break;
 
                         case "oe":
+                            // OpenEnded Question
                             // Find the correct text answer for the given question ID
                             //var correctText = await _context.CorrectText.FirstOrDefaultAsync(ct => ct.QuestionID == response.QuestionID);
                             var correctText = await _context.CorrectText
                                     .Where(ct => ct.QuestionID == response.ReceivedQuestionID)
                                     .Select(ct => ct.CorrectTextAnswer)
                                     .FirstOrDefaultAsync();
+
                             // Compare user's text answer with the correct one (case insensitive)
                             if (correctText != null && response.ReceivedTextAnswer.ToLower() == correctText.ToLower())
                             {
                                 // User's text answer is correct
-                                
+                                var TextScore = await _context.CorrectText
+                                                    .Where(ct => ct.QuestionID == response.ReceivedQuestionID)
+                                                    .Select(ct => ct.TextScore)
+                                                    .FirstOrDefaultAsync();
+
+                                overallScore += TextScore;
                             }
-                            else
-                            {
-                                // User's text answer is incorrect
-                               
-                            }
+   
                             break;
 
-                        default: // Assuming MultipleChoice or other question types
-                                 // Find the correct choices for the given question ID
-                                 // Fetch the correct choices for the given question ID from the CorrectChoices table
-                            var correctChoices = await _context.CorrectChoices
-                                .Where(cc => cc.QuestionID == response.ReceivedQuestionID)
-                                .Select(cc => cc.ChoiceID)
+                        default:
+                        // Assuming MultipleChoice or other question types
+                        // Find the correct choices for the given question ID
+                        // Fetch the correct choices for the given question ID from the CorrectChoices table
+                      
+                            var SelectedChoiceIds = response.ReceivedChoiceID;
+
+                            // Retrieve the correct choices with their partial scores for the given question ID
+                            //CHOICE ID YANLIŞ OLDUĞUNDA ERROR VERIYOR. IF STATEMENTI İLE YA DA TRY İLE DÜZELT.
+                            var CorrectChoices = await _context.CorrectChoices
+                                .Where(cc => cc.QuestionID == response.ReceivedQuestionID && SelectedChoiceIds.Contains(cc.ChoiceID))
+                                .Select(cc => new { cc.PartialScore })
                                 .ToListAsync();
 
+    
+                           foreach (var CorrectChoice in CorrectChoices)
+                            {
+                                overallScore += CorrectChoice.PartialScore;
+                                // Process choiceId and partialScore as needed
+                            }
+                            var asd = overallScore;
                             //// Split the user's received choice ID into individual choices
-                            
-
                             break;
                     }
+
                 }
+
+                //foreach ended here
+                // Retrieve user email from context.Items
+                var userEmailFromContext = HttpContext.Items["UserEmail"] as string;
+
+                var user = _context.Users
+                                    .Where(u => u.Email == userEmailFromContext)
+                                    .FirstOrDefault();
+
+                // Add overallScore to QuizPoint column where userID == userID
+                user.QuizPoint = overallScore;
+                await _context.SaveChangesAsync();
 
                 // Optionally, you can save user responses to the database or perform other operations here
 
@@ -118,6 +149,7 @@ namespace ArcelikWebApi.Controllers
                 // Handle exceptions
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
+
         }
     }
 }

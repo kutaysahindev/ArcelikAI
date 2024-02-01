@@ -1,45 +1,41 @@
 ﻿<Properties StartupConfiguration="{7F93A0A0-580C-444D-93DA-CCDA16F4155A}|https">
+  <MonoDevelop.Ide.ItemProperties.ArcelikWebApi PreferredExecutionTarget="/Applications/Google Chrome.app" />
+  <MultiItemStartupConfigurations />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
-  <MonoDevelop.Ide.Workbench ActiveDocument="ArcelikWebApi/Data/ApplicationDbContext.cs">
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="ArcelikWebApi/Controllers/QuizController.cs">
     <Files>
-      <File FileName="ArcelikWebApi/Models/Users.cs" />
-      <File FileName="ArcelikWebApi/Controllers/SaveUserController.cs" />
+      <File FileName="ArcelikWebApi/Models/Users.cs" Line="26" Column="6" />
       <File FileName="ArcelikWebApi/Controllers/UserVideoController.cs" />
-      <File FileName="ArcelikWebApi/Middlewares/TokenValidationMiddleware.cs" />
-      <File FileName="ArcelikWebApi/Controllers/CreateAppController.cs" />
-      <File FileName="ArcelikWebApi/Controllers/ApplicationSettingsController.cs" Line="9" Column="25" />
-      <File FileName="ArcelikWebApi/Controllers/QuizController.cs" Line="1" Column="1" />
-      <File FileName="ArcelikWebApi/Models/Quiz/Questions.cs" Line="22" Column="1" />
-      <File FileName="ArcelikWebApi/Models/Quiz/Choices.cs" Line="21" Column="10" />
-      <File FileName="ArcelikWebApi/Models/Quiz/CorrectChoices.cs" Line="28" Column="1" />
-      <File FileName="ArcelikWebApi/Data/ApplicationDbContext.cs" Line="90" Column="1" />
-      <File FileName="ArcelikWebApi/Models/Quiz/CorrectText.cs" Line="7" Column="2" />
-      <File FileName="ArcelikWebApi/Models/Quiz/CorrectSorting.cs" Line="22" Column="1" />
+      <File FileName="ArcelikWebApi/Data/ApplicationDbContext.cs" Line="74" Column="1" />
+      <File FileName="ArcelikWebApi/Models/Quiz/UserResponseDTO.cs" Line="11" Column="56" />
+      <File FileName="ArcelikWebApi/Controllers/CreateAppController.cs" Line="66" Column="26" />
+      <File FileName="ArcelikWebApi/Models/Quiz/CorrectSorting.cs" Line="21" Column="6" />
+      <File FileName="ArcelikWebApi/Controllers/QuizController.cs" Line="122" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
-          <Node name="ArcelikWebApi">
+          <Node name="ArcelikWebApi" expanded="True">
             <Node name="ArcelikWebApi">
-              <Node name="Controllers" expanded="True" />
-              <Node name="Data">
-                <Node name="ApplicationDbContext.cs" selected="True" />
+              <Node name="Controllers">
+                <Node name="QuizController.cs" selected="True" />
               </Node>
+              <Node name="Data" expanded="True" />
               <Node name="Middlewares" expanded="True" />
-              <Node name="Properties" expanded="True" />
+              <Node name="Models" expanded="True">
+                <Node name="Quiz" expanded="True" />
+              </Node>
             </Node>
           </Node>
         </State>
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
-  <MultiItemStartupConfigurations />
-  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <Debugger.DebugSourceFolders>
     <String>/Users/kutaysahin/Desktop/Projects/arcelik-ai</String>
   </Debugger.DebugSourceFolders>
-  <MonoDevelop.Ide.ItemProperties.ArcelikWebApi PreferredExecutionTarget="/Applications/Google Chrome.app" />
 </Properties>
