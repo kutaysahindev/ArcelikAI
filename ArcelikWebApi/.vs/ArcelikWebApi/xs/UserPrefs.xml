@@ -1,22 +1,20 @@
 ﻿<Properties StartupConfiguration="{7F93A0A0-580C-444D-93DA-CCDA16F4155A}|https">
   <MonoDevelop.Ide.ItemProperties.ArcelikWebApi PreferredExecutionTarget="/Applications/Google Chrome.app" />
-  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MultiItemStartupConfigurations />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <Debugger.DebugSourceFolders>
-    <String>/Users/kutaysahin/Desktop/Projects/arcelik-ai</String>
-  </Debugger.DebugSourceFolders>
-  <MultiItemStartupConfigurations />
   <MonoDevelop.Ide.Workbench ActiveDocument="ArcelikWebApi/Controllers/QuizController.cs">
     <Files>
-      <File FileName="ArcelikWebApi/Models/Users.cs" Line="1" Column="1" />
-      <File FileName="ArcelikWebApi/Controllers/UserVideoController.cs" Line="1" Column="1" />
-      <File FileName="ArcelikWebApi/Middlewares/TokenValidationMiddleware.cs" Line="1" Column="1" />
-      <File FileName="ArcelikWebApi/Data/ApplicationDbContext.cs" Line="84" Column="35" />
-      <File FileName="ArcelikWebApi/Controllers/QuizController.cs" Line="92" Column="67" />
-      <File FileName="ArcelikWebApi/Models/Quiz/UserResponseDTO.cs" Line="1" Column="1" />
+      <File FileName="ArcelikWebApi/Models/Users.cs" Line="26" Column="6" />
+      <File FileName="ArcelikWebApi/Controllers/UserVideoController.cs" />
+      <File FileName="ArcelikWebApi/Data/ApplicationDbContext.cs" Line="74" Column="1" />
+      <File FileName="ArcelikWebApi/Models/Quiz/UserResponseDTO.cs" Line="11" Column="56" />
+      <File FileName="ArcelikWebApi/Controllers/CreateAppController.cs" Line="66" Column="26" />
+      <File FileName="ArcelikWebApi/Models/Quiz/CorrectSorting.cs" Line="21" Column="6" />
+      <File FileName="ArcelikWebApi/Controllers/QuizController.cs" Line="122" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -26,6 +24,7 @@
               <Node name="Controllers">
                 <Node name="QuizController.cs" selected="True" />
               </Node>
+              <Node name="Data" expanded="True" />
               <Node name="Middlewares" expanded="True" />
               <Node name="Models" expanded="True">
                 <Node name="Quiz" expanded="True" />
@@ -36,4 +35,7 @@
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
+  <Debugger.DebugSourceFolders>
+    <String>/Users/kutaysahin/Desktop/Projects/arcelik-ai</String>
+  </Debugger.DebugSourceFolders>
 </Properties>
