@@ -54,7 +54,7 @@ namespace ArcelikWebApi.Controllers
                 {
                     switch (response.ReceivedQuestionType)
                     {
-                        case "Sorting":
+                        case "das":
                             // Find the correct sorting order for the given question ID
                             var sortingOrder = await _context.CorrectSorting
                                     .Where(cs => cs.QuestionID == response.ReceivedQuestionID)
@@ -74,7 +74,7 @@ namespace ArcelikWebApi.Controllers
                             }
                             break;
 
-                        case "FillInTheBlank":
+                        case "oe":
                             // Find the correct text answer for the given question ID
                             //var correctText = await _context.CorrectText.FirstOrDefaultAsync(ct => ct.QuestionID == response.QuestionID);
                             var correctText = await _context.CorrectText
@@ -103,15 +103,7 @@ namespace ArcelikWebApi.Controllers
                                 .ToListAsync();
 
                             //// Split the user's received choice ID into individual choices
-                            var receivedChoices = new List<int> { response.ReceivedChoiceID };
-
-                            // Count the number of correct choices selected by the user
-                            int correctChoicesCount = correctChoices.Count(receivedChoices.Contains);
-
-                            if(correctChoicesCount > 0)
-                            {
-
-                            }
+                            
 
                             break;
                     }

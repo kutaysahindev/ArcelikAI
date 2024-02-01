@@ -1,25 +1,27 @@
 {
   "format": 1,
   "restore": {
-    "/Users/arthropoda/Desktop/programmingProjects/csharp/ArcelikAI/ArcelikWebApi/ArcelikWebApi/ArcelikWebApi.csproj": {}
+    "D:\\Work\\Arcelik\\Projects\\ArcelikAI\\ArcelikWebApi\\ArcelikWebApi\\ArcelikWebApi.csproj": {}
   },
   "projects": {
-    "/Users/arthropoda/Desktop/programmingProjects/csharp/ArcelikAI/ArcelikWebApi/ArcelikWebApi/ArcelikWebApi.csproj": {
+    "D:\\Work\\Arcelik\\Projects\\ArcelikAI\\ArcelikWebApi\\ArcelikWebApi\\ArcelikWebApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/arthropoda/Desktop/programmingProjects/csharp/ArcelikAI/ArcelikWebApi/ArcelikWebApi/ArcelikWebApi.csproj",
+        "projectUniqueName": "D:\\Work\\Arcelik\\Projects\\ArcelikAI\\ArcelikWebApi\\ArcelikWebApi\\ArcelikWebApi.csproj",
         "projectName": "ArcelikWebApi",
-        "projectPath": "/Users/arthropoda/Desktop/programmingProjects/csharp/ArcelikAI/ArcelikWebApi/ArcelikWebApi/ArcelikWebApi.csproj",
-        "packagesPath": "/Users/arthropoda/.nuget/packages/",
-        "outputPath": "/Users/arthropoda/Desktop/programmingProjects/csharp/ArcelikAI/ArcelikWebApi/ArcelikWebApi/obj/",
+        "projectPath": "D:\\Work\\Arcelik\\Projects\\ArcelikAI\\ArcelikWebApi\\ArcelikWebApi\\ArcelikWebApi.csproj",
+        "packagesPath": "C:\\Users\\bulut\\.nuget\\packages\\",
+        "outputPath": "D:\\Work\\Arcelik\\Projects\\ArcelikAI\\ArcelikWebApi\\ArcelikWebApi\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/arthropoda/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\bulut\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net7.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -96,7 +98,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.401/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100\\RuntimeIdentifierGraph.json"
         }
       }
     }

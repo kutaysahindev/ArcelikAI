@@ -40,7 +40,7 @@ const QuestionPicker = () => {
   theQuestion();
   return (
     <>
-      <TimeBar duration={120}/>
+      <TimeBar duration={15}/>
       { qElement }
     </>
   )

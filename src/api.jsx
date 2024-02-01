@@ -131,7 +131,7 @@ export const getSettings = async (accessToken) => {
 
 //Quiz - Get
 export const getQuestions = async (accessToken) => {
-  const endpoint = "/api/questions";
+  const endpoint = "/api/quiz/questions";
   try {
     setAuthHeader(accessToken);
 
@@ -144,7 +144,7 @@ export const getQuestions = async (accessToken) => {
 
 //Quiz - Post
 export const postQuestionResponses = async (accessToken, responses) => {
-  const endpoint = "/api/questions/responses";
+  const endpoint = "/api/quiz/submit";
   try {
     setAuthHeader(accessToken);
 

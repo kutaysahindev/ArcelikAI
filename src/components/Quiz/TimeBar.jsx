@@ -2,11 +2,15 @@ import { useEffect, useState } from "react";
 import './TimeBar.css'
 import { hideModal, setModalContext, setWindowContent } from "../../redux/windowSlice";
 import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+import { postQuestionResponses } from "../../api";
 
 const TimeBar = ({ duration }) => {
   const [time, setTime] = useState(duration);
   const [isHovered, setIsHovered] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
+  const { responses } = useSelector(state => state.quiz);
+  const user = useSelector(state => state.user);
   const dispatch = useDispatch();
   const hours = Math.floor(time / 3600);
   const minutes = Math.floor((time % 3600) / 60);
@@ -27,6 +31,18 @@ const TimeBar = ({ duration }) => {
     return time < 10 ? `0${time}` : time;
   }
 
+  const sendQuizHandler = () => {
+    const sendQuiz = async () => {
+      try {
+        await postQuestionResponses(user.accessToken, responses);
+        console.log('responses:; ', responses);
+      } catch (error) {
+        throw error;
+      }
+    };
+    sendQuiz();
+  }
+
   const showModal = () => {
     dispatch(setModalContext({
       title: "Time Is Up",
@@ -38,7 +54,8 @@ const TimeBar = ({ duration }) => {
         dispatch(setWindowContent("video"))
       },
       buttonB: "Send",
-      actionB: () => console.log("Quiz was sent"),
+      actionB: sendQuizHandler,
+      // actionB: () => console.log("Quiz was sent"),
       // actionB: () => setIsPaused(true),
     }))
   }
