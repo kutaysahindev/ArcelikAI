@@ -74,116 +74,128 @@ namespace ArcelikWebApi.Data
                 new Video { Id = 2, Title = "Video 2", VideoDuration = 8, BlobStorageUrl = "https://arcelikstorage.blob.core.windows.net/videos/sample2.mp4" },
                 new Video { Id = 3, Title = "Video 3", VideoDuration = 10, BlobStorageUrl = "https://arcelikstorage.blob.core.windows.net/videos/sample3.mp4" },
                 new Video { Id = 4, Title = "Video 4", VideoDuration = 11, BlobStorageUrl = "https://arcelikstorage.blob.core.windows.net/videos/sample3.mp4" }
-                            );
-
-            modelBuilder.Entity<Questions>().HasData(
-                new Questions { QuestionID = 1, QuestionText = "What is the capital of France?", QuestionType = "MultipleChoice" },
-                new Questions { QuestionID = 2, QuestionText = "Which of the following are prime numbers?", QuestionType = "MultipleChoiceAndAnswers" },
-                new Questions { QuestionID = 3, QuestionText = "Is the sky blue?", QuestionType = "TrueFalse" },
-                new Questions { QuestionID = 4, QuestionText = "The complexity of bubble sort algorithm is _______ to the square of the number of elements.", QuestionType = "FillInTheBlank" },
-                new Questions { QuestionID = 5, QuestionText = "Arrange the following data structures in ascending order of their average time complexity for searching: Linked List, Binary Search Tree, Hash Table, Array", QuestionType = "Sorting" },
-                new Questions { QuestionID = 6, QuestionText = "Is water wet?", QuestionType = "TrueFalse" },
-                new Questions { QuestionID = 7, QuestionText = "Fill in the blank: Speed of light is ______ km/s.", QuestionType = "FillInTheBlank" },
-                new Questions { QuestionID = 8, QuestionText = "What is the capital of Japan?", QuestionType = "MultipleChoice" },
-                new Questions { QuestionID = 9, QuestionText = "Sort the following numbers in ascending order: 3, 1, 2, 4", QuestionType = "Sorting" },
-                new Questions { QuestionID = 10, QuestionText = "Fill in the blank: The sun rises in the ______.", QuestionType = "FillInTheBlank" },
-                new Questions { QuestionID = 11, QuestionText = "Which of the following is not a prime number?", QuestionType = "MultipleChoiceAndAnswers" },
-                new Questions { QuestionID = 12, QuestionText = "Arrange the following cities in alphabetical order: Paris, New York, Tokyo, London", QuestionType = "Sorting" },
-                new Questions { QuestionID = 13, QuestionText = "What is the sum of 2 + 2?", QuestionType = "MultipleChoice" },
-                new Questions { QuestionID = 14, QuestionText = "True or False: The moon is made of cheese.", QuestionType = "TrueFalse" },
-                new Questions { QuestionID = 15, QuestionText = "Fill in the blank: C# is a ______ programming language.", QuestionType = "FillInTheBlank" }
             );
 
+            modelBuilder.Entity<Questions>().HasData(
+                // 3 MultipleChoice QuestionType
+                new Questions { QuestionID = 1, QuestionText = "What is the capital of France?", QuestionType = "MultipleChoice" },
+                new Questions { QuestionID = 2, QuestionText = "Which of the following are prime numbers?", QuestionType = "MultipleChoice" },
+                new Questions { QuestionID = 3, QuestionText = "Which city is known as the 'Eternal City'?", QuestionType = "MultipleChoice" },
+
+                // 3 MultipleChoiceAndAnswers
+                new Questions { QuestionID = 4, QuestionText = "Select the even numbers:", QuestionType = "MultipleChoiceAndAnswers" },
+                new Questions { QuestionID = 5, QuestionText = "Which colors are in a rainbow?", QuestionType = "MultipleChoiceAndAnswers" },
+                new Questions { QuestionID = 6, QuestionText = "Choose the correct programming languages:", QuestionType = "MultipleChoiceAndAnswers" },
+
+                // 3 TrueFalse
+                new Questions { QuestionID = 7, QuestionText = "Is the Earth flat?", QuestionType = "TrueFalse" },
+                new Questions { QuestionID = 8, QuestionText = "Do cats meow?", QuestionType = "TrueFalse" },
+                new Questions { QuestionID = 9, QuestionText = "Is water wet?", QuestionType = "TrueFalse" },
+
+                // 3 FillInTheBlank
+                new Questions { QuestionID = 10, QuestionText = "The capital of Spain is ________.", QuestionType = "FillInTheBlank" },
+                new Questions { QuestionID = 11, QuestionText = "The sum of 5 and 3 is ________.", QuestionType = "FillInTheBlank" },
+                new Questions { QuestionID = 12, QuestionText = "C# is a ________ language.", QuestionType = "FillInTheBlank" },
+
+                // 3 Sorting
+                new Questions { QuestionID = 13, QuestionText = "Sort the following numbers in ascending order:", QuestionType = "Sorting" },
+                new Questions { QuestionID = 14, QuestionText = "Arrange these colors alphabetically: Blue, Red, Green, Yellow.", QuestionType = "Sorting" },
+                new Questions { QuestionID = 15, QuestionText = "Order these programming languages by release date: C++, Java, Python, JavaScript.", QuestionType = "Sorting" }
+            );
 
             // Seed Answers for the MultipleChoice/True/False question
+            // Insert Choices for MultipleChoice, MultipleChoiceAndAnswers, TrueFalse, and Sorting
             modelBuilder.Entity<Choices>().HasData(
-                // Choices for QuestionID 1 (MultipleChoice)
+                // Choices for MultipleChoice (QuestionID: 1, 2, 3)
                 new Choices { ChoiceID = 1, QuestionID = 1, ChoiceText = "Berlin" },
                 new Choices { ChoiceID = 2, QuestionID = 1, ChoiceText = "Paris" },
                 new Choices { ChoiceID = 3, QuestionID = 1, ChoiceText = "London" },
                 new Choices { ChoiceID = 4, QuestionID = 1, ChoiceText = "Madrid" },
-
-                // Choices for QuestionID 2 (MultipleChoiceAndAnswers)
                 new Choices { ChoiceID = 5, QuestionID = 2, ChoiceText = "2" },
                 new Choices { ChoiceID = 6, QuestionID = 2, ChoiceText = "5" },
                 new Choices { ChoiceID = 7, QuestionID = 2, ChoiceText = "8" },
                 new Choices { ChoiceID = 8, QuestionID = 2, ChoiceText = "11" },
+                new Choices { ChoiceID = 9, QuestionID = 3, ChoiceText = "Rome" },
+                new Choices { ChoiceID = 10, QuestionID = 3, ChoiceText = "Athens" },
+                new Choices { ChoiceID = 11, QuestionID = 3, ChoiceText = "Jerusalem" },
+                new Choices { ChoiceID = 12, QuestionID = 3, ChoiceText = "Istanbul" },
 
-                // Choices for QuestionID 3 (TrueFalse)
-                new Choices { ChoiceID = 9, QuestionID = 3, ChoiceText = "True" },
-                new Choices { ChoiceID = 10, QuestionID = 3, ChoiceText = "False" },
+                // Choices for MultipleChoiceAndAnswers (QuestionID: 4, 5, 6)
+                new Choices { ChoiceID = 13, QuestionID = 4, ChoiceText = "2" },
+                new Choices { ChoiceID = 14, QuestionID = 4, ChoiceText = "4" },
+                new Choices { ChoiceID = 15, QuestionID = 4, ChoiceText = "6" },
+                new Choices { ChoiceID = 16, QuestionID = 4, ChoiceText = "8" },
+                new Choices { ChoiceID = 17, QuestionID = 5, ChoiceText = "Red" },
+                new Choices { ChoiceID = 18, QuestionID = 5, ChoiceText = "Black" },
+                new Choices { ChoiceID = 19, QuestionID = 5, ChoiceText = "Blue" },
+                new Choices { ChoiceID = 20, QuestionID = 5, ChoiceText = "Yellow" },
+                new Choices { ChoiceID = 21, QuestionID = 6, ChoiceText = "CC#" },
+                new Choices { ChoiceID = 22, QuestionID = 6, ChoiceText = "Python" },
+                new Choices { ChoiceID = 23, QuestionID = 6, ChoiceText = "Javax" },
+                new Choices { ChoiceID = 24, QuestionID = 6, ChoiceText = "JavaScript" },
 
-                // Choices for QuestionID 5 (Sorting)
-                new Choices { ChoiceID = 12, QuestionID = 5, ChoiceText = "Linked List" },
-                new Choices { ChoiceID = 13, QuestionID = 5, ChoiceText = "Binary Search Tree" },
-                new Choices { ChoiceID = 14, QuestionID = 5, ChoiceText = "Hash Table" },
-                new Choices { ChoiceID = 15, QuestionID = 5, ChoiceText = "Binary Search" },
+                // Choices for TrueFalse (QuestionID: 7, 8, 9)
+                new Choices { ChoiceID = 25, QuestionID = 7, ChoiceText = "True" },
+                new Choices { ChoiceID = 26, QuestionID = 7, ChoiceText = "False" },
+                new Choices { ChoiceID = 27, QuestionID = 8, ChoiceText = "True" },
+                new Choices { ChoiceID = 28, QuestionID = 8, ChoiceText = "False" },
+                new Choices { ChoiceID = 29, QuestionID = 9, ChoiceText = "True" },
+                new Choices { ChoiceID = 30, QuestionID = 9, ChoiceText = "False" },
 
-                // Choices for QuestionID 6 (TrueFalse)
-                new Choices { ChoiceID = 16, QuestionID = 6, ChoiceText = "True" },
-                new Choices { ChoiceID = 17, QuestionID = 6, ChoiceText = "False" },
-
-                // Choices for QuestionID 8 (MultipleChoice)
-                new Choices { ChoiceID = 19, QuestionID = 8, ChoiceText = "Tokyo" },
-                new Choices { ChoiceID = 20, QuestionID = 8, ChoiceText = "Beijing" },
-                new Choices { ChoiceID = 21, QuestionID = 8, ChoiceText = "Seoul" },
-                new Choices { ChoiceID = 22, QuestionID = 8, ChoiceText = "Bangkok" },
-
-                // Choices for QuestionID 9 (Sorting)
-                new Choices { ChoiceID = 23, QuestionID = 9, ChoiceText = "1" },
-                new Choices { ChoiceID = 24, QuestionID = 9, ChoiceText = "2" },
-                new Choices { ChoiceID = 25, QuestionID = 9, ChoiceText = "3" },
-                new Choices { ChoiceID = 26, QuestionID = 9, ChoiceText = "4" },
-
-                // Choices for QuestionID 11 (MultipleChoiceAndAnswers)
-                new Choices { ChoiceID = 28, QuestionID = 11, ChoiceText = "4" },
-                new Choices { ChoiceID = 29, QuestionID = 11, ChoiceText = "5" },
-                new Choices { ChoiceID = 30, QuestionID = 11, ChoiceText = "6" },
-                new Choices { ChoiceID = 31, QuestionID = 11, ChoiceText = "8" },
-
-                // Choices for QuestionID 12 (Sorting)
-                new Choices { ChoiceID = 32, QuestionID = 12, ChoiceText = "London" },
-                new Choices { ChoiceID = 33, QuestionID = 12, ChoiceText = "New York" },
-                new Choices { ChoiceID = 34, QuestionID = 12, ChoiceText = "Paris" },
-                new Choices { ChoiceID = 35, QuestionID = 12, ChoiceText = "Tokyo" },
-
-                // Choices for QuestionID 13 (MultipleChoice)
-                new Choices { ChoiceID = 36, QuestionID = 13, ChoiceText = "4" },
-                new Choices { ChoiceID = 37, QuestionID = 13, ChoiceText = "5" },
-                new Choices { ChoiceID = 38, QuestionID = 13, ChoiceText = "6" },
-                new Choices { ChoiceID = 39, QuestionID = 13, ChoiceText = "8" },
-
-                // Choices for QuestionID 14 (TrueFalse)
-                new Choices { ChoiceID = 40, QuestionID = 14, ChoiceText = "False" },
-                new Choices { ChoiceID = 41, QuestionID = 14, ChoiceText = "True" }
-
+                // Choices for Sorting (QuestionID: 13, 14, 15)
+                new Choices { ChoiceID = 31, QuestionID = 13, ChoiceText = "1" },
+                new Choices { ChoiceID = 32, QuestionID = 13, ChoiceText = "2" },
+                new Choices { ChoiceID = 33, QuestionID = 13, ChoiceText = "4" },
+                new Choices { ChoiceID = 34, QuestionID = 13, ChoiceText = "3" },
+                new Choices { ChoiceID = 35, QuestionID = 14, ChoiceText = "Red" },
+                new Choices { ChoiceID = 36, QuestionID = 14, ChoiceText = "Green" },
+                new Choices { ChoiceID = 37, QuestionID = 14, ChoiceText = "Yellow" },
+                new Choices { ChoiceID = 38, QuestionID = 14, ChoiceText = "Blue" },
+                new Choices { ChoiceID = 39, QuestionID = 15, ChoiceText = "Java" },
+                new Choices { ChoiceID = 40, QuestionID = 15, ChoiceText = "C++" },
+                new Choices { ChoiceID = 41, QuestionID = 15, ChoiceText = "JavaScript" },
+                new Choices { ChoiceID = 42, QuestionID = 15, ChoiceText = "Python" }
             );
 
+            // Insert CorrectChoices for MultipleChoice, MultipleChoiceAndAnswers, TrueFalse
+            modelBuilder.Entity<CorrectChoices>().HasData(
+                // CorrectChoices for MultipleChoice (QuestionID: 1, 2, 3)
+                new CorrectChoices { CorrectChoiceID = 1, QuestionID = 1, ChoiceID = 2, PartialScore = 10 },
+                new CorrectChoices { CorrectChoiceID = 2, QuestionID = 2, ChoiceID = 5, PartialScore = 10 },
+                new CorrectChoices { CorrectChoiceID = 3, QuestionID = 3, ChoiceID = 10, PartialScore = 10 },
+
+                // CorrectChoices for MultipleChoiceAndAnswers (QuestionID: 4, 5, 6)
+                new CorrectChoices { CorrectChoiceID = 4, QuestionID = 4, ChoiceID = 13, PartialScore = 2 },
+                new CorrectChoices { CorrectChoiceID = 5, QuestionID = 4, ChoiceID = 14, PartialScore = 2 },
+                new CorrectChoices { CorrectChoiceID = 6, QuestionID = 4, ChoiceID = 15, PartialScore = 2 },
+                new CorrectChoices { CorrectChoiceID = 7, QuestionID = 4, ChoiceID = 16, PartialScore = 2 },
+                new CorrectChoices { CorrectChoiceID = 8, QuestionID = 5, ChoiceID = 17, PartialScore = 2 },
+                new CorrectChoices { CorrectChoiceID = 9, QuestionID = 5, ChoiceID = 19, PartialScore = 2 },
+                new CorrectChoices { CorrectChoiceID = 10, QuestionID = 5, ChoiceID = 20, PartialScore = 2 },
+                new CorrectChoices { CorrectChoiceID = 11, QuestionID = 6, ChoiceID = 22, PartialScore = 2 },
+                new CorrectChoices { CorrectChoiceID = 12, QuestionID = 6, ChoiceID = 24, PartialScore = 2 },
+
+                // CorrectChoices for TrueFalse (QuestionID: 7, 8, 9)
+                new CorrectChoices { CorrectChoiceID = 13, QuestionID = 7, ChoiceID = 26, PartialScore = 5 },
+                new CorrectChoices { CorrectChoiceID = 14, QuestionID = 8, ChoiceID = 27, PartialScore = 5 },
+                new CorrectChoices { CorrectChoiceID = 15, QuestionID = 9, ChoiceID = 29, PartialScore = 5 }
+            );
+
+            // Insert CorrectSorting for Sorting
             modelBuilder.Entity<CorrectSorting>().HasData(
-                // Answer for QuestionID 5 (Sorting)
-                new CorrectSorting { CorrectSortingID = 1, QuestionID = 5, SortingOrder = 14131112, SortingScore = 15 },
+                // CorrectSorting for Sorting (QuestionID: 13, 14, 15)
+                new CorrectSorting { CorrectSortingID = 1, QuestionID = 13, SortingOrder = 31323433, SortingScore = 10 },
+                new CorrectSorting { CorrectSortingID = 2, QuestionID = 14, SortingOrder = 38363735, SortingScore = 10 },
+                new CorrectSorting { CorrectSortingID = 3, QuestionID = 15, SortingOrder = 40394241, SortingScore = 10 }
+            );
 
-                // Answer Sorting for QuestionID 9
-                new CorrectSorting { CorrectSortingID = 2, QuestionID = 9, SortingOrder = 23242526, SortingScore = 10 },
-
-                // Answer Sorting for QuestionID 12
-                new CorrectSorting { CorrectSortingID = 3, QuestionID = 12, SortingOrder = 32333435, SortingScore = 12 }
-                );
-
+            // Insert CorrectText for FillInTheBlank
             modelBuilder.Entity<CorrectText>().HasData(
-                // Answer for QuestionID 4 (FillInTheBlank)
-                new CorrectText { CorrectTextID = 1, QuestionID = 4, CorrectTextAnswer = "1" , TextScore = 5 },
-
-                // Answer for QuestionID 7 (FillInTheBlank)
-                new CorrectText { CorrectTextID = 2, QuestionID = 7, CorrectTextAnswer = "299,792" , TextScore = 5 },
-
-                // Answer for QuestionID 10 (FillInTheBlank)
-                new CorrectText { CorrectTextID = 3, QuestionID = 10, CorrectTextAnswer = "East" , TextScore = 5 },
-
-                // Answers for QuestionID 15 (FillInTheBlank)
-                new CorrectText { CorrectTextID = 4, QuestionID = 15, CorrectTextAnswer = "object-oriented" , TextScore = 5 }
-
-                );
+                // CorrectText for FillInTheBlank (QuestionID: 10, 11, 12)
+                new CorrectText { CorrectTextID = 1, QuestionID = 10, CorrectTextAnswer = "Madrid", TextScore = 5 },
+                new CorrectText { CorrectTextID = 2, QuestionID = 11, CorrectTextAnswer = "8", TextScore = 5 },
+                new CorrectText { CorrectTextID = 3, QuestionID = 12, CorrectTextAnswer = "programming", TextScore = 5 }
+            );
 
 
             modelBuilder.Entity<ApplicationSettings>()

@@ -16,11 +16,25 @@ namespace ArcelikWebApi.Controllers
             _context = context;
         }
 
-        // GET: api/quiz
         [HttpGet("questions")]
         public async Task<ActionResult<IEnumerable<QuestionDTO>>> GetQuestions()
         {
-            var questions = await _context.Questions
+            // Retrieve 5 static questions for each question type
+            var staticQuestions = await GetStaticQuestions();
+
+            // Retrieve 5 random questions for each question type
+            var randomQuestions = await GetRandomQuestions();
+
+            // Combine static and random questions
+            var allQuestions = staticQuestions.Concat(randomQuestions).ToList();
+
+            return Ok(allQuestions);
+        }
+
+        private async Task<List<QuestionDTO>> GetStaticQuestions()
+        {
+            var staticQuestions = await _context.Questions
+                .Where(q => (q.QuestionID == 1 || q.QuestionID == 4 || q.QuestionID == 7 || q.QuestionID == 10 || q.QuestionID == 13))
                 .Include(q => q.Choices)
                 .Select(q => new QuestionDTO
                 {
@@ -35,9 +49,36 @@ namespace ArcelikWebApi.Controllers
                 })
                 .ToListAsync();
 
-            return Ok(questions);
-
+            return staticQuestions;
         }
+
+        private async Task<List<QuestionDTO>> GetRandomQuestions()
+        {
+            var excludedQuestionIds = new List<int> { 1, 4, 7, 10, 13 };
+
+            var randomQuestions = await _context.Questions
+                .Where(q => !excludedQuestionIds.Contains(q.QuestionID))
+                .OrderBy(q => Guid.NewGuid())
+                .Distinct()
+                .Take(5)
+                .Include(q => q.Choices)
+                .Select(q => new QuestionDTO
+                {
+                    QuestionID = q.QuestionID,
+                    QuestionText = q.QuestionText,
+                    QuestionType = q.QuestionType,
+                    Choices = q.Choices.Select(c => new ChoiceDTO
+                    {
+                        ChoiceID = c.ChoiceID,
+                        ChoiceText = c.ChoiceText
+                    }).ToList()
+                })
+                .ToListAsync();
+
+            return randomQuestions;
+        }
+
+
 
 
         // POST: api/quiz/submit
