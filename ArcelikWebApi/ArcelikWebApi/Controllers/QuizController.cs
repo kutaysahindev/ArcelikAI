@@ -59,7 +59,7 @@ namespace ArcelikWebApi.Controllers
             var randomQuestions = await _context.Questions
                 .Where(q => !excludedQuestionIds.Contains(q.QuestionID))
                 .OrderBy(q => Guid.NewGuid())
-                .Distinct()
+                .AsNoTracking()
                 .Take(5)
                 .Include(q => q.Choices)
                 .Select(q => new QuestionDTO
@@ -77,8 +77,6 @@ namespace ArcelikWebApi.Controllers
 
             return randomQuestions;
         }
-
-
 
 
         // POST: api/quiz/submit

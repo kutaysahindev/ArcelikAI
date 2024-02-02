@@ -72,7 +72,7 @@ namespace ArcelikWebApi.Controllers
                     user.WatchedTimeInSeconds = request.WatchedTimeInSeconds;
                     user.isWatchedAll = request.IsWatchedAll;
 
-                    _applicationDbContext.SaveChangesAsync();
+                    await _applicationDbContext.SaveChangesAsync();
 
                     return Ok("Watched video updated successfully");
                 }
