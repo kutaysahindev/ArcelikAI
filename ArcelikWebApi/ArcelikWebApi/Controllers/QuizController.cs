@@ -102,27 +102,33 @@ namespace ArcelikWebApi.Controllers
                             break;
 
                         default:
-                        // Assuming MultipleChoice or other question types
-                        // Find the correct choices for the given question ID
-                        // Fetch the correct choices for the given question ID from the CorrectChoices table
-                      
-                            var SelectedChoiceIds = response.ReceivedChoiceID;
-
-                            // Retrieve the correct choices with their partial scores for the given question ID
-                            //CHOICE ID YANLIŞ OLDUĞUNDA ERROR VERIYOR. IF STATEMENTI İLE YA DA TRY İLE DÜZELT.
-                            var CorrectChoices = await _context.CorrectChoices
-                                .Where(cc => cc.QuestionID == response.ReceivedQuestionID && SelectedChoiceIds.Contains(cc.ChoiceID))
-                                .Select(cc => new { cc.PartialScore })
-                                .ToListAsync();
-
-    
-                           foreach (var CorrectChoice in CorrectChoices)
+                            try
                             {
-                                overallScore += CorrectChoice.PartialScore;
-                                // Process choiceId and partialScore as needed
+                                var SelectedChoiceIds = response.ReceivedChoiceID;
+
+                                // Check if there are any correct choices in the database for the given question and selected choices
+                                var CorrectChoices = await _context.CorrectChoices
+                                    .Where(cc => cc.QuestionID == response.ReceivedQuestionID && SelectedChoiceIds.Contains(cc.ChoiceID))
+                                    .ToListAsync();
+
+                                if (CorrectChoices.Any())
+                                {
+                                    // If there are correct choices, retrieve their partial scores
+                                    var PartialScores = CorrectChoices.Select(cc => cc.PartialScore).ToList();
+
+                                    // Calculate overall score with the correct choices partial score
+                                    foreach (var partialScore in PartialScores)
+                                    {
+                                        overallScore += partialScore;
+                                    }
+                                }
+
                             }
-                            var asd = overallScore;
-                            //// Split the user's received choice ID into individual choices
+                            catch (Exception ex)
+                            {
+                                // Handle any exceptions that might occur during database query or processing.
+                                return Ok(new { success = false, message = "The error accured when try select correct choice with LINQ query " });
+                            }
                             break;
                     }
 
