@@ -70,7 +70,7 @@ namespace ArcelikWebApi.Controllers
                     
 
                     _applicationDbContext.Users.Add(Users);
-                    _applicationDbContext.SaveChanges();
+                    await _applicationDbContext.SaveChangesAsync();
                 }
 
                 return Ok("Token valid, user save to the database completed.");
