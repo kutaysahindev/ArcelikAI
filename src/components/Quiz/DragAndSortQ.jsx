@@ -6,12 +6,14 @@ import { PiSortAscendingBold, PiSortDescendingBold } from "react-icons/pi";
 import { useSelector } from "react-redux";
 
 
-export const DragAndSortQ = ({ id, addRes, question, options }) => {
+export const DragAndSortQ = ({ id, questionType, addRes, question, options }) => {
   const { responses } = useSelector(state => state.quiz);
   const [sortedOptions, setSortedOptions] = useState(responses["Q"+id] ? responses["Q"+id] :options);
 
   useEffect(() => {
-    addRes(id, sortedOptions)
+    const onlyID = Number(sortedOptions.map(m => m.oID).join(''))
+    console.log('onlyID: ', onlyID)
+    addRes(id, questionType, sortedOptions, null, null, onlyID)
   }, [sortedOptions])
   
 
