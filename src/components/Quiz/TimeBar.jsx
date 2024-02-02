@@ -9,7 +9,7 @@ const TimeBar = ({ duration }) => {
   const [time, setTime] = useState(duration);
   const [isHovered, setIsHovered] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
-  const { responses } = useSelector(state => state.quiz);
+  const { responses, responsesToBeSended } = useSelector(state => state.quiz);
   const user = useSelector(state => state.user);
   const dispatch = useDispatch();
   const hours = Math.floor(time / 3600);
@@ -34,8 +34,8 @@ const TimeBar = ({ duration }) => {
   const sendQuizHandler = () => {
     const sendQuiz = async () => {
       try {
-        await postQuestionResponses(user.accessToken, responses);
-        console.log('responses:; ', responses);
+        await postQuestionResponses(user.accessToken, responsesToBeSended);
+        console.log('responsesToBeSended:; ', responsesToBeSended);
       } catch (error) {
         throw error;
       }
