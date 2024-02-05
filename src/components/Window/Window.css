@@ -87,13 +87,11 @@
 
 /* TABS */
 .window .window-tabs {
-  /* flex: 1; */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   position: relative;
-  /* width: 200px; */
-  height: 300px;
+  height: 30rem;
   gap: 20px;
 }
 .window .window-tabs .tabs {
@@ -199,4 +197,37 @@
   font-weight: 400;
   line-height: 1.8rem;
   text-align: justify;
+}
+
+.quiz-result {
+  margin-top: 6rem;
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
+  gap: 2rem;
+  align-items: center;
+  /* align-items: center; */
+  /* height: 100%; */
+}
+.quiz-result .rslt {
+  font-size: 20px;
+  font-weight: 900;
+  letter-spacing: 2px;
+}
+.quiz-result .rslt.failed {
+  color: red;
+}
+.quiz-result .rslt.passed {
+  color: green;
+}
+.quiz-result .msg{
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  font-size: 15px;
+}
+.quiz-result button{
+  /* width: fit-content; */
+  padding: 1rem;
+  cursor: pointer;
 }

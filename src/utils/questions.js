@@ -74,56 +74,7 @@ export const questions = [
       {
         oID: 4,
         option: "Albert Einstein",
-      },
-      {
-        oID: 5,
-        option: "Niels Bohr",
-      },
-      {
-        oID: 6,
-        option: "Wilhelm Roentgen",
-      },
-      {
-        oID: 7,
-        option: "Nikola Tesla",
-      },
-    ],
-    time: 40,
-    points: 50,
-  },
-  {
-    Id: 2,
-    questionType: "Sorting",
-    question: "Sort these scientists by their date of birth.",
-    options: [
-      {
-        oID: 1,
-        option: "Alexander Graham Bell",
-      },
-      {
-        oID: 2,
-        option: "Thomas Edison",
-      },
-      {
-        oID: 3,
-        option: "Max Planck",
-      },
-      {
-        oID: 4,
-        option: "Albert Einstein",
-      },
-      {
-        oID: 5,
-        option: "Niels Bohr",
-      },
-      {
-        oID: 6,
-        option: "Wilhelm Roentgen",
-      },
-      {
-        oID: 7,
-        option: "Nikola Tesla",
-      },
+      }
     ],
     time: 40,
     points: 50,
@@ -131,36 +82,53 @@ export const questions = [
   {
     Id: 3,
     questionType: "Sorting",
-    question: "Sort these scientists by their date of birth.",
+    question: "LETTERS.",
     options: [
       {
         oID: 1,
-        option: "Alexander Graham Bell",
+        option: "A",
       },
       {
         oID: 2,
-        option: "Thomas Edison",
+        option: "B",
       },
       {
         oID: 3,
-        option: "Max Planck",
+        option: "C",
       },
       {
         oID: 4,
-        option: "Albert Einstein",
+        option: "D",
+      }
+    ],
+    time: 40,
+    points: 50,
+  },
+  {
+    Id: 8,
+    questionType: "Sorting",
+    question: "NUMBERS.",
+    options: [
+      {
+        oID: 1,
+        option: "1",
+      },
+      {
+        oID: 2,
+        option: "2",
+      },
+      {
+        oID: 3,
+        option: "3",
+      },
+      {
+        oID: 4,
+        option: "4",
       },
       {
         oID: 5,
-        option: "Niels Bohr",
-      },
-      {
-        oID: 6,
-        option: "Wilhelm Roentgen",
-      },
-      {
-        oID: 7,
-        option: "Nikola Tesla",
-      },
+        option: "5",
+      }
     ],
     time: 40,
     points: 50,
