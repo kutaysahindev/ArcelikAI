@@ -101,7 +101,7 @@ export const postVideoProgress = async (accessToken, videoCreds) => {
         },
       }
     );
-    console.log(response.data);
+    // console.log(response.data);
     return response.data;
   } catch (error) {
     throw error;
@@ -150,7 +150,7 @@ export const postQuestionResponses = async (accessToken, responses) => {
 
     const response = await instance.post(endpoint, responses);
 
-    console.log(response.data);
+    // console.log(response.data);
     return response.data;
   } catch (error) {
     throw error;

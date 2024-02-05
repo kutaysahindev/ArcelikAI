@@ -18,7 +18,7 @@ const TimeBar = ({ duration }) => {
 
   useEffect(() => {
     if (isPaused) return
-    console.log("first")
+    // console.log("first")
     const flow = setInterval(() => {
       setTime((prev) => (prev > 0 ? prev - 1 : prev));
       // setTime(prev => prev>0 ? prev-1 : prev);

@@ -21,34 +21,29 @@ const WindowButtons = ({ content, onClose, onInfoClick }) => {
   }
   return (
     <div className="window-buttons-container">
+      {content !== "result" &&
+        <>
+      
       <button className="w-btn i" onClick={onInfoClick}>
         <IoInformationCircleOutline size={30} />
       </button>
       <button
         className="w-btn i"
         onClick={() => dispatch(toggleWindowContent())}
-      >
+        >
         <IoMdSwitch size={30} />
       </button>
       {content === "quiz" ? (
         <button className="w-btn x" onClick={showModal}>
           <IoIosArrowBack size={30} />
-          {/* <span>Back to videos</span> */}
         </button>
       ) : (
         <button className="w-btn x" onClick={onClose} disabled={!allCompleted}>
           <IoCloseOutline size={30} />
         </button>
       )}
-      {/* <button className="w-btn x" onClick={content === "quiz" ? showModal : onClose}>
-        {content === "quiz" ? (
-          <>
-            <IoIosArrowBack size={30} /><span>Back to videos</span>
-          </>
-        ) : (
-          <IoCloseOutline size={30} />
-        )}
-      </button> */}
+      </>
+    }
     </div>
   );
 };

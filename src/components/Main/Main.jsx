@@ -27,7 +27,7 @@ import {
   setVideos,
 } from "../../redux/videoSlice";
 import { updateSettings } from "../../redux/settingSlice";
-import { setQuestions } from "../../redux/quizSlice";
+import { defaultResponses, setQuestions, setSelectedQuestion } from "../../redux/quizSlice";
 
 const Main = () => {
   const { authState, oktaAuth } = useOktaAuth();
@@ -76,7 +76,7 @@ const Main = () => {
     const fetchData = async () => {
       try {
         const video = await getVideoProgress(user.accessToken);
-        console.log("video (fetch): ", video);
+        // console.log("video (fetch): ", video);
         dispatch(setVideos(video.VideoDetails));
         dispatch(setVideoCount(video.VideoCount));
         if(video.isTutorialDone)dispatch(setIsTutorialDone("0done"));
@@ -95,7 +95,7 @@ const Main = () => {
     const fetchSettings = async () => {
       try {
         const settings = await getSettings(user.accessToken);
-        console.log("ayar ", settings);
+        // console.log("ayar ", settings);
         dispatch(updateSettings(settings));
       } catch (error) {
         throw error;
@@ -104,7 +104,7 @@ const Main = () => {
     const fetchQuiz = async () => {
       try {
         const quiz = await getQuestions(user.accessToken);
-        console.log('quiz: ', quiz)
+        // console.log('quiz: ', quiz)
         const newQuiz = quiz.map(q => {
           const newChoices = q.Choices.map(c => {return {oID: c.ChoiceID, option: c.ChoiceText}})
           return({
@@ -114,6 +114,8 @@ const Main = () => {
             options: newChoices,
           })})
         dispatch(setQuestions(newQuiz))
+        // dispatch(defaultResponses())
+        dispatch(setSelectedQuestion(newQuiz[0].Id))
       } catch (error) {
         throw error;
       }
