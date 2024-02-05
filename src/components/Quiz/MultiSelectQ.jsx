@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import "./Questions.css";
 import { RiListCheck3 } from 'react-icons/ri';
 import { useSelector } from 'react-redux';
 
-export const MultiSelectQ = ({ id, addRes, question, options }) => {
+export const MultiSelectQ = ({ id, questionType, addRes, question, options }) => {
   const { responses } = useSelector(state => state.quiz);
   const [selectedOptions, setSelectedOptions] = useState(responses["Q"+id] ? responses["Q"+id] : []);
 
@@ -13,7 +13,7 @@ export const MultiSelectQ = ({ id, addRes, question, options }) => {
     if (updatedSelection.includes(option)) updatedSelection.splice(selectedIndex, 1);
     else updatedSelection.push(option);
     setSelectedOptions(updatedSelection);
-    addRes(id, updatedSelection)
+    addRes(id, questionType, updatedSelection, updatedSelection, null, null)
   };
 
   return (

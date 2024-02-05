@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using ArcelikWebApi.Data;
+﻿using ArcelikWebApi.Data;
 using ArcelikWebApi.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;

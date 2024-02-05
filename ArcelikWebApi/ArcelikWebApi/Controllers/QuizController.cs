@@ -10,6 +10,7 @@ namespace ArcelikWebApi.Controllers
     public class QuizController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
+        private List<QuestionDTO> _staticQuestions = new List<QuestionDTO>(); // Initialized with an empty list, Cache for static questions
 
         public QuizController(ApplicationDbContext context)
         {
@@ -33,8 +34,17 @@ namespace ArcelikWebApi.Controllers
 
         private async Task<List<QuestionDTO>> GetStaticQuestions()
         {
+            if (_staticQuestions != null)
+            {
+
+                //If static questions are in memory, return them from the cache
+                return _staticQuestions;
+            }
+
+            var questionIds = new List<int> { 1, 4, 7, 10, 13 };
+
             var staticQuestions = await _context.Questions
-                .Where(q => (q.QuestionID == 1 || q.QuestionID == 4 || q.QuestionID == 7 || q.QuestionID == 10 || q.QuestionID == 13))
+                .Where(q => questionIds.Contains(q.QuestionID))
                 .Include(q => q.Choices)
                 .Select(q => new QuestionDTO
                 {
@@ -48,6 +58,10 @@ namespace ArcelikWebApi.Controllers
                     }).ToList()
                 })
                 .ToListAsync();
+
+            //cache static questions after first query--logic is not valid when the static questions are changed? bi bakmak lazım
+
+            _staticQuestions = staticQuestions;
 
             return staticQuestions;
         }
@@ -99,7 +113,7 @@ namespace ArcelikWebApi.Controllers
                                     .FirstOrDefaultAsync();
 
                             // Compare user's sorting order with the correct one, null olmasını kıyaslamaya gerek yok
-                            if (SortingOrder != null && response.ReceivedSortingOrder == SortingOrder)
+                            if (SortingOrder !=0 && response.ReceivedSortingOrder == SortingOrder)
                             {
                                 // User's sorting order is correct
                                 var SortingScore = await _context.CorrectSorting
@@ -115,7 +129,6 @@ namespace ArcelikWebApi.Controllers
                         case "oe":
                             // OpenEnded Question
                             // Find the correct text answer for the given question ID
-                            //var correctText = await _context.CorrectText.FirstOrDefaultAsync(ct => ct.QuestionID == response.QuestionID);
                             var correctText = await _context.CorrectText
                                     .Where(ct => ct.QuestionID == response.ReceivedQuestionID)
                                     .Select(ct => ct.CorrectTextAnswer)
@@ -153,7 +166,7 @@ namespace ArcelikWebApi.Controllers
                                     // Calculate overall score with the correct choices partial score
                                     foreach (var partialScore in PartialScores)
                                     {
-                                        overallScore += partialScore;
+                                        OverallScore += partialScore;
                                     }
                                 }
 
@@ -161,7 +174,7 @@ namespace ArcelikWebApi.Controllers
                             catch (Exception ex)
                             {
                                 // Handle any exceptions that might occur during database query or processing.
-                                return Ok(new { success = false, message = "The error accured when try select correct choice with LINQ query " });
+                                return StatusCode(500, $"Internal server error: {ex.Message}");
                             }
                             break;
                     }
@@ -178,11 +191,17 @@ namespace ArcelikWebApi.Controllers
 
                 // Add OverallScore to QuizPoint column where userID == userID
                 user.QuizPoint = OverallScore;
+               
+                //check if the user is passed or not(bunu henüz database user'a eklemedim)
+
+                bool isPassed = OverallScore > 50;
+                user.IsPassed = isPassed;
+
                 await _context.SaveChangesAsync();
 
-                // Optionally, you can save user responses to the database or perform other operations here
+                // return a response to the FE with passing information 
 
-                return Ok(userResponses);
+                return Ok(isPassed);
             }
             catch (Exception ex)
             {

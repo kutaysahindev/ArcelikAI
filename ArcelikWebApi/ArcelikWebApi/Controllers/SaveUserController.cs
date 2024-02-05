@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using ArcelikWebApi.Data;
-using ArcelikWebApi.Services;
+﻿using ArcelikWebApi.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ArcelikWebApi.Models;
-using static System.Net.Mime.MediaTypeNames;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -29,15 +23,10 @@ namespace ArcelikWebApi.Controllers
         }
 
         [HttpPost("save")]
-        public async Task<IActionResult> saveUser()
+        public async Task<IActionResult> SaveUser()
         {
             try
             {
-                var emails = await _applicationDbContext.Users
-                    .Select(user => user.Email)
-                    .ToListAsync();
-
-                // Retrieve user email from context.Items
                 var userEmailFromContext = HttpContext.Items["UserEmail"] as string;
 
                 if (userEmailFromContext == null)
@@ -45,17 +34,12 @@ namespace ArcelikWebApi.Controllers
                     return Unauthorized(new { message = "User Email Not Found" });
                 }
 
-                bool isSaved = false;
+                var existingUser = await _applicationDbContext.Users
+                    .FirstOrDefaultAsync(user => user.Email == userEmailFromContext);
 
-                foreach (var email in emails)
-                {
-                    if (email == userEmailFromContext)
-                    {
-                        isSaved = true;
-                    }
-                }
+                bool isSaved = existingUser != null;
 
-                if (isSaved == false)
+                if (!isSaved)
                 {
                     var Users = new Users()
                     {
@@ -65,7 +49,8 @@ namespace ArcelikWebApi.Controllers
                         WatchedVideoId = 1,
                         WatchedTimeInSeconds = 0,
                         isTutorialDone = false,
-                        QuizPoint = 0
+                        QuizPoint = 0,
+                        IsPassed = false
                     };
                     
 

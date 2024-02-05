@@ -64,3 +64,11 @@ ul {
   font-size: 20px;
   font-weight: 600;
 }
+
+.send-button {
+  background: blueviolet;
+  color: white;
+  padding: 5px;
+  cursor: pointer;
+  font-size: 15px;
+}
