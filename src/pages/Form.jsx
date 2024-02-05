@@ -52,9 +52,7 @@ export default function Form() {
   const { isVideoWindowOpen, allCompleted } = useSelector(
     (state) => state.video
   );
-  const { isWindowOpen, windowContent } = useSelector(
-    (state) => state.window
-  );
+  const { isWindowOpen, windowContent } = useSelector((state) => state.window);
   const { isQuizWindowOpen } = useSelector((state) => state.quiz);
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
@@ -97,13 +95,11 @@ export default function Form() {
         driver(formDriver1).drive();
         dispatch(setIsTutorialDone("first"));
         postTProgress();
-      }
-      else if (step === 2 && user.isTutorialDone === "first") {
+      } else if (step === 2 && user.isTutorialDone === "first") {
         driver(formDriver2).drive();
         dispatch(setIsTutorialDone("second"));
         postTProgress();
-      }
-      else return;
+      } else return;
     }
   }, [step, isWindowOpen]);
 
@@ -169,7 +165,7 @@ export default function Form() {
           <Window content={windowContent} visibility={isWindowOpen} />
           {/* {isWindowOpen && <Window content={windowContent} visiblity={isWindowOpen} />} */}
           <form className="form-container">
-            <FormHeader step={step}/>
+            <FormHeader step={step} />
             <StepBar step={step} stepCount={stepCount} />
 
             <div className="bottom">
