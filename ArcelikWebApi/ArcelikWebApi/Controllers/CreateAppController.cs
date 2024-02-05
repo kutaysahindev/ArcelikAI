@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using ArcelikWebApi.Data;
+﻿using ArcelikWebApi.Data;
 using ArcelikWebApi.Models;
 using ArcelikWebApi.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using static System.Net.Mime.MediaTypeNames;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -88,7 +82,7 @@ namespace ArcelikWebApi.Controllers
 
                 return Ok(new { success = true, message = "Form data received successfully", data = aiApplication });
             }
-            // return BadRequest(new { success = false, errors = ModelState.Values.SelectMany(v => v.Errors.Select(e => e.ErrorMessage)) });
+
             return Ok(new { success = false, message = "Form data couldnt received" });
         }
 

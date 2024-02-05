@@ -1,0 +1,7 @@
+﻿[*.cs]
+
+# S101: Types should be named in PascalCase
+dotnet_diagnostic.S101.severity = silent
+
+# S2259: Null pointers should not be dereferenced
+dotnet_diagnostic.S2259.severity = none

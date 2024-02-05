@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace ArcelikWebApi.Migrations
 {
     /// <inheritdoc />
-    public partial class BugFixedQuizTable : Migration
+    public partial class FinalQuestionsAndMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -201,10 +201,20 @@ namespace ArcelikWebApi.Migrations
                 values: new object[,]
                 {
                     { 1, "What is the capital of France?", "MultipleChoice" },
-                    { 2, "Which of the following are prime numbers?", "MultipleChoiceAndAnswers" },
-                    { 3, "Is the sky blue?", "TrueFalse" },
-                    { 4, "The complexity of bubble sort algorithm is _______ to the square of the number of elements.", "FillInTheBlank" },
-                    { 5, "Arrange the following data structures in ascending order of their average time complexity for searching: Linked List, Binary Search Tree, Hash Table, Array", "Sorting" }
+                    { 2, "Which of the following are prime numbers?", "MultipleChoice" },
+                    { 3, "Which city is known as the 'Eternal City'?", "MultipleChoice" },
+                    { 4, "Select the even numbers:", "MultipleChoiceAndAnswers" },
+                    { 5, "Which colors are in a rainbow?", "MultipleChoiceAndAnswers" },
+                    { 6, "Choose the correct programming languages:", "MultipleChoiceAndAnswers" },
+                    { 7, "Is the Earth flat?", "TrueFalse" },
+                    { 8, "Do cats meow?", "TrueFalse" },
+                    { 9, "Is water wet?", "TrueFalse" },
+                    { 10, "The capital of Spain is ________.", "FillInTheBlank" },
+                    { 11, "The sum of 5 and 3 is ________.", "FillInTheBlank" },
+                    { 12, "C# is a ________ language.", "FillInTheBlank" },
+                    { 13, "Sort the following numbers in ascending order:", "Sorting" },
+                    { 14, "Arrange these colors alphabetically: Blue, Red, Green, Yellow.", "Sorting" },
+                    { 15, "Order these programming languages by release date: C++, Java, Python, JavaScript.", "Sorting" }
                 });
 
             migrationBuilder.InsertData(
@@ -214,7 +224,8 @@ namespace ArcelikWebApi.Migrations
                 {
                     { 1, "https://arcelikstorage.blob.core.windows.net/videos/sample1.mp4", "Video 1", 5 },
                     { 2, "https://arcelikstorage.blob.core.windows.net/videos/sample2.mp4", "Video 2", 8 },
-                    { 3, "https://arcelikstorage.blob.core.windows.net/videos/sample3.mp4", "Video 3", 10 }
+                    { 3, "https://arcelikstorage.blob.core.windows.net/videos/sample3.mp4", "Video 3", 10 },
+                    { 4, "https://arcelikstorage.blob.core.windows.net/videos/sample3.mp4", "Video 4", 11 }
                 });
 
             migrationBuilder.InsertData(
@@ -230,23 +241,61 @@ namespace ArcelikWebApi.Migrations
                     { 6, "5", 2 },
                     { 7, "8", 2 },
                     { 8, "11", 2 },
-                    { 9, "True", 3 },
-                    { 10, "False", 3 },
-                    { 11, "Linked List", 5 },
-                    { 12, "Binary Search Tree", 5 },
-                    { 13, "Hash Table", 5 },
-                    { 14, "Binary Search", 5 }
+                    { 9, "Rome", 3 },
+                    { 10, "Athens", 3 },
+                    { 11, "Jerusalem", 3 },
+                    { 12, "Istanbul", 3 },
+                    { 13, "2", 4 },
+                    { 14, "4", 4 },
+                    { 15, "6", 4 },
+                    { 16, "8", 4 },
+                    { 17, "Red", 5 },
+                    { 18, "Black", 5 },
+                    { 19, "Blue", 5 },
+                    { 20, "Yellow", 5 },
+                    { 21, "CC#", 6 },
+                    { 22, "Python", 6 },
+                    { 23, "Javax", 6 },
+                    { 24, "JavaScript", 6 },
+                    { 25, "True", 7 },
+                    { 26, "False", 7 },
+                    { 27, "True", 8 },
+                    { 28, "False", 8 },
+                    { 29, "True", 9 },
+                    { 30, "False", 9 },
+                    { 31, "1", 13 },
+                    { 32, "2", 13 },
+                    { 33, "4", 13 },
+                    { 34, "3", 13 },
+                    { 35, "Red", 14 },
+                    { 36, "Green", 14 },
+                    { 37, "Yellow", 14 },
+                    { 38, "Blue", 14 },
+                    { 39, "Java", 15 },
+                    { 40, "C++", 15 },
+                    { 41, "JavaScript", 15 },
+                    { 42, "Python", 15 }
                 });
 
             migrationBuilder.InsertData(
                 table: "CorrectSorting",
                 columns: new[] { "CorrectSortingID", "QuestionID", "SortingOrder", "SortingScore" },
-                values: new object[] { 1, 5, 14131112, 15 });
+                values: new object[,]
+                {
+                    { 1, 13, 31323433, 10 },
+                    { 2, 14, 38363735, 10 },
+                    { 3, 15, 40394241, 10 }
+                });
 
             migrationBuilder.InsertData(
                 table: "CorrectText",
                 columns: new[] { "CorrectTextID", "CorrectTextAnswer", "QuestionID", "TextScore" },
-                values: new object[] { 1, "1", 4, 5 });
+                values: new object[,]
+                {
+                    { 1, "Madrid", 10, 5 },
+                    { 2, "8", 11, 5 },
+                    { 3, "programming", 12, 5 }
+                });
 
             migrationBuilder.InsertData(
                 table: "CorrectChoices",
@@ -254,10 +303,20 @@ namespace ArcelikWebApi.Migrations
                 values: new object[,]
                 {
                     { 1, 2, 10, 1 },
-                    { 2, 5, 1, 2 },
-                    { 3, 6, 1, 2 },
-                    { 4, 8, 1, 2 },
-                    { 5, 9, 10, 3 }
+                    { 2, 5, 10, 2 },
+                    { 3, 10, 10, 3 },
+                    { 4, 13, 2, 4 },
+                    { 5, 14, 2, 4 },
+                    { 6, 15, 2, 4 },
+                    { 7, 16, 2, 4 },
+                    { 8, 17, 2, 5 },
+                    { 9, 19, 2, 5 },
+                    { 10, 20, 2, 5 },
+                    { 11, 22, 2, 6 },
+                    { 12, 24, 2, 6 },
+                    { 13, 26, 5, 7 },
+                    { 14, 27, 5, 8 },
+                    { 15, 29, 5, 9 }
                 });
 
             migrationBuilder.CreateIndex(
