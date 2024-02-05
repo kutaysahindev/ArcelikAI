@@ -24,40 +24,30 @@ const QuestionPicker = () => {
     dispatch(setResponsesToBeSended({qID, qType, oIDarr, text, order}));
   }
 
-  const sendQuizHandler = () => {
-    const sendQuiz = async () => {
-      try {
-        await postQuestionResponses(user.accessToken, responsesToBeSended);
-        console.log('responsesToBeSended:; ', responsesToBeSended);
-      } catch (error) {
-        throw error;
-      }
-    };
-    sendQuiz();
-  }
+  
 
   const theQuestion = () => {
-    if(questionType === "ss")
-    qElement = <SingleSelectQ id={Id} questionType={"ss"} question={question} options={options} addRes={addResponseHandler}/>
+    if(questionType === "MultipleChoice")
+    qElement = <SingleSelectQ id={Id} questionType={"MultipleChoice"} question={question} options={options} addRes={addResponseHandler}/>
     
-    if(questionType === "ms")
-    qElement = <MultiSelectQ id={Id} questionType={"ms"} question={question} options={options} addRes={addResponseHandler}/>
+    if(questionType === "MultipleChoiceAndAnswers")
+    qElement = <MultiSelectQ id={Id} questionType={"MultipleChoiceAndAnswers"} question={question} options={options} addRes={addResponseHandler}/>
 
-    if(questionType === "das")
-    qElement = <DragAndSortQ id={Id} questionType={"das"} question={question} options={options} addRes={addResponseHandler}/>
+    if(questionType === "Sorting")
+    qElement = <DragAndSortQ id={Id} questionType={"Sorting"} question={question} options={options} addRes={addResponseHandler}/>
 
-    if(questionType === "oe")
-    qElement = <OpenEndedQ id={Id} questionType={"oe"} question={question} addRes={addResponseHandler}/>
+    if(questionType === "FillInTheBlank")
+    qElement = <OpenEndedQ id={Id} questionType={"FillInTheBlank"} question={question} addRes={addResponseHandler}/>
 
-    if(questionType === "tof")
-    qElement = <TrueOrFalseQ id={Id} questionType={"tof"} question={question} options={options} addRes={addResponseHandler}/>
+    if(questionType === "TrueFalse")
+    qElement = <TrueOrFalseQ id={Id} questionType={"TrueFalse"} question={question} options={options} addRes={addResponseHandler}/>
   }
   theQuestion();
   return (
     <>
-      <TimeBar duration={120}/>
+      <TimeBar duration={10}/>
       { qElement }
-      <button className="send-button" onClick={sendQuizHandler}>Send</button>
+      {/* <button className="send-button" onClick={sendQuizHandler}>Send</button> */}
     </>
   )
 }

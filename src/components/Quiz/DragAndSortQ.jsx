@@ -28,7 +28,7 @@ export const DragAndSortQ = ({ id, questionType, addRes, question, options }) =>
   return (
     <div className="question drag-and-sort">
       <PiSortAscendingBold size={30} />
-      <div>
+      <div style={{width: "100%"}}>
         <h3 className="title">{question}</h3>
         <DragDropContext onDragEnd={handleOnDragEnd}>
             <Droppable droppableId="sortedOptions">
