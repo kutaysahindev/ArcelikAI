@@ -1,0 +1,139 @@
+"filename", "language", "JavaScript", "Markdown", "CSS", "JavaScript JSX", "JSON", "HTML", "XML", "JSON with Comments", "C#", "Properties", "comment", "blank", "total"
+"d:\Work\Arcelik\Projects\ArcelikAI\.eslintrc.cjs", "JavaScript", 22, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 23
+"d:\Work\Arcelik\Projects\ArcelikAI\ArcelikWebApi\ArcelikWebApi\ArcelikWebApi.csproj", "XML", 0, 0, 0, 0, 0, 0, 37, 0, 0, 0, 0, 4, 41
+"d:\Work\Arcelik\Projects\ArcelikAI\ArcelikWebApi\ArcelikWebApi\Controllers\AiModelsController.cs", "C#", 0, 0, 0, 0, 0, 0, 0, 0, 24, 0, 3, 6, 33
+"d:\Work\Arcelik\Projects\ArcelikAI\ArcelikWebApi\ArcelikWebApi\Controllers\ApplicationSettingsController.cs", "C#", 0, 0, 0, 0, 0, 0, 0, 0, 25, 0, 0, 6, 31
+"d:\Work\Arcelik\Projects\ArcelikAI\ArcelikWebApi\ArcelikWebApi\Controllers\CreateAppController.cs", "C#", 0, 0, 0, 0, 0, 0, 0, 0, 72, 0, 5, 19, 96
+"d:\Work\Arcelik\Projects\ArcelikAI\ArcelikWebApi\ArcelikWebApi\Controllers\QuizController.cs", "C#", 0, 0, 0, 0, 0, 0, 0, 0, 153, 0, 21, 49, 223
+"d:\Work\Arcelik\Projects\ArcelikAI\ArcelikWebApi\ArcelikWebApi\Controllers\SaveUserController.cs", "C#", 0, 0, 0, 0, 0, 0, 0, 0, 68, 0, 4, 17, 89
+"d:\Work\Arcelik\Projects\ArcelikAI\ArcelikWebApi\ArcelikWebApi\Controllers\UserVideoController.cs", "C#", 0, 0, 0, 0, 0, 0, 0, 0, 97, 0, 6, 21, 124
+"d:\Work\Arcelik\Projects\ArcelikAI\ArcelikWebApi\ArcelikWebApi\Data\ApplicationDbContext.cs", "C#", 0, 0, 0, 0, 0, 0, 0, 0, 155, 0, 25, 32, 212
+"d:\Work\Arcelik\Projects\ArcelikAI\ArcelikWebApi\ArcelikWebApi\Middlewares\TokenValidationMiddleware.cs", "C#", 0, 0, 0, 0, 0, 0, 0, 0, 120, 0, 2, 19, 141
+"d:\Work\Arcelik\Projects\ArcelikAI\ArcelikWebApi\ArcelikWebApi\Migrations\20240202152921_FinalQuestionsAndMigration.Designer.cs", "C#", 0, 0, 0, 0, 0, 0, 0, 0, 792, 0, 2, 103, 897
+"d:\Work\Arcelik\Projects\ArcelikAI\ArcelikWebApi\ArcelikWebApi\Migrations\20240202152921_FinalQuestionsAndMigration.cs", "C#", 0, 0, 0, 0, 0, 0, 0, 0, 351, 0, 3, 34, 388
+"d:\Work\Arcelik\Projects\ArcelikAI\ArcelikWebApi\ArcelikWebApi\Migrations\ApplicationDbContextModelSnapshot.cs", "C#", 0, 0, 0, 0, 0, 0, 0, 0, 790, 0, 1, 103, 894
+"d:\Work\Arcelik\Projects\ArcelikAI\ArcelikWebApi\ArcelikWebApi\Models\AIModels.cs", "C#", 0, 0, 0, 0, 0, 0, 0, 0, 16, 0, 1, 4, 21
+"d:\Work\Arcelik\Projects\ArcelikAI\ArcelikWebApi\ArcelikWebApi\Models\AddAiAppViewModel.cs", "C#", 0, 0, 0, 0, 0, 0, 0, 0, 17, 0, 0, 12, 29
+"d:\Work\Arcelik\Projects\ArcelikAI\ArcelikWebApi\ArcelikWebApi\Models\AiApplication.cs", "C#", 0, 0, 0, 0, 0, 0, 0, 0, 21, 0, 0, 15, 36
+"d:\Work\Arcelik\Projects\ArcelikAI\ArcelikWebApi\ArcelikWebApi\Models\ApplicationSettings.cs", "C#", 0, 0, 0, 0, 0, 0, 0, 0, 12, 0, 0, 3, 15
+"d:\Work\Arcelik\Projects\ArcelikAI\ArcelikWebApi\ArcelikWebApi\Models\FileUpload.cs", "C#", 0, 0, 0, 0, 0, 0, 0, 0, 8, 0, 0, 2, 10
+"d:\Work\Arcelik\Projects\ArcelikAI\ArcelikWebApi\ArcelikWebApi\Models\Quiz\Choices.cs", "C#", 0, 0, 0, 0, 0, 0, 0, 0, 15, 0, 2, 7, 24
+"d:\Work\Arcelik\Projects\ArcelikAI\ArcelikWebApi\ArcelikWebApi\Models\Quiz\CorrectChoices.cs", "C#", 0, 0, 0, 0, 0, 0, 0, 0, 18, 0, 2, 8, 28
+"d:\Work\Arcelik\Projects\ArcelikAI\ArcelikWebApi\ArcelikWebApi\Models\Quiz\CorrectSorting.cs", "C#", 0, 0, 0, 0, 0, 0, 0, 0, 16, 0, 0, 8, 24
+"d:\Work\Arcelik\Projects\ArcelikAI\ArcelikWebApi\ArcelikWebApi\Models\Quiz\CorrectText.cs", "C#", 0, 0, 0, 0, 0, 0, 0, 0, 16, 0, 0, 7, 23
+"d:\Work\Arcelik\Projects\ArcelikAI\ArcelikWebApi\ArcelikWebApi\Models\Quiz\QuestionDTO.cs", "C#", 0, 0, 0, 0, 0, 0, 0, 0, 15, 0, 0, 4, 19
+"d:\Work\Arcelik\Projects\ArcelikAI\ArcelikWebApi\ArcelikWebApi\Models\Quiz\Questions.cs", "C#", 0, 0, 0, 0, 0, 0, 0, 0, 18, 0, 0, 10, 28
+"d:\Work\Arcelik\Projects\ArcelikAI\ArcelikWebApi\ArcelikWebApi\Models\Quiz\UserResponseDTO.cs", "C#", 0, 0, 0, 0, 0, 0, 0, 0, 11, 0, 0, 6, 17
+"d:\Work\Arcelik\Projects\ArcelikAI\ArcelikWebApi\ArcelikWebApi\Models\TutorialViewModel.cs", "C#", 0, 0, 0, 0, 0, 0, 0, 0, 8, 0, 0, 2, 10
+"d:\Work\Arcelik\Projects\ArcelikAI\ArcelikWebApi\ArcelikWebApi\Models\Users.cs", "C#", 0, 0, 0, 0, 0, 0, 0, 0, 19, 0, 1, 9, 29
+"d:\Work\Arcelik\Projects\ArcelikAI\ArcelikWebApi\ArcelikWebApi\Models\Video.cs", "C#", 0, 0, 0, 0, 0, 0, 0, 0, 13, 0, 0, 6, 19
+"d:\Work\Arcelik\Projects\ArcelikAI\ArcelikWebApi\ArcelikWebApi\Models\WatchedVideoUpdateRequest.cs", "C#", 0, 0, 0, 0, 0, 0, 0, 0, 10, 0, 0, 5, 15
+"d:\Work\Arcelik\Projects\ArcelikAI\ArcelikWebApi\ArcelikWebApi\Program.cs", "C#", 0, 0, 0, 0, 0, 0, 0, 0, 53, 0, 3, 20, 76
+"d:\Work\Arcelik\Projects\ArcelikAI\ArcelikWebApi\ArcelikWebApi\Properties\launchSettings.json", "JSON", 0, 0, 0, 0, 41, 0, 0, 0, 0, 0, 0, 0, 41
+"d:\Work\Arcelik\Projects\ArcelikAI\ArcelikWebApi\ArcelikWebApi\Services\BlobService.cs", "C#", 0, 0, 0, 0, 0, 0, 0, 0, 24, 0, 16, 13, 53
+"d:\Work\Arcelik\Projects\ArcelikAI\ArcelikWebApi\ArcelikWebApi\Services\IBlobService.cs", "C#", 0, 0, 0, 0, 0, 0, 0, 0, 9, 0, 0, 3, 12
+"d:\Work\Arcelik\Projects\ArcelikAI\ArcelikWebApi\ArcelikWebApi\appsettings.Development.json", "JSON", 0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 0, 2, 10
+"d:\Work\Arcelik\Projects\ArcelikAI\ArcelikWebApi\ArcelikWebApi\appsettings.json", "JSON", 0, 0, 0, 0, 20, 0, 0, 0, 0, 0, 0, 1, 21
+"d:\Work\Arcelik\Projects\ArcelikAI\ArcelikWebApi\ArcelikWebApi\bin\Debug\net7.0\ArcelikWebApi.deps.json", "JSON", 0, 0, 0, 0, 1269, 0, 0, 0, 0, 0, 0, 0, 1269
+"d:\Work\Arcelik\Projects\ArcelikAI\ArcelikWebApi\ArcelikWebApi\bin\Debug\net7.0\ArcelikWebApi.runtimeconfig.json", "JSON", 0, 0, 0, 0, 20, 0, 0, 0, 0, 0, 0, 0, 20
+"d:\Work\Arcelik\Projects\ArcelikAI\ArcelikWebApi\ArcelikWebApi\bin\Debug\net7.0\appsettings.Development.json", "JSON", 0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 0, 2, 10
+"d:\Work\Arcelik\Projects\ArcelikAI\ArcelikWebApi\ArcelikWebApi\bin\Debug\net7.0\appsettings.json", "JSON", 0, 0, 0, 0, 20, 0, 0, 0, 0, 0, 0, 1, 21
+"d:\Work\Arcelik\Projects\ArcelikAI\ArcelikWebApi\ArcelikWebApi\obj\ArcelikWebApi.csproj.EntityFrameworkCore.targets", "XML", 0, 0, 0, 0, 0, 0, 28, 0, 0, 0, 0, 1, 29
+"d:\Work\Arcelik\Projects\ArcelikAI\ArcelikWebApi\ArcelikWebApi\obj\ArcelikWebApi.csproj.nuget.dgspec.json", "JSON", 0, 0, 0, 0, 106, 0, 0, 0, 0, 0, 0, 0, 106
+"d:\Work\Arcelik\Projects\ArcelikAI\ArcelikWebApi\ArcelikWebApi\obj\ArcelikWebApi.csproj.nuget.g.props", "XML", 0, 0, 0, 0, 0, 0, 25, 0, 0, 0, 0, 0, 25
+"d:\Work\Arcelik\Projects\ArcelikAI\ArcelikWebApi\ArcelikWebApi\obj\ArcelikWebApi.csproj.nuget.g.targets", "XML", 0, 0, 0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 8
+"d:\Work\Arcelik\Projects\ArcelikAI\ArcelikWebApi\ArcelikWebApi\obj\Debug\net7.0\.NETCoreApp,Version=v7.0.AssemblyAttributes.cs", "C#", 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 1, 1, 5
+"d:\Work\Arcelik\Projects\ArcelikAI\ArcelikWebApi\ArcelikWebApi\obj\Debug\net7.0\ArcelikWebApi.AssemblyInfo.cs", "C#", 0, 0, 0, 0, 0, 0, 0, 0, 9, 0, 10, 5, 24
+"d:\Work\Arcelik\Projects\ArcelikAI\ArcelikWebApi\ArcelikWebApi\obj\Debug\net7.0\ArcelikWebApi.GeneratedMSBuildEditorConfig.editorconfig", "Properties", 0, 0, 0, 0, 0, 0, 0, 0, 0, 19, 0, 1, 20
+"d:\Work\Arcelik\Projects\ArcelikAI\ArcelikWebApi\ArcelikWebApi\obj\Debug\net7.0\ArcelikWebApi.GlobalUsings.g.cs", "C#", 0, 0, 0, 0, 0, 0, 0, 0, 16, 0, 1, 1, 18
+"d:\Work\Arcelik\Projects\ArcelikAI\ArcelikWebApi\ArcelikWebApi\obj\Debug\net7.0\ArcelikWebApi.MvcApplicationPartsAssemblyInfo.cs", "C#", 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 10, 5, 19
+"d:\Work\Arcelik\Projects\ArcelikAI\ArcelikWebApi\ArcelikWebApi\obj\Debug\net7.0\ArcelikWebApi.sourcelink.json", "JSON", 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1
+"d:\Work\Arcelik\Projects\ArcelikAI\ArcelikWebApi\ArcelikWebApi\obj\Debug\net7.0\staticwebassets.build.json", "JSON", 0, 0, 0, 0, 11, 0, 0, 0, 0, 0, 0, 0, 11
+"d:\Work\Arcelik\Projects\ArcelikAI\ArcelikWebApi\ArcelikWebApi\obj\Debug\net7.0\staticwebassets\msbuild.build.ArcelikWebApi.props", "XML", 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 3
+"d:\Work\Arcelik\Projects\ArcelikAI\ArcelikWebApi\ArcelikWebApi\obj\Debug\net7.0\staticwebassets\msbuild.buildMultiTargeting.ArcelikWebApi.props", "XML", 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 3
+"d:\Work\Arcelik\Projects\ArcelikAI\ArcelikWebApi\ArcelikWebApi\obj\Debug\net7.0\staticwebassets\msbuild.buildTransitive.ArcelikWebApi.props", "XML", 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 3
+"d:\Work\Arcelik\Projects\ArcelikAI\ArcelikWebApi\ArcelikWebApi\obj\project.assets.json", "JSON", 0, 0, 0, 0, 3828, 0, 0, 0, 0, 0, 0, 0, 3828
+"d:\Work\Arcelik\Projects\ArcelikAI\README.md", "Markdown", 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 9
+"d:\Work\Arcelik\Projects\ArcelikAI\index.html", "HTML", 0, 0, 0, 0, 0, 13, 0, 0, 0, 0, 0, 0, 13
+"d:\Work\Arcelik\Projects\ArcelikAI\package-lock.json", "JSON", 0, 0, 0, 0, 4768, 0, 0, 0, 0, 0, 0, 1, 4769
+"d:\Work\Arcelik\Projects\ArcelikAI\package.json", "JSON", 0, 0, 0, 0, 36, 0, 0, 0, 0, 0, 0, 1, 37
+"d:\Work\Arcelik\Projects\ArcelikAI\public\arcelik.svg", "XML", 0, 0, 0, 0, 0, 0, 12, 0, 0, 0, 0, 0, 12
+"d:\Work\Arcelik\Projects\ArcelikAI\public\arcelik_global.svg", "XML", 0, 0, 0, 0, 0, 0, 18, 0, 0, 0, 0, 2, 20
+"d:\Work\Arcelik\Projects\ArcelikAI\public\vite.svg", "XML", 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1
+"d:\Work\Arcelik\Projects\ArcelikAI\src\App.css", "CSS", 0, 0, 56, 0, 0, 0, 0, 0, 0, 0, 7, 4, 67
+"d:\Work\Arcelik\Projects\ArcelikAI\src\App.jsx", "JavaScript JSX", 0, 0, 0, 55, 0, 0, 0, 0, 0, 0, 1, 8, 64
+"d:\Work\Arcelik\Projects\ArcelikAI\src\api.jsx", "JavaScript JSX", 0, 0, 0, 137, 0, 0, 0, 0, 0, 0, 4, 18, 159
+"d:\Work\Arcelik\Projects\ArcelikAI\src\assets\react.svg", "XML", 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1
+"d:\Work\Arcelik\Projects\ArcelikAI\src\components\Footer\Footer.css", "CSS", 0, 0, 12, 0, 0, 0, 0, 0, 0, 0, 0, 1, 13
+"d:\Work\Arcelik\Projects\ArcelikAI\src\components\Footer\Footer.jsx", "JavaScript JSX", 0, 0, 0, 6, 0, 0, 0, 0, 0, 0, 0, 3, 9
+"d:\Work\Arcelik\Projects\ArcelikAI\src\components\Form\AiButtons.css", "CSS", 0, 0, 70, 0, 0, 0, 0, 0, 0, 0, 3, 10, 83
+"d:\Work\Arcelik\Projects\ArcelikAI\src\components\Form\AiButtons.jsx", "JavaScript JSX", 0, 0, 0, 30, 0, 0, 0, 0, 0, 0, 1, 5, 36
+"d:\Work\Arcelik\Projects\ArcelikAI\src\components\Form\CheckBoxContainer.css", "CSS", 0, 0, 22, 0, 0, 0, 0, 0, 0, 0, 0, 4, 26
+"d:\Work\Arcelik\Projects\ArcelikAI\src\components\Form\CheckboxContainer.jsx", "JavaScript JSX", 0, 0, 0, 26, 0, 0, 0, 0, 0, 0, 1, 3, 30
+"d:\Work\Arcelik\Projects\ArcelikAI\src\components\Form\FormHeader.jsx", "JavaScript JSX", 0, 0, 0, 26, 0, 0, 0, 0, 0, 0, 0, 1, 27
+"d:\Work\Arcelik\Projects\ArcelikAI\src\components\Form\InitialInputs.css", "CSS", 0, 0, 39, 0, 0, 0, 0, 0, 0, 0, 0, 5, 44
+"d:\Work\Arcelik\Projects\ArcelikAI\src\components\Form\InitialInputs.jsx", "JavaScript JSX", 0, 0, 0, 40, 0, 0, 0, 0, 0, 0, 1, 5, 46
+"d:\Work\Arcelik\Projects\ArcelikAI\src\components\Form\PeriodAndTemperature.css", "CSS", 0, 0, 31, 0, 0, 0, 0, 0, 0, 0, 0, 4, 35
+"d:\Work\Arcelik\Projects\ArcelikAI\src\components\Form\PeriodAndTemperature.jsx", "JavaScript JSX", 0, 0, 0, 38, 0, 0, 0, 0, 0, 0, 1, 4, 43
+"d:\Work\Arcelik\Projects\ArcelikAI\src\components\Form\StepBar.css", "CSS", 0, 0, 14, 0, 0, 0, 0, 0, 0, 0, 0, 2, 16
+"d:\Work\Arcelik\Projects\ArcelikAI\src\components\Form\StepBar.jsx", "JavaScript JSX", 0, 0, 0, 15, 0, 0, 0, 0, 0, 0, 1, 3, 19
+"d:\Work\Arcelik\Projects\ArcelikAI\src\components\Form\UploadContainer.css", "CSS", 0, 0, 76, 0, 0, 0, 0, 0, 0, 0, 0, 9, 85
+"d:\Work\Arcelik\Projects\ArcelikAI\src\components\Form\UploadContainer.jsx", "JavaScript JSX", 0, 0, 0, 88, 0, 0, 0, 0, 0, 0, 3, 11, 102
+"d:\Work\Arcelik\Projects\ArcelikAI\src\components\Loading\ArcelikLoading.css", "CSS", 0, 0, 78, 0, 0, 0, 0, 0, 0, 0, 6, 7, 91
+"d:\Work\Arcelik\Projects\ArcelikAI\src\components\Loading\ArcelikLoading.jsx", "JavaScript JSX", 0, 0, 0, 28, 0, 0, 0, 0, 0, 0, 0, 2, 30
+"d:\Work\Arcelik\Projects\ArcelikAI\src\components\Loading\LoadingLayer.css", "CSS", 0, 0, 35, 0, 0, 0, 0, 0, 0, 0, 0, 2, 37
+"d:\Work\Arcelik\Projects\ArcelikAI\src\components\Loading\LoadingLayer.jsx", "JavaScript JSX", 0, 0, 0, 27, 0, 0, 0, 0, 0, 0, 2, 3, 32
+"d:\Work\Arcelik\Projects\ArcelikAI\src\components\Main\ContentData.jsx", "JavaScript JSX", 0, 0, 0, 102, 0, 0, 0, 0, 0, 0, 0, 2, 104
+"d:\Work\Arcelik\Projects\ArcelikAI\src\components\Main\Main.css", "CSS", 0, 0, 89, 0, 0, 0, 0, 0, 0, 0, 2, 12, 103
+"d:\Work\Arcelik\Projects\ArcelikAI\src\components\Main\Main.jsx", "JavaScript JSX", 0, 0, 0, 188, 0, 0, 0, 0, 0, 0, 2, 12, 202
+"d:\Work\Arcelik\Projects\ArcelikAI\src\components\Modal\WarningModal.css", "CSS", 0, 0, 80, 0, 0, 0, 0, 0, 0, 0, 2, 4, 86
+"d:\Work\Arcelik\Projects\ArcelikAI\src\components\Modal\WarningModal.jsx", "JavaScript JSX", 0, 0, 0, 30, 0, 0, 0, 0, 0, 0, 0, 1, 31
+"d:\Work\Arcelik\Projects\ArcelikAI\src\components\Navbar\Navbar.css", "CSS", 0, 0, 174, 0, 0, 0, 0, 0, 0, 0, 6, 21, 201
+"d:\Work\Arcelik\Projects\ArcelikAI\src\components\Navbar\Navbar.jsx", "JavaScript JSX", 0, 0, 0, 98, 0, 0, 0, 0, 0, 0, 1, 5, 104
+"d:\Work\Arcelik\Projects\ArcelikAI\src\components\Quiz\DragAndSortQ.jsx", "JavaScript JSX", 0, 0, 0, 55, 0, 0, 0, 0, 0, 0, 3, 7, 65
+"d:\Work\Arcelik\Projects\ArcelikAI\src\components\Quiz\MultiSelectQ.jsx", "JavaScript JSX", 0, 0, 0, 36, 0, 0, 0, 0, 0, 0, 1, 4, 41
+"d:\Work\Arcelik\Projects\ArcelikAI\src\components\Quiz\OpenEndedQ.jsx", "JavaScript JSX", 0, 0, 0, 21, 0, 0, 0, 0, 0, 0, 1, 3, 25
+"d:\Work\Arcelik\Projects\ArcelikAI\src\components\Quiz\QuestionPicker.jsx", "JavaScript JSX", 0, 0, 0, 46, 0, 0, 0, 0, 0, 0, 4, 9, 59
+"d:\Work\Arcelik\Projects\ArcelikAI\src\components\Quiz\Questions.css", "CSS", 0, 0, 61, 0, 0, 0, 0, 0, 0, 0, 9, 6, 76
+"d:\Work\Arcelik\Projects\ArcelikAI\src\components\Quiz\SingleSelectQ.jsx", "JavaScript JSX", 0, 0, 0, 32, 0, 0, 0, 0, 0, 0, 4, 5, 41
+"d:\Work\Arcelik\Projects\ArcelikAI\src\components\Quiz\TimeBar.css", "CSS", 0, 0, 36, 0, 0, 0, 0, 0, 0, 0, 4, 0, 40
+"d:\Work\Arcelik\Projects\ArcelikAI\src\components\Quiz\TimeBar.jsx", "JavaScript JSX", 0, 0, 0, 71, 0, 0, 0, 0, 0, 0, 4, 9, 84
+"d:\Work\Arcelik\Projects\ArcelikAI\src\components\Quiz\TrueOrFalseQ.jsx", "JavaScript JSX", 0, 0, 0, 31, 0, 0, 0, 0, 0, 0, 1, 4, 36
+"d:\Work\Arcelik\Projects\ArcelikAI\src\components\Video\CourseVideo.css", "CSS", 0, 0, 35, 0, 0, 0, 0, 0, 0, 0, 7, 6, 48
+"d:\Work\Arcelik\Projects\ArcelikAI\src\components\Video\CourseVideo.jsx", "JavaScript JSX", 0, 0, 0, 70, 0, 0, 0, 0, 0, 0, 7, 8, 85
+"d:\Work\Arcelik\Projects\ArcelikAI\src\components\Video\FullProgressBar.jsx", "JavaScript JSX", 0, 0, 0, 14, 0, 0, 0, 0, 0, 0, 0, 1, 15
+"d:\Work\Arcelik\Projects\ArcelikAI\src\components\Video\ProgressBar.css", "CSS", 0, 0, 27, 0, 0, 0, 0, 0, 0, 0, 3, 1, 31
+"d:\Work\Arcelik\Projects\ArcelikAI\src\components\Video\ProgressBar.jsx", "JavaScript JSX", 0, 0, 0, 14, 0, 0, 0, 0, 0, 0, 0, 1, 15
+"d:\Work\Arcelik\Projects\ArcelikAI\src\components\Video\VideoButtonContainer.css", "CSS", 0, 0, 51, 0, 0, 0, 0, 0, 0, 0, 3, 5, 59
+"d:\Work\Arcelik\Projects\ArcelikAI\src\components\Video\VideoButtonContainer.jsx", "JavaScript JSX", 0, 0, 0, 84, 0, 0, 0, 0, 0, 0, 9, 8, 101
+"d:\Work\Arcelik\Projects\ArcelikAI\src\components\Window\BottomContent.jsx", "JavaScript JSX", 0, 0, 0, 49, 0, 0, 0, 0, 0, 0, 0, 4, 53
+"d:\Work\Arcelik\Projects\ArcelikAI\src\components\Window\Window.css", "CSS", 0, 0, 170, 0, 0, 0, 0, 0, 0, 0, 19, 12, 201
+"d:\Work\Arcelik\Projects\ArcelikAI\src\components\Window\Window.jsx", "JavaScript JSX", 0, 0, 0, 81, 0, 0, 0, 0, 0, 0, 1, 5, 87
+"d:\Work\Arcelik\Projects\ArcelikAI\src\components\Window\WindowButtons.jsx", "JavaScript JSX", 0, 0, 0, 43, 0, 0, 0, 0, 0, 0, 10, 3, 56
+"d:\Work\Arcelik\Projects\ArcelikAI\src\components\Window\WindowContent.jsx", "JavaScript JSX", 0, 0, 0, 19, 0, 0, 0, 0, 0, 0, 0, 5, 24
+"d:\Work\Arcelik\Projects\ArcelikAI\src\components\Window\WindowHeader.jsx", "JavaScript JSX", 0, 0, 0, 9, 0, 0, 0, 0, 0, 0, 8, 3, 20
+"d:\Work\Arcelik\Projects\ArcelikAI\src\components\Window\WindowTabs.jsx", "JavaScript JSX", 0, 0, 0, 53, 0, 0, 0, 0, 0, 0, 3, 6, 62
+"d:\Work\Arcelik\Projects\ArcelikAI\src\hooks\useVideoPlayer.jsx", "JavaScript JSX", 0, 0, 0, 105, 0, 0, 0, 0, 0, 0, 5, 11, 121
+"d:\Work\Arcelik\Projects\ArcelikAI\src\index.css", "CSS", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1
+"d:\Work\Arcelik\Projects\ArcelikAI\src\layouts\RootLayout.css", "CSS", 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 4, 1, 9
+"d:\Work\Arcelik\Projects\ArcelikAI\src\layouts\RootLayout.jsx", "JavaScript JSX", 0, 0, 0, 16, 0, 0, 0, 0, 0, 0, 0, 3, 19
+"d:\Work\Arcelik\Projects\ArcelikAI\src\main.jsx", "JavaScript JSX", 0, 0, 0, 10, 0, 0, 0, 0, 0, 0, 0, 2, 12
+"d:\Work\Arcelik\Projects\ArcelikAI\src\pages\Anteroom.jsx", "JavaScript JSX", 0, 0, 0, 40, 0, 0, 0, 0, 0, 0, 0, 6, 46
+"d:\Work\Arcelik\Projects\ArcelikAI\src\pages\Form.css", "CSS", 0, 0, 87, 0, 0, 0, 0, 0, 0, 0, 6, 6, 99
+"d:\Work\Arcelik\Projects\ArcelikAI\src\pages\Form.jsx", "JavaScript JSX", 0, 0, 0, 210, 0, 0, 0, 0, 0, 0, 1, 18, 229
+"d:\Work\Arcelik\Projects\ArcelikAI\src\pages\Home.jsx", "JavaScript JSX", 0, 0, 0, 9, 0, 0, 0, 0, 0, 0, 0, 2, 11
+"d:\Work\Arcelik\Projects\ArcelikAI\src\pages\NotFound.css", "CSS", 0, 0, 26, 0, 0, 0, 0, 0, 0, 0, 0, 4, 30
+"d:\Work\Arcelik\Projects\ArcelikAI\src\pages\NotFound.jsx", "JavaScript JSX", 0, 0, 0, 12, 0, 0, 0, 0, 0, 0, 0, 2, 14
+"d:\Work\Arcelik\Projects\ArcelikAI\src\redux\navIndexSlice.js", "JavaScript", 17, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 21
+"d:\Work\Arcelik\Projects\ArcelikAI\src\redux\quizSlice.js", "JavaScript", 81, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 5, 87
+"d:\Work\Arcelik\Projects\ArcelikAI\src\redux\settingSlice.js", "JavaScript", 21, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 26
+"d:\Work\Arcelik\Projects\ArcelikAI\src\redux\store.js", "JavaScript", 20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 22
+"d:\Work\Arcelik\Projects\ArcelikAI\src\redux\userSlice.js", "JavaScript", 56, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 7, 66
+"d:\Work\Arcelik\Projects\ArcelikAI\src\redux\videoSlice.js", "JavaScript", 107, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 7, 117
+"d:\Work\Arcelik\Projects\ArcelikAI\src\redux\windowSlice.js", "JavaScript", 46, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 50
+"d:\Work\Arcelik\Projects\ArcelikAI\src\utils\guides.jsx", "JavaScript JSX", 0, 0, 0, 185, 0, 0, 0, 0, 0, 0, 24, 4, 213
+"d:\Work\Arcelik\Projects\ArcelikAI\src\utils\questions.js", "JavaScript", 81, 0, 0, 0, 0, 0, 0, 0, 0, 0, 116, 3, 200
+"d:\Work\Arcelik\Projects\ArcelikAI\src\utils\settings.json", "JSON with Comments", 0, 0, 0, 0, 0, 0, 0, 6, 0, 0, 0, 0, 6
+"d:\Work\Arcelik\Projects\ArcelikAI\src\utils\trash.js", "JavaScript", 23, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 12, 35
+"d:\Work\Arcelik\Projects\ArcelikAI\vite.config.js", "JavaScript", 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 11
+"Total", "-", 482, 5, 1273, 2249, 10136, 13, 139, 6, 2998, 19, 428, 983, 18731

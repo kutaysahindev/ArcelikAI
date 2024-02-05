@@ -12,6 +12,7 @@ import { closeWindow, hideModal } from "../../redux/windowSlice";
 import BottomContent from "./BottomContent";
 import WindowButtons from "./WindowButtons";
 import WarningModal from "../Modal/WarningModal";
+import QuizResult from "./QuizResult";
 
 const Window = ({ content, visibility }) => {
   const { lastCompleted, selectedVideo, videos } = useSelector(
@@ -43,6 +44,13 @@ const Window = ({ content, visibility }) => {
       onSelect: (num) => dispatch(setSelectedVideo(num)),
     };
   }
+  if (content === "result") {
+    properties = {
+      content: content,
+      onClose: () => dispatch(closeWindow()),
+      onInfoClick: () => driver(videoDriver).drive(),
+    };
+  }
 
   return (
     <div className={`window ${visibility ? "slide" : ""}`}>
@@ -68,16 +76,21 @@ const Window = ({ content, visibility }) => {
         onClose={properties.onClose}
         onInfoClick={properties.onInfoClick}
       />
-      <div className={`tabs-and-content ${content === "quiz" && "reversed"}`}>
-        <WindowTabs
-          content={properties.content}
-          tabs={properties.tabs}
-          selectedContent={properties.selectedContent}
-          lastCompleted={properties.lastCompleted}
-          onSelect={properties.onSelect}
-        />
-        <WindowContent content={properties.content} />
-      </div>
+      {(content === "video" || content === "quiz") && (
+        <div className={`tabs-and-content ${content === "quiz" && "reversed"}`}>
+          <WindowTabs
+            content={properties.content}
+            tabs={properties.tabs}
+            selectedContent={properties.selectedContent}
+            lastCompleted={properties.lastCompleted}
+            onSelect={properties.onSelect}
+            />
+          <WindowContent content={properties.content} />
+        </div>
+      )}
+      {content === "result" &&
+        <QuizResult/>
+      }
       <BottomContent />
     </div>
   );

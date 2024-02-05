@@ -2,6 +2,7 @@ import { useDispatch } from "react-redux";
 import { hideModal, setModalContext, setWindowContent } from "../../redux/windowSlice";
 import { postQuestionResponses } from "../../api";
 import { useSelector } from "react-redux";
+import { quizFailed, quizPassed } from "../../redux/quizSlice";
 
 const WindowTabs = ({ tabs, selectedContent, lastCompleted, onSelect, content }) => {
   const tabName = content === "quiz" ? "Question" : "Video";
@@ -15,8 +16,15 @@ const WindowTabs = ({ tabs, selectedContent, lastCompleted, onSelect, content })
   const sendQuizHandler = () => {
     const sendQuiz = async () => {
       try {
-        await postQuestionResponses(user.accessToken, responsesToBeSended);
-        console.log('responsesToBeSended:; ', responsesToBeSended);
+        const result = await postQuestionResponses(user.accessToken, responsesToBeSended);
+        // console.log('result: ', result);
+        dispatch(setWindowContent("result"))
+        if(result) {
+          dispatch(quizPassed())
+        }
+        else {
+          dispatch(quizFailed())
+        }
       } catch (error) {
         throw error;
       }
@@ -41,19 +49,19 @@ const WindowTabs = ({ tabs, selectedContent, lastCompleted, onSelect, content })
   return (
     <div className="window-tabs">
       <div className='tabs'>
-      {tabs.map((t) => (
+      {tabs.map((t, i) => (
         <button
           key={t.Id}
           className={`v-btn ${selectedContent === t.Id ? "selected-content" : ""}`}
           onClick={() => onSelect(t.Id)}
           disabled={isDisabled(t.Id)}
         >
-          { tabName } {t.Id}
+          { tabName } {i+1}
         </button>
       ))}
       </div>
       {content === "quiz" && <button className="submit-button" onClick={showModal}>Submit</button>}
-      {content === "video" && <button className="quiz-button">Quiz</button>}
+      {/* {content === "video" && <button className="quiz-button">Quiz</button>} */}
     </div>
   );
 };
