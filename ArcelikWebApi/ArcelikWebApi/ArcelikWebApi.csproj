@@ -34,4 +34,7 @@
     <Folder Include="Services\" />
     <Folder Include="Middlewares\" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="..\.editorconfig" Link=".editorconfig" />
+  </ItemGroup>
 </Project>

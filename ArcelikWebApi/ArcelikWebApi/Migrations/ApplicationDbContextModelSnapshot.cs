@@ -173,38 +173,206 @@ namespace ArcelikWebApi.Migrations
                         new
                         {
                             ChoiceID = 9,
-                            ChoiceText = "True",
+                            ChoiceText = "Rome",
                             QuestionID = 3
                         },
                         new
                         {
                             ChoiceID = 10,
-                            ChoiceText = "False",
+                            ChoiceText = "Athens",
                             QuestionID = 3
                         },
                         new
                         {
                             ChoiceID = 11,
-                            ChoiceText = "Linked List",
-                            QuestionID = 5
+                            ChoiceText = "Jerusalem",
+                            QuestionID = 3
                         },
                         new
                         {
                             ChoiceID = 12,
-                            ChoiceText = "Binary Search Tree",
-                            QuestionID = 5
+                            ChoiceText = "Istanbul",
+                            QuestionID = 3
                         },
                         new
                         {
                             ChoiceID = 13,
-                            ChoiceText = "Hash Table",
-                            QuestionID = 5
+                            ChoiceText = "2",
+                            QuestionID = 4
                         },
                         new
                         {
                             ChoiceID = 14,
-                            ChoiceText = "Binary Search",
+                            ChoiceText = "4",
+                            QuestionID = 4
+                        },
+                        new
+                        {
+                            ChoiceID = 15,
+                            ChoiceText = "6",
+                            QuestionID = 4
+                        },
+                        new
+                        {
+                            ChoiceID = 16,
+                            ChoiceText = "8",
+                            QuestionID = 4
+                        },
+                        new
+                        {
+                            ChoiceID = 17,
+                            ChoiceText = "Red",
                             QuestionID = 5
+                        },
+                        new
+                        {
+                            ChoiceID = 18,
+                            ChoiceText = "Black",
+                            QuestionID = 5
+                        },
+                        new
+                        {
+                            ChoiceID = 19,
+                            ChoiceText = "Blue",
+                            QuestionID = 5
+                        },
+                        new
+                        {
+                            ChoiceID = 20,
+                            ChoiceText = "Yellow",
+                            QuestionID = 5
+                        },
+                        new
+                        {
+                            ChoiceID = 21,
+                            ChoiceText = "CC#",
+                            QuestionID = 6
+                        },
+                        new
+                        {
+                            ChoiceID = 22,
+                            ChoiceText = "Python",
+                            QuestionID = 6
+                        },
+                        new
+                        {
+                            ChoiceID = 23,
+                            ChoiceText = "Javax",
+                            QuestionID = 6
+                        },
+                        new
+                        {
+                            ChoiceID = 24,
+                            ChoiceText = "JavaScript",
+                            QuestionID = 6
+                        },
+                        new
+                        {
+                            ChoiceID = 25,
+                            ChoiceText = "True",
+                            QuestionID = 7
+                        },
+                        new
+                        {
+                            ChoiceID = 26,
+                            ChoiceText = "False",
+                            QuestionID = 7
+                        },
+                        new
+                        {
+                            ChoiceID = 27,
+                            ChoiceText = "True",
+                            QuestionID = 8
+                        },
+                        new
+                        {
+                            ChoiceID = 28,
+                            ChoiceText = "False",
+                            QuestionID = 8
+                        },
+                        new
+                        {
+                            ChoiceID = 29,
+                            ChoiceText = "True",
+                            QuestionID = 9
+                        },
+                        new
+                        {
+                            ChoiceID = 30,
+                            ChoiceText = "False",
+                            QuestionID = 9
+                        },
+                        new
+                        {
+                            ChoiceID = 31,
+                            ChoiceText = "1",
+                            QuestionID = 13
+                        },
+                        new
+                        {
+                            ChoiceID = 32,
+                            ChoiceText = "2",
+                            QuestionID = 13
+                        },
+                        new
+                        {
+                            ChoiceID = 33,
+                            ChoiceText = "4",
+                            QuestionID = 13
+                        },
+                        new
+                        {
+                            ChoiceID = 34,
+                            ChoiceText = "3",
+                            QuestionID = 13
+                        },
+                        new
+                        {
+                            ChoiceID = 35,
+                            ChoiceText = "Red",
+                            QuestionID = 14
+                        },
+                        new
+                        {
+                            ChoiceID = 36,
+                            ChoiceText = "Green",
+                            QuestionID = 14
+                        },
+                        new
+                        {
+                            ChoiceID = 37,
+                            ChoiceText = "Yellow",
+                            QuestionID = 14
+                        },
+                        new
+                        {
+                            ChoiceID = 38,
+                            ChoiceText = "Blue",
+                            QuestionID = 14
+                        },
+                        new
+                        {
+                            ChoiceID = 39,
+                            ChoiceText = "Java",
+                            QuestionID = 15
+                        },
+                        new
+                        {
+                            ChoiceID = 40,
+                            ChoiceText = "C++",
+                            QuestionID = 15
+                        },
+                        new
+                        {
+                            ChoiceID = 41,
+                            ChoiceText = "JavaScript",
+                            QuestionID = 15
+                        },
+                        new
+                        {
+                            ChoiceID = 42,
+                            ChoiceText = "Python",
+                            QuestionID = 15
                         });
                 });
 
@@ -246,29 +414,99 @@ namespace ArcelikWebApi.Migrations
                         {
                             CorrectChoiceID = 2,
                             ChoiceID = 5,
-                            PartialScore = 1,
+                            PartialScore = 10,
                             QuestionID = 2
                         },
                         new
                         {
                             CorrectChoiceID = 3,
-                            ChoiceID = 6,
-                            PartialScore = 1,
-                            QuestionID = 2
+                            ChoiceID = 10,
+                            PartialScore = 10,
+                            QuestionID = 3
                         },
                         new
                         {
                             CorrectChoiceID = 4,
-                            ChoiceID = 8,
-                            PartialScore = 1,
-                            QuestionID = 2
+                            ChoiceID = 13,
+                            PartialScore = 2,
+                            QuestionID = 4
                         },
                         new
                         {
                             CorrectChoiceID = 5,
-                            ChoiceID = 9,
-                            PartialScore = 10,
-                            QuestionID = 3
+                            ChoiceID = 14,
+                            PartialScore = 2,
+                            QuestionID = 4
+                        },
+                        new
+                        {
+                            CorrectChoiceID = 6,
+                            ChoiceID = 15,
+                            PartialScore = 2,
+                            QuestionID = 4
+                        },
+                        new
+                        {
+                            CorrectChoiceID = 7,
+                            ChoiceID = 16,
+                            PartialScore = 2,
+                            QuestionID = 4
+                        },
+                        new
+                        {
+                            CorrectChoiceID = 8,
+                            ChoiceID = 17,
+                            PartialScore = 2,
+                            QuestionID = 5
+                        },
+                        new
+                        {
+                            CorrectChoiceID = 9,
+                            ChoiceID = 19,
+                            PartialScore = 2,
+                            QuestionID = 5
+                        },
+                        new
+                        {
+                            CorrectChoiceID = 10,
+                            ChoiceID = 20,
+                            PartialScore = 2,
+                            QuestionID = 5
+                        },
+                        new
+                        {
+                            CorrectChoiceID = 11,
+                            ChoiceID = 22,
+                            PartialScore = 2,
+                            QuestionID = 6
+                        },
+                        new
+                        {
+                            CorrectChoiceID = 12,
+                            ChoiceID = 24,
+                            PartialScore = 2,
+                            QuestionID = 6
+                        },
+                        new
+                        {
+                            CorrectChoiceID = 13,
+                            ChoiceID = 26,
+                            PartialScore = 5,
+                            QuestionID = 7
+                        },
+                        new
+                        {
+                            CorrectChoiceID = 14,
+                            ChoiceID = 27,
+                            PartialScore = 5,
+                            QuestionID = 8
+                        },
+                        new
+                        {
+                            CorrectChoiceID = 15,
+                            ChoiceID = 29,
+                            PartialScore = 5,
+                            QuestionID = 9
                         });
                 });
 
@@ -300,9 +538,23 @@ namespace ArcelikWebApi.Migrations
                         new
                         {
                             CorrectSortingID = 1,
-                            QuestionID = 5,
-                            SortingOrder = 14131112,
-                            SortingScore = 15
+                            QuestionID = 13,
+                            SortingOrder = 31323433,
+                            SortingScore = 10
+                        },
+                        new
+                        {
+                            CorrectSortingID = 2,
+                            QuestionID = 14,
+                            SortingOrder = 38363735,
+                            SortingScore = 10
+                        },
+                        new
+                        {
+                            CorrectSortingID = 3,
+                            QuestionID = 15,
+                            SortingOrder = 40394241,
+                            SortingScore = 10
                         });
                 });
 
@@ -335,8 +587,22 @@ namespace ArcelikWebApi.Migrations
                         new
                         {
                             CorrectTextID = 1,
-                            CorrectTextAnswer = "1",
-                            QuestionID = 4,
+                            CorrectTextAnswer = "Madrid",
+                            QuestionID = 10,
+                            TextScore = 5
+                        },
+                        new
+                        {
+                            CorrectTextID = 2,
+                            CorrectTextAnswer = "8",
+                            QuestionID = 11,
+                            TextScore = 5
+                        },
+                        new
+                        {
+                            CorrectTextID = 3,
+                            CorrectTextAnswer = "programming",
+                            QuestionID = 12,
                             TextScore = 5
                         });
                 });
@@ -372,24 +638,84 @@ namespace ArcelikWebApi.Migrations
                         {
                             QuestionID = 2,
                             QuestionText = "Which of the following are prime numbers?",
-                            QuestionType = "MultipleChoiceAndAnswers"
+                            QuestionType = "MultipleChoice"
                         },
                         new
                         {
                             QuestionID = 3,
-                            QuestionText = "Is the sky blue?",
-                            QuestionType = "TrueFalse"
+                            QuestionText = "Which city is known as the 'Eternal City'?",
+                            QuestionType = "MultipleChoice"
                         },
                         new
                         {
                             QuestionID = 4,
-                            QuestionText = "The complexity of bubble sort algorithm is _______ to the square of the number of elements.",
-                            QuestionType = "FillInTheBlank"
+                            QuestionText = "Select the even numbers:",
+                            QuestionType = "MultipleChoiceAndAnswers"
                         },
                         new
                         {
                             QuestionID = 5,
-                            QuestionText = "Arrange the following data structures in ascending order of their average time complexity for searching: Linked List, Binary Search Tree, Hash Table, Array",
+                            QuestionText = "Which colors are in a rainbow?",
+                            QuestionType = "MultipleChoiceAndAnswers"
+                        },
+                        new
+                        {
+                            QuestionID = 6,
+                            QuestionText = "Choose the correct programming languages:",
+                            QuestionType = "MultipleChoiceAndAnswers"
+                        },
+                        new
+                        {
+                            QuestionID = 7,
+                            QuestionText = "Is the Earth flat?",
+                            QuestionType = "TrueFalse"
+                        },
+                        new
+                        {
+                            QuestionID = 8,
+                            QuestionText = "Do cats meow?",
+                            QuestionType = "TrueFalse"
+                        },
+                        new
+                        {
+                            QuestionID = 9,
+                            QuestionText = "Is water wet?",
+                            QuestionType = "TrueFalse"
+                        },
+                        new
+                        {
+                            QuestionID = 10,
+                            QuestionText = "The capital of Spain is ________.",
+                            QuestionType = "FillInTheBlank"
+                        },
+                        new
+                        {
+                            QuestionID = 11,
+                            QuestionText = "The sum of 5 and 3 is ________.",
+                            QuestionType = "FillInTheBlank"
+                        },
+                        new
+                        {
+                            QuestionID = 12,
+                            QuestionText = "C# is a ________ language.",
+                            QuestionType = "FillInTheBlank"
+                        },
+                        new
+                        {
+                            QuestionID = 13,
+                            QuestionText = "Sort the following numbers in ascending order:",
+                            QuestionType = "Sorting"
+                        },
+                        new
+                        {
+                            QuestionID = 14,
+                            QuestionText = "Arrange these colors alphabetically: Blue, Red, Green, Yellow.",
+                            QuestionType = "Sorting"
+                        },
+                        new
+                        {
+                            QuestionID = 15,
+                            QuestionText = "Order these programming languages by release date: C++, Java, Python, JavaScript.",
                             QuestionType = "Sorting"
                         });
                 });

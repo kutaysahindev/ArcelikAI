@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using ArcelikWebApi.Data;
+﻿using ArcelikWebApi.Data;
 using ArcelikWebApi.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -72,7 +71,7 @@ namespace ArcelikWebApi.Controllers
                     user.WatchedTimeInSeconds = request.WatchedTimeInSeconds;
                     user.isWatchedAll = request.IsWatchedAll;
 
-                    _applicationDbContext.SaveChangesAsync();
+                    await _applicationDbContext.SaveChangesAsync();
 
                     return Ok("Watched video updated successfully");
                 }
