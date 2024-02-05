@@ -6,6 +6,7 @@
         public string QuestionText { get; set; }
         public string QuestionType { get; set; }
         public List<ChoiceDTO> Choices { get; set; }
+
     }
     public class ChoiceDTO
 
