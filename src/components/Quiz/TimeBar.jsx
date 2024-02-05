@@ -47,7 +47,7 @@ const TimeBar = ({ duration }) => {
     dispatch(setModalContext({
       title: "Time Is Up",
       description: "Your time is up. If you choose to leave, you lose one attempt of two. Do you want to send your answers?",
-      disabled: true,
+      disabled: false,
       buttonA: "Leave",
       actionA: () => {
         dispatch(hideModal())

@@ -87,10 +87,19 @@
 
 /* TABS */
 .window .window-tabs {
+  /* flex: 1; */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  /* width: 200px; */
+  height: 300px;
+  gap: 20px;
+}
+.window .window-tabs .tabs {
   display: flex;
   flex-direction: column;
   overflow-y: auto;
-  /* justify-content: center; */
 }
 
 .window .window-tabs .v-btn {
@@ -117,9 +126,24 @@
 .window-tabs .v-btn.selected-content:hover {
   color: #230f81;
 }
+.window-tabs .submit-button, .window-tabs .quiz-button {
+  width: 100%;
+  border-radius: 10px;
+  padding: 10px 0;
+  background: #230f81;
+  color: white;
+  cursor: pointer;
+  font-size: 15px;
+  transition: all 200ms;
+  margin-bottom: 10px;
+}
+.window-tabs .submit-button:hover, .window-tabs .quiz-button:huver {
+  background: #4d37b0;
+}
 
 /* CONTENT */
 .window .content {
+  /* flex: 4; */
   height: 100%;
   display: flex;
   flex-direction: row; /* Change to row layout for content */

@@ -7,7 +7,6 @@ import { QuizDriver, videoDriver } from "../../utils/guides";
 import WindowHeader from "./WindowHeader";
 import WindowTabs from "./WindowTabs";
 import WindowContent from "./WindowContent";
-import { questions } from "../../utils/questions";
 import { setSelectedQuestion } from "../../redux/quizSlice";
 import { closeWindow, hideModal } from "../../redux/windowSlice";
 import BottomContent from "./BottomContent";
@@ -18,7 +17,7 @@ const Window = ({ content, visibility }) => {
   const { lastCompleted, selectedVideo, videos } = useSelector(
     (state) => state.video
   );
-  const { selectedQuestion } = useSelector((state) => state.quiz);
+  const { selectedQuestion, questions } = useSelector((state) => state.quiz);
   const { isModal, modalProps } = useSelector((state) => state.window);
   const dispatch = useDispatch();
   let properties = {};

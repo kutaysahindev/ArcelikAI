@@ -34,6 +34,7 @@
   color: white;
   -webkit-text-stroke: 1px white;
   text-shadow: 0 0 5px black;
+  letter-spacing: 4px;
   z-index: 102;
   user-select: none;
 }
