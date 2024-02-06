@@ -27,12 +27,12 @@ const WindowButtons = ({ content, onClose, onInfoClick }) => {
       <button className="w-btn i" onClick={onInfoClick}>
         <IoInformationCircleOutline size={30} />
       </button>
-      <button
+      {/* <button
         className="w-btn i"
         onClick={() => dispatch(toggleWindowContent())}
         >
         <IoMdSwitch size={30} />
-      </button>
+      </button> */}
       {content === "quiz" ? (
         <button className="w-btn x" onClick={showModal}>
           <IoIosArrowBack size={30} />

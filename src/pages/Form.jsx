@@ -20,6 +20,7 @@ import { setAccessToken, setIsTutorialDone } from "../redux/userSlice";
 import { useOktaAuth } from "@okta/okta-react";
 import Window from "../components/Window/Window";
 import FormHeader from "../components/Form/FormHeader";
+import { setAllCompletedTrue } from "../redux/videoSlice";
 
 const initialState = {
   appName: "",
@@ -72,7 +73,7 @@ export default function Form() {
   useEffect(() => {
     const postVideo = async () => {
       try {
-        const videoProg = await postVideoProgress(user.accessToken, {
+        await postVideoProgress(user.accessToken, {
           isWatchedAll: true,
           WatchedVideoId: 1,
           WatchedTimeInseconds: 0,
@@ -81,7 +82,11 @@ export default function Form() {
         throw error;
       }
     };
-    if (allCompleted && user.accessToken.length > 1) postVideo();
+    if (allCompleted && user.accessToken.length > 1) {
+      // dispatch(setAllCompletedTrue())
+      postVideo();
+      console.log("hepsi bitti !!!")
+    }
   }, [allCompleted, user.accessToken]);
 
   useEffect(() => {

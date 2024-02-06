@@ -129,6 +129,19 @@ export const getSettings = async (accessToken) => {
   }
 };
 
+//Quiz Status - Get
+export const getQuizStatus = async (accessToken) => {
+  const endpoint = "/api/quiz/isPassedStatus";
+  try {
+    setAuthHeader(accessToken);
+
+    const response = await instance.get(endpoint);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
 //Quiz - Get
 export const getQuestions = async (accessToken) => {
   const endpoint = "/api/quiz/questions";

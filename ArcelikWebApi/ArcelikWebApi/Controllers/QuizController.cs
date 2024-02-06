@@ -202,7 +202,7 @@ namespace ArcelikWebApi.Controllers
 
                 //check if the user is passed or not(bunu henüz database user'a eklemedim)
 
-                bool isPassed = OverallScore > 50;
+                bool isPassed = OverallScore > 30;
                 user.IsPassed = isPassed;
 
                 await _context.SaveChangesAsync();
@@ -217,6 +217,18 @@ namespace ArcelikWebApi.Controllers
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
 
+        }
+        [HttpGet("isPassedStatus")]
+        public async Task<ActionResult> GetIsPassedStatus()
+        {
+            var userEmailFromContext = HttpContext.Items["UserEmail"] as string;
+
+            var isPassed = await _context.Users
+                    .Where(u => u.Email == userEmailFromContext)
+                    .Select(u => u.IsPassed)
+                    .ToListAsync();
+
+            return Ok(isPassed);
         }
     }
 }
