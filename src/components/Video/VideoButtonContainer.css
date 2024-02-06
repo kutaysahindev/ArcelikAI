@@ -3,14 +3,12 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 16px;
-
+  gap: 1.6rem;
   position: absolute;
-  bottom: 10px;
+  bottom: 1rem;
   z-index: -1;
   transition: bottom 0.3s ease-in-out;
-  padding-top: 15px;
-  /* background: red; */
+  padding-top: 1.5rem;
 }
 
 .btn-container.hovered {
@@ -20,11 +18,10 @@
 .btns {
   padding: 1.2rem 1rem;
   background-color: rgb(219, 219, 219);
-  border-radius: 10px;
+  border-radius: 1rem;
   color: #3b0052;
   font-weight: 800;
   letter-spacing: 0.5px;
-  /* color: white; */
   border: none;
   outline: none;
   cursor: pointer;
@@ -32,17 +29,20 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
+  gap: 1rem;
   font-size: 1.2rem;
 }
+
 .video-container .btn-container .previous,
 .video-container .btn-container .next {
   flex: 1;
 }
+
 .video-container .btn-container .close {
   flex: 1;
   color: rgb(139, 0, 0);
 }
+
 .video-container .btn-container .again {
   flex: 3;
 }
@@ -55,5 +55,19 @@
   background-color: rgb(69, 69, 69);
   color: rgb(130, 130, 130);
   cursor: default;
-  /* cursor: not-allowed; */
+}
+
+/* Responsive layout adjustments */
+@media screen and (max-width: 768px) {
+  .video-container .btn-container {
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: center;
+    bottom: 0;
+    padding: 1rem;
+  }
+  .video-container .btn-container .btns {
+    width: 100%;
+    margin-bottom: 1rem;
+  }
 }
