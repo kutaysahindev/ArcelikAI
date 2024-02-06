@@ -99,7 +99,8 @@ export const {
   setResponsesToBeSended,
   defaultResponses,
   quizFailed,
-  quizPassed
+  quizPassed,
+  setResult
 } = quizSlice.actions;
 
 export default quizSlice.reducer;

@@ -88,6 +88,10 @@ export const videoSlice = createSlice({
       state.videoMark = action.payload;
       localStorage.setItem("videoMark", action.payload);
     },
+    setAllCompletedTrue: (state) => {
+      state.allCompleted = true;
+      localStorage.setItem("allCompleted", true);
+    },
   },
 });
 
@@ -111,6 +115,7 @@ export const {
   proceedAt,
   completeAll,
   setVideos,
+  setAllCompletedTrue,
 } = videoSlice.actions;
 
 export default videoSlice.reducer;

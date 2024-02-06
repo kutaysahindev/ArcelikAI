@@ -18,12 +18,13 @@ const CourseVideo = () => {
   const { videoRef, videoDetails, watchAgain } = useVideoPlayer();
   const { currentTime, progress, isCompleted, status } = videoDetails;
   stateRef.current = currentTime;
+  stateRef.progress = progress;
 
-  const postCurrentTime = (curr) => {
+  const postCurrentTime = (curr, progress) => {
     const postVideo = async () => {
       try {
         const videoProg = await postVideoProgress(user.accessToken, {
-          isWatchedAll: false,
+          isWatchedAll: progress > 90 ? true : false,
           WatchedVideoId:
             selectedVideo === lastCompleted ? selectedVideo + 1 : selectedVideo,
           WatchedTimeInseconds:
@@ -33,13 +34,15 @@ const CourseVideo = () => {
         throw error;
       }
     };
-    if (user.accessToken.length > 1 && selectedVideo > lastCompleted)
+    if (user.accessToken.length > 1 && selectedVideo > lastCompleted && (progress < 90) ) {
       postVideo();
+      console.log("CourseVideo", progress)
+    }
   };
 
   useEffect(() => {
     let intervalId;
-    const pCT = () => postCurrentTime(stateRef.current);
+    const pCT = () => postCurrentTime(stateRef.current, stateRef.progress);
     if (status) intervalId = setInterval(pCT, 1000);
     return () => clearInterval(intervalId);
   }, [status]);

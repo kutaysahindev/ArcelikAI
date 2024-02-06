@@ -15,7 +15,7 @@ import LoadingLayer from "../Loading/LoadingLayer";
 
 import "./Main.css";
 import contentList from "./ContentData";
-import { getQuestions, getSettings, getVideoProgress, validateToken } from "../../api"; // Import the validateToken function
+import { getQuestions, getQuizStatus, getSettings, getVideoProgress, validateToken } from "../../api"; // Import the validateToken function
 import {
   closeVideoWindow,
   completeAll,
@@ -27,7 +27,8 @@ import {
   setVideos,
 } from "../../redux/videoSlice";
 import { updateSettings } from "../../redux/settingSlice";
-import { defaultResponses, setQuestions, setSelectedQuestion } from "../../redux/quizSlice";
+import { defaultResponses, setQuestions, setResult, setSelectedQuestion } from "../../redux/quizSlice";
+import { closeWindow } from "../../redux/windowSlice";
 
 const Main = () => {
   const { authState, oktaAuth } = useOktaAuth();
@@ -80,7 +81,10 @@ const Main = () => {
         dispatch(setVideos(video.VideoDetails));
         dispatch(setVideoCount(video.VideoCount));
         if(video.isTutorialDone)dispatch(setIsTutorialDone("0done"));
-        if (video.isWatchedAll) dispatch(completeAll());
+        if (video.isWatchedAll) {
+          dispatch(completeAll());
+          dispatch(closeWindow());
+        }
         else
           dispatch(
             proceedAt({
@@ -120,10 +124,21 @@ const Main = () => {
         throw error;
       }
     };
+    const fetchQuizStatus = async () => {
+      try {
+        const status = await getQuizStatus(user.accessToken);
+        if(status[0]) {
+          dispatch(setResult("passed"))
+        }
+      } catch (error) {
+        throw error;
+      }
+    };
     if (user.isSignedIn && user.accessToken) {
       fetchData();
       fetchSettings();
       fetchQuiz();
+      fetchQuizStatus();
     }
   }, [user.isSignedIn, user.accessToken]);
 
