@@ -228,13 +228,23 @@
 .quiz-result .msg {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
   font-size: 1.5rem; /* 15px */
 }
 
 .quiz-result button {
   padding: 1rem;
+  width: fit-content;
   cursor: pointer;
+  border-radius: 6px;
+  transition: all 200ms;
+  background: #1e0e62;
+  color: white;
+}
+.quiz-result button:hover {
+  transform: scale(1.05);
 }
 
 @media screen and (max-width: 768px) {
