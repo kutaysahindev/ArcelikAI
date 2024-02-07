@@ -4,7 +4,11 @@ import { setResult } from '../../redux/quizSlice';
 import { closeWindow, openWindow, setWindowContent } from '../../redux/windowSlice';
 import Accordion from './Accordion';
 import { useState } from 'react';
-import { setAllCompletedFalse, setAllCompletedTrue } from '../../redux/videoSlice';
+import { setAllCompletedFalse, setAllCompletedTrue, setVideoMark } from '../../redux/videoSlice';
+import { signUserIn, logUserOut } from '../../redux/userSlice';
+import DevButton from './DevButton';
+import { useSelector } from 'react-redux';
+
 const ReduxPanel = () => {
   const [isHovered, setIsHovered] = useState(false)
   const [input, setInput] = useState({
@@ -13,6 +17,10 @@ const ReduxPanel = () => {
     videoMarkew: "",
     videoMarker: "",
   })
+  const { isSignedIn, isTutorialDone } = useSelector((slices) => slices.user);
+  const { isWindowOpen, windowContent } = useSelector((slices) => slices.window);
+  const { videoMark, allCompleted } = useSelector((slices) => slices.video);
+  const { result } = useSelector((slices) => slices.quiz);
   const dispatch = useDispatch();
   const expandPanel = () => setIsHovered(true)
   const collapsePanel = () => setIsHovered(false)
@@ -21,28 +29,33 @@ const ReduxPanel = () => {
   return (
     <div className={`redux-panel ${isHovered ? "expand" : ""}`} onMouseEnter={expandPanel} onMouseLeave={collapsePanel}>
       <div className='accordions'>
+        <Accordion title={"Auth"}>
+          <DevButton txt={"Sign In"} condition={isSignedIn} onClick={() => dispatch(signUserIn())} />
+          <DevButton txt={"Log Out"} condition={!isSignedIn} onClick={() => dispatch(logUserOut())} />
+        </Accordion>
         <Accordion title={"Window"}>
-          <button className='rp-b' onClick={() => dispatch(openWindow())}>Open</button>
-          <button className='rp-b' onClick={() => dispatch(closeWindow())}>Close</button>
+          <DevButton txt={"Open"} condition={isWindowOpen} onClick={() => dispatch(openWindow())} />
+          <DevButton txt={"Close"} condition={!isWindowOpen} onClick={() => dispatch(closeWindow())} />
         </Accordion>
         <Accordion title={"Window Content"}>
-          <button className='rp-b' onClick={() => dispatch(setWindowContent("video"))}>Video</button>
-          <button className='rp-b' onClick={() => dispatch(setWindowContent("quiz"))}>Quiz</button>
-          <button className='rp-b' onClick={() => dispatch(setWindowContent("result"))}>Result</button>
-        </Accordion>
-        <Accordion title={"Quiz Result"}>
-          <button className='rp-b' onClick={() => dispatch(setResult("undone"))}>Undone</button>
-          <button className='rp-b' onClick={() => dispatch(setResult("failed"))}>Failed</button>
-          <button className='rp-b' onClick={() => dispatch(setResult("Passed"))}>Passed</button>
+          <DevButton txt={"Video"} condition={windowContent === "video"} onClick={() => dispatch(setWindowContent("video"))} />
+          <DevButton txt={"Quiz"} condition={windowContent === "quiz"} onClick={() => dispatch(setWindowContent("quiz"))} />
+          <DevButton txt={"Result"} condition={windowContent === "result"} onClick={() => dispatch(setWindowContent("result"))} />
         </Accordion>
         <Accordion title={"VideoMark"}>
           <input type='number' className='rp-i' value={input.videoMarkId} onChange={(e) => setText("videoMarkId", e.target.value)} placeholder='id' />
           <input type='number' className='rp-i' value={input.videoMarkSec} onChange={(e) => setText("videoMarkSec", e.target.value)} placeholder='sec' />
-          <button className='rp-b' onClick={() => {}}>Send</button>
+          <button className='rp-b' onClick={() => dispatch(setVideoMark({video:input.videoMarkId, time:input.videoMarkSec}))}>Set</button>
+          <p>({ videoMark.video ? videoMark.video : "null" }, { videoMark.time ? videoMark.time : "null" })</p>
         </Accordion>
         <Accordion title={"Complete Videos"}>
-          <button className='rp-b' onClick={() => dispatch(setAllCompletedTrue())}>Do</button>
-          <button className='rp-b' onClick={() => dispatch(setAllCompletedFalse())}>Undo</button>
+          <DevButton txt={"Do"} condition={allCompleted} onClick={() => dispatch(setAllCompletedTrue())} />
+          <DevButton txt={"Undo"} condition={!allCompleted} onClick={() => dispatch(setAllCompletedFalse())} />
+        </Accordion>
+        <Accordion title={"Quiz Result"}>
+          <DevButton txt={"Undone"} condition={result === "undone"} onClick={() => dispatch(setResult("undone"))} />
+          <DevButton txt={"Failed"} condition={result === "failed"} onClick={() => dispatch(setResult("failed"))} />
+          <DevButton txt={"Passed"} condition={result === "passed"} onClick={() => dispatch(setResult("passed"))} />
         </Accordion>
       </div>
       <h2 className='vertical'>
@@ -52,22 +65,6 @@ const ReduxPanel = () => {
           </span>
         ))}
       </h2>
-      {/* <div className='quiz-result'>
-        <h3 onClick={}>Window Content</h3>
-        <div className='btn-grp'>
-          <button onClick={() => dispatch(setWindowContent("video"))}>Video</button>
-          <button onClick={() => dispatch(setWindowContent("quiz"))}>Quiz</button>
-          <button onClick={() => dispatch(setWindowContent("result"))}>Result</button>
-        </div>
-      </div>
-      <div className='quiz-result'>
-        <h3 onClick={}>Quiz Result</h3>
-        <div className='btn-grp'>
-          <button onClick={() => dispatch(setResult("undone"))}>Undone</button>
-          <button onClick={() => dispatch(setResult("failed"))}>Failed</button>
-          <button onClick={() => dispatch(setResult("Passed"))}>Passed</button>
-        </div>
-      </div> */}
     </div>
   )
 }
