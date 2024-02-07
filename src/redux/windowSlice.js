@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   isWindowOpen: true,
-  windowContent: "video", // video, quiz
+  windowContent: "video", // video, quiz, result
   isModal: false,
   modalProps: {}
 }

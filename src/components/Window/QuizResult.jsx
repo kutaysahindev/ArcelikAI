@@ -14,10 +14,15 @@ const QuizResult = () => {
           <p>You have to watch videos more carefully and take the quiz again to be able to create your app.</p>
           <button onClick={() => dispatch(setWindowContent("video"))}>Go back to videos</button>
         </div>
-      ) : (
+      ) : result === "passed" ? (
         <div className="msg">
           <p>You have passed the test!</p>
           <button onClick={() => dispatch(closeWindow())}>Create your AI App now</button>
+        </div>
+      ) : (
+        <div className="msg">
+          <p>{"It's illogical to be here 🤨"}</p>
+          <button onClick={() => dispatch(setWindowContent("video"))}>Go back to videos</button>
         </div>
       )
       }

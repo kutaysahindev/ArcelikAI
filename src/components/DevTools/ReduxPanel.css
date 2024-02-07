@@ -1,0 +1,102 @@
+.redux-panel {
+  position: fixed;
+  bottom: 0;
+  left: -370px;
+  padding:  2rem;
+
+  z-index: 500;
+  display: flex;
+  gap: 2rem;
+  background-color: rgba(0, 149, 255, 0.544);
+  backdrop-filter: blur(10px);
+  font-size: 1.5rem;
+  border-radius: 0 10px 0 0;
+  transition: left 0.4s;
+}
+.redux-panel.expand {
+  left: 0;
+}
+
+.redux-panel .accordions {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.redux-panel .rp-b {
+  /* padding: 5px 7px; */
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1.5rem;
+  transition: all 200ms;
+  overflow: hidden;
+}
+.redux-panel .rp-b:hover {
+  background: #5970a7;
+  color: white;
+}
+.redux-panel .rp-b.selected {
+  background: #7b4bbf;
+  color: white;
+}
+.redux-panel .rp-b.selected:hover {
+  background: #8861c0;
+}
+.accordion .accordion-content .rp-b {
+  height: 0;
+  padding: 0 7px;
+  transition: height 0.4s, padding 0.4s;
+  /* transition: line-height 1.4s ease-in-out, padding 1.4s; */
+  /* transition: height 1.4s ease-in-out; */
+  box-sizing: content-box;
+}
+.accordion .accordion-content.open .rp-b {
+  height: 15px;
+  padding: 5px 7px;
+}
+
+.redux-panel .rp-i {
+  /* padding: 5px 7px; */
+  width: 70px;
+  border-radius: 5px;
+  border: none;
+  outline: none;
+  font-size: 1.2rem;
+  overflow: hidden;
+}
+.accordion .accordion-content .rp-i {
+  height: 0;
+  padding: 0 7px;
+  transition: height 0.25s, padding 0.25s;
+  box-sizing: content-box;
+}
+.accordion .accordion-content.open .rp-i {
+  height: 15px;
+  padding: 5px 7px;
+}
+
+.redux-panel input[type=number]::-webkit-inner-spin-button,
+.redux-panel input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.redux-panel input[type=number] {
+  -moz-appearance: textfield; /* Firefox */
+}
+
+.redux-panel .vertical {
+  align-self: center;
+  writing-mode: vertical-rl;
+  text-orientation: upright; 
+  letter-spacing: 1rem;
+  cursor: default;
+  color: white;
+}
+.redux-panel .character {
+  font-weight: bolder;
+  font-size: 1.3rem;
+  display: inline-block;
+}
+.redux-panel .character:last-child {
+  letter-spacing: 0;
+}

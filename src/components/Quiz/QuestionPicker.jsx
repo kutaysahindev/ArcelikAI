@@ -60,7 +60,7 @@ const QuestionPicker = () => {
   theQuestion();
   return (
     <>
-      <TimeBar duration={120}/>
+      <TimeBar duration={300}/>
       { qElement }
       {/* <button className="send-button" onClick={sendQuizHandler}>Send</button> */}
     </>
