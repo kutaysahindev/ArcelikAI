@@ -6,7 +6,7 @@
   width: 100%;
   height: 100%;
   overflow: hidden;
-  z-index: 50;
+  z-index: 10;
   background-color: #ffffff;
   /* FIXME choose one */
   /* display: flex;
@@ -28,16 +28,23 @@
   display: flex;
   justify-content: space-between;
   padding: 10px 10px;
-  z-index: 10;
+  /* z-index: 10; */
 }
 .window-buttons-container .w-btn {
   background: transparent;
   cursor: pointer;
   border-radius: 7px;
+  line-height: 0;
 }
 .w-btn.i:hover {
   /* background-color: rgb(197, 228, 255); */
   color: rgb(1, 113, 210);
+}
+.w-btn.x {
+  display: flex;
+  align-items: center;
+  font-size: 15px;
+  font-weight: bolder;
 }
 .w-btn.x:hover {
   /* background-color: rgb(255, 197, 197); */
@@ -54,13 +61,14 @@
   font-size: 4rem;
   font-weight: 900;
   text-align: end;
-  margin-bottom: 14px;
+  margin-bottom: 1.4rem;
 }
 .window .head .title.reversed {
   text-align: start;
 }
 
-.window .head, .window .tabs-and-content {
+.window .head,
+.window .tabs-and-content {
   /* FIXME center by flex or width */
   width: 40%;
   margin-left: auto;
@@ -82,8 +90,15 @@
 .window .window-tabs {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  height: 30rem;
+  gap: 2rem;
+}
+.window .window-tabs .tabs {
+  display: flex;
+  flex-direction: column;
   overflow-y: auto;
-  /* justify-content: center; */
 }
 
 .window .window-tabs .v-btn {
@@ -110,9 +125,26 @@
 .window-tabs .v-btn.selected-content:hover {
   color: #230f81;
 }
+.window-tabs .submit-button,
+.window-tabs .quiz-button {
+  width: 100%;
+  border-radius: 10px;
+  padding: 10px 0;
+  background: #230f81;
+  color: white;
+  cursor: pointer;
+  font-size: 15px;
+  transition: all 200ms;
+  margin-bottom: 10px;
+}
+.window-tabs .submit-button:hover,
+.window-tabs .quiz-button:huver {
+  background: #4d37b0;
+}
 
 /* CONTENT */
 .window .content {
+  /* flex: 4; */
   height: 100%;
   display: flex;
   flex-direction: row; /* Change to row layout for content */
@@ -123,35 +155,37 @@
 
 /* BOTTOM CONTENT */
 .window .bottom-content {
-  position: fixed;
+  position: absolute;
+  z-index: -2;
   bottom: 0;
   width: 100%;
   display: flex;
   justify-content: center;
-  border-top: 2px solid #ebeaed;
-  gap: 40px;
-  padding: 2.4rem;
+  border-top: 0.2rem solid #ebeaed; /* 2px */
+  gap: 4rem; /* 40px */
+  padding: 2.4rem; /* 24px */
   margin: 0 auto;
-  /* max-width: 73rem; */
 }
 
 .window .text-title {
   color: #1e0e62;
   font-family: "DM Sans";
-  font-size: 22px;
+  font-size: 2.2rem; /* 22px */
   font-weight: 800;
   line-height: 2rem;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 2rem; /* 20px */
 }
+
 .window .text-title .icon {
   color: #d1d1d1;
 }
+
 .window .text-title .headline {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 1rem; /* 10px */
 }
 
 .window .container {
@@ -162,9 +196,61 @@
   color: rgba(21, 20, 57, 0.604);
   margin-top: 2rem;
   font-family: "DM Sans";
-  font-size: 14px;
+  font-size: 1.4rem; /* 14px */
   font-style: normal;
   font-weight: 400;
   line-height: 1.8rem;
   text-align: justify;
+}
+
+.quiz-result {
+  margin-top: 6rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  align-items: center;
+}
+
+.quiz-result .rslt {
+  font-size: 2rem; /* 20px */
+  font-weight: 900;
+  letter-spacing: 2px;
+}
+
+.quiz-result .rslt.failed {
+  color: red;
+}
+
+.quiz-result .rslt.passed {
+  color: green;
+}
+
+.quiz-result .msg {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  font-size: 1.5rem; /* 15px */
+}
+
+.quiz-result button {
+  padding: 1rem;
+  width: fit-content;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: all 200ms;
+  background: #1e0e62;
+  color: white;
+}
+.quiz-result button:hover {
+  transform: scale(1.05);
+}
+
+@media screen and (max-width: 768px) {
+  .window .bottom-content {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
 }

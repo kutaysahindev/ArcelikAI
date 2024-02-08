@@ -12,11 +12,18 @@ namespace ArcelikWebApi.Models
         public string Email { get; set; }
 
         public bool isWatchedAll { get; set; }
+
         public bool isTutorialDone { get; set; }
+
+        public int QuizPoint { get; set; }
+
+        public bool IsPassed { get; set; }
 
         // Properties for watched video
         public int WatchedVideoId { get; set; }
+
         public Video WatchedVideo { get; set; }
+
         public int WatchedTimeInSeconds { get; set; }
     }
 }

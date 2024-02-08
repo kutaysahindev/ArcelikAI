@@ -1,6 +1,7 @@
-import './StepBar.css';
+import "./StepBar.css";
 
 function StepBar({ step, stepCount }) {
+  //Step bar at form header
   return (
     <div className="step-bar">
       <div

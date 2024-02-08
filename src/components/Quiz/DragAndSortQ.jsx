@@ -7,12 +7,14 @@ import { PiSortAscendingBold } from "react-icons/pi";
 import { useSelector } from "react-redux";
 
 
-export const DragAndSortQ = ({ id, addRes, question, options }) => {
+export const DragAndSortQ = ({ id, questionType, addRes, question, options }) => {
   const { responses } = useSelector(state => state.quiz);
-  const [sortedOptions, setSortedOptions] = useState(responses["Q"+id] ? responses["Q"+id] :options);
+  const [sortedOptions, setSortedOptions] = useState(responses["Q"+id] ? responses["Q"+id] : options);
 
   useEffect(() => {
-    addRes(id, sortedOptions)
+    const onlyID = Number(sortedOptions.map(m => m.oID).join(''))
+    // console.log('onlyID: ', onlyID)
+    addRes(id, questionType, sortedOptions, null, null, onlyID)
   }, [sortedOptions])
   
 
@@ -24,13 +26,17 @@ export const DragAndSortQ = ({ id, addRes, question, options }) => {
     setSortedOptions(items);
   }
 
+  useEffect(() => {
+    setSortedOptions(responses["Q"+id] ? responses["Q"+id] : options);
+  }, [options]);
+
   return (
     <div className="question drag-and-sort">
       <PiSortAscendingBold size={30} />
       <div>
         <h3 className="title">{question}</h3>
         <DragDropContext onDragEnd={handleOnDragEnd}>
-            <Droppable droppableId="sortedOptions">
+            <Droppable key={id} droppableId={"sortedOptions"+id}>
               {(provided, snapshot) => (
                 <ul className={`list ${snapshot.isDraggingOver ? 'l-dragging' : ''}`} {...provided.droppableProps} ref={provided.innerRef}>
                   {sortedOptions.map(({oID, option}, index) => {
@@ -50,6 +56,7 @@ export const DragAndSortQ = ({ id, addRes, question, options }) => {
             </Droppable>
           </DragDropContext>
         </div>
+        {/* <p>order: { options.map(o => <span key={o.oID}>{ o.option } - </span>) }</p> */}
         {/* <p>order: { sortedOptions.map(o => <span key={o.oID}>{ o.option } - </span>) }</p> */}
     </div>
   )

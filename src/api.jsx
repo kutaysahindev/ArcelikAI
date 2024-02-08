@@ -101,7 +101,7 @@ export const postVideoProgress = async (accessToken, videoCreds) => {
         },
       }
     );
-    console.log(response.data);
+    // console.log(response.data);
     return response.data;
   } catch (error) {
     throw error;
@@ -129,9 +129,9 @@ export const getSettings = async (accessToken) => {
   }
 };
 
-//Quiz - Get
-export const getQuestions = async (accessToken) => {
-  const endpoint = "/api/questions";
+//Quiz Status - Get
+export const getQuizStatus = async (accessToken) => {
+  const endpoint = "/api/quiz/isPassedStatus";
   try {
     setAuthHeader(accessToken);
 
@@ -141,15 +141,29 @@ export const getQuestions = async (accessToken) => {
     throw error;
   }
 };
+
+//Quiz - Get
+export const getQuestions = async (accessToken) => {
+  const endpoint = "/api/quiz/questions";
+  try {
+    setAuthHeader(accessToken);
+
+    const response = await instance.get(endpoint);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
 //Quiz - Post
 export const postQuestionResponses = async (accessToken, responses) => {
-  const endpoint = "/api/questions/responses";
+  const endpoint = "/api/quiz/submit";
   try {
     setAuthHeader(accessToken);
 
     const response = await instance.post(endpoint, responses);
 
-    console.log(response.data);
+    // console.log(response.data);
     return response.data;
   } catch (error) {
     throw error;

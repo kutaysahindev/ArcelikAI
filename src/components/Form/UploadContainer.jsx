@@ -13,6 +13,8 @@ const UploadContainer = ({ files, setFiles }) => {
     fileInputRef.current.click();
   };
 
+  //File upload handling w/ drag&drop events
+
   const handleDragLeave = (e) => {
     e.preventDefault();
     setIsDragging(false);

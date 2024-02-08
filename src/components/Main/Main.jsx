@@ -15,7 +15,7 @@ import LoadingLayer from "../Loading/LoadingLayer";
 
 import "./Main.css";
 import contentList from "./ContentData";
-import { getSettings, getVideoProgress, validateToken } from "../../api"; // Import the validateToken function
+import { getQuestions, getQuizStatus, getSettings, getVideoProgress, validateToken } from "../../api"; // Import the validateToken function
 import {
   closeVideoWindow,
   completeAll,
@@ -27,6 +27,8 @@ import {
   setVideos,
 } from "../../redux/videoSlice";
 import { updateSettings } from "../../redux/settingSlice";
+import { defaultResponses, setQuestions, setResult, setSelectedQuestion } from "../../redux/quizSlice";
+import { closeWindow } from "../../redux/windowSlice";
 
 const Main = () => {
   const { authState, oktaAuth } = useOktaAuth();
@@ -75,11 +77,14 @@ const Main = () => {
     const fetchData = async () => {
       try {
         const video = await getVideoProgress(user.accessToken);
-        console.log("video (fetch): ", video);
+        // console.log("video (fetch): ", video);
         dispatch(setVideos(video.VideoDetails));
         dispatch(setVideoCount(video.VideoCount));
         if(video.isTutorialDone)dispatch(setIsTutorialDone("0done"));
-        if (video.isWatchedAll) dispatch(completeAll());
+        if (video.isWatchedAll) {
+          dispatch(completeAll());
+          dispatch(closeWindow());
+        }
         else
           dispatch(
             proceedAt({
@@ -94,8 +99,37 @@ const Main = () => {
     const fetchSettings = async () => {
       try {
         const settings = await getSettings(user.accessToken);
-        console.log("ayar ", settings);
+        // console.log("ayar ", settings);
         dispatch(updateSettings(settings));
+      } catch (error) {
+        throw error;
+      }
+    };
+    const fetchQuiz = async () => {
+      try {
+        const quiz = await getQuestions(user.accessToken);
+        // console.log('quiz: ', quiz)
+        const newQuiz = quiz.map(q => {
+          const newChoices = q.Choices.map(c => {return {oID: c.ChoiceID, option: c.ChoiceText}})
+          return({
+            Id: q.QuestionID,
+            questionType: q.QuestionType,
+            question: q.QuestionText,
+            options: newChoices,
+          })})
+        dispatch(setQuestions(newQuiz))
+        // dispatch(defaultResponses())
+        dispatch(setSelectedQuestion(newQuiz[0].Id))
+      } catch (error) {
+        throw error;
+      }
+    };
+    const fetchQuizStatus = async () => {
+      try {
+        const status = await getQuizStatus(user.accessToken);
+        if(status[0]) {
+          dispatch(setResult("passed"))
+        }
       } catch (error) {
         throw error;
       }
@@ -103,6 +137,8 @@ const Main = () => {
     if (user.isSignedIn && user.accessToken) {
       fetchData();
       fetchSettings();
+      fetchQuiz();
+      fetchQuizStatus();
     }
   }, [user.isSignedIn, user.accessToken]);
 

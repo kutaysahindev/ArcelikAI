@@ -20,6 +20,7 @@ import { setAccessToken, setIsTutorialDone } from "../redux/userSlice";
 import { useOktaAuth } from "@okta/okta-react";
 import Window from "../components/Window/Window";
 import FormHeader from "../components/Form/FormHeader";
+import { setAllCompletedTrue } from "../redux/videoSlice";
 
 const initialState = {
   appName: "",
@@ -52,9 +53,7 @@ export default function Form() {
   const { isVideoWindowOpen, allCompleted } = useSelector(
     (state) => state.video
   );
-  const { isWindowOpen, windowContent } = useSelector(
-    (state) => state.window
-  );
+  const { isWindowOpen, windowContent } = useSelector((state) => state.window);
   const { isQuizWindowOpen } = useSelector((state) => state.quiz);
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
@@ -72,7 +71,7 @@ export default function Form() {
   useEffect(() => {
     const postVideo = async () => {
       try {
-        const videoProg = await postVideoProgress(user.accessToken, {
+        await postVideoProgress(user.accessToken, {
           isWatchedAll: true,
           WatchedVideoId: 1,
           WatchedTimeInseconds: 0,
@@ -81,7 +80,11 @@ export default function Form() {
         throw error;
       }
     };
-    if (allCompleted && user.accessToken.length > 1) postVideo();
+    if (allCompleted && user.accessToken.length > 1) {
+      // dispatch(setAllCompletedTrue())
+      postVideo();
+      console.log("hepsi bitti !!!")
+    }
   }, [allCompleted, user.accessToken]);
 
   useEffect(() => {
@@ -111,13 +114,11 @@ export default function Form() {
         driver(formDriver1).drive();
         dispatch(setIsTutorialDone("first"));
         postTProgress();
-      }
-      else if (step === 2 && user.isTutorialDone === "first") {
+      } else if (step === 2 && user.isTutorialDone === "first") {
         driver(formDriver2).drive();
         dispatch(setIsTutorialDone("second"));
         postTProgress();
-      }
-      else return;
+      } else return;
     }
   }, [step, isWindowOpen]);
 
@@ -270,7 +271,7 @@ export default function Form() {
           <Window content={windowContent} visibility={isWindowOpen} />
           {/* {isWindowOpen && <Window content={windowContent} visiblity={isWindowOpen} />} */}
           <form className="form-container">
-            <FormHeader step={step}/>
+            <FormHeader step={step} />
             <StepBar step={step} stepCount={stepCount} />
 
             <div className="bottom">

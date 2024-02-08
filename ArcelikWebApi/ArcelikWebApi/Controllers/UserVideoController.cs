@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using ArcelikWebApi.Data;
+﻿using ArcelikWebApi.Data;
 using ArcelikWebApi.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -19,7 +18,7 @@ namespace ArcelikWebApi.Controllers
         // Get iswatched attirubute from db.
         // GET: api/uservideo/iswatched
         [HttpGet("status")]
-        public async Task<IActionResult> GetIsWatchedStatus()
+        public async Task<IActionResult> GetUserVideoStatus()
         {
             var userEmail = HttpContext.Items["UserEmail"] as string;
 
@@ -72,7 +71,7 @@ namespace ArcelikWebApi.Controllers
                     user.WatchedTimeInSeconds = request.WatchedTimeInSeconds;
                     user.isWatchedAll = request.IsWatchedAll;
 
-                    _applicationDbContext.SaveChangesAsync();
+                    await _applicationDbContext.SaveChangesAsync();
 
                     return Ok("Watched video updated successfully");
                 }

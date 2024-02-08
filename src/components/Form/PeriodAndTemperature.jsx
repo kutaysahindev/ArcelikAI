@@ -4,7 +4,7 @@ import "driver.js/dist/driver.css";
 import React, { useState, useReducer, useRef, useEffect } from "react";
 
 function PeriodAndTemperature({ state, handleInputChange }) {
-
+  //Step 2 - Model Temperature & Retention period settings
   return (
     <div className="pt-container">
       <div className="period-container">
