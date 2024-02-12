@@ -22,61 +22,56 @@ import {
   validateToken,
 } from "../../api";
 import {
-  closeVideoWindow,
   completeAll,
   proceedAt,
-  setSelectedVideo,
   setVideoCount,
-  setVideoMark,
   setVideos,
 } from "../../redux/videoSlice";
 import { updateSettings } from "../../redux/settingSlice";
 import {
-  defaultResponses,
   setQuestions,
   setResult,
   setSelectedQuestion,
 } from "../../redux/quizSlice";
 import { closeWindow } from "../../redux/windowSlice";
+import { questionFormatter } from "../../utils/questionFormatter";
 
 const Main = () => {
   const { authState, oktaAuth } = useOktaAuth();
   const nav = useSelector((slices) => slices.nav);
   const user = useSelector((slices) => slices.user);
-  const { videoCount } = useSelector((slices) => slices.video);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const isValidIndex = nav.index >= 0 && nav.index < contentList.length;
 
-  useEffect(() => {
+  const userInfoHandler = () => {
     oktaAuth
       .getUser()
       .then((user) => {
         const myDate = new Date(user.headers.date);
-        const newDate = myDate.toLocaleString("en-US", {
-          timezone: "Europe/Istanbul",
-        });
-        dispatch(
-          userInfoUpdate({ name: user.name, email: user.email, date: newDate })
-        );
+        const newDate = myDate.toLocaleString("en-US", {timezone: "Europe/Istanbul"});
+        dispatch(userInfoUpdate({ name: user.name, email: user.email, date: newDate }));
       })
       .catch((error) => console.error("Error fetching user info:", error));
-  }, [oktaAuth, dispatch]);
+  }
+
+  const accessTokenValidation = () => {
+    const accessToken = authState.accessToken.accessToken;
+    dispatch(setAccessToken(accessToken));
+    validateToken(accessToken)
+      .then(() => dispatch(signUserIn()))
+      .catch((error) => {
+        dispatch(logUserOut());
+        dispatch(setStatus("f"));
+        console.error("Error validating token:", error);
+      });
+  }
 
   useEffect(() => {
     if (authState && authState.isAuthenticated) {
-      const accessToken = authState.accessToken.accessToken;
-      dispatch(setAccessToken(accessToken));
-
-      validateToken(accessToken)
-        .then(() => dispatch(signUserIn()))
-        .catch((error) => {
-          dispatch(logUserOut());
-          dispatch(setStatus("f"));
-          console.error("Error validating token:", error);
-          // dispatch(setIsLoading(false));
-        });
+      userInfoHandler();
+      accessTokenValidation();
     } else {
       dispatch(logUserOut());
     }
@@ -91,7 +86,7 @@ const Main = () => {
           getQuestions(user.accessToken),
           getQuizStatus(user.accessToken),
         ]);
-
+        // VIDEO
         dispatch(setVideos(video.VideoDetails));
         dispatch(setVideoCount(video.VideoCount));
         if (video.isTutorialDone) dispatch(setIsTutorialDone("0done"));
@@ -106,28 +101,13 @@ const Main = () => {
             })
           );
         }
-
+        // SETTINGS
         dispatch(updateSettings(settings));
-
-        const newQuiz = quiz.map((q) => {
-          const newChoices = q.Choices.map((c) => ({
-            oID: c.ChoiceID,
-            option: c.ChoiceText,
-          }));
-          return {
-            Id: q.QuestionID,
-            questionType: q.QuestionType,
-            question: q.QuestionText,
-            options: newChoices,
-          };
-        });
-
+        // QUIZ
+        const newQuiz = questionFormatter(quiz);
         dispatch(setQuestions(newQuiz));
         dispatch(setSelectedQuestion(newQuiz[0].Id));
-
-        if (quizStatus[0]) {
-          dispatch(setResult("passed"));
-        }
+        if (quizStatus[0]) dispatch(setResult("passed"));
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -138,21 +118,17 @@ const Main = () => {
     }
   }, [user.isSignedIn, user.accessToken]);
 
-  const contentStyles = {
-    fontSize: isValidIndex && nav.index === 0 ? "2.2rem" : "1.5rem",
-  };
-
   useEffect(() => {
     let timerId;
     if (user.isLoading) {
       timerId = setTimeout(() => {
         if (user.isSignedIn) navigate("/form");
         dispatch(setIsLoading(false));
-      }, 4500);
+      }, 3000);
     }
     return () => clearInterval(timerId);
   }, [user.isLoading, dispatch, navigate, user.isSignedIn]);
-
+  
   return (
     <>
       {user.isLoading && (
@@ -173,7 +149,7 @@ const Main = () => {
             >
               {contentList[nav.index].title}
             </p>
-            <p className="main-text" style={contentStyles}>
+            <p className="main-text" style={{fontSize: isValidIndex && nav.index === 0 ? "2.2rem" : "1.5rem"}}>
               {contentList[nav.index].content}{" "}
             </p>
             {authState && authState.isAuthenticated && nav.index === 0 && (
