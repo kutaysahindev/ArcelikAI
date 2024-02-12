@@ -88,7 +88,7 @@ export default function Form() {
   }, [allCompleted, user.accessToken]);
 
   useEffect(() => {
-    if (!isVideoWindowOpen) {
+if (!isVideoWindowOpen) {
       if (step === 1) driver(formDriver1).drive();
       if (step === 2) driver(formDriver2).drive();
     }
@@ -137,93 +137,6 @@ export default function Form() {
     };
     if (user.isSignedIn && user.accessToken) fetchData();
   }, [authState, user.accessToken, user.isSignedIn]);
-
-  useEffect(() => {
-      
-    const driverObj = driver({
-      showProgress: true,
-      steps: [
-        {
-          popover: {
-            title: "✨ Welcome to Arçelik AI App Wizard!",
-            description: "Start exploring our site so we can serve you better.",
-            side: "over",
-          }
-        },
-        {
-          element: ".step-title",
-          popover: {
-            title: "Step",
-            description: "You can watch your progress here.",
-            side: "center",
-          }
-        },
-        {
-          element: ".initial-inputs",
-          popover: {
-            title: "Here is the first input fields!",
-            description: "You need to add your 'app name' and 'welcome message'. After that you need to introduce your application in detail in the 'system prompt' section. ",
-            side: "left",
-          }
-        },
-        {
-          element: ".three",
-          popover: {
-            title:"❗❗ Be careful!",
-            description: "You need to write a text almost like an algorithm.",
-            side: "top",
-          }
-        },
-        {
-          element: ".ai-button-container",
-          popover: {
-            title: "🤖 Choose an AI Model",
-            description: "You can choose the best AI model for your app.",
-            side:"bottom",
-          }
-        },
-        // {
-        //   element: "#first-next-button",
-        //   popover: {
-        //     title: "Next!",
-        //     description: "Click the button to continue other form section.",
-        //     side: "center",
-        //   }
-        // },
-        {
-          element: ".checkbox-container",
-          popover: {
-            title: "Checkboxes!",
-            description: "Don't forget to look at them.👁️",
-            side: "top",
-          }
-        },
-        {
-          element: "#drag-cont",
-          popover: {
-            title: "📁 Drag and Drop your files!",
-            description: "You can add files as many as you want.",
-            side: "top",
-          }
-        },
-        {
-          element: ".pt-container",
-          popover: {
-            title: "Store your conversation and pick your model temperature",
-            description: "Enter the number of days you want the information you entered in this form to be stored and select model temperature with sliding it.",
-            side: "top",
-          }
-        },
-        {
-          popover: {
-            title: "🥳 That's All!",
-            description: "Now you can create your application! ⏩"
-          }
-        }
-      ]
-    });
-    driverObj.drive();
-  });
 
   const handleInputChange = (field, value) => {
     dispatchR({ type: "SET_INPUT", field, value });
@@ -327,3 +240,4 @@ export default function Form() {
       )}
     </>
   );
+}
