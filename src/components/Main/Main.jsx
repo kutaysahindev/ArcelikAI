@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import { useOktaAuth } from "@okta/okta-react";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -12,14 +12,18 @@ import {
 } from "../../redux/userSlice";
 import { useNavigate } from "react-router-dom";
 import LoadingLayer from "../Loading/LoadingLayer";
-
 import "./Main.css";
 import contentList from "./ContentData";
-import { getQuestions, getQuizStatus, getSettings, getVideoProgress, validateToken } from "../../api"; // Import the validateToken function
+import {
+  getQuestions,
+  getQuizStatus,
+  getSettings,
+  getVideoProgress,
+  validateToken,
+} from "../../api";
 import {
   closeVideoWindow,
   completeAll,
-  completeVideo,
   proceedAt,
   setSelectedVideo,
   setVideoCount,
@@ -27,7 +31,12 @@ import {
   setVideos,
 } from "../../redux/videoSlice";
 import { updateSettings } from "../../redux/settingSlice";
-import { defaultResponses, setQuestions, setResult, setSelectedQuestion } from "../../redux/quizSlice";
+import {
+  defaultResponses,
+  setQuestions,
+  setResult,
+  setSelectedQuestion,
+} from "../../redux/quizSlice";
 import { closeWindow } from "../../redux/windowSlice";
 
 const Main = () => {
@@ -61,13 +70,13 @@ const Main = () => {
       dispatch(setAccessToken(accessToken));
 
       validateToken(accessToken)
-        .then(() =>  dispatch(signUserIn()))
+        .then(() => dispatch(signUserIn()))
         .catch((error) => {
           dispatch(logUserOut());
           dispatch(setStatus("f"));
           console.error("Error validating token:", error);
           // dispatch(setIsLoading(false));
-        })
+        });
     } else {
       dispatch(logUserOut());
     }
@@ -76,69 +85,56 @@ const Main = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const video = await getVideoProgress(user.accessToken);
-        // console.log("video (fetch): ", video);
+        const [video, settings, quiz, quizStatus] = await Promise.all([
+          getVideoProgress(user.accessToken),
+          getSettings(user.accessToken),
+          getQuestions(user.accessToken),
+          getQuizStatus(user.accessToken),
+        ]);
+
         dispatch(setVideos(video.VideoDetails));
         dispatch(setVideoCount(video.VideoCount));
-        if(video.isTutorialDone)dispatch(setIsTutorialDone("0done"));
+        if (video.isTutorialDone) dispatch(setIsTutorialDone("0done"));
         if (video.isWatchedAll) {
           dispatch(completeAll());
           dispatch(closeWindow());
-        }
-        else
+        } else {
           dispatch(
             proceedAt({
               video: video.WatchedVideoId,
               time: video.WatchedTimeInSeconds,
             })
           );
-      } catch (error) {
-        throw error;
-      }
-    };
-    const fetchSettings = async () => {
-      try {
-        const settings = await getSettings(user.accessToken);
-        // console.log("ayar ", settings);
+        }
+
         dispatch(updateSettings(settings));
-      } catch (error) {
-        throw error;
-      }
-    };
-    const fetchQuiz = async () => {
-      try {
-        const quiz = await getQuestions(user.accessToken);
-        // console.log('quiz: ', quiz)
-        const newQuiz = quiz.map(q => {
-          const newChoices = q.Choices.map(c => {return {oID: c.ChoiceID, option: c.ChoiceText}})
-          return({
+
+        const newQuiz = quiz.map((q) => {
+          const newChoices = q.Choices.map((c) => ({
+            oID: c.ChoiceID,
+            option: c.ChoiceText,
+          }));
+          return {
             Id: q.QuestionID,
             questionType: q.QuestionType,
             question: q.QuestionText,
             options: newChoices,
-          })})
-        dispatch(setQuestions(newQuiz))
-        // dispatch(defaultResponses())
-        dispatch(setSelectedQuestion(newQuiz[0].Id))
-      } catch (error) {
-        throw error;
-      }
-    };
-    const fetchQuizStatus = async () => {
-      try {
-        const status = await getQuizStatus(user.accessToken);
-        if(status[0]) {
-          dispatch(setResult("passed"))
+          };
+        });
+
+        dispatch(setQuestions(newQuiz));
+        dispatch(setSelectedQuestion(newQuiz[0].Id));
+
+        if (quizStatus[0]) {
+          dispatch(setResult("passed"));
         }
       } catch (error) {
-        throw error;
+        console.error("Error fetching data:", error);
       }
     };
+
     if (user.isSignedIn && user.accessToken) {
       fetchData();
-      fetchSettings();
-      fetchQuiz();
-      fetchQuizStatus();
     }
   }, [user.isSignedIn, user.accessToken]);
 
