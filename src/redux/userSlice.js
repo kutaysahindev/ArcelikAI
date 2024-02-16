@@ -15,6 +15,9 @@ const initialState = {
     date: "",
   },
   isTutorialDone: "",
+  notificationType: "", // success - message - warning - error
+  notificationText: "", 
+  notificationTime: 3000,  // 3 - 5 - 10 - 20
 };
 
 export const userSlice = createSlice({
@@ -47,6 +50,11 @@ export const userSlice = createSlice({
     setIsTutorialDone: (state, action) => {
       state.isTutorialDone = action.payload;
     },
+    setNotification: (state, action) => {
+      state.notificationTime = action.payload.time*1000;
+      state.notificationType = action.payload.type;
+      state.notificationText = action.payload.text;
+    },
   },
 });
 
@@ -60,6 +68,7 @@ export const {
   setStatus,
   setAccessToken,
   setIsTutorialDone,
+  setNotification,
 } = userSlice.actions;
 
 export default userSlice.reducer;

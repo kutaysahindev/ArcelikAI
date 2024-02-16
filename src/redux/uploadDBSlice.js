@@ -106,21 +106,27 @@ export const uploadDBSlice = createSlice({
       else if (hasChoices && cC < 3) state.errorMessage = "The number of choices should be larger than " + cC;
       else if (!state.answer) state.errorMessage = "You cannot upload a question without setting an answer";
       else {
+        // state.quePack = {
+        //   QuestionType: state.questionType,
+        //   QuestionText: state.question,
+        //   Choices: state.choices,
+        //   CorrectAnswers : state.answer,
+        // }
         state.quePack = {
-          QuestionType: state.questionType,
-          QuestionText: state.question,
-          Choices: state.choices,
-          CorrectAnswers : state.answer,
+          QuestionType: "Sorting",
+          QuestionText: "state.question",
+          Choices: ["c","b","a"],
+          CorrectAnswers : "abc",
         }
-        const uploadQue = async () => {
-          try {
-            const response = await uploadQuestionDB(state.quePack);
-            console.log('**RESPONSE**: ', response)
-          } catch (err) {
-            console.error(err.message)
-          }
-        }
-        uploadQue();
+        // const uploadQue = async () => {
+        //   try {
+        //     const response = await uploadQuestionDB(,state.quePack);
+        //     console.log('**RESPONSE**: ', response)
+        //   } catch (err) {
+        //     console.error(err.message)
+        //   }
+        // }
+        // uploadQue();
       }
       // console.log('state.quePack: ', state.quePack)
     },

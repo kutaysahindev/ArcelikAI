@@ -11,6 +11,11 @@ import Home from "./pages/Home";
 import Form from "./pages/Form";
 import NotFound from "./pages/NotFound";
 import Anteroom from "./pages/Anteroom";
+import { DropNotification } from "./components/DropNotification/DropNotification";
+import { useSelector } from "react-redux";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { setNotification } from "./redux/userSlice";
 
 const router = createBrowserRouter([
   {
@@ -53,8 +58,29 @@ const restoreOriginalUri = async (_oktaAuth, originalUri) => {
 };
 
 function App() {
+  const { notificationType, notificationText, notificationTime } = useSelector(
+    (slices) => slices.user
+  );
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (notificationText) {
+      console.log('notificationTime: ', notificationTime)
+      setTimeout(() => {
+        dispatch(setNotification({ type: "", text: "", time: 3 }));
+      }, notificationTime);
+    }
+  }, [notificationText]);
+
   return (
     <Security oktaAuth={oktaAuth} restoreOriginalUri={restoreOriginalUri}>
+      {notificationText && (
+        <DropNotification
+          type={notificationType}
+          txt={notificationText}
+          time={notificationTime}
+        />
+      )}
       <RouterProvider router={router} />
     </Security>
   );

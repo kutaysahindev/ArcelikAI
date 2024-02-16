@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseURL = "https://localhost:7026"; // Replace with your API base URL
+const baseURL = "http://164.92.200.35:5219/"; // Replace with your API base URL
 
 const instance = axios.create({
   baseURL: baseURL,
@@ -172,7 +172,7 @@ export const postQuestionResponses = async (accessToken, responses) => {
 
 // Question Upload to DB
 export const uploadQuestionDB = async (accessToken, question) => {
-  const endpoint = "/api/--------";
+  const endpoint = "/api/QuestionAndVideo/postquestion"
   try {
     setAuthHeader(accessToken);
     const response = await instance.post(endpoint, question);
@@ -183,13 +183,13 @@ export const uploadQuestionDB = async (accessToken, question) => {
 };
 
 // Video Upload to DB
-export const uploadVideoDB = async (accessToken, video) => {
-  const endpoint = "/api/--------";
-  try {
-    setAuthHeader(accessToken);
-    const response = await instance.post(endpoint, video);
-    return response.data;
-  } catch (error) {
-    throw error;
-  }
-};
+// export const uploadVideoDB = async (accessToken, video) => {
+//   const endpoint = "/api/QuestionAndVideo/postquestion";
+//   try {
+//     setAuthHeader(accessToken);
+//     const response = await instance.post(endpoint, video);
+//     return response.data;
+//   } catch (error) {
+//     throw error;
+//   }
+// };

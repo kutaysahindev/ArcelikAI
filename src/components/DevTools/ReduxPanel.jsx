@@ -5,20 +5,22 @@ import { closeWindow, openWindow, setWindowContent } from '../../redux/windowSli
 import Accordion from './Accordion';
 import { useState } from 'react';
 import { setAllCompletedFalse, setAllCompletedTrue, setVideoMark } from '../../redux/videoSlice';
-import { signUserIn, logUserOut } from '../../redux/userSlice';
+import { signUserIn, logUserOut, setNotification } from '../../redux/userSlice';
 import DevButton from './DevButton';
 import { useSelector } from 'react-redux';
 import { packUp } from '../../redux/uploadDBSlice';
+import { uploadQuestionDB } from '../../api';
 
 const ReduxPanel = () => {
   const [isHovered, setIsHovered] = useState(false)
   const [input, setInput] = useState({
     videoMarkId: "",
     videoMarkSec: "",
-    videoMarkew: "",
-    videoMarker: "",
+    notificationType: "warning",
+    notificationText: "This is a warning",
+    notificationTime: 5,
   })
-  const { isSignedIn, isTutorialDone } = useSelector((slices) => slices.user);
+  const { isSignedIn, isTutorialDone, accessToken } = useSelector((slices) => slices.user);
   const { isWindowOpen, windowContent } = useSelector((slices) => slices.window);
   const { videoMark, allCompleted } = useSelector((slices) => slices.video);
   const { result } = useSelector((slices) => slices.quiz);
@@ -27,9 +29,30 @@ const ReduxPanel = () => {
   const collapsePanel = () => setIsHovered(false)
   const setText = (fld, txt) => setInput(prev => ({...prev, [fld]: txt}));
 
+  const uploadQue = async () => {
+    const quePack = {
+      QuestionType: "Sorting",
+      QuestionText: "state.question",
+      Choices: ["c","b","a"],
+      CorrectAnswers : "abc",
+    }
+    try {
+      const response = await uploadQuestionDB(accessToken, quePack);
+      console.log('**RESPONSE**: ', response)
+    } catch (err) {
+      console.error(err.message)
+    }
+  }
+
   return (
     <div className={`redux-panel ${isHovered ? "expand" : ""}`} onMouseEnter={expandPanel} onMouseLeave={collapsePanel}>
       <div className='accordions'>
+        <Accordion title={"Notification"}>
+          <input type='text' className='rp-i' value={input.notificationType} onChange={(e) => setText("notificationType", e.target.value)} placeholder='type' />
+          <input type='text' className='rp-i' value={input.notificationText} onChange={(e) => setText("notificationText", e.target.value)} placeholder='text' />
+          <input type='number' className='rp-i' value={input.notificationTime} onChange={(e) => setText("notificationTime", e.target.value)} placeholder='time' />
+          <button className='rp-b' onClick={() => dispatch(setNotification({type:input.notificationType, text:input.notificationText, time:input.notificationTime}))}>Set</button>
+        </Accordion>
         <Accordion title={"Auth"}>
           <DevButton txt={"Sign In"} condition={isSignedIn} onClick={() => dispatch(signUserIn())} />
           <DevButton txt={"Log Out"} condition={!isSignedIn} onClick={() => dispatch(logUserOut())} />
@@ -59,7 +82,7 @@ const ReduxPanel = () => {
           <DevButton txt={"Passed"} condition={result === "passed"} onClick={() => dispatch(setResult("passed"))} />
         </Accordion>
         <Accordion title={"Upload to Database"}>
-          <DevButton txt={"question"} condition={false} onClick={() => dispatch(packUp())} />
+          <DevButton txt={"question"} condition={false} onClick={() => uploadQue()} />
           <DevButton txt={"video"} condition={false} onClick={() => {}} />
         </Accordion>
       </div>
