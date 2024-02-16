@@ -1,0 +1,24 @@
+.drag-n-sort {
+  width: 300px;
+  /* background: red; */
+  /* overflow: hidden; */
+  /* border-radius: 10px; */
+}
+.drag-n-sort .list {
+  /* background: blue; */
+  overflow: hidden;
+}
+.drag-n-sort .option {
+  /* background: rgb(89, 92, 28); */
+  margin-top: 15px;cursor: default;
+}
+.drag-n-sort .option .choice {
+  margin: 0;
+  animation: none;
+}
+/* .drag-n-sort .option:first-child {
+  margin-top: 0;
+}
+.drag-n-sort .option:last-child {
+  margin-bottom: 0;
+} */

@@ -5,6 +5,7 @@ import videoReducer from "./videoSlice";
 import settingsReducer from "./settingSlice";
 import quizReducer from "./quizSlice";
 import windowReducer from "./windowSlice";
+import uploadDBReducer from "./uploadDBSlice";
 
 export const store = configureStore({
   reducer: {
@@ -14,6 +15,7 @@ export const store = configureStore({
     settings: settingsReducer,
     quiz: quizReducer,
     window: windowReducer,
+    uploadDB: uploadDBReducer,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware({
     serializableCheck: false

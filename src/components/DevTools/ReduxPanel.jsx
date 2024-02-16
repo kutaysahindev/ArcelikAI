@@ -8,6 +8,7 @@ import { setAllCompletedFalse, setAllCompletedTrue, setVideoMark } from '../../r
 import { signUserIn, logUserOut } from '../../redux/userSlice';
 import DevButton from './DevButton';
 import { useSelector } from 'react-redux';
+import { packUp } from '../../redux/uploadDBSlice';
 
 const ReduxPanel = () => {
   const [isHovered, setIsHovered] = useState(false)
@@ -56,6 +57,10 @@ const ReduxPanel = () => {
           <DevButton txt={"Undone"} condition={result === "undone"} onClick={() => dispatch(setResult("undone"))} />
           <DevButton txt={"Failed"} condition={result === "failed"} onClick={() => dispatch(setResult("failed"))} />
           <DevButton txt={"Passed"} condition={result === "passed"} onClick={() => dispatch(setResult("passed"))} />
+        </Accordion>
+        <Accordion title={"Upload to Database"}>
+          <DevButton txt={"question"} condition={false} onClick={() => dispatch(packUp())} />
+          <DevButton txt={"video"} condition={false} onClick={() => {}} />
         </Accordion>
       </div>
       <h2 className='vertical'>

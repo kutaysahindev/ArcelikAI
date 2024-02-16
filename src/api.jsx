@@ -169,3 +169,27 @@ export const postQuestionResponses = async (accessToken, responses) => {
     throw error;
   }
 };
+
+// Question Upload to DB
+export const uploadQuestionDB = async (accessToken, question) => {
+  const endpoint = "/api/--------";
+  try {
+    setAuthHeader(accessToken);
+    const response = await instance.post(endpoint, question);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+// Video Upload to DB
+export const uploadVideoDB = async (accessToken, video) => {
+  const endpoint = "/api/--------";
+  try {
+    setAuthHeader(accessToken);
+    const response = await instance.post(endpoint, video);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};

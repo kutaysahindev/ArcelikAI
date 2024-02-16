@@ -16,11 +16,9 @@ import {
 import { formDriver1, formDriver2 } from "../utils/guides";
 import { driver } from "driver.js";
 import "driver.js/dist/driver.css";
-import { setAccessToken, setIsTutorialDone } from "../redux/userSlice";
-import { useOktaAuth } from "@okta/okta-react";
+import { setIsTutorialDone } from "../redux/userSlice";
 import Window from "../components/Window/Window";
 import FormHeader from "../components/Form/FormHeader";
-import { setAllCompletedTrue } from "../redux/videoSlice";
 
 const initialState = {
   appName: "",
@@ -50,17 +48,22 @@ export default function Form() {
   const [files, setFiles] = useState([]);
   const [aiModals, setAiModals] = useState(null);
   const [state, dispatchR] = useReducer(reducer, initialState);
-  const { isVideoWindowOpen, allCompleted } = useSelector(
-    (state) => state.video
-  );
+  const { allCompleted } = useSelector((state) => state.video);
   const { isWindowOpen, windowContent } = useSelector((state) => state.window);
-  const { isQuizWindowOpen } = useSelector((state) => state.quiz);
   const user = useSelector((state) => state.user);
+  const { LandingUrl } = useSelector((state) => state.settings);
   const dispatch = useDispatch();
   const stepCount = 2;
-  const { authState, oktaAuth } = useOktaAuth();
 
-  const { LandingUrl } = useSelector((state) => state.settings);
+  const handleInputChange = (field, value) => {
+    dispatchR({ type: "SET_INPUT", field, value });
+  };
+
+  const handleSteps = (e) => {
+    e.preventDefault();
+    if (step > 1) setStep((prev) => prev - 1);
+    else setStep((prev) => prev + 1);
+  };
 
   useEffect(() => {
     if (isWindowOpen) document.body.style.overflow = "hidden";
@@ -81,7 +84,6 @@ export default function Form() {
       }
     };
     if (allCompleted && user.accessToken.length > 1) {
-      // dispatch(setAllCompletedTrue())
       postVideo();
       console.log("hepsi bitti !!!")
     }
@@ -109,10 +111,6 @@ export default function Form() {
   }, [step, isWindowOpen]);
 
   useEffect(() => {
-    if (user.isSignedIn && authState && !user.accessToken) {
-      const aT = authState.accessToken.accessToken;
-      dispatch(setAccessToken(aT));
-    }
     const fetchData = async () => {
       try {
         const models = await getAiModals(user.accessToken);
@@ -122,21 +120,10 @@ export default function Form() {
       }
     };
     if (user.isSignedIn && user.accessToken) fetchData();
-  }, [authState, user.accessToken, user.isSignedIn]);
+  }, [user.accessToken, user.isSignedIn]);
 
-  const handleInputChange = (field, value) => {
-    dispatchR({ type: "SET_INPUT", field, value });
-  };
-
-  const handleSteps = (e) => {
-    e.preventDefault();
-    if (step > 1) setStep((prev) => prev - 1);
-    else setStep((prev) => prev + 1);
-  };
-
-  const uploadHandler = async (e) => {
-    e.preventDefault();
-
+  
+  const formDataHandler = () => {
     const fd = new FormData();
     fd.append("AppName", state.appName);
     fd.append("WelcomeMessage", state.welcomeMessage);
@@ -150,17 +137,23 @@ export default function Form() {
     files.forEach((file) => {
       fd.append("Pdfs", file);
     });
+    return fd;
+  };
 
-    const sendForm = async (fd, accessToken) => {
-      try {
-        const response = await createApp(fd, accessToken);
-        setIsCreating(response);
-        window.location.href = LandingUrl;
-      } catch (error) {
-        console.log("Error sending form:", error);
-      }
-    };
-    await sendForm(fd, authState?.accessToken.accessToken);
+  const sendForm = async (fd, accessToken) => {
+    try {
+      const response = await createApp(fd, accessToken);
+      setIsCreating(response);
+      window.location.href = LandingUrl;
+    } catch (error) {
+      console.log("Error sending form:", error);
+    }
+  };
+
+  const uploadHandler = async (e) => {
+    e.preventDefault();
+    const formData = formDataHandler();
+    await sendForm(formData, user.accessToken);
   };
 
   return (
@@ -168,7 +161,6 @@ export default function Form() {
       {user.isSignedIn ? (
         <div>
           <Window content={windowContent} visibility={isWindowOpen} />
-          {/* {isWindowOpen && <Window content={windowContent} visiblity={isWindowOpen} />} */}
           <form className="form-container">
             <FormHeader step={step} />
             <StepBar step={step} stepCount={stepCount} />
