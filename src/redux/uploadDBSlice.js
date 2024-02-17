@@ -89,7 +89,7 @@ export const uploadDBSlice = createSlice({
     setErrorMessage: (state, action) => {
       state.errorMessage = action.payload;
     },
-    packUp: (state) => {
+    packUp: (state, action) => {
       const qT = state.questionType.value;
       const cC = state.choices.length;
       const choiceTxts = state.choices.map(c => c.option)
@@ -112,15 +112,15 @@ export const uploadDBSlice = createSlice({
         //   Choices: state.choices,
         //   CorrectAnswers : state.answer,
         // }
-        state.quePack = {
-          QuestionType: "Sorting",
-          QuestionText: "state.question",
-          Choices: ["c","b","a"],
-          CorrectAnswers : "abc",
-        }
+        // state.quePack = {
+        //   QuestionType: "Sorting",
+        //   QuestionText: "state.question",
+        //   Choices: ["c","b","a"],
+        //   CorrectAnswers : "abc",
+        // }
         // const uploadQue = async () => {
         //   try {
-        //     const response = await uploadQuestionDB(,state.quePack);
+        //     const response = await uploadQuestionDB(action.payload ,state.quePack);
         //     console.log('**RESPONSE**: ', response)
         //   } catch (err) {
         //     console.error(err.message)
@@ -128,7 +128,21 @@ export const uploadDBSlice = createSlice({
         // }
         // uploadQue();
       }
-      // console.log('state.quePack: ', state.quePack)
+      state.quePack = {
+        QuestionType: "Sorting",
+        QuestionText: "state.question",
+        Choices: ["c","b","a"],
+        CorrectAnswers : "abc",
+      }
+      const uploadQue = async () => {
+        try {
+          const response = await uploadQuestionDB(action.payload ,state.quePack);
+          console.log('**RESPONSE**: ', response)
+        } catch (err) {
+          console.error(err.message)
+        }
+      }
+      uploadQue();
     },
   },
 });

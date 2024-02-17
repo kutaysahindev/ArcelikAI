@@ -17,7 +17,8 @@ const initialState = {
   isTutorialDone: "",
   notificationType: "", // success - message - warning - error
   notificationText: "", 
-  notificationTime: 3000,  // 3 - 5 - 10 - 20
+  notificationTime: 0,  // 3 - 5 - 10 - 20
+  notificationDirection: "up",  // up - down
 };
 
 export const userSlice = createSlice({
@@ -54,6 +55,10 @@ export const userSlice = createSlice({
       state.notificationTime = action.payload.time*1000;
       state.notificationType = action.payload.type;
       state.notificationText = action.payload.text;
+      if(action.payload.text) state.notificationDirection = "down";
+    },
+    setNotificationDirection: (state) => {
+      state.notificationDirection = "up";
     },
   },
 });
@@ -69,6 +74,7 @@ export const {
   setAccessToken,
   setIsTutorialDone,
   setNotification,
+  setNotificationDirection,
 } = userSlice.actions;
 
 export default userSlice.reducer;

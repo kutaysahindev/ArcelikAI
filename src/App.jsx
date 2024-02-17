@@ -15,7 +15,7 @@ import { DropNotification } from "./components/DropNotification/DropNotification
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { setNotification } from "./redux/userSlice";
+import { setNotification, setNotificationDirection } from "./redux/userSlice";
 
 const router = createBrowserRouter([
   {
@@ -65,22 +65,25 @@ function App() {
 
   useEffect(() => {
     if (notificationText) {
-      console.log('notificationTime: ', notificationTime)
-      setTimeout(() => {
-        dispatch(setNotification({ type: "", text: "", time: 3 }));
-      }, notificationTime);
+      setTimeout(() => dispatch(setNotificationDirection()), notificationTime-1000);
+      setTimeout(() => dispatch(setNotification({ type: "", text: "", time: 0 })), notificationTime);
     }
   }, [notificationText]);
 
   return (
     <Security oktaAuth={oktaAuth} restoreOriginalUri={restoreOriginalUri}>
-      {notificationText && (
+      {/* {notificationText && (
         <DropNotification
           type={notificationType}
           txt={notificationText}
           time={notificationTime}
         />
-      )}
+      )} */}
+      <DropNotification
+        type={notificationType}
+        txt={notificationText}
+        time={notificationTime}
+      />
       <RouterProvider router={router} />
     </Security>
   );

@@ -2,27 +2,41 @@
   width: 100%;
   /* background: #e9fa0077; */
   position: fixed;
-  top: -60px;
+  /* top: -60px; */
+  top: 20px;
   left: 0;
   z-index: 25;
   display: flex;
   justify-content: center;
   align-items: center;
   user-select: none;
-  animation: drop 5s ease-in-out;
+  /* animation: drop 5s ease-in-out; */
 }
-
-.notification-container.sec-3 {
-  animation: dropFast 3s ease-in-out;
+.notification-container.down {
+  animation: down 1s ease-in-out;
 }
-.notification-container.sec-5 {
-  animation: drop 5s ease-in-out;
+.notification-container.up {
+  animation: up 1s ease-in-out;
 }
-.notification-container.sec-10 {
-  animation: dropSlow 10s ease-in-out;
+@keyframes down {
+  0% {
+    top: -40px;
+    opacity: 0;
+  }
+  100% {
+    top: 20px;
+    opacity: 1;
+  }
 }
-.notification-container.sec-20 {
-  animation: dropExtraSlow 20s ease-in-out;
+@keyframes up {
+  0% {
+    top: 20px;
+    opacity: 1;
+  }
+  100% {
+    top: -40px;
+    opacity: 0;
+  }
 }
 
 .notification-container .notification-txt {
@@ -55,6 +69,19 @@
   background: rgb(255, 42, 42);
   box-shadow: 0 0 15px 5px rgba(255, 67, 67, 0.72);
   color: rgb(255, 255, 255);
+}
+
+/* .notification-container.sec-3 {
+  animation: dropFast 3s ease-in-out;
+}
+.notification-container.sec-5 {
+  animation: drop 5s ease-in-out;
+}
+.notification-container.sec-10 {
+  animation: dropSlow 10s ease-in-out;
+}
+.notification-container.sec-20 {
+  animation: dropExtraSlow 20s ease-in-out;
 }
 
 @keyframes dropFast {
@@ -131,4 +158,4 @@
     top: -60px;
     opacity: 0;
   }
-}
+} */
