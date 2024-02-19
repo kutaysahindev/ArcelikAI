@@ -128,6 +128,14 @@ const Main = () => {
     }
     return () => clearInterval(timerId);
   }, [user.isLoading, dispatch, navigate, user.isSignedIn]);
+
+  // If the access token could not be validated, the user will be signed out
+  useEffect(() => {
+    if (!user.isLoading && authState?.isAuthenticated && !user.isSignedIn) {
+      console.log("You were taken out")
+      oktaAuth.signOut();
+    }
+  }, [user.isLoading]);
   
   return (
     <>

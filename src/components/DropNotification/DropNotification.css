@@ -3,24 +3,26 @@
   /* background: #e9fa0077; */
   position: fixed;
   /* top: -60px; */
-  top: 20px;
+  /* top: auto; */
+  /* top: 20px; */
   left: 0;
   z-index: 25;
   display: flex;
   justify-content: center;
   align-items: center;
   user-select: none;
-  /* animation: drop 5s ease-in-out; */
 }
 .notification-container.down {
+  top: 20px;
   animation: down 1s ease-in-out;
 }
 .notification-container.up {
+  top: -60px;
   animation: up 1s ease-in-out;
 }
 @keyframes down {
   0% {
-    top: -40px;
+    top: -60px;
     opacity: 0;
   }
   100% {
@@ -34,7 +36,7 @@
     opacity: 1;
   }
   100% {
-    top: -40px;
+    top: -60px;
     opacity: 0;
   }
 }
@@ -51,7 +53,7 @@
   word-spacing: 1px;
 }
 .notification-container .notification-txt.success {
-  background: rgb(21, 159, 0);
+  background: rgb(25, 188, 0);
   box-shadow: 0 0 15px 5px rgba(4, 167, 23, 0.72);
   color: rgb(255, 255, 255);
 }
