@@ -1,0 +1,165 @@
+.fancy-input {
+  position: relative;
+  height: 40px;
+  width: 400px;
+  --border-weight: 3px;
+}
+.fancy-input.add-choice,
+.fancy-input.choice {
+  width: 300px;
+}
+.fancy-input.add-choice {
+  /* margin: 10px 0; */
+  margin-top: 10px;
+}
+.fancy-input.choice {
+  margin: 15px 0;
+  animation: slideIn 0.5s ease-in-out;
+}
+.fancy-input.choice input,
+.fancy-input.add-choice input {
+  width: 300px;
+}
+
+.fancy-input input {
+  box-sizing: border-box;
+  display: block;
+  width: 400px;
+  /* height: 40px; */
+  height: 100%;
+  background: transparent;
+  color: white;
+  font-family: inherit;
+  font-weight: 500;
+  border: solid var(--border-weight) #ccc;
+  border-radius: 10px;
+  padding: 0 15px;
+  transition: all 0.3s ease;
+  /* margin: 10px 0; */
+  /* background: #245ba3; */
+}
+.fancy-input input:focus {
+  border-color: #a32424;
+  outline: none;
+}
+.fancy-input input:focus + label {
+  color: #a32424;
+}
+.fancy-input label {
+  position: absolute;
+  cursor: default;
+  /* z-index: 0; */
+  top: 13px;
+  left: 10px;
+  font-size: 12px;
+  font-weight: bold;
+  background: #242424;
+  border-radius: 10px;
+  padding: 0 5px;
+  color: #999;
+  transition: all 0.3s ease;
+  user-select: none;
+}
+.fancy-input input:focus + label,
+.fancy-input input:valid + label {
+  font-size: 11px;
+  top: -5px;
+  left: 5px;
+}
+
+.fancy-input .operations {
+  position: absolute;
+  top: 30%;
+  right: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #999;
+}
+.fancy-input .operations .btn {
+  cursor: pointer;
+  transition: all 200ms;
+}
+.fancy-input .operations .s-check {
+  color: #656565;
+}
+.fancy-input .operations .s-check:hover {
+  color: #e8e8e8;
+}
+.fancy-input .operations .s-check.selected {
+  color: rgb(0, 209, 0);
+}
+.fancy-input .operations .m-check:hover {
+  color: green;
+}
+.fancy-input .operations .m-check.selected {
+  color: rgb(0, 209, 0);
+}
+.fancy-input .operations .trash:hover {
+  color: rgb(192, 28, 28);
+}
+.fancy-input .operations .add:hover {
+  color: #cd6e15;
+}
+.fancy-input .operations .handle:hover {
+  color: rgb(255, 255, 255);
+  cursor: grab;
+}
+.fancy-input .operations .handle:active {
+  color: rgb(255, 255, 255);
+}
+
+@keyframes slideIn {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.fancy-input.question input:focus {
+  border-color: #ad50e2;
+  caret-color: #ad50e2;
+}
+.fancy-input.question input:focus + label {
+  color: #ad50e2;
+}
+
+.fancy-input.points input::-webkit-outer-spin-button,
+.fancy-input.points input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.fancy-input.points input:focus {
+  /* border-color: #ad50e2;
+  caret-color: #ad50e2; */
+}
+.fancy-input.points input:focus + label {
+  /* color: #ad50e2; */
+}
+
+.fancy-input.add-choice input {
+  border-color: #747474;
+  caret-color: #747474;
+}
+.fancy-input.add-choice input + label {
+  color: #747474;
+}
+.fancy-input.add-choice input:focus {
+  border-color: #cd6e15;
+  caret-color: #cd6e15;
+}
+.fancy-input.add-choice input:focus + label {
+  color: #cd6e15;
+}
+
+.fancy-input.choice input:focus {
+  border-color: #1590cd;
+  caret-color: #1590cd;
+}
+.fancy-input.choice input:focus + label {
+  color: #1590cd;
+}

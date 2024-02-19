@@ -1,9 +1,8 @@
 .accordion {
-  /* border: 1px solid #ccc; */
-  border-radius: 6px;
-  /* margin-bottom: 10px; */
-  overflow: hidden;
   width: 350px;
+  margin-bottom: 1rem;
+  border-radius: 6px;
+  overflow: hidden;
 }
 
 .accordion .accordion-header {
