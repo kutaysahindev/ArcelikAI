@@ -10,13 +10,9 @@
   width: 10%;
 }
 .logo img {
-<<<<<<< HEAD
   margin-top: 0.65rem;
-  width: 9vw;
   position: absolute;
-=======
   width: 100%;
->>>>>>> 1e478f51bd820d870f2c4b089ead8ec79b5015bb
 }
 
 #navbar .title {

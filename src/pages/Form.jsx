@@ -88,20 +88,6 @@ export default function Form() {
   }, [allCompleted, user.accessToken]);
 
   useEffect(() => {
-if (!isVideoWindowOpen) {
-      if (step === 1) driver(formDriver1).drive();
-      if (step === 2) driver(formDriver2).drive();
-    }
-  }, [step, isVideoWindowOpen]);
-
-  //  AXIOS - GETTING AI MODELS
-  // const getAiModals = () => {
-  //   axios
-  //     .get("https://localhost:7026/api/models")
-  //     // .get("https://6582f75e02f747c8367abde3.mockapi.io/api/v1/modals")
-  //     .then((res) => setAiModals(res.data))
-  //     .catch((err) => console.error(err.message));
-  // };
     const postTProgress = async () => {
       try {
         await postTutorialProgress(user.accessToken);
