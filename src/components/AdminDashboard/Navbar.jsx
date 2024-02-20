@@ -1,9 +1,10 @@
 import { FiUser } from "react-icons/fi";
+import logo from "../../assets/global.png";
 
 const Navbar = () => {
   return (
     <nav className="navbar">
-      <img src="../public/logo.png" alt="Logo" className="logo" />
+      <img src={logo} alt="Logo" className="logo" />
       <input type="text" placeholder="Search" className="search-input" />
       <div className="user-info">
         <span className="username">Kutay Şahin</span>
