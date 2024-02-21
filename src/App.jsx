@@ -1,51 +1,16 @@
 // import React from "react";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { RouterProvider } from "react-router-dom";
 import "./App.css";
 
 import { OktaAuth } from "@okta/okta-auth-js";
 import { Security } from "@okta/okta-react";
-import { LoginCallback } from "@okta/okta-react";
 
-import RootLayout from "./layouts/RootLayout";
-import Home from "./pages/Home";
-import Form from "./pages/Form";
-import NotFound from "./pages/NotFound";
-import Anteroom from "./pages/Anteroom";
 import { DropNotification } from "./components/DropNotification/DropNotification";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { setNotification, setNotificationDirection } from "./redux/userSlice";
-
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <RootLayout />,
-    children: [
-      {
-        path: "/",
-        element: <Home />,
-      },
-      {
-        path: "login/callback",
-        redirectUri: "/anteroom",
-        element: <LoginCallback />,
-      },
-      {
-        path: "form",
-        element: <Form />,
-      },
-      {
-        path: "anteroom",
-        element: <Anteroom />,
-      },
-      {
-        path: "*",
-        element: <NotFound />,
-      },
-    ],
-  },
-]);
+import { router } from "./pages/Routes";
 
 const oktaAuth = new OktaAuth({
   issuer: "https://dev-36035985.okta.com/oauth2/default",
@@ -65,8 +30,14 @@ function App() {
 
   useEffect(() => {
     if (notificationText) {
-      setTimeout(() => dispatch(setNotificationDirection()), notificationTime-1000);
-      setTimeout(() => dispatch(setNotification({ type: "", text: "", time: 0 })), notificationTime);
+      setTimeout(
+        () => dispatch(setNotificationDirection()),
+        notificationTime - 1000
+      );
+      setTimeout(
+        () => dispatch(setNotification({ type: "", text: "", time: 0 })),
+        notificationTime
+      );
     }
   }, [notificationText]);
 
