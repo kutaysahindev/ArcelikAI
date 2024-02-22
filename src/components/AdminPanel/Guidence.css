@@ -1,0 +1,11 @@
+.navigate {
+    margin-left: 1.5rem;
+    padding-bottom: 1rem;
+    width: 97vw;
+    border-bottom: 1px solid #ccc;
+}
+
+.title {
+    font-weight: 500;
+    font-size: 22px;
+}

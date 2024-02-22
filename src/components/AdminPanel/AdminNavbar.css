@@ -1,0 +1,38 @@
+/* Font import */
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:opsz@9..40&display=swap");
+
+.logo {
+    margin-top: 0.3rem;
+    position: absolute;
+    width: 7vw;
+    margin-left: 1.5rem;
+}
+
+.user {
+    margin-top: 1.8rem;
+    width: 1.8vw;
+    height: auto;
+    margin-right: 1.5rem;
+}
+
+.user-section {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.first-button {
+    margin-right:1rem;
+    margin-top:1.5rem;
+    font-weight:500;
+    cursor: pointer;
+}
+
+.navbar-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 30px;
+    /* border-bottom: 1px solid #ccc; */
+}
+
