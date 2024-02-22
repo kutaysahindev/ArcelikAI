@@ -45,7 +45,13 @@ export const router = createBrowserRouter([
     ],
   },
   {
-    path: "*",
-    element: <NotFound />,
+    path: "login/callback",
+    redirectUri: "/home",
+    element: <LoginCallback />,
   },
-]);
+  // {
+  //   path: "*",
+  //   element: <NotFound />,
+  // },
+  ]);
+  

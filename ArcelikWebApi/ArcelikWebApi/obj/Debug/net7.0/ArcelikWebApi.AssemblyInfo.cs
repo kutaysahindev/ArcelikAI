@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ArcelikWebApi")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8a6fc6f556870c681e69d3816f1e8e15fc0181d5")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3386772d9906d8d5dcc96a88cdb941602cabe758")]
 [assembly: System.Reflection.AssemblyProductAttribute("ArcelikWebApi")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ArcelikWebApi")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
