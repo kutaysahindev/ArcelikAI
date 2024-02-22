@@ -128,11 +128,35 @@ export const uploadDBSlice = createSlice({
         // }
         // uploadQue();
       }
+      // state.quePack = {
+      //   QuestionType: "MultipleChoice",
+      //   QuestionText: "What is the capital of Turkey?",
+      //   Choices: ["ankara","istanbul","çanakkale"],
+      //   CorrectAnswers : ["istanbul"],
+      // }
+      // state.quePack = {
+      //   QuestionType: "MultipleChoiceAndAnswers",
+      //   QuestionText: "Select even numbers.",
+      //   Choices: ["1","2","3","4"],
+      //   CorrectAnswers : ["2", "4"],
+      // }
+      // state.quePack = {
+      //   QuestionType: "Sorting",
+      //   QuestionText: "Sort these numbers by ascending order.",
+      //   Choices: ["4","2","1","3"],
+      //   CorrectAnswers : ["1","2","3","4"],
+      // }
+      // state.quePack = {
+      //   QuestionType: "FillInTheBlank",
+      //   QuestionText: "What is the name of our current Company",
+      //   Choices: null,
+      //   CorrectAnswers : ["Arçelik Global"],
+      // }
       state.quePack = {
-        QuestionType: "Sorting",
-        QuestionText: "state.question",
-        Choices: ["c","b","a"],
-        CorrectAnswers : "abc",
+        QuestionType: "TrueFalse",
+        QuestionText: "Is time relevant?",
+        Choices: ["True", "False"],
+        CorrectAnswers : ["True"],
       }
       const uploadQue = async () => {
         try {
