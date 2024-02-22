@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const baseURL = "http://164.92.200.35:5219/"; // Replace with your API base URL
+const baseURL = "https://localhost:7026/"; // local backend URL
+// const baseURL = "http://164.92.200.35:5219/"; // Replace with your API base URL
 
 const instance = axios.create({
   baseURL: baseURL,

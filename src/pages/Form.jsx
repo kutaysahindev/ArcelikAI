@@ -85,7 +85,7 @@ export default function Form() {
     };
     if (allCompleted && user.accessToken.length > 1) {
       postVideo();
-      console.log("hepsi bitti !!!")
+      // console.log("hepsi bitti !!!")
     }
   }, [allCompleted, user.accessToken]);
 

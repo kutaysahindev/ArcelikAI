@@ -122,7 +122,7 @@ const Main = () => {
     let timerId;
     if (user.isLoading) {
       timerId = setTimeout(() => {
-        if (user.isSignedIn) navigate("/form");
+        if (user.isSignedIn) navigate("/home/form");
         dispatch(setIsLoading(false));
       }, 3000);
     }
@@ -130,12 +130,12 @@ const Main = () => {
   }, [user.isLoading, dispatch, navigate, user.isSignedIn]);
 
   // If the access token could not be validated, the user will be signed out
-  useEffect(() => {
-    if (!user.isLoading && authState?.isAuthenticated && !user.isSignedIn) {
-      console.log("You were taken out")
-      oktaAuth.signOut();
-    }
-  }, [user.isLoading]);
+  // useEffect(() => {
+  //   if (!user.isLoading && authState?.isAuthenticated && !user.isSignedIn) {
+  //     console.log("You were taken out")
+  //     oktaAuth.signOut();
+  //   }
+  // }, [user.isLoading]);
   
   return (
     <>

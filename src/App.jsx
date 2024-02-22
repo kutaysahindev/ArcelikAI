@@ -16,6 +16,7 @@ const oktaAuth = new OktaAuth({
   issuer: "https://dev-36035985.okta.com/oauth2/default",
   clientId: "0oadru54zlAMBE58n5d7",
   redirectUri: window.location.origin + "/login/callback",
+  // redirectUri: window.location.origin + "/home/login/callback",
 });
 
 const restoreOriginalUri = async (_oktaAuth, originalUri) => {
