@@ -169,3 +169,85 @@ export const postQuestionResponses = async (accessToken, responses) => {
     throw error;
   }
 };
+
+// Question Upload to DB
+export const uploadQuestionDB = async (accessToken, question) => {
+  const endpoint = "/api/QuestionAndVideo/postquestion"
+  try {
+    setAuthHeader(accessToken);
+    const response = await instance.post(endpoint, question);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+// VIDEO 
+
+// Video Upload to DB
+export const formData = async (accessToken, video) => {
+  const endpoint = "/api/adminvideo/upload";
+  try {
+    setAuthHeader(accessToken);
+    const response = await instance.post(endpoint, video);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+// Veritabanından videoları çekmek için bir fonksiyon (videomanagement.jsx)
+export const fetchVideosFromDatabase = async () => {
+  const endpoint = "/api/videos"; 
+  try {
+    const response = await instance.get(endpoint);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+// Yeni video sırasını veritabanına göndermek için bir fonksiyon (videomanagement.jsx)
+export const updateVideoOrderInDatabase = async (accessToken, updatedVideos) => {
+  const endpoint = "/api/update-video-order"; 
+  try {
+    setAuthHeader(accessToken); 
+    const response = await instance.post(endpoint, updatedVideos);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+// Video detaylarını güncellemek için bir fonksiyon (videoupdating.jsx)
+export const updateVideoDetailsInDatabase = async (updatedVideoDetails) => {
+  const endpoint = "/api/update-video-details";
+  try {
+    const response = await instance.put(endpoint, updatedVideoDetails);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+// Veritabanından video isimlerini çekmek için bir fonksiyon (VideoPool.jsx)
+export const fetchVideoNamesFromDatabase = async () => {
+  const endpoint = "/api/videos"; 
+  try {
+    const response = await instance.get(endpoint);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+// Belirli bir videoyu veritabanından silmek için bir fonksiyon (videopool.jsx)
+export const deleteVideoFromDatabase = async (videoId) => {
+  const endpoint = `/api/videos/${videoId}`; 
+  try {
+    const response = await instance.delete(endpoint);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};

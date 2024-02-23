@@ -1,4 +1,4 @@
-import './VideoFooter.css';
+import './AdminFooter.css';
 
 function VideoFooter() {
     return(

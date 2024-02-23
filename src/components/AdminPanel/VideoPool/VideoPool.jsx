@@ -1,59 +1,70 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './VideoPool.css';
 import { CiEdit, CiTrash } from "react-icons/ci";
+import { useNavigate } from 'react-router-dom';
+import { fetchVideoNamesFromDatabase } from "../../../api.jsx";
+import { deleteVideoFromDatabase } from "../../../api.jsx";
+
 
 const VideoPool = () => {
-  const [currentPage, setCurrentPage] = useState(1); // Aktif sayfa numarası
-  const videosPerPage = 10; // Sayfa başına gösterilecek video sayısı
+  const [currentPage, setCurrentPage] = useState(1); 
+  const videosPerPage = 10; 
+  const [allVideos, setAllVideos] = useState([]);
 
-  // Tüm video isimlerinin bir listesi (örneğin, veritabanından alınabilir)
-  const [allVideos, setAllVideos] = useState([
-    'Video 1 ',
-    'Video 2 ',
-    'Video 3 ',
-    'Video 4 ',
-    'Video 5 ',
-    'Video 6 ',
-    'Video 7 ',
-    'Video 8 ',
-    'Video 9 ',
-    'Video 10',
-    'Video 11',
-    'Video 12',
-    'Video 13',
-    'Video 14',
-    'Video 15',
-    'Video 16',
-    'Video 17',
-    'Video 18',
-    'Video 19',
-    'Video 20',
-    // Daha fazla video ekleyebilirsiniz
-  ]);
+  useEffect(() => {
+    const fetchVideos = async () => {
+      try {
+        const videoNames = await fetchVideoNamesFromDatabase();
+        setAllVideos(videoNames);
+      } catch (error) {
+        console.error('Error fetching videos:', error);
+      }
+    };
 
-  // Aktif sayfadaki video listesi
+    fetchVideos();
+  }, []);
+
+  // video list of current page
   const indexOfLastVideo = currentPage * videosPerPage;
   const indexOfFirstVideo = indexOfLastVideo - videosPerPage;
   const currentVideos = allVideos.slice(indexOfFirstVideo, indexOfLastVideo);
 
-  // Sayfa numarasını değiştirme fonksiyonu
+  // change page number
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
-  // Video silme fonksiyonu
-  const handleDelete = (index) => {
-    const updatedVideos = [...allVideos];
-    updatedVideos.splice(indexOfFirstVideo + index, 1); // Doğru indeksi silmek için indexOfFirstVideo'e ekleyin
-    setAllVideos(updatedVideos);
-    // Eğer silinen son video son sayfadaysa, sayfayı bir azaltın
-    if (currentVideos.length === 1 && currentPage > 1) {
-      setCurrentPage(currentPage - 1);
+  // video deleting func
+  const handleDelete = async (index) => {
+    try {
+      // Silinecek videoyu belirlemek için video index'ini kullanabilirsiniz
+      const videoToDelete = allVideos[indexOfFirstVideo + index];
+
+      // Veritabanından videoyu silme isteği gönderiyoruz
+      await deleteVideoFromDatabase(videoToDelete.id);
+
+      // Silme işlemi başarılı olduktan sonra listeden de kaldırıyoruz
+      const updatedVideos = [...allVideos];
+      updatedVideos.splice(indexOfFirstVideo + index, 1);
+      setAllVideos(updatedVideos);
+
+      // Sayfa numarasını azaltma
+      if (currentVideos.length === 1 && currentPage > 1) {
+        setCurrentPage(currentPage - 1);
+      }
+    } catch (error) {
+      console.error('Error deleting video:', error);
     }
+  };
+
+  const navigate = useNavigate();
+
+  const handleEdit = () => {
+    navigate('/ChangeExistingVideo');
   };
 
   return (
     <div className='Container'>
       <div className='titles'>
-        <h1 className='first-title'>Video Pool</h1>
+        <h1 className='first-title'>All Videos</h1>
         <h2 className='second-title'>View and browse all videos, edit video details, secure video deletion. All in one.</h2>
       </div>
       <div className="video-pool">
@@ -61,8 +72,10 @@ const VideoPool = () => {
           {currentVideos.map((video, index) => (
             <div className="video-item" key={index}>
               {video}
-              <CiEdit className='item' size='1.2rem' cursor='pointer' />
-              <CiTrash className='item-2' size='1.2rem' cursor='pointer' onClick={() => handleDelete(index)} />
+              <div className="item-pack">
+                <CiEdit className='item' size='1.2rem' cursor='pointer' onClick={handleEdit} />
+                <CiTrash className='item-2' size='1.2rem' cursor='pointer' onClick={() => handleDelete(index)} />
+              </div>
             </div>
           ))}
         </div>
@@ -80,31 +93,3 @@ const VideoPool = () => {
 };
 
 export default VideoPool;
-
-// When we'll handle database connection:
-
-// import React, { useState, useEffect } from 'react';
-
-// const VideoList = () => {
-//   const [videos, setVideos] = useState([]);
-
-//   useEffect(() => {
-//     fetch('/api/videos')
-//       .then(response => response.json())
-//       .then(data => setVideos(data))
-//       .catch(error => console.error('Veri alınırken hata oluştu:', error));
-//   }, []);
-
-//   return (
-//     <div>
-//       <h2>Video Listesi</h2>
-//       <ul>
-//         {videos.map((video, index) => (
-//           <li key={index}>{video.title}</li>
-//         ))}
-//       </ul>
-//     </div>
-//   );
-// };
-
-// export default VideoList;

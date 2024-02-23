@@ -50,20 +50,20 @@ const Navbar = () => {
             Ethics & Security
           </div>
         </div>
-      ) : location.pathname === "/form" ? (
+      ) : location.pathname === "/home/form" ? (
         <h2 className="title">App Creation Wizard</h2>
-      ) : location.pathname === "/anteroom" ? (
+      ) : location.pathname === "/home/anteroom" ? (
         <h2 className="title">Signing You In</h2>
       ) : (
         <h2 className="title"> </h2>
       )}
 
       <div className="right-container">
-        <Link to="/" className="">
+        <Link to="/home" className="">
           Home
         </Link>
         {user.isSignedIn && (
-          <Link to="/form" className="">
+          <Link to="/home/form" className="">
             Form
           </Link>
         )}

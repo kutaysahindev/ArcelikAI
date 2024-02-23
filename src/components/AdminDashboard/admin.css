@@ -1,0 +1,156 @@
+.admin-dashboard {
+  font-family: "Nunito Sans", sans-serif;
+  font-optical-sizing: auto;
+}
+/* Navbar */
+.navbar {
+  background-color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.logo {
+  height: 2rem;
+  margin-left: 1rem;
+}
+
+.search-input {
+  background-color: #faf5f5;
+  color: #202224;
+  padding: 0.5rem 1.5rem;
+  border-radius: 2rem;
+  outline: none;
+  border: none;
+  width: 20rem;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+}
+
+.username {
+  color: #202224;
+  cursor: pointer;
+  margin-right: 0.5rem;
+}
+
+.username:hover {
+  color: #cc1526;
+}
+
+.user-icon {
+  width: 2rem;
+}
+
+/* Sidebar */
+.sidebar {
+  background-color: #ffffff;
+  color: #202224;
+  width: 16rem;
+  flex-shrink: 0;
+}
+
+.sidebar-list {
+  padding: 1rem;
+  list-style: none;
+}
+
+.sidebar-item {
+  margin-bottom: 0.5rem;
+  border-radius: 0.5rem;
+}
+
+.sidebar-item a {
+  display: block;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  color: #202224;
+  text-decoration: none;
+}
+
+.sidebar-item a:hover {
+  background-color: #f3f4f6;
+}
+
+.selected a {
+  background-color: #cc1526;
+  color: #ffffff;
+}
+
+.sidebar-item.selected a:hover {
+  color: #202224;
+}
+
+.icon {
+  margin-right: 0.5rem;
+}
+/* Main Content */
+.main-content,
+.dashboard-content {
+  flex: 1;
+  padding: 2rem;
+  background-color: #faf5f5;
+  overflow-y: auto;
+}
+
+.main-heading {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
+  gap: 1rem;
+}
+
+.grid-item {
+  background-color: #ffffff;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+}
+
+.card-heading {
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
+.card img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Admin Dashboard */
+.admin-dashboard {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.dashboard-content {
+  display: flex;
+  flex: 1;
+  padding: 0;
+}
+
+@media only screen and (min-width: 768px) {
+  .full-row {
+    grid-column: 1 / -1;
+  }
+}
+
+/* Adjustments for mobile view */
+@media screen and (max-width: 768px) {
+  .sidebar {
+    display: none;
+  }
+
+  .dashboard-content {
+    flex-direction: column;
+  }
+}

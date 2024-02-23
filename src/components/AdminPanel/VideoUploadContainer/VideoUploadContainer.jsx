@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react';
 import './VideoUploadContainer.css';
-import info from './Assets/info.png';
+import { formData } from "../../../api.jsx";
 
 const VideoUploadContainer = ({ files, setFiles }) => {
   const [isDragging, setIsDragging] = useState(false);
@@ -61,24 +61,23 @@ const VideoUploadContainer = ({ files, setFiles }) => {
     setVideoTitle(e.target.value);
   };
 
-  const handleAddToPool = () => {
-    // Burada veritabanına gönderme işlemi yapılacak
-    // Örnek olarak, videoTitle ve files state'lerini kullanarak bir API çağrısı yapabilirsiniz
-    console.log("Video başlığı:", videoTitle);
-    console.log("Yüklenen dosyalar:", files);
-
-    // **Veritabanına gönderme işlemini buraya ekleyin:**
-
-    const formData = new FormData();
-    formData.append('videoTitle', videoTitle);
-    for (const file of files) {
-      formData.append('files', file);
-    }
-
-    fetch('/api/upload', {
-      method: 'POST',
-      body: formData,
-    }).then((response) => {
+  const handleAddToPool = async (accessToken) => {
+    try {
+      console.log("Video başlığı:", videoTitle);
+      console.log("Yüklenen dosyalar:", files);
+  
+      // Video ve dosyaları bir nesne olarak oluşturun
+      const videoData = new FormData();
+      videoData.append('videoTitle', videoTitle);
+      for (const file of files) {
+        videoData.append('files', file);
+      }
+  
+      // formData fonksiyonunu kullanarak verileri API'ye gönderin
+      const response = await formData(accessToken, videoData);
+  
+      console.log("Response:", response);
+  
       if (response.ok) {
         console.log("Video başarıyla yüklendi!");
         // Yükleme işlemi tamamlandıktan sonra state'leri sıfırlayabilirsiniz
@@ -87,7 +86,9 @@ const VideoUploadContainer = ({ files, setFiles }) => {
       } else {
         console.error("Video yükleme sırasında bir hata oluştu!");
       }
-    });
+    } catch (error) {
+      console.error("Video yükleme sırasında bir hata oluştu:", error);
+    }
   };
 
   const handleFiles = (newFiles) => {
@@ -100,9 +101,9 @@ const VideoUploadContainer = ({ files, setFiles }) => {
 
     return ( 
         <div className='video-container'>
-            <div className='info'>
+            {/* <div className='info'>
                 <img className="i-symbol" src={info}></img>
-            </div>
+            </div> */}
             <h1 className='page-title'>Choose MP4 Files</h1>
             <div className="drag-drop-area"
                 onDragOver={handleDragOver}

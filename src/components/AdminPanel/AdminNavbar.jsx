@@ -1,6 +1,6 @@
-import arclk from './Assets/global.png';
+import arclk from '../../assets/global.png';
 import { FaRegCircleUser } from "react-icons/fa6";
-import './Navbar.css';
+import './AdminNavbar.css';
 
 function Navbar() {
     return(

@@ -1,6 +1,8 @@
 import { useState, useRef } from 'react';
 import './VideoUpdating.css';
-import  './ChangeExistingVideo';
+// import { useHistory, useNavigate } from 'react-router-dom';
+import './ChangeExistingVideo';
+import { updateVideoDetailsInDatabase } from "../../../api.jsx";
 
 const VideoUpdating = ({ files, setFiles }) => {
   const [isDragging, setIsDragging] = useState(false);
@@ -61,34 +63,23 @@ const VideoUpdating = ({ files, setFiles }) => {
     setVideoTitle(e.target.value);
   };
 
-  const handleAddToPool = () => {
-    // Burada veritabanına gönderme işlemi yapılacak
-    // Örnek olarak, videoTitle ve files state'lerini kullanarak bir API çağrısı yapabilirsiniz
-    console.log("Video title:", videoTitle);
-    console.log("Uploaded Files:", files);
+  const handleVideoChange = async () => {
+    // Değiştirilmiş video detaylarını bir obje içinde toplayın
+    const updatedVideoDetails = {
+        title: videoTitle,
+        // Diğer video detaylarını da ekleyebilirsiniz
+    };
 
-    // **Veritabanına gönderme işlemini buraya ekleyin:**
-
-    const formData = new FormData();
-    formData.append('videoTitle', videoTitle);
-    for (const file of files) {
-      formData.append('files', file);
+    try {
+        // API çağrısı yaparak veritabanına güncellenmiş video detaylarını gönderin
+        const response = await updateVideoDetailsInDatabase(updatedVideoDetails);
+        // Başarılı bir şekilde güncellendiğinde kullanıcıya bilgi verebilirsiniz
+        console.log('Video details updated successfully:', response);
+    } catch (error) {
+        // Hata durumunda kullanıcıya bir hata mesajı gösterebilirsiniz
+        console.error('Error updating video details:', error);
     }
-
-    fetch('/api/upload', {
-      method: 'POST',
-      body: formData,
-    }).then((response) => {
-      if (response.ok) {
-        console.log("Video uploaded successfully!");
-        // Yükleme işlemi tamamlandıktan sonra state'leri sıfırlayabilirsiniz
-        setVideoTitle('');
-        setFiles([]);
-      } else {
-        console.error("An error occurred while uploading the video!");
-      }
-    });
-  };
+};
 
   const handleFiles = (newFiles) => {
     if (files.length === 0) {
@@ -147,7 +138,7 @@ const VideoUpdating = ({ files, setFiles }) => {
                 </div>
 
                  <div className="change-container">
-                    <button type='submit' className="change-ex-btn" onClick={handleAddToPool}>Change Existing Video</button>
+                    <button type='submit' className="change-ex-btn" onClick={handleVideoChange}>Change Existing Video</button>
                 </div>
         </div>
     );

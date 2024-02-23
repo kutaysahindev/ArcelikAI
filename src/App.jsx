@@ -1,51 +1,22 @@
 // import React from "react";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { RouterProvider } from "react-router-dom";
 import "./App.css";
 
 import { OktaAuth } from "@okta/okta-auth-js";
 import { Security } from "@okta/okta-react";
-import { LoginCallback } from "@okta/okta-react";
 
-import RootLayout from "./layouts/RootLayout";
-import Home from "./pages/Home";
-import Form from "./pages/Form";
-import NotFound from "./pages/NotFound";
-import Anteroom from "./pages/Anteroom";
-
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <RootLayout />,
-    children: [
-      {
-        path: "/",
-        element: <Home />,
-      },
-      {
-        path: "login/callback",
-        redirectUri: "/anteroom",
-        element: <LoginCallback />,
-      },
-      {
-        path: "form",
-        element: <Form />,
-      },
-      {
-        path: "anteroom",
-        element: <Anteroom />,
-      },
-      {
-        path: "*",
-        element: <NotFound />,
-      },
-    ],
-  },
-]);
+import { DropNotification } from "./components/DropNotification/DropNotification";
+import { useSelector } from "react-redux";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { setNotification, setNotificationDirection } from "./redux/userSlice";
+import { router } from "./pages/Routes";
 
 const oktaAuth = new OktaAuth({
   issuer: "https://dev-36035985.okta.com/oauth2/default",
   clientId: "0oadru54zlAMBE58n5d7",
   redirectUri: window.location.origin + "/login/callback",
+  // redirectUri: window.location.origin + "/home/login/callback",
 });
 
 const restoreOriginalUri = async (_oktaAuth, originalUri) => {
@@ -53,8 +24,38 @@ const restoreOriginalUri = async (_oktaAuth, originalUri) => {
 };
 
 function App() {
+  const { notificationType, notificationText, notificationTime } = useSelector(
+    (slices) => slices.user
+  );
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (notificationText) {
+      setTimeout(
+        () => dispatch(setNotificationDirection()),
+        notificationTime - 1000
+      );
+      setTimeout(
+        () => dispatch(setNotification({ type: "", text: "", time: 0 })),
+        notificationTime
+      );
+    }
+  }, [notificationText]);
+
   return (
     <Security oktaAuth={oktaAuth} restoreOriginalUri={restoreOriginalUri}>
+      {/* {notificationText && (
+        <DropNotification
+          type={notificationType}
+          txt={notificationText}
+          time={notificationTime}
+        />
+      )} */}
+      <DropNotification
+        type={notificationType}
+        txt={notificationText}
+        time={notificationTime}
+      />
       <RouterProvider router={router} />
     </Security>
   );

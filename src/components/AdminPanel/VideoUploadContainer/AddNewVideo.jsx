@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import Navbar from "./Navbar";
-import Guidence from "./Guidence";
+import AdminNavbar from '../AdminNavbar';
+import Guidence from "../Guidence";
 import VideoUploadContainer from './VideoUploadContainer';
-import VideoFooter from './VideoFooter';
+import AdminFooter from '../AdminFooter';
 
 function AddNewVideo() {
 
@@ -10,10 +10,10 @@ function AddNewVideo() {
   
     return (
       <>
-        <Navbar/>
+        <AdminNavbar/>
         <Guidence title="Add New Video"/>
         <VideoUploadContainer files={files} setFiles={setFiles} />
-        <VideoFooter/>
+        <AdminFooter/>
       </>
     );
   }

@@ -80,8 +80,6 @@ export const videoSlice = createSlice({
       localStorage.setItem("allCompleted", true);
       state.videoMark = {};
       localStorage.setItem("videoMark", {});
-      // FIXME OLD LOGIC
-      state.isVideoWindowOpen = false;
     },
     setVideoMark: (state, action) => {
       // const { video, time } = action.payload
