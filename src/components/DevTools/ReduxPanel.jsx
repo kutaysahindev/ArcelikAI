@@ -9,7 +9,7 @@ import { signUserIn, logUserOut, setNotification, setIsTutorialDone } from '../.
 import DevButton from './DevButton';
 import { useSelector } from 'react-redux';
 import { packUp } from '../../redux/uploadDBSlice';
-import { uploadQuestionDB } from '../../api';
+import { deleteVideoDB, uploadQuestionDB } from '../../api';
 
 const ReduxPanel = () => {
   const [isHovered, setIsHovered] = useState(false)
@@ -19,6 +19,7 @@ const ReduxPanel = () => {
     notificationType: "warning",
     notificationText: "This is a warning",
     notificationTime: 5,
+    videoIDtoDelete: 0,
   })
   const { isSignedIn, isTutorialDone, accessToken } = useSelector((slices) => slices.user);
   const { isWindowOpen, windowContent } = useSelector((slices) => slices.window);
@@ -28,6 +29,15 @@ const ReduxPanel = () => {
   const expandPanel = () => setIsHovered(true)
   const collapsePanel = () => setIsHovered(false)
   const setText = (fld, txt) => setInput(prev => ({...prev, [fld]: txt}));
+
+  const videoDeleter = async () => {
+    try {
+      await deleteVideoDB(accessToken, 3)
+
+    } catch (err) {
+      console.error(err.message)
+    }
+  }
 
   // const uploadQue = async () => {
   //   const quePack = {
@@ -89,6 +99,7 @@ const ReduxPanel = () => {
         <Accordion title={"Upload to Database"}>
           <DevButton txt={"question"} condition={false} onClick={() => dispatch(packUp(accessToken))} />
           <DevButton txt={"video"} condition={false} onClick={() => {}} />
+          <DevButton txt={"v-delete"} condition={false} onClick={videoDeleter} />
         </Accordion>
       </div>
       <h2 className='vertical'>

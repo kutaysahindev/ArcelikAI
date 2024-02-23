@@ -5,7 +5,7 @@ export const TextInput = ({ type, label, max, limit, value, setValue }) => {
 
   const lowerLabel = label.toLowerCase();
   return (
-    <div className={`fancy-input ${lowerLabel}`}>
+    <div className={`fancy-input ${"fi-"+lowerLabel}`}>
       <input
         type={type}
         id={lowerLabel}

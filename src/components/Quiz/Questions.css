@@ -1,19 +1,4 @@
-.question {
-  display: flex;
-  gap: 10px;
-  height: 300px;
-  max-width: 45rem;
-  /* background: red; */
-  overflow-y: auto;
-  padding-right: 1rem;
-}
 
-.question .title {
-  font-size: 20px;
-  line-height: 2.8rem;
-  font-weight: 800;
-  margin-bottom: 20px;
-}
 
 ul {
   list-style: none;

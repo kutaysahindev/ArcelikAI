@@ -184,13 +184,35 @@ export const uploadQuestionDB = async (accessToken, question) => {
 };
 
 // Video Upload to DB
-// export const uploadVideoDB = async (accessToken, video) => {
-//   const endpoint = "/api/QuestionAndVideo/postquestion";
-//   try {
-//     setAuthHeader(accessToken);
-//     const response = await instance.post(endpoint, video);
-//     return response.data;
-//   } catch (error) {
-//     throw error;
-//   }
-// };
+export const uploadVideoDB = async (accessToken, title, videoFile) => {
+  const endpoint = "/api/adminvideo/upload";
+  try {
+    setAuthHeader(accessToken);
+    const response = await instance.post(endpoint, title, videoFile);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+// Video Update Title to DB
+export const updateVideoTitleDB = async (accessToken, title, id) => {
+  const endpoint = "/api/adminvideo/"+id;
+  try {
+    setAuthHeader(accessToken);
+    const response = await instance.post(endpoint, title);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+// Video Delete  DB
+export const deleteVideoDB = async (accessToken, id) => {
+  const endpoint = "/api/adminvideo/"+id;
+  try {
+    setAuthHeader(accessToken);
+    const response = await instance.delete(endpoint);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};

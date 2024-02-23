@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import { Dropdown } from '../Dropdown/Dropdown';
+import { Dropdown } from '../../Dropdown/Dropdown';
 import { useDispatch } from 'react-redux';
-import { setAnswer } from '../../redux/updateDBSlice';
+import { setAnswer } from '../../../redux/uploadDBSlice';
 
 const questionTypes = [
   { value: true, label: 'True' },
@@ -9,7 +9,7 @@ const questionTypes = [
 ];
 
 export const TrueOrFalse = () => {
-  // const { answer } = useSelector((s) => s.updateDB);
+  // const { answer } = useSelector((s) => s.uploadDB);
   const dispatch = useDispatch();
   const [selectedType, setSelectedType] = useState(questionTypes[0]);
 

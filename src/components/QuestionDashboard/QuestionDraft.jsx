@@ -1,6 +1,6 @@
 import "./QuestionDraft.css";
-import { Dropdown } from "./Dropdown/Dropdown";
-import { HtmlSelect } from "./Dropdown/HtmlSelect";
+import { Dropdown } from "../Dropdown/Dropdown";
+// import { HtmlSelect } from "./Dropdown/HtmlSelect";
 import { TextInput } from "./Input/TextInput";
 import { OpenEnded } from "./OptionTypes/OpenEnded";
 import { TrueOrFalse } from "./OptionTypes/TrueOrFalse";
@@ -9,9 +9,9 @@ import { DragAndSort } from "./OptionTypes/DragAndSort";
 import { MultiSelect } from "./OptionTypes/MultiSelect";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { packUp, setErrorMessage, setPoints, setQuestion, setQuestionType } from "../redux/updateDBSlice";
+import { packUp, setErrorMessage, setPoints, setQuestion, setQuestionType } from "../../redux/uploadDBSlice";
 import { useEffect } from "react";
-import { ErrorDrop } from "./ErrorDrop/ErrorDrop";
+// import { ErrorDrop } from "../DropNotification/ErrorDrop";
 
 const questionTypes = [
   { value: "MultipleChoice", label: "Single Selection" },
@@ -22,7 +22,7 @@ const questionTypes = [
 ];
 
 export const QuestionDraft = () => {
-  const { questionType, question, points, errorMessage, message } = useSelector((s) => s.updateDB);
+  const { questionType, question, points, errorMessage, message } = useSelector((s) => s.uploadDB);
   const dispatch = useDispatch();
   let QComponent;
 
@@ -59,7 +59,7 @@ export const QuestionDraft = () => {
 
       <p>{ message }</p>
 
-      {errorMessage && <ErrorDrop msg={errorMessage}/>}
+      {/* {errorMessage && <ErrorDrop msg={errorMessage}/>} */}
 
       <Dropdown
         label="Question Type"
@@ -86,7 +86,7 @@ export const QuestionDraft = () => {
       />
       {QComponent}
 
-      <button onClick={() => dispatch(packUp())}>Pack Up</button>
+      <button className="uploadDB-button" onClick={() => dispatch(packUp())}>Pack Up</button>
     </div>
   );
 };

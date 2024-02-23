@@ -3,6 +3,7 @@ import Graph from "./Graphs/Graph.png";
 import content1 from "./Graphs/content1.png";
 import content2 from "./Graphs/content2.png";
 import content3 from "./Graphs/content3.png";
+import { QuestionDraft } from "../QuestionDashboard/QuestionDraft";
 
 const MainContent = () => {
   const { adminIndex } = useSelector((state) => state.nav);
@@ -48,7 +49,7 @@ const MainContent = () => {
   }
 
   if (adminIndex === "Create Questions") {
-    content = "Create Questions";
+    content = <QuestionDraft/>;
   }
 
   return <div className="main-content">{content}</div>;

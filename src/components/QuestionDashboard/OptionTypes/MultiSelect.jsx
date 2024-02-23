@@ -1,12 +1,12 @@
 import { useDispatch } from "react-redux";
 import { AddChoiceInput } from "../Input/AddChoiceInput";
 import { useSelector } from "react-redux";
-import { deleteChoiceHandler, setMultipleAnswer } from "../../redux/updateDBSlice";
+import { deleteChoiceHandler, setMultipleAnswer } from "../../../redux/uploadDBSlice";
 import { ChoiceInput } from "../Input/ChoiceInput";
 import { FaRegCheckSquare, FaRegTrashAlt } from "react-icons/fa";
 
 export const MultiSelect = () => {
-  const { choices, answer } = useSelector(s => s.updateDB);
+  const { choices, answer } = useSelector(s => s.uploadDB);
   const dispatch = useDispatch();
 
   const deleteChoice = (id) => {
@@ -22,10 +22,12 @@ export const MultiSelect = () => {
           choice={c}
         >
           <FaRegCheckSquare
+            size={13}
             onClick={() => dispatch(setMultipleAnswer(c.oID))}
             className={`btn m-check ${answer?.includes(c.oID) ? "selected" : ""}`}
           />
           <FaRegTrashAlt
+            size={13}
             onClick={() => deleteChoice(c.oID)}
             className="btn trash"
           />

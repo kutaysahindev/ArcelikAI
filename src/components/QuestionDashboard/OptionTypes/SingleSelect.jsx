@@ -2,10 +2,10 @@ import { ChoiceInput } from '../Input/ChoiceInput';
 import { FaRegCheckCircle, FaRegTrashAlt } from 'react-icons/fa';
 import { AddChoiceInput } from '../Input/AddChoiceInput';
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteChoiceHandler, setAnswer } from '../../redux/updateDBSlice';
+import { deleteChoiceHandler, setAnswer } from '../../../redux/uploadDBSlice';
 
 export const SingleSelect = () => {
-  const { choices, answer } = useSelector(s => s.updateDB);
+  const { choices, answer } = useSelector(s => s.uploadDB);
   const dispatch = useDispatch();
 
   return (
@@ -18,10 +18,12 @@ export const SingleSelect = () => {
           choice={c}
         >
           <FaRegCheckCircle
+            size={13}
             onClick={() => dispatch(setAnswer(c.oID))}
             className={`btn s-check ${answer === c.oID ? 'selected' : ''}`}
           />
           <FaRegTrashAlt
+            size={13}
             onClick={() => dispatch(deleteChoiceHandler(c.oID))}
             className="btn trash"
           />

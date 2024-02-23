@@ -2,5 +2,21 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
+  min-height: 80vh;
   /* align-items: flex-start; */
+}
+
+.uploadDB-button {
+  width: fit-content;
+  padding: 1rem 2rem;
+  border-radius: 10px;
+  background: #eedbdb;
+  cursor: pointer;
+  transition: all 200ms;
+}
+.uploadDB-button:hover {
+  transform: scale(1.05);
+}
+.uploadDB-button:active {
+  transform: scale(1.02);
 }

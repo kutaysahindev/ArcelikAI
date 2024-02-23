@@ -4,12 +4,12 @@ import { RxDragHandleDots1 } from 'react-icons/rx';
 import { FaArrowsAltV, FaRegTrashAlt } from 'react-icons/fa';
 import './DragAndSort.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteChoiceHandler, setAnswer, setChoices } from '../../redux/updateDBSlice';
+import { deleteChoiceHandler, setAnswer, setChoices } from '../../../redux/uploadDBSlice';
 import { AddChoiceInput } from '../Input/AddChoiceInput';
 import { useEffect } from 'react';
 
 export const DragAndSort = () => {
-  const { choices } = useSelector((s) => s.updateDB);
+  const { choices } = useSelector((s) => s.uploadDB);
   const dispatch = useDispatch();
 
   function handleOnDragEnd(result) {

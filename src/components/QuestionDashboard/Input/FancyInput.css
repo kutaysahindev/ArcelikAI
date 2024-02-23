@@ -3,6 +3,7 @@
   height: 40px;
   width: 400px;
   --border-weight: 3px;
+  color: black;
 }
 .fancy-input.add-choice,
 .fancy-input.choice {
@@ -28,7 +29,7 @@
   /* height: 40px; */
   height: 100%;
   background: transparent;
-  color: white;
+  color: black;
   font-family: inherit;
   font-weight: 500;
   border: solid var(--border-weight) #ccc;
@@ -53,7 +54,8 @@
   left: 10px;
   font-size: 12px;
   font-weight: bold;
-  background: #242424;
+  /* background: #242424; */
+  background: #faf5f5;
   border-radius: 10px;
   padding: 0 5px;
   color: #999;
@@ -69,7 +71,7 @@
 
 .fancy-input .operations {
   position: absolute;
-  top: 30%;
+  top: 35%;
   right: 10px;
   display: flex;
   align-items: center;
@@ -120,24 +122,24 @@
   }
 }
 
-.fancy-input.question input:focus {
+.fancy-input.fi-question input:focus {
   border-color: #ad50e2;
   caret-color: #ad50e2;
 }
-.fancy-input.question input:focus + label {
+.fancy-input.fi-question input:focus + label {
   color: #ad50e2;
 }
 
-.fancy-input.points input::-webkit-outer-spin-button,
-.fancy-input.points input::-webkit-inner-spin-button {
+.fancy-input.fi-points input::-webkit-outer-spin-button,
+.fancy-input.fi-points input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
-.fancy-input.points input:focus {
+.fancy-input.fi-points input:focus {
   /* border-color: #ad50e2;
   caret-color: #ad50e2; */
 }
-.fancy-input.points input:focus + label {
+.fancy-input.fi-points input:focus + label {
   /* color: #ad50e2; */
 }
 
