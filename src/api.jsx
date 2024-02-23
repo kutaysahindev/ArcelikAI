@@ -1,7 +1,7 @@
 import axios from "axios";
 
-const baseURL = "https://localhost:7026/"; // local backend URL
-// const baseURL = "http://164.92.200.35:5219/"; // Replace with your API base URL
+// const baseURL = "https://localhost:7026/"; // local backend URL
+const baseURL = "http://164.92.200.35:5219/"; // Replace with your API base URL
 
 const instance = axios.create({
   baseURL: baseURL,
@@ -173,7 +173,7 @@ export const postQuestionResponses = async (accessToken, responses) => {
 
 // Question Upload to DB
 export const uploadQuestionDB = async (accessToken, question) => {
-  const endpoint = "/api/QuestionAndVideo/postquestion"
+  const endpoint = "/api/QuestionAndVideo/postquestion";
   try {
     setAuthHeader(accessToken);
     const response = await instance.post(endpoint, question);
