@@ -10,37 +10,49 @@ import {
   FiCloud,
   FiEdit,
   FiTag,
+  FiNavigation,
 } from "react-icons/fi";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+import { setAdminIndex } from "../../redux/navIndexSlice";
+import { useNavigate } from "react-router";
 
 const Sidebar = () => {
-  const [selectedItem, setSelectedItem] = useState("Dashboard");
-
+  const { adminIndex } = useSelector((state) => state.nav);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [icons] = useState({
     Dashboard: FiHome,
-    "Video Dashboard": FiVideo,
-    Inbox: FiInbox,
+    "Upload Video": FiVideo,
+    "Video Pool": FiInbox,
     "Create Questions": FiEdit,
     "Question Pool": FiList,
     "Cloud Pricing": FiCloud,
     "To-Do": FiTag,
+    "Client App": FiNavigation,
     Settings: FiSettings,
     Logout: FiLogOut,
   });
 
   const sidebarItems = [
     "Dashboard",
-    "Video Dashboard",
-    "Inbox",
+    "Upload Video",
+    "Video Pool",
     "Create Questions",
     "Question Pool",
     "Cloud Pricing",
     "To-Do",
+    "Client App",
     "Settings",
     "Logout",
   ];
 
   const handleItemClick = (item) => {
-    setSelectedItem(item);
+    dispatch(setAdminIndex(item));
+
+    if (item === "Client App") {
+      navigate("/home");
+    }
   };
 
   return (
@@ -53,7 +65,7 @@ const Sidebar = () => {
               key={index}
               className={`sidebar-item ${
                 index === sidebarItems.length - 2 ? "sidebar-item-last" : ""
-              } ${selectedItem === item ? "selected" : ""}`}
+              } ${adminIndex === item ? "selected" : ""}`}
             >
               <a
                 href="#"

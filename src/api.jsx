@@ -172,7 +172,7 @@ export const postQuestionResponses = async (accessToken, responses) => {
 
 // Question Upload to DB
 export const uploadQuestionDB = async (accessToken, question) => {
-  const endpoint = "/api/QuestionAndVideo/postquestion"
+  const endpoint = "/api/QuestionAndVideo/postquestion";
   try {
     setAuthHeader(accessToken);
     const response = await instance.post(endpoint, question);
