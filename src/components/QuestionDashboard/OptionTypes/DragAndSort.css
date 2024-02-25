@@ -1,24 +1,24 @@
-.drag-n-sort {
+.drag-n-sort-box {
   width: 300px;
   /* background: red; */
   /* overflow: hidden; */
   /* border-radius: 10px; */
 }
-.drag-n-sort .list {
+.drag-n-sort-box .list {
   /* background: blue; */
   overflow: hidden;
 }
-.drag-n-sort .option {
+.drag-n-sort-box .dnd-option {
   /* background: rgb(89, 92, 28); */
   margin-top: 15px;cursor: default;
 }
-.drag-n-sort .option .choice {
+.drag-n-sort-box .dnd-option .choice {
   margin: 0;
   animation: none;
 }
-/* .drag-n-sort .option:first-child {
+/* .drag-n-sort-box .option:first-child {
   margin-top: 0;
 }
-.drag-n-sort .option:last-child {
+.drag-n-sort-box .option:last-child {
   margin-bottom: 0;
 } */

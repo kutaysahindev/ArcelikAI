@@ -1,7 +1,7 @@
 .border {
   height: 40px;
   position: relative;
-  --border-weight: 2px;
+  --border-weight: 3px;
   --theme-color: #e43c61;
 }
 .select-container {

@@ -26,7 +26,7 @@ export const DragAndSort = () => {
   }, [choices])
   
   return (
-    <div className="drag-n-sort">
+    <div className="drag-n-sort-box">
       <AddChoiceInput />
       <DragDropContext onDragEnd={handleOnDragEnd}>
         <Droppable droppableId={'sortedOptions'}>
@@ -45,7 +45,7 @@ export const DragAndSort = () => {
                   >
                     {(provided, snapshot) => (
                       <div
-                        className={`option ${snapshot.isDragging ? 'o-dragging' : ''}`}
+                        className={`dnd-option ${snapshot.isDragging ? 'o-dragging' : ''}`}
                         ref={provided.innerRef}
                         {...provided.draggableProps}
                         {...provided.dragHandleProps}
