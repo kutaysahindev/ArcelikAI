@@ -6,7 +6,6 @@ const VideoUploadContainer = ({ files, setFiles }) => {
   const [isDragging, setIsDragging] = useState(false);
   const fileInputRef = useRef(null);
   const [selectedVideo, setSelectedVideo] = useState(null);  // for video remove modal
-  const [uploaded, setUploaded] = useState({file:''})
   const [videoTitle, setVideoTitle] = useState('');  // for input of video title
 
   const isMP4Video = (file) => {
@@ -34,7 +33,7 @@ const VideoUploadContainer = ({ files, setFiles }) => {
         // MP4 dosyalarını işleme al
         handleFiles(mp4Files);
       } else {
-        alert("Lütfen sadece MP4 formatındaki videoları yükleyin.");
+        alert("You can only upload MP4 a file.");
       }
     }
   };
@@ -44,7 +43,7 @@ const VideoUploadContainer = ({ files, setFiles }) => {
     if (selectedFile && isMP4Video(selectedFile)) {
       handleFiles([selectedFile]);
     } else {
-      alert("Lütfen sadece MP4 formatındaki videoları seçin.");
+      alert("You can only upload MP4 a file.");
     }
   };
 
@@ -65,8 +64,8 @@ const VideoUploadContainer = ({ files, setFiles }) => {
 
   const handleAddToPool = async (accessToken) => {
     try {
-      console.log("Video başlığı:", videoTitle);
-      console.log("Yüklenen dosyalar:", files);
+      console.log("Video Title:", videoTitle);
+      console.log("Uploaded Files:", files);
   
       // Video ve dosyaları bir nesne olarak oluşturun
       const videoData = new FormData();
@@ -81,15 +80,15 @@ const VideoUploadContainer = ({ files, setFiles }) => {
       console.log("Response:", response);
   
       if (response.ok) {
-        console.log("Video başarıyla yüklendi!");
+        console.log("Video uploaded succesfully!");
         // Yükleme işlemi tamamlandıktan sonra state'leri sıfırlayabilirsiniz
         setVideoTitle('');
         setFiles([]);
       } else {
-        console.error("Video yükleme sırasında bir hata oluştu!");
+        console.error("An error occurred while uploading the video!");
       }
     } catch (error) {
-      console.error("Video yükleme sırasında bir hata oluştu:", error);
+      console.error("An error occurred while uploading the video:", error);
     }
   };
 
@@ -97,7 +96,7 @@ const VideoUploadContainer = ({ files, setFiles }) => {
     if (files.length === 0) {
       setFiles(newFiles.slice(0, 1)); 
     } else {
-      alert("Yalnızca 1 adet video yükleyebilirsiniz.");
+      alert("You can only choose one file.");
     }
   };
 
