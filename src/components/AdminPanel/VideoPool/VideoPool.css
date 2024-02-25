@@ -1,66 +1,83 @@
 .titles{
-    margin-left: -0.1rem;
+  margin-left: -0.1rem;
 }
 
 .first-title {
-    font-size: 22px;
-    font-weight: 500;
+  font-size: 22px;
+  font-weight: 500;
 }
 
 .second-title {
-    font-size: 16px;
-    font-weight: 450;
+  font-size: 16px;
+  font-weight: 450;
 }
 
 .video-pool {
-    background-color: #f2f2f3;
-    padding: 20px;
-    width: 25vw;
-    border-radius: 5px;
-    margin-top: 1rem;
-  }
-  
-  .video-list {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .video-item {
-    display: flex;
-    position:relative;
-    background-color: white; /* Video satırı arka plan rengi */
-    padding: 10px;
-    margin-bottom: 10px;
-    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
-    border-radius: 5px;
+  background-color: #f2f2f3;
+  padding: 20px;
+  width: 25vw;
+  height: 50vh;
+  border-radius: 5px;
+  margin-top: 1rem;
+  position: relative;
+}
+
+.video-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.video-item {
+  display: flex;
+  position:relative;
+  font-size: 15px;
+  justify-content: space-between;
+  background-color: white; /* Video satırı arka plan rengi */
+  padding: 10px;
+  margin-bottom: 10px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  border-radius: 5px;
+}
+
+.item {
+  /* margin-left: 16.5rem; */
+  margin-right: 0.4rem;
+  position: relative;
+}
+
+.item-2 {
+  /* margin-left: 18.5rem; */
+  position: relative;
+}
+
+.pagination {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.page-number {
+  background-color: #edc0c0; /* Sayfa numarası arka plan rengi */
+  padding: 3px 8px;
+  margin-left: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 0.3rem;
+}
+
+.page-number:hover {
+  background-color: #ea9090;
+}
+
+/* RESPONSIVE DESIGN */
+
+@media screen and (max-width: 1300px) {
+  .titles{
+    width: 90%;
+    margin-left: 5%;
+    margin-top: 5%;
   }
 
-  .item {
-    margin-left: 16.5rem;
-    margin-right: 0.4rem;
-    position: absolute;
+  .video-pool {
+    width: 90%;
   }
-
-  .item-2 {
-    margin-left: 18.5rem;
-    position: absolute;
-  }
-  
-  .pagination {
-    display: flex;
-    justify-content: flex-end;
-  }
-  
-  .page-number {
-    background-color: #edc0c0; /* Sayfa numarası arka plan rengi */
-    padding: 3px 8px;
-    margin-left: 5px;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-top: 0.3rem;
-  }
-  
-  .page-number:hover {
-    background-color: #ea9090;
-  }
-  
+}

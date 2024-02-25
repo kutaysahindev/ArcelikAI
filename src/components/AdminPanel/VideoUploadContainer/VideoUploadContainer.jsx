@@ -5,8 +5,9 @@ import { formData } from "../../../api.jsx";
 const VideoUploadContainer = ({ files, setFiles }) => {
   const [isDragging, setIsDragging] = useState(false);
   const fileInputRef = useRef(null);
-  const [selectedVideo, setSelectedVideo] = useState(null);
-  const [videoTitle, setVideoTitle] = useState(''); 
+  const [selectedVideo, setSelectedVideo] = useState(null);  // for video remove modal
+  const [uploaded, setUploaded] = useState({file:''})
+  const [videoTitle, setVideoTitle] = useState('');  // for input of video title
 
   const isMP4Video = (file) => {
     return file.type === 'video/mp4';
@@ -58,7 +59,8 @@ const VideoUploadContainer = ({ files, setFiles }) => {
   };
 
   const handleVideoTitleChange = (e) => {
-    setVideoTitle(e.target.value);
+    e.persist();
+    setVideoTitle({...videoTitle, [e.target.title]: e.target.value});
   };
 
   const handleAddToPool = async (accessToken) => {
@@ -143,11 +145,11 @@ const VideoUploadContainer = ({ files, setFiles }) => {
             )}
                 <div className="video-title-container">
                     <label htmlFor="video-title" className='video-head'>Video Title:</label>
-                    <input type="text" id="video-title" placeholder='ect: First Training Video' value={videoTitle} onChange={handleVideoTitleChange} />
+                    <input type="text" id="video-title" placeholder='example: First Training Video' value={videoTitle.title} onChange={handleVideoTitleChange} />
                 </div>
 
                  <div className="add-to-pool-container">
-                    <button type='submit' className="add-to-pool-btn" onClick={handleAddToPool}>Add to Pool</button>
+                    <button type='submit' className="add-to-pool-btn" onClick={handleAddToPool}>Add to All Videos</button>
                 </div>
         </div>
     );

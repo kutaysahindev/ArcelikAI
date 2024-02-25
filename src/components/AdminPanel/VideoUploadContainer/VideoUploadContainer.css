@@ -4,7 +4,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-top: 2.5vh;
+    margin-top: 7vh;
 }
 
 .info{
@@ -30,7 +30,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin-left: 35vw;
+    margin-left: 1rem;
     margin-top: 3vh;
     transition: .4s;
 }
@@ -66,7 +66,7 @@
     flex-direction: column;
     width: 30vw;
     padding: 10px 10px 20px;
-    margin-left: 35vw;
+    margin-left: 1rem;
     border-radius: 5px;
     margin-top: 0.50rem;
     font-weight: 500;
@@ -94,7 +94,7 @@
     font-size: 14px;
     font-weight: 550;
     margin-left: 0.65rem;
-    padding: 3px 0 7px;
+    padding: 8px 0 7px;
     width: 65px;
     border-radius: 5px;
     background-color: #eaeaea;
@@ -145,21 +145,69 @@
     justify-content:center;
     margin-top: 1.7rem;
     margin-left: 50rem;
+    padding-bottom: 10vh;
   }
 
   .add-to-pool-btn {
-    width: 10rem;
-    height: 3rem;
+    width: 15rem;
+    height: 4rem;
     background-color: rgba(51,104,150,255);
     color: whitesmoke;
     font-size: 17px;
     font-weight: 500;
     border-radius: 5px;
     padding: 5px 10px 7px;
+    margin-top: 2rem;
     cursor: pointer;
     transition: .3s;
   }
 
   .add-to-pool-btn:hover {
     background-color: rgb(7, 75, 132);
+  }
+
+  /* RESPONSIVE DESIGN */
+
+  @media screen and (max-width: 1070px) {
+
+    .drag-drop-area, .video-remove-modal, .add-to-pool-container {
+      margin-left: 10%;
+      width: 80%;
+    }
+
+    .video-title-container {
+      width: 100%;
+    }
+
+    .route-video-management {
+      margin-top: 10%;
+      margin-left: 10%;
+      width: 80%;
+    }
+  
+    .add-to-pool-container {
+      margin-left: -1%;
+    }
+
+  }
+  
+  @media screen and (max-width: 500px) {
+    .drag-drop-area, .video-remove-modal, .add-to-pool-container {
+      margin-left: 5%;
+      width: 90%;
+    }
+
+    .video-title-container {
+      width: 100%;
+    }
+
+    .route-video-management {
+      margin-top: 5%;
+      margin-left: 5%;
+      width: 90%;
+    }
+  
+    .add-to-pool-container {
+      margin-left: 5%;
+    }
   }

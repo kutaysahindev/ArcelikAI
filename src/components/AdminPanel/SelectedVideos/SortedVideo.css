@@ -9,6 +9,7 @@
     flex-direction: column;
     gap: 15px;
     margin-top: 1rem;
+    font-size: 15px;
     /* margin-left: -4rem; */
   }
   
@@ -27,15 +28,15 @@
     font-weight: 450;
   }
   
-  .edit-btn {
-    width: 5rem;
-    height: 2rem;
+  .apply-btn {
+    width: 16rem;
+    height: 4rem;
     background-color: rgba(51,104,150,255);
     color: whitesmoke;
-    font-size: 17px;
+    font-size: 15px;
     font-weight: 500;
     border-radius: 5px;
-    padding: 0.2rem 0 0.6rem;
+    padding: 0.6rem 0 0.6rem;
     cursor: pointer;
     transition: .3s;
     margin-left: 19rem;
@@ -43,7 +44,7 @@
     box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
   }
   
-  .edit-btn:hover {
+  .apply-btn:hover {
     background-color: rgb(7, 75, 132);
   }
   
@@ -53,8 +54,8 @@
     font-weight: 500;
     font-size: 19px;
     padding: 5px 10px 10px 10px;
-    width: 17rem;
-    height: 3rem;
+    width: 20rem;
+    height: 5rem;
     border-radius: 5px;
     margin-top: 3rem;
     margin-left: 3.4rem;
@@ -65,4 +66,38 @@
   
   .new-video:hover {
     background-color: #c82525;
+  }
+
+  /*  RESPONSIVE DESIGN */
+
+  @media screen and (max-width: 1070px) {
+
+    .titles {
+      width: 90%;
+      margin-top: 5%;
+      margin-left: -5%;
+    }
+
+    .apply-btn {
+      width: 40%;
+      height: 6%;
+      margin-top: 5%;
+      margin-left: 40%;
+      padding-bottom: 5%;
+
+    }
+
+    .video-titles {
+      width: 90%;
+    }
+
+    .new-video {
+      width: 40%;
+      height: 8%;
+      margin-top: 5%;
+      margin-left: 7%;
+      font-size: 14px;
+      padding-top: 3%;
+    }
+
   }

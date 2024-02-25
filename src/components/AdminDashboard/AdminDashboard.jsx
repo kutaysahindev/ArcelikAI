@@ -1,7 +1,6 @@
 import Navbar from "./Navbar.jsx";
 import Sidebar from "./Sidebar.jsx";
-// import MainContent from "./MainContent.jsx";
-import AddNewVideo from "../AdminPanel/VideoUploadContainer/AddNewVideo.jsx";
+import MainContent from "./MainContent.jsx";
 
 const AdminDashboard = () => {
   return (
@@ -10,7 +9,7 @@ const AdminDashboard = () => {
       <div className="dashboard-content">
         <Sidebar />
         <div className="content-wrapper">
-          <AddNewVideo />
+          <MainContent />
         </div>
       </div>
     </div>

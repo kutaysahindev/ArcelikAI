@@ -1,15 +1,14 @@
 import { useState, useEffect } from 'react';
-import VideoFooter from './VideoFooter';
 import Guidence from './Guidence';
-import Navbar from './Navbar.jsx';
-import '../App.css';
+import './VideoManagement.css';
+
 
 // import BothSelectednPool from './ManagementPanelComponents/BothSelectednPool';
 import SortedVideo from './SelectedVideos/SortedVideo.jsx';
 import VideoPool from './VideoPool/VideoPool';
 import { DndContext, closestCorners } from "@dnd-kit/core";
 import { arrayMove, sortableKeyboardCoordinates } from "@dnd-kit/sortable";
-import { fetchVideosFromDatabase, updateVideoOrderInDatabase } from "../../../api.jsx";
+import { getVideoProgress, updateVideoOrderInDatabase } from "../../api.jsx";
 
 
 // export default function VideoManagement() {
@@ -44,7 +43,7 @@ export default function VideoManagement() {
   useEffect(() => {
     const fetchVideos = async () => {
       try {
-        const fetchedVideos = await fetchVideosFromDatabase();
+        const fetchedVideos = await getVideoProgress();
         setVideos(fetchedVideos);
       } catch (error) {
         console.error('Error fetching videos:', error);
@@ -77,10 +76,9 @@ export default function VideoManagement() {
 
   return (
     <>
-      <Navbar />
       <Guidence title="Video Management"/>
-      <div className='both-video-area'>
 
+      <div className='both-video-area'>
         <VideoPool/>
         {/* <ul>
           {numbers.map((number) => (
@@ -90,10 +88,8 @@ export default function VideoManagement() {
         <DndContext onDragEnd={handleDragEnd} collisionDetection={closestCorners}>
           <SortedVideo videos={videos}/>
         </DndContext>
-        
       </div>
-      <VideoFooter />
     </>
   );
-};
+}
 
