@@ -18,12 +18,12 @@
 }
 
 .que-container .que-item {
-  width: 40rem;
+  width: 50rem;
   padding: 0.8rem 1.2rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: antiquewhite;
+  background-color: rgb(255, 238, 234);
   border-radius: 10px;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.415);
   transition: all 200ms;
@@ -34,6 +34,11 @@
 .que-container .que-item .que {
   max-width: 30rem;
 }
+.que-container .que-item .type {
+  font-style: italic;
+  color: gray;
+  font-size: 1.2rem;
+}
 .que-container .que-item .buttons {
   display: flex;
   align-items: center;
@@ -41,6 +46,16 @@
 }
 .que-container .que-item .buttons .qb {
   cursor: pointer;
+  transition: all 200ms;
+}
+.que-container .que-item .buttons .fill {
+  color:rgb(0, 174, 0)
+}
+.que-container .que-item .buttons .blank:hover {
+  color:green
+}
+.que-container .que-item .buttons .delete:hover {
+  color:rgb(189, 0, 0)
 }
 
 .question-pool .apply-btn {
