@@ -1,0 +1,51 @@
+.question-pool {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  min-height: 80vh;
+  gap: 3rem;
+  font-size: 1.5rem;
+}
+.question-pool .info {
+  font-style: italic;
+}
+
+.que-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.que-container .que-item {
+  width: 40rem;
+  padding: 0.8rem 1.2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: antiquewhite;
+  border-radius: 10px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.415);
+  transition: all 200ms;
+}
+.que-container .que-item:hover {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.415);
+}
+.que-container .que-item .que {
+  max-width: 30rem;
+}
+.que-container .que-item .buttons {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.que-container .que-item .buttons .qb {
+  cursor: pointer;
+}
+
+.question-pool .apply-btn {
+  padding: 1rem;
+  background: #e35353;
+  color: white;
+  border-radius: 10px;
+}

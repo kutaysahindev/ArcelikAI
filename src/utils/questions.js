@@ -1,59 +1,59 @@
 //This will be deprecated after backend connection
 
 export const questions = [
-  // {
-  //   Id: 1,
-  //   questionType: "MultipleChoice",
-  //   question: "How old was Nicola Tesla when he died?",
-  //   options: [
-  //     {
-  //       oID: 1,
-  //       option: "96",
-  //     },
-  //     {
-  //       oID: 2,
-  //       option: "46",
-  //     },
-  //     {
-  //       oID: 3,
-  //       option: "36",
-  //     },
-  //     {
-  //       oID: 4,
-  //       option: "86",
-  //     },
-  //   ],
+  {
+    Id: 11,
+    questionType: "MultipleChoice",
+    question: "How old was Nicola Tesla when he died?",
+    options: [
+      {
+        oID: 1,
+        option: "96",
+      },
+      {
+        oID: 2,
+        option: "46",
+      },
+      {
+        oID: 3,
+        option: "36",
+      },
+      {
+        oID: 4,
+        option: "86",
+      },
+    ],
   
-  // },
-  // {
-  //   Id: 2,
-  //   questionType: "MultipleChoiceAndAnswers",
-  //   question: "Which gadgets below did Nicola Tesla invent?",
-  //   options: [
-  //     {
-  //       oID: 1,
-  //       option: "Tesla Coil",
-  //     },
-  //     {
-  //       oID: 2,
-  //       option: "Induction Motor",
-  //     },
-  //     {
-  //       oID: 3,
-  //       option: "Radio",
-  //     },
-  //     {
-  //       oID: 4,
-  //       option: "Ammeter",
-  //     },
-  //     {
-  //       oID: 5,
-  //       option: "Neon Lamp",
-  //     },
-  //   ],
-  //   time: 30,
-  //   points: 30,
-  // },
+  },
+  {
+    Id: 24,
+    questionType: "MultipleChoiceAndAnswers",
+    question: "Which gadgets below did Nicola Tesla invent?",
+    options: [
+      {
+        oID: 1,
+        option: "Tesla Coil",
+      },
+      {
+        oID: 2,
+        option: "Induction Motor",
+      },
+      {
+        oID: 3,
+        option: "Radio",
+      },
+      {
+        oID: 4,
+        option: "Ammeter",
+      },
+      {
+        oID: 5,
+        option: "Neon Lamp",
+      },
+    ],
+    time: 30,
+    points: 30,
+  },
   {
     Id: 1,
     questionType: "Sorting",
@@ -133,20 +133,20 @@ export const questions = [
     time: 40,
     points: 50,
   },
-  // {
-  //   Id: 4,
-  //   questionType: "FillInTheBlank",
-  //   question: "Where was Nikola Tesla born? (country)",
-  //   time: 20,
-  //   points: 20,
-  // },
-  // {
-  //   Id: 5,
-  //   questionType: "TrueFalse",
-  //   question: "Did Nikola Tesla ever get married?",
-  //   time: 15,
-  //   points: 10,
-  // },
+  {
+    Id: 43,
+    questionType: "FillInTheBlank",
+    question: "Where was Nikola Tesla born? (country)",
+    time: 20,
+    points: 20,
+  },
+  {
+    Id: 52,
+    questionType: "TrueFalse",
+    question: "Did Nikola Tesla ever get married?",
+    time: 15,
+    points: 10,
+  },
   // {
   //   Id: 6,
   //   questionType: "TrueFalse",
