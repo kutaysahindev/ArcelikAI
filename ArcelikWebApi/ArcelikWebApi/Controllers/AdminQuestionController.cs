@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using ArcelikWebApi.Data;
+﻿using ArcelikWebApi.Data;
 using ArcelikWebApi.Models;
+using ArcelikWebApi.Models.Admin;
 using ArcelikWebApi.Models.Quiz;
-using ArcelikWebApi.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -14,20 +10,18 @@ using Microsoft.EntityFrameworkCore;
 namespace ArcelikWebApi.Controllers
 {
     [Route("api/[controller]")]
-    public class QuestionAndVideoController : ControllerBase
+    public class AdminQuestionController : ControllerBase
     {
 
         private readonly ApplicationDbContext _applicationDbContext;
-        private readonly IBlobService _blobService;
 
-        public QuestionAndVideoController(ApplicationDbContext applicationDbContext, IBlobService BlobService)
+        public AdminQuestionController(ApplicationDbContext applicationDbContext)
         {
             _applicationDbContext = applicationDbContext;
-            _blobService = BlobService;
         }
         // POST api/values
         [HttpPost("postquestion")]
-        public async Task<IActionResult> Post([FromBody] AddQuestionDTO questionDTO)
+        public async Task<IActionResult> Post([FromBody] CreateQuestionDTO questionDTO)
         {
             var LastQuestionId = await _applicationDbContext.Questions
                                    .Select(q => q.QuestionID)
@@ -35,12 +29,9 @@ namespace ArcelikWebApi.Controllers
                                    .FirstOrDefaultAsync();
 
 
-            //var LastQuestionId = 18;
-
             //This part uploads question to database
             var questions = new Questions
             {
-                //  QuestionID = LastQuestionId + 1,
                 QuestionText = questionDTO.QuestionText,
                 QuestionType = questionDTO.QuestionType,
             };
@@ -59,22 +50,15 @@ namespace ArcelikWebApi.Controllers
                 case "MultipleChoice":
                 case "TrueFalse":
                 case "Sorting":
-                    /* var LastChoiceId = await _applicationDbContext.Choices
-                                   .Select(q => q.ChoiceID)
-                                   .OrderByDescending(q => q)
-                                   .FirstOrDefaultAsync();
-                    */
 
                     foreach (var choice in questionDTO.Choices)
                     {
                         var choices = new Choices
                         {
-                            //ChoiceID = LastChoiceId + 1,
                             QuestionID = LastQuestionId + 1,
                             ChoiceText = choice
                         };
 
-                        //LastChoiceId++;
                         //Add the new question to the context
                         _applicationDbContext.Choices.Add(choices);
 
@@ -84,8 +68,8 @@ namespace ArcelikWebApi.Controllers
 
                     break;
 
-
                 default:
+
                     break;
 
             }
@@ -94,21 +78,16 @@ namespace ArcelikWebApi.Controllers
             //This part uploads answers to database
             switch (questionDTO.QuestionType)
             {
-                //Correct answersın array şeklinde gelmesi gerekiyor.
+                //Correct answersın array şeklinde gelmesi gerekiyor.[ankara,istanbul] [1,2,3] [3,2,1] 10 11 12  121110
+                //query yaparken tüm choicelere bakmasın sadece question id ile ilgili yerlere baksın
                 case "Sorting":
-                    /*
-                    var LastCorrectSortingId = await _applicationDbContext.CorrectSorting
-                                 .OrderByDescending(q => q.CorrectSortingID)
-                                 .Select(q => q.CorrectSortingID)
-                                 .FirstOrDefaultAsync();
-                    */
 
                     int concatenatedAnswerIds = 0;
 
                     foreach (var answer in questionDTO.CorrectAnswers)
                     {
                         var answerid = await _applicationDbContext.Choices
-                        .Where(c => c.ChoiceText == answer)
+                        .Where(c => c.ChoiceText == answer && c.QuestionID == LastQuestionId + 1)
                         .Select(c => c.ChoiceID)
                         .FirstOrDefaultAsync();
 
@@ -116,7 +95,6 @@ namespace ArcelikWebApi.Controllers
                     }
                     var correctSorting = new CorrectSorting
                     {
-                        //CorrectSortingID = LastCorrectSortingId + 1,
                         QuestionID = LastQuestionId + 1,
                         SortingOrder = concatenatedAnswerIds,
                         SortingScore = 10
@@ -130,15 +108,9 @@ namespace ArcelikWebApi.Controllers
                     break;
 
                 case "FillInTheBlank":
-                    /*
-                    var LastCorrecTextId = await _applicationDbContext.CorrectText
-                        .OrderByDescending(q => q.CorrectTextID)
-                        .Select(q => q.CorrectTextID)
-                        .FirstOrDefaultAsync();
-                    */
+
                     var correctText = new CorrectText
                     {
-                        //CorrectTextID = LastCorrecTextId + 1,
                         QuestionID = LastQuestionId + 1,
                         CorrectTextAnswer = questionDTO.CorrectAnswers[0],
                         TextScore = 10
@@ -153,18 +125,11 @@ namespace ArcelikWebApi.Controllers
                 case "MultipleChoiceAndAnswers":
                 case "MultipleChoice":
                 case "TrueFalse":
-                    /*
-                    var LastCorrectChoiceId = await _applicationDbContext.CorrectChoices
-                                   .OrderByDescending(q => q.CorrectChoiceID)
-                                   .Select(q => q.CorrectChoiceID)
-                                   .FirstOrDefaultAsync();
-                    */
 
                     foreach (var answer in questionDTO.CorrectAnswers)
                     {
                         var correctanswerid = await _applicationDbContext.Choices
-                        .OrderByDescending(q => q.ChoiceID)
-                        .Where(c => c.ChoiceText == answer)
+                        .Where(c => c.ChoiceText == answer && c.QuestionID == LastQuestionId + 1)
                         .Select(c => c.ChoiceID)
                         .FirstOrDefaultAsync();
 
@@ -175,13 +140,11 @@ namespace ArcelikWebApi.Controllers
 
                         var correctChoices = new CorrectChoices
                         {
-                            //CorrectChoiceID = LastCorrectChoiceId + 1,
                             QuestionID = LastQuestionId + 1,
                             ChoiceID = correctanswerid,
                             PartialScore = 10
                         };
 
-                        //LastCorrectChoiceId++;
                         //Add the new question to the context
                         _applicationDbContext.CorrectChoices.Add(correctChoices);
 
@@ -197,7 +160,104 @@ namespace ArcelikWebApi.Controllers
 
         }
 
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteQuestion(int id)
+        {
+            var question = await _applicationDbContext.Questions
+                .FirstOrDefaultAsync(q => q.QuestionID == id);
+
+            if (question == null)
+            {
+                return NotFound();
+            }
+
+            switch (question.QuestionType)
+            {
+                case "MultipleChoiceAndAnswers":
+                case "MultipleChoice":
+                case "TrueFalse":
+                    // Delete CorrectChoices rows associated with Multiple Answers questions
+                    var correctChoices = await _applicationDbContext.CorrectChoices
+                        .Where(cc => cc.QuestionID == id)
+                        .ToListAsync();
+
+                    _applicationDbContext.CorrectChoices.RemoveRange(correctChoices);
+
+                    break;
+
+                case "Sorting":
+                    // Delete CorrectSorting row associated with Sorting questions
+                    var correctSorting = await _applicationDbContext.CorrectSorting
+                        .FirstOrDefaultAsync(cs => cs.QuestionID == id);
+
+                    if (correctSorting != null)
+                    {
+                        _applicationDbContext.CorrectSorting.Remove(correctSorting);
+                    }
+
+                    break;
+
+                case "FillInTheBlank":
+                    // Delete CorrectText row associated with Fill in the Blank questions
+                    var correctText = await _applicationDbContext.CorrectText
+                        .FirstOrDefaultAsync(ct => ct.QuestionID == id);
+
+                    if (correctText != null)
+                    {
+                        _applicationDbContext.CorrectText.Remove(correctText);
+                    }
+                    break;
+
+                default:
+                    break;
+            }
+
+            if (question.QuestionType != "FillInTheBlank")
+            {
+                // Delete related Choices rows if the question type is not FillInTheBlank
+                var choices = await _applicationDbContext.Choices
+                    .Where(c => c.QuestionID == id)
+                    .ToListAsync();
+
+                _applicationDbContext.Choices.RemoveRange(choices);
+            }
+            // Delete the Questions row
+            _applicationDbContext.Questions.Remove(question);
+
+            await _applicationDbContext.SaveChangesAsync();
+
+            return NoContent();
+        }
+
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateQuestionText(int id, [FromForm] string questionText)
+        {
+            // Retrieve the question by ID
+            var question = await _applicationDbContext.Questions.FirstOrDefaultAsync(q => q.QuestionID == id);
+
+            if (question == null)
+            {
+                return NotFound();
+            }
+
+            // Update the question text
+            question.QuestionText = questionText;
+
+            try
+            {
+                // Save changes to the database
+                await _applicationDbContext.SaveChangesAsync();
+                return Ok(questionText);
+            }
+            catch (Exception ex)
+            {
+                // Log the exception or handle it accordingly
+                return StatusCode(500, "Internal server error: " + ex.Message);
+            }
+        }
+
+
 
     }
 }
-

@@ -45,14 +45,12 @@ namespace ArcelikWebApi.Controllers
                     {
                         id = Guid.NewGuid(),
                         Email = userEmailFromContext,
-                        isWatchedAll = false,
                         WatchedVideoId = 1,
                         WatchedTimeInSeconds = 0,
-                        isTutorialDone = false,
                         QuizPoint = 0,
                         IsPassed = false
                     };
-                    
+
 
                     _applicationDbContext.Users.Add(Users);
                     await _applicationDbContext.SaveChangesAsync();

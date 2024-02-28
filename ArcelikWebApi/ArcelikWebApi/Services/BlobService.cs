@@ -1,52 +1,43 @@
-﻿using System;
-using ArcelikWebApi.Models;
-using Azure.Storage.Blobs;
-using Azure.Storage.Blobs.Models;
+﻿using Azure.Storage.Blobs;
 
 namespace ArcelikWebApi.Services
 {
     public class BlobService : IBlobService
     {
         private readonly BlobServiceClient _blobServiceClient;
-        
+
         public BlobService(BlobServiceClient blobServiceClient)
         {
-            _blobServiceClient = blobServiceClient; 
+            _blobServiceClient = blobServiceClient;
         }
 
-        /*
-        public async Task<string> Upload(AddAiAppViewModel addAiAppViewModel)
+        public async Task<string> Upload(IFormFile fileUpload, string containername)
         {
-            var containerName = "file-upload"; // Change this to your actual container name
-            var containerInstance = _blobServiceClient.GetBlobContainerClient(containerName);
-
-            var blobName = addAiAppViewModel.Pdfs.FileName;
-            var blobInstance = containerInstance.GetBlobClient(blobName);
-
-            await blobInstance.UploadAsync(addAiAppViewModel.Pdfs.OpenReadStream());
-
-            // Construct and return the Blob URL
-            return $"{containerInstance.Uri}/{blobName}";
-        }
-        */
-
-        
-        public async Task<string> Upload(IFormFile fileUpload)
-        {
-            var containerName = "file-upload"; // Change this to your actual container name
-            var containerInstance = _blobServiceClient.GetBlobContainerClient(containerName);
+            var containerName = containername; // Change this to your actual container name for videos
+            var containerClient = _blobServiceClient.GetBlobContainerClient(containerName);
 
             var blobName = fileUpload.FileName;
-            var blobInstance = containerInstance.GetBlobClient(blobName);
+            var blobClient = containerClient.GetBlobClient(blobName);
 
-            await blobInstance.UploadAsync(fileUpload.OpenReadStream());
+            // Upload the video file to blob storage
+            await blobClient.UploadAsync(fileUpload.OpenReadStream());
 
-            // Construct and return the Blob URL
-            return $"{containerInstance.Uri}/{blobName}";
+            // Construct and return the Blob URL along with the duration
+            return $"{blobClient.Uri.ToString()}";
         }
-        
 
+        public async Task Delete(string blobUrl, string containername)
+        {
+            var containerName = containername;
+            var containerClient = _blobServiceClient.GetBlobContainerClient(containerName);
+
+            // Parse the blob name from the blob URL
+            var blobName = new Uri(blobUrl).Segments[^1]; // Using index to get the last segment
+
+            var blobClient = containerClient.GetBlobClient(blobName);
+
+            await blobClient.DeleteIfExistsAsync();
+        }
 
     }
 }
-

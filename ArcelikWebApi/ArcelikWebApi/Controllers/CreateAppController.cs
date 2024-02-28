@@ -40,10 +40,10 @@ namespace ArcelikWebApi.Controllers
             {
                 //Additional server-side validation for the date and time
                 if (!IsValidDateTime(formData.Date))
-                    {
-                        // Return a response indicating invalid data
-                        return BadRequest(new { success = false, message = "Invalid date and time value." });
-                    }
+                {
+                    // Return a response indicating invalid data
+                    return BadRequest(new { success = false, message = "Invalid date and time value." });
+                }
 
                 var aiApplication = new AiApplication()
                 {
@@ -62,16 +62,16 @@ namespace ArcelikWebApi.Controllers
                 };
 
                 _applicationDbContext.AiApplications.Add(aiApplication);
-                if(formData.Pdfs != null)
+                if (formData.Pdfs != null)
                 {
                     var blobUrls = new List<string>();
 
                     foreach (var pdfFile in formData.Pdfs)
                     {
-                        string blobUrl = await _blobService.Upload(pdfFile);
+                        string blobUrl = await _blobService.Upload(pdfFile, "files");
                         blobUrls.Add(blobUrl);
                     }
-                aiApplication.Pdfs_Urls = string.Join(",", blobUrls);
+                    aiApplication.Pdfs_Urls = string.Join(",", blobUrls);
                 }
 
 
