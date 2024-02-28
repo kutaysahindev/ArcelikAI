@@ -1,6 +1,6 @@
 import "./QuestionDraft.css";
-import { Dropdown } from "./Dropdown/Dropdown";
-import { HtmlSelect } from "./Dropdown/HtmlSelect";
+import { Dropdown } from "../Dropdown/Dropdown";
+// import { HtmlSelect } from "./Dropdown/HtmlSelect";
 import { TextInput } from "./Input/TextInput";
 import { OpenEnded } from "./OptionTypes/OpenEnded";
 import { TrueOrFalse } from "./OptionTypes/TrueOrFalse";
@@ -9,9 +9,12 @@ import { DragAndSort } from "./OptionTypes/DragAndSort";
 import { MultiSelect } from "./OptionTypes/MultiSelect";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { packUp, setErrorMessage, setPoints, setQuestion, setQuestionType } from "../redux/updateDBSlice";
+import { setErrorMessage, setPoints, setQuestion, setQuestionType } from "../../redux/uploadDBSlice";
 import { useEffect } from "react";
-import { ErrorDrop } from "./ErrorDrop/ErrorDrop";
+import { setNotification } from "../../redux/userSlice";
+import { checkQuestionDB } from "../../utils/errorManager";
+import { uploadQuestionDB } from "../../api";
+// import { ErrorDrop } from "../DropNotification/ErrorDrop";
 
 const questionTypes = [
   { value: "MultipleChoice", label: "Single Selection" },
@@ -22,7 +25,9 @@ const questionTypes = [
 ];
 
 export const QuestionDraft = () => {
-  const { questionType, question, points, errorMessage, message } = useSelector((s) => s.updateDB);
+  const { accessToken, NotificationText } = useSelector((s) => s.user);
+  const uploadDB = useSelector((s) => s.uploadDB);
+  const { questionType, question, points, errorMessage, quePack, choices, answer } = uploadDB;
   const dispatch = useDispatch();
   let QComponent;
 
@@ -35,6 +40,38 @@ export const QuestionDraft = () => {
     if (questionType.value === "TrueFalse") QComponent = <TrueOrFalse />;
   };
   componentPicker();
+
+  const postQuestion = () => {
+    const correctAnswerFormatter = () => {
+      if (questionType.value === "MultipleChoice") return [answer.option];
+      if (questionType.value === "MultipleChoiceAndAnswers") return answer.map(a => a.option);
+      if (questionType.value === "Sorting") return choices.map(a => a.option);
+      if (questionType.value === "FillInTheBlank") return [answer];
+      if (questionType.value === "TrueFalse") return answer;
+    }
+    let queToBeSent = {
+      QuestionType: questionType.value,
+      QuestionText: question,
+      Choices: choices ? choices.map(c => c.option) : null,
+      CorrectAnswers : correctAnswerFormatter()
+    }
+    console.log('queToBeSent: ', queToBeSent)
+    const errorMessage = checkQuestionDB(uploadDB);
+    if (errorMessage) dispatch(setNotification({type: "error", text: errorMessage}));
+    else {
+      const uploadQue = async () => {
+        try {
+          const response = await uploadQuestionDB(accessToken , queToBeSent);
+          console.log('**RESPONSE**: ', response)
+          dispatch(setNotification({type: "success", text: "Question has been sent successfully"}));
+        } catch (err) {
+          console.error(err.message)
+          dispatch(setNotification({type: "error", text: err.message}));
+        }
+      }
+      uploadQue();
+    }
+  }
 
   useEffect(() => {
     if(errorMessage) {
@@ -57,9 +94,9 @@ export const QuestionDraft = () => {
       <TextInput label="Option" />
       <TextInput label="Points" /> */}
 
-      <p>{ message }</p>
+      {/* <p>{ message }</p> */}
 
-      {errorMessage && <ErrorDrop msg={errorMessage}/>}
+      {/* {errorMessage && <ErrorDrop msg={errorMessage}/>} */}
 
       <Dropdown
         label="Question Type"
@@ -86,7 +123,7 @@ export const QuestionDraft = () => {
       />
       {QComponent}
 
-      <button onClick={() => dispatch(packUp())}>Pack Up</button>
+      <button className="uploadDB-button" onClick={postQuestion} disabled={NotificationText}>Send</button>
     </div>
   );
 };

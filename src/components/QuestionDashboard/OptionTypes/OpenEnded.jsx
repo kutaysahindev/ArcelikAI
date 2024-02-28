@@ -1,10 +1,10 @@
 import { useSelector } from "react-redux";
 import { TextInput } from "../Input/TextInput";
 import { useDispatch } from "react-redux";
-import { setTextAnswer } from "../../redux/updateDBSlice";
+import { setTextAnswer } from "../../../redux/uploadDBSlice";
 
 export const OpenEnded = () => {
-  const { answer } = useSelector((s) => s.updateDB);
+  const { answer } = useSelector((s) => s.uploadDB);
   const dispatch = useDispatch();
   return (
     <div>

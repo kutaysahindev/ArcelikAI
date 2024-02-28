@@ -1,6 +1,5 @@
 import CourseVideo from "../Video/CourseVideo";
 import QuestionPicker from "../Quiz/QuestionPicker";
-import { questions } from "../../utils/questions";
 
 const WindowContent = ({ content }) => {
 

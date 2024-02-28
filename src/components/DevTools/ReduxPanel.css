@@ -8,8 +8,8 @@
   z-index: 500;
   display: flex;
   gap: 2rem;
-  background-color: rgba(0, 149, 255, 0.544);
-  backdrop-filter: blur(10px);
+  background-color: rgba(0, 149, 255, 0.276);
+  /* backdrop-filter: blur(10px); */
   font-size: 1.5rem;
   border-radius: 0 10px 0 0;
   transition: left 0.4s;
@@ -98,6 +98,7 @@
   letter-spacing: 1rem;
   cursor: default;
   color: white;
+  text-shadow: 0 0 15px black;
 }
 .redux-panel .character {
   font-weight: bolder;

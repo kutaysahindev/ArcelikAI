@@ -6,6 +6,7 @@ import {
   setAccessToken,
   setIsLoading,
   setIsTutorialDone,
+  setNotification,
   setStatus,
   signUserIn,
   userInfoUpdate,
@@ -64,9 +65,25 @@ const Main = () => {
       .catch((error) => {
         dispatch(logUserOut());
         dispatch(setStatus("f"));
+        dispatch(setNotification({type: "error", text: "Failed to sign in"}))
         console.error("Error validating token:", error);
-      });
+      })
+      .finally(() => setTimeout(() => dispatch(setIsLoading(false)), 2000));
   }
+  // const accessTokenValidation = async() => {
+  //   const accessToken = authState.accessToken.accessToken;
+  //   dispatch(setAccessToken(accessToken));
+  //   try {
+  //     const res = await validateToken(accessToken)
+  //     console.log("SIGNED IN SUCCESSFULLY ", res)
+  //   } catch (error) {
+  //     dispatch(logUserOut());
+  //     dispatch(setStatus("f"));
+  //     console.error("Error validating token:", error);
+  //   } finally {
+  //     setTimeout(() => dispatch(setIsLoading(false)), 1000);
+  //   }
+  // }
 
   useEffect(() => {
     if (authState && authState.isAuthenticated) {
@@ -86,6 +103,7 @@ const Main = () => {
           getQuestions(user.accessToken),
           getQuizStatus(user.accessToken),
         ]);
+        console.log("PROMISE ALL")
         // VIDEO
         dispatch(setVideos(video.VideoDetails));
         dispatch(setVideoCount(video.VideoCount));
@@ -96,7 +114,8 @@ const Main = () => {
         } else {
           dispatch(
             proceedAt({
-              video: video.WatchedVideoId,
+              // video: video.WatchedVideoId,
+              video: video.VideoDetails.indexOf(video.VideoDetails.find(v => v.Id === video.WatchedVideoId)),
               time: video.WatchedTimeInSeconds,
             })
           );
@@ -106,10 +125,12 @@ const Main = () => {
         // QUIZ
         const newQuiz = questionFormatter(quiz);
         dispatch(setQuestions(newQuiz));
-        dispatch(setSelectedQuestion(newQuiz[0].Id));
+        // dispatch(setSelectedQuestion(newQuiz[0].Id));
+        dispatch(setSelectedQuestion(0));
         if (quizStatus[0]) dispatch(setResult("passed"));
       } catch (error) {
         console.error("Error fetching data:", error);
+        dispatch(setNotification({type: "error", text: "Failed to fetch video and quiz content"}))
       }
     };
 
@@ -123,7 +144,7 @@ const Main = () => {
     if (user.isLoading) {
       timerId = setTimeout(() => {
         if (user.isSignedIn) navigate("/home/form");
-        dispatch(setIsLoading(false));
+        // dispatch(setIsLoading(false));
       }, 3000);
     }
     return () => clearInterval(timerId);

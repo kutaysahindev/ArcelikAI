@@ -2,7 +2,7 @@ import { useState } from 'react';
 import './FancyInput.css';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
-import { updateChoiceHandler } from '../../redux/updateDBSlice';
+import { updateChoiceHandler } from '../../../redux/uploadDBSlice';
 
 export const ChoiceInput = ({
   label,
@@ -10,7 +10,7 @@ export const ChoiceInput = ({
   children,
 }) => {
   const [text, setText] = useState(choice.option);
-  // const { choices } = useSelector((s) => s.updateDB);
+  // const { choices } = useSelector((s) => s.uploadDB);
   const dispatch = useDispatch();
   const lowerLabel = label.toLowerCase();
 
