@@ -1,41 +1,59 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './VideoPool.css';
 import { CiEdit, CiTrash } from "react-icons/ci";
 import { IoCheckmarkOutline } from "react-icons/io5";
+import { fetchVideoNamesFromDatabase } from '../../../api';
+import { deleteVideoFromDatabase } from '../../../api';
+
 
 
 const VideoPool = () => {
-  const [currentPage, setCurrentPage] = useState(1); // Aktif sayfa numarası
-  const [videosPerPage] = useState(10); // Sayfa başına gösterilecek video sayısı
-  const [allVideos, setAllVideos] = useState([
-    'adres gezgini ',
-    'canva 100.yıl',
-    'lol12345 aa ',
-    'Video 4 ',
-    'Video 5 ',
-    'Video 6 ',
-    'Video 7 ',
-    'Video 8 ',
-    'Video 9 ',
-    'Video 10',
-  ]);
+  const [currentPage, setCurrentPage] = useState(1); 
+  const videosPerPage = 10; 
   const [editingIndex, setEditingIndex] = useState(-1);
   const [editedName, setEditedName] = useState('');
+  const [allVideos, setAllVideos] = useState(['adres gezgini',]);
 
+  useEffect(() => {
+    const fetchVideos = async () => {
+      try {
+        const videoNames = await fetchVideoNamesFromDatabase();
+        setAllVideos(videoNames);
+      } catch (error) {
+        console.error('Error fetching videos:', error);
+      }
+    };
+
+    fetchVideos();
+  }, []);
+
+  // video list of current page
   const indexOfLastVideo = currentPage * videosPerPage;
   const indexOfFirstVideo = indexOfLastVideo - videosPerPage;
   const currentVideos = allVideos.slice(indexOfFirstVideo, indexOfLastVideo);
 
+  // change page number
   // const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
-  const handleDelete = (index) => {
-    const updatedVideos = [...allVideos];
-    updatedVideos.splice(indexOfFirstVideo + index, 1);
-    setAllVideos(updatedVideos);
-    if (currentVideos.length === 1 && currentPage > 1) {
-      setCurrentPage(currentPage - 1);
+  // video deleting func
+  const handleDelete = async (index) => {
+    try {
+      const videoToDelete = allVideos[indexOfFirstVideo + index];
+      await deleteVideoFromDatabase(videoToDelete.id);
+      // if deleting is successful then remove the video name from the list
+      const updatedVideos = [...allVideos];
+      updatedVideos.splice(indexOfFirstVideo + index, 1);
+      setAllVideos(updatedVideos);
+
+      // pagination devre dışı old. için işe yaramaz
+      // if (currentVideos.length === 1 && currentPage > 1) {
+      //   setCurrentPage(currentPage - 1);
+      // }
+    } catch (error) {
+      console.error('Error deleting video:', error);
     }
   };
+
 
   const handleEdit = (index) => {
     setEditingIndex(indexOfFirstVideo + index);
