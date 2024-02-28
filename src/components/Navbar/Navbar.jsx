@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { FaRegCircleUser } from "react-icons/fa6";
 import { LuLogOut, LuLogIn } from "react-icons/lu";
+import { GrUserAdmin } from "react-icons/gr";
 import arclk from "../../assets/global.png";
 import "./Navbar.css";
 import { useOktaAuth } from "@okta/okta-react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { setIndex } from "../../redux/navIndexSlice";
 import { setIsLoading } from "../../redux/userSlice";
@@ -15,6 +16,7 @@ const Navbar = () => {
   const user = useSelector((slices) => slices.user);
   const dispatch = useDispatch();
   const location = useLocation();
+  const navigate = useNavigate()
   const { authState, oktaAuth } = useOktaAuth();
 
   return (
@@ -73,6 +75,15 @@ const Navbar = () => {
           onClick={() => setIsPopup((prev) => !prev)}
         />
         <div className={`popup-container ${isPopup ? "visible" : "hidden"}`}>
+          {"if the user is admin" && (
+            <p
+            className="btn"
+            onClick={() => navigate("/admin")}
+          >
+            <GrUserAdmin />
+            Admin Page
+          </p>
+          )}
           {!user.isSignedIn ? (
             <p
               className="btn"

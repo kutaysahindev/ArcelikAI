@@ -15,108 +15,109 @@ namespace ArcelikWebApi.Controllers
             _applicationDbContext = applicationDbContext;
         }
 
-        // Get iswatched attirubute from db.
-        // GET: api/uservideo/iswatched
+        // GET: api/uservideo/status
         [HttpGet("status")]
         public async Task<IActionResult> GetUserVideoStatus()
         {
             var userEmail = HttpContext.Items["UserEmail"] as string;
 
-            var StatusList = await _applicationDbContext.Users
+            if (string.IsNullOrEmpty(userEmail))
+                return BadRequest("User email not provided in the request");
+
+            var userStatus = await _applicationDbContext.Users
                 .Where(user => user.Email == userEmail)
                 .Select(user => new
                 {
-                    user.isWatchedAll,
                     user.WatchedVideoId,
-                    user.WatchedTimeInSeconds,
-                    user.isTutorialDone,
-                    VideoCount = _applicationDbContext.Videos.Count(), // Count of videos in the database,
-                    VideoDetails = _applicationDbContext.Videos
-                        .Select(video => new { video.Id, video.BlobStorageUrl })
-                        .ToList()
+                    user.WatchedTimeInSeconds
                 })
                 .FirstOrDefaultAsync();
 
+            if (userStatus == null)
+                return NotFound("User not found");
 
-            return Ok(StatusList);
+            var videoCount = await _applicationDbContext.Videos.CountAsync();
+            var lastVideoId = await _applicationDbContext.Videos.MaxAsync(v => (int?)v.Id) ?? 0;
+            var lastTimeInSeconds = 16;
+
+            var isWatchedAll = userStatus.WatchedVideoId >= lastVideoId && userStatus.WatchedTimeInSeconds >= lastTimeInSeconds;
+
+            var videoDetails = await _applicationDbContext.Videos
+                .Select(video => new { video.Id, video.BlobStorageUrl })
+                .ToListAsync();
+
+            var statusList = new
+            {
+                userStatus.WatchedVideoId,
+                userStatus.WatchedTimeInSeconds,
+                VideoCount = videoCount,
+                VideoDetails = videoDetails,
+                IsWatchedAll = isWatchedAll
+            };
+
+            return Ok(statusList);
         }
 
-        // POST: api/uservideo/watched
+
+        // POST: api/uservideo/updatewatched
         [HttpPost("updatewatched")]
         public async Task<IActionResult> UpdateWatchedStatus([FromBody] WatchedVideoUpdateRequest request)
         {
-            try
+            var userEmail = HttpContext.Items["UserEmail"] as string;
+
+            if (string.IsNullOrEmpty(userEmail))
+                return BadRequest("User email not provided in the request");
+
+            var user = await _applicationDbContext.Users.FirstOrDefaultAsync(u => u.Email == userEmail);
+
+            if (user == null)
+                return NotFound("User not found");
+
+            if (user.WatchedVideoId == request.WatchedVideoId)
             {
-                var userEmail = HttpContext.Items["UserEmail"] as string;
 
-                if (userEmail != null)
+                if (request.WatchedTimeInSeconds - user.WatchedTimeInSeconds <= 3)
                 {
-                    // Find the user by email
-                    var user = await _applicationDbContext.Users.FirstOrDefaultAsync(u => u.Email == userEmail);
-
-                    if (user == null)
-                    {
-                        return NotFound("User not found"); // Customize the response as needed
-                    }
-
-                    var video = _applicationDbContext.Videos.Find(request.WatchedVideoId);
-
-                    if (video == null)
-                    {
-                        return BadRequest("Invalid WatchedVideoId");
-                    }
-
                     // Update the watched video and time
-                    user.WatchedVideoId = request.WatchedVideoId;
                     user.WatchedTimeInSeconds = request.WatchedTimeInSeconds;
-                    user.isWatchedAll = request.IsWatchedAll;
-
                     await _applicationDbContext.SaveChangesAsync();
-
                     return Ok("Watched video updated successfully");
                 }
                 else
                 {
-                    return BadRequest("User email not provided in the request"); // Customize the response as needed
+                    return BadRequest("Invalid time or duration exceeded");
                 }
             }
-            catch (Exception ex)
+            else if (request.WatchedVideoId > user.WatchedVideoId && (request.WatchedVideoId - user.WatchedVideoId) <= 1)
             {
-                return StatusCode(500, $"Internal server error: {ex.Message}");
-            }
-        }
-        [HttpPost("updatetutorial")]
-        public async Task<IActionResult> UpdateTutorialStatus([FromBody] TutorialViewModel tutorialrequest)
-        {
-            try
-            {
-                var userEmail = HttpContext.Items["UserEmail"] as string;
 
-                if (userEmail != null)
+                // Fetch the duration of the currently watched video from the database
+                var currentVideoDuration = await _applicationDbContext.Videos
+                    .Where(v => v.Id == user.WatchedVideoId)
+                    .Select(v => v.DurationInSeconds)
+                    .FirstOrDefaultAsync();
+
+                // Calculate the time difference between the current time of the current video
+                // and the start time of the requested video
+                var timeDifference = (currentVideoDuration - user.WatchedTimeInSeconds) + request.WatchedTimeInSeconds;
+
+                if (timeDifference <= 3)
                 {
-                    // Find the user by email
-                    var user = await _applicationDbContext.Users.FirstOrDefaultAsync(u => u.Email == userEmail);
-
-                    if (user == null)
-                    {
-                        return NotFound("User not found"); // Customize the response as needed
-                    }
-
-                    user.isTutorialDone = tutorialrequest.isTutorialDone;
-
+                    // Accept the request if the time difference is within 3 seconds
+                    user.WatchedVideoId = request.WatchedVideoId;
+                    user.WatchedTimeInSeconds = request.WatchedTimeInSeconds;
                     await _applicationDbContext.SaveChangesAsync();
-
-                    return Ok("Tutorial status updated successfully");
+                    return Ok("Watched video updated successfully");
                 }
-
                 else
                 {
-                    return BadRequest("User email not provided in the request"); // Customize the response as needed
+                    return BadRequest("Invalid time or duration exceeded");
                 }
+
             }
-            catch (Exception ex)
+            else
             {
-                return StatusCode(500, $"Internal server error: {ex.Message}");
+                return BadRequest("Invalid video ID");
             }
         }
     }

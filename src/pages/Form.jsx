@@ -11,7 +11,6 @@ import {
   createApp,
   getAiModals,
   postVideoProgress,
-  postTutorialProgress,
 } from "../api";
 import { formDriver1, formDriver2 } from "../utils/guides";
 import { driver } from "driver.js";
@@ -90,22 +89,22 @@ export default function Form() {
   }, [allCompleted, user.accessToken]);
 
   useEffect(() => {
-    const postTProgress = async () => {
-      try {
-        await postTutorialProgress(user.accessToken);
-      } catch (error) {
-        throw error;
-      }
-    };
+    // const postTProgress = async () => {
+    //   try {
+    //     await postTutorialProgress(user.accessToken);
+    //   } catch (error) {
+    //     throw error;
+    //   }
+    // };
     if (!isWindowOpen && user.isTutorialDone !== "second") {
       if (step === 1 && user.isTutorialDone === "none") {
         driver(formDriver1).drive();
         dispatch(setIsTutorialDone("first"));
-        postTProgress();
+        // postTProgress();
       } else if (step === 2 && user.isTutorialDone === "first") {
         driver(formDriver2).drive();
         dispatch(setIsTutorialDone("second"));
-        postTProgress();
+        // postTProgress();
       } else return;
     }
   }, [step, isWindowOpen]);

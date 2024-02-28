@@ -1,20 +1,23 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addChoiceHandler } from '../../redux/updateDBSlice';
+import { addChoiceHandler } from '../../../redux/uploadDBSlice';
 import { FaPlus } from 'react-icons/fa6';
 import './FancyInput.css';
+import { checkQuestionChoiceCount } from '../../../utils/errorManager';
+import { setNotification } from '../../../redux/userSlice';
 
 export const AddChoiceInput = () => {
   const [text, setText] = useState('');
-  const { choices } = useSelector((s) => s.updateDB);
+  const { choices } = useSelector((s) => s.uploadDB);
   const dispatch = useDispatch();
 
   const addChoice = () => {
-    setText('');
-    // const lastID = choices[choices.length-1].oID + 1;
-    dispatch(addChoiceHandler(text));
-    // const lastID = choices[choices.length-1].oID + 1;
-    // setChoices((cur) => ([...cur, {oID: lastID, option: text}]));
+    const errorMessage = checkQuestionChoiceCount(choices.length);
+    if (errorMessage) dispatch(setNotification({type: "error", text: errorMessage}));
+    else {
+      dispatch(addChoiceHandler(text));
+      setText('');
+    }
   };
 
   const handleKeyPress = (e) => {
@@ -33,7 +36,7 @@ export const AddChoiceInput = () => {
       />
       <label htmlFor={'addChoice'}>Add Choice</label>
       <div className="operations">
-        <FaPlus onClick={addChoice} className={`btn add`} />
+        <FaPlus size={16} onClick={addChoice} className={`btn add`} />
       </div>
     </div>
   );

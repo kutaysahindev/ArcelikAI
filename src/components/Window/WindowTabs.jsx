@@ -52,9 +52,11 @@ const WindowTabs = ({ tabs, selectedContent, lastCompleted, onSelect, content })
       {tabs.map((t, i) => (
         <button
           key={t.Id}
-          className={`v-btn ${selectedContent === t.Id ? "selected-content" : ""}`}
-          onClick={() => onSelect(t.Id)}
-          disabled={isDisabled(t.Id)}
+          className={`v-btn ${selectedContent === i ? "selected-content" : ""}`}
+          // onClick={() => onSelect(t.Id)}
+          // disabled={isDisabled(t.Id)}
+          onClick={() => onSelect(i)}
+          disabled={isDisabled(i)}
         >
           { tabName } {i+1}
         </button>

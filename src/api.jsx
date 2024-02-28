@@ -64,26 +64,7 @@ export const getVideoProgress = async (accessToken) => {
     throw error;
   }
 };
-export const postTutorialProgress = async (accessToken) => {
-  try {
-    setAuthHeader(accessToken);
-    const response = await instance.post(
-      "/api/uservideo/updatetutorial",
-      {
-        isTutorialDone: true,
-      },
-      {
-        headers: {
-          "Custom-Header": "value",
-        },
-      }
-    );
-    // console.log(response.data);
-    return response.data;
-  } catch (error) {
-    throw error;
-  }
-};
+
 export const postVideoProgress = async (accessToken, videoCreds) => {
   try {
     setAuthHeader(accessToken);
@@ -91,7 +72,6 @@ export const postVideoProgress = async (accessToken, videoCreds) => {
     const response = await instance.post(
       "/api/uservideo/updatewatched",
       {
-        isWatchedAll: videoCreds.isWatchedAll,
         WatchedVideoId: videoCreds.WatchedVideoId,
         WatchedTimeInseconds: videoCreds.WatchedTimeInseconds,
       },
@@ -172,7 +152,7 @@ export const postQuestionResponses = async (accessToken, responses) => {
 
 // Question Upload to DB
 export const uploadQuestionDB = async (accessToken, question) => {
-  const endpoint = "/api/QuestionAndVideo/postquestion";
+  const endpoint = "/api/adminquestion/postquestion";
   try {
     setAuthHeader(accessToken);
     const response = await instance.post(endpoint, question);
@@ -182,7 +162,7 @@ export const uploadQuestionDB = async (accessToken, question) => {
   }
 };
 
-// VIDEO 
+// VIDEO
 
 // Video Upload to DB
 export const formData = async (accessToken, video) => {
@@ -198,7 +178,7 @@ export const formData = async (accessToken, video) => {
 
 // Veritabanından videoları çekmek için bir fonksiyon (videomanagement.jsx)
 export const fetchVideosFromDatabase = async () => {
-  const endpoint = "/api/videos"; 
+  const endpoint = "/api/videos";
   try {
     const response = await instance.get(endpoint);
     return response.data;
@@ -208,10 +188,13 @@ export const fetchVideosFromDatabase = async () => {
 };
 
 // Yeni video sırasını veritabanına göndermek için bir fonksiyon (videomanagement.jsx)
-export const updateVideoOrderInDatabase = async (accessToken, updatedVideos) => {
-  const endpoint = "/api/update-video-order"; 
+export const updateVideoOrderInDatabase = async (
+  accessToken,
+  updatedVideos
+) => {
+  const endpoint = "/api/update-video-order";
   try {
-    setAuthHeader(accessToken); 
+    setAuthHeader(accessToken);
     const response = await instance.post(endpoint, updatedVideos);
     return response.data;
   } catch (error) {
@@ -232,7 +215,7 @@ export const updateVideoDetailsInDatabase = async (updatedVideoDetails) => {
 
 // Veritabanından video isimlerini çekmek için bir fonksiyon (VideoPool.jsx)
 export const fetchVideoNamesFromDatabase = async () => {
-  const endpoint = "/api/videos"; 
+  const endpoint = "/api/videos";
   try {
     const response = await instance.get(endpoint);
     return response.data;
@@ -243,7 +226,7 @@ export const fetchVideoNamesFromDatabase = async () => {
 
 // Belirli bir videoyu veritabanından silmek için bir fonksiyon (videopool.jsx)
 export const deleteVideoFromDatabase = async (videoId) => {
-  const endpoint = `/api/adminvideo/${videoId}`; 
+  const endpoint = `/api/adminvideo/${videoId}`;
   try {
     const response = await instance.delete(endpoint);
     return response.data;

@@ -12,8 +12,7 @@ import FullProgressBar from "./FullProgressBar";
 const CourseVideo = () => {
   const [isHovered, setIsHovered] = useState(false);
   const stateRef = useRef();
-  const { selectedVideo, lastCompleted, allCompleted, videoCount, videos } =
-    useSelector((state) => state.video);
+  const { selectedVideo, lastCompleted, allCompleted, videoCount, videos } = useSelector((state) => state.video);
   const user = useSelector((state) => state.user);
   const { videoRef, videoDetails, watchAgain } = useVideoPlayer();
   const { currentTime, progress, isCompleted, status } = videoDetails;
@@ -36,7 +35,7 @@ const CourseVideo = () => {
     };
     if (user.accessToken.length > 1 && selectedVideo > lastCompleted && (progress < 90) ) {
       postVideo();
-      console.log("CourseVideo", progress)
+      // console.log("CourseVideo", progress)
     }
   };
 
@@ -48,7 +47,7 @@ const CourseVideo = () => {
   }, [status]);
 
   return (
-    <div className="video-container" id={`${selectedVideo}-cont`}>
+    <div className="video-container" id={`${selectedVideo+1}-cont`}>
       <FullProgressBar isCompleted={isCompleted} progress={progress}/>
       {/* <ProgressBar isCompleted={isCompleted} progress={progress}/> */}
       {/* <p className="info">
@@ -56,7 +55,7 @@ const CourseVideo = () => {
         rate and seeking
       </p> */}
       
-      {(selectedVideo < 1 || selectedVideo > videoCount) ? (
+      {(selectedVideo < 0 || selectedVideo+1 > videoCount) ? (
         <div className="video-not-found">
           <MdReportGmailerrorred size={40} /> <p>Video Not Found</p>
         </div>
@@ -72,7 +71,8 @@ const CourseVideo = () => {
             height="300"
             controls
             controlsList="nodownload noplaybackrate "
-            src={videos[selectedVideo - 1].BlobStorageUrl}
+            // src={videos[selectedVideo - 1].BlobStorageUrl}
+            src={videos[selectedVideo].BlobStorageUrl}
             type="video/mp4"
           />
           <VideoButtonContainer isHovered={isHovered} watchAgain={watchAgain} />

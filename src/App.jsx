@@ -11,6 +11,7 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { setNotification, setNotificationDirection } from "./redux/userSlice";
 import { router } from "./pages/Routes";
+import ReduxPanel from "./components/DevTools/ReduxPanel";
 
 const oktaAuth = new OktaAuth({
   issuer: "https://dev-36035985.okta.com/oauth2/default",
@@ -44,6 +45,7 @@ function App() {
 
   return (
     <Security oktaAuth={oktaAuth} restoreOriginalUri={restoreOriginalUri}>
+      <ReduxPanel />
       {/* {notificationText && (
         <DropNotification
           type={notificationType}

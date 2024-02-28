@@ -1,24 +1,28 @@
 import { useDispatch } from 'react-redux';
 import './ReduxPanel.css'
-import { setResult } from '../../redux/quizSlice';
+import { setQuestions, setResult } from '../../redux/quizSlice';
 import { closeWindow, openWindow, setWindowContent } from '../../redux/windowSlice';
 import Accordion from './Accordion';
 import { useState } from 'react';
-import { setAllCompletedFalse, setAllCompletedTrue, setVideoMark } from '../../redux/videoSlice';
+import { setAllCompletedFalse, setAllCompletedTrue, setVideoCount, setVideoMark, setVideos } from '../../redux/videoSlice';
 import { signUserIn, logUserOut, setNotification, setIsTutorialDone } from '../../redux/userSlice';
 import DevButton from './DevButton';
 import { useSelector } from 'react-redux';
-import { packUp } from '../../redux/uploadDBSlice';
-import { uploadQuestionDB } from '../../api';
+import { deleteVideoDB, uploadQuestionDB } from '../../api';
+import { videosArray } from '../../utils/videos';
+import { questionsArray } from '../../utils/questions';
+import { LiaWindowMinimize } from "react-icons/lia";
 
 const ReduxPanel = () => {
   const [isHovered, setIsHovered] = useState(false)
+  const [minimize, setMinimize] = useState(false);
   const [input, setInput] = useState({
     videoMarkId: "",
     videoMarkSec: "",
     notificationType: "warning",
     notificationText: "This is a warning",
     notificationTime: 5,
+    videoIDtoDelete: 0,
   })
   const { isSignedIn, isTutorialDone, accessToken } = useSelector((slices) => slices.user);
   const { isWindowOpen, windowContent } = useSelector((slices) => slices.window);
@@ -29,29 +33,33 @@ const ReduxPanel = () => {
   const collapsePanel = () => setIsHovered(false)
   const setText = (fld, txt) => setInput(prev => ({...prev, [fld]: txt}));
 
-  // const uploadQue = async () => {
-  //   const quePack = {
-  //     QuestionType: "Sorting",
-  //     QuestionText: "state.question",
-  //     Choices: ["c","b","a"],
-  //     CorrectAnswers : "abc",
-  //   }
-  //   try {
-  //     const response = await uploadQuestionDB(accessToken, quePack);
-  //     console.log('**RESPONSE**: ', response)
-  //   } catch (err) {
-  //     console.error(err.message)
-  //   }
-  // }
+  const videoDeleter = async () => {
+    try {
+      await deleteVideoDB(accessToken, 3)
+
+    } catch (err) {
+      console.error(err.message)
+    }
+  }
+
+  const localVideo = () => {
+    dispatch(setVideos(videosArray))
+    dispatch(setVideoCount(videosArray.length))
+  }
 
   return (
     <div className={`redux-panel ${isHovered ? "expand" : ""}`} onMouseEnter={expandPanel} onMouseLeave={collapsePanel}>
+      {/* <div className=''><LiaWindowMinimize/></div> */}
       <div className='accordions'>
         <Accordion title={"Notification"}>
           <input type='text' className='rp-i' value={input.notificationType} onChange={(e) => setText("notificationType", e.target.value)} placeholder='type' style={{width: "50px"}}/>
           <input type='text' className='rp-i' value={input.notificationText} onChange={(e) => setText("notificationText", e.target.value)} placeholder='text' style={{width: "140px"}}/>
           <input type='number' className='rp-i' value={input.notificationTime} onChange={(e) => setText("notificationTime", e.target.value)} placeholder='time' style={{width: "30px"}}/>
           <button className='rp-b' onClick={() => dispatch(setNotification({type:input.notificationType, text:input.notificationText, time:input.notificationTime}))}>Set</button>
+        </Accordion>
+        <Accordion title={"Local Assets"}>
+          <DevButton txt={"Videos"} onClick={localVideo} />
+          <DevButton txt={"Questions"} onClick={() => dispatch(setQuestions(questionsArray))} />
         </Accordion>
         <Accordion title={"Auth"}>
           <DevButton txt={"Sign In"} condition={isSignedIn} onClick={() => dispatch(signUserIn())} />
@@ -87,8 +95,9 @@ const ReduxPanel = () => {
           <DevButton txt={"Second"} condition={isTutorialDone === "second"} onClick={() => dispatch(setIsTutorialDone("second"))} />
         </Accordion>
         <Accordion title={"Upload to Database"}>
-          <DevButton txt={"question"} condition={false} onClick={() => dispatch(packUp(accessToken))} />
+          {/* <DevButton txt={"question"} condition={false} onClick={() => dispatch(packUp(accessToken))} /> */}
           <DevButton txt={"video"} condition={false} onClick={() => {}} />
+          <DevButton txt={"v-delete"} condition={false} onClick={videoDeleter} />
         </Accordion>
       </div>
       <h2 className='vertical'>

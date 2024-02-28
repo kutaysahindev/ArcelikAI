@@ -11,6 +11,7 @@ import AddNewVideo from '../components/AdminPanel/VideoUploadContainer/AddNewVid
 
 
 import { LoginCallback } from "@okta/okta-react";
+import ErrorComponent from "../components/ErrorComponent";
 
 export const router = createBrowserRouter([
   {
@@ -31,6 +32,7 @@ export const router = createBrowserRouter([
   {
     path: "/home",
     element: <RootLayout />,
+    errorElement: <ErrorComponent />,
     children: [
       {
         path: "/home",
@@ -44,6 +46,7 @@ export const router = createBrowserRouter([
       {
         path: "form",
         element: <Form />,
+        
       },
       {
         path: "anteroom",

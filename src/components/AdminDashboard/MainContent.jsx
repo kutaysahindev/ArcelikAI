@@ -3,8 +3,10 @@ import Graph from "./Graphs/Graph.png";
 import content1 from "./Graphs/content1.png";
 import content2 from "./Graphs/content2.png";
 import content3 from "./Graphs/content3.png";
-import AddNewVideo from "../AdminPanel/VideoUploadContainer/AddNewVideo"; 
-import VideoManagement from "../AdminPanel/VideoManagement"
+import { QuestionDraft } from "../QuestionDashboard/QuestionDraft";
+import { QuestionPool } from "../QuestionDashboard/QuestionPool";
+import AddNewVideo from "../AdminPanel/VideoUploadContainer/AddNewVideo";
+import VideoManagement from "../AdminPanel/VideoManagement";
 
 const MainContent = () => {
   const { adminIndex } = useSelector((state) => state.nav);
@@ -46,11 +48,11 @@ const MainContent = () => {
   }
 
   if (adminIndex === "Question Pool") {
-    content = "Question Pool";
+    content = <QuestionPool />;
   }
 
   if (adminIndex === "Create Questions") {
-    content = "Create Questions";
+    content = <QuestionDraft />;
   }
 
   return <div className="main-content">{content}</div>;
