@@ -165,7 +165,7 @@ export const uploadQuestionDB = async (accessToken, question) => {
 // VIDEO
 
 // Video Upload to DB
-export const formData = async (accessToken, video) => {
+export const uploadVideos = async (accessToken, video) => {
   const endpoint = "/api/adminvideo/upload";
   try {
     setAuthHeader(accessToken);

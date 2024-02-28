@@ -1,7 +1,7 @@
 import { useState, useRef } from "react";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import "./VideoUploadContainer.css";
+import { uploadVideos } from "../../../api";
+import { useSelector } from "react-redux";
 
 export const VideoUploadContainer = () => {
   const [title, setTitle] = useState("");
@@ -10,11 +10,9 @@ export const VideoUploadContainer = () => {
   const [isDragging, setIsDragging] = useState(false); // Drag and drop durumu
   const fileInputRef = useRef(null); // Dosya girişi için referans
 
-  const navigate = useNavigate();
+  const [duration, setDuration] = useState(null);
 
-  const handleAddNewVideo = () => {
-    navigate("/");
-  };
+  const user = useSelector((state) => state.user);
 
   // Drag and drop bölgesine dosya bırakıldığında
   const handleDrop = (e) => {
@@ -43,6 +41,14 @@ export const VideoUploadContainer = () => {
     const selectedFile = e.target.files[0];
     if (selectedFile && isMP4Video(selectedFile)) {
       setVideoFile(selectedFile);
+      const video = document.createElement("video");
+      video.src = URL.createObjectURL(selectedFile); // Set the video source
+      video.onloadedmetadata = () => {
+        setDuration(parseInt(video.duration));
+        // console.log("Video duration:", parseInt(video.duration));
+      };
+      // Append the video element to the document
+      document.body.appendChild(video);
     } else {
       alert("You can only upload an MP4 file.");
     }
@@ -82,26 +88,21 @@ export const VideoUploadContainer = () => {
     }
 
     const formData = new FormData();
-    formData.append("title", title);
+    formData.append("Title", title);
     console.log({ title });
-    formData.append("video", videoFile, videoFile.name);
+    formData.append("Video", videoFile, videoFile.name);
     console.log({ videoFile }, videoFile.name);
+    formData.append("DurationInSeconds", duration);
+    console.log("yollanan durasyon: ", duration);
 
     try {
-      const response = await axios.post(
-        "https://6582f75e02f747c8367abde3.mockapi.io/api/v1/videos",
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
+      await uploadVideos(user.accessToken, formData);
 
-      console.log("Video uploaded successfully:", response.data);
+      console.log("Video uploaded successfully");
       console.log("formData: ", formData);
       setTitle("");
       setVideoFile(null);
+      setDuration(null);
     } catch (error) {
       console.error("Error uploading video:", error);
     }
