@@ -1,134 +1,116 @@
 .video-titles {
-    background-color: #f2f2f3;
-    border-radius: 5px;
-    padding: 15px;
-    width: 25vw;
-    max-width: 500px;
-    height: 46vh;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    margin-top: 1rem;
-    font-size: 15px;
-    /* margin-left: -4rem; */
-  }
-  
+  background-color: #f2f2f3;
+  border-radius: 5px;
+  padding: 15px;
+  width: 25vw;
+  max-width: 500px;
+  height: 46vh;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 1rem;
+  font-size: 15px;
+  /* margin-left: -4rem; */
+}
+
+.titles {
+  margin-top: 2rem;
+  margin-right: -4rem;
+}
+
+.selected-title {
+  font-size: 22px;
+  font-weight: 500;
+}
+
+.selected-paragraph {
+  font-size: 16px;
+  font-weight: 450;
+}
+
+.apply-btn {
+  margin: 0 auto;
+  background-color: #cc1526;
+  color: whitesmoke;
+  font-size: 15px;
+  font-weight: 500;
+  border-radius: 5px;
+  padding: 0.8rem 1.6rem;
+  cursor: pointer;
+  transition: 0.3s;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+}
+
+.apply-btn-cont {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.apply-btn:hover {
+  background-color: #fd2626;
+}
+
+.new-video {
+  background-color: rgb(230, 69, 69);
+  color: white;
+  font-weight: 500;
+  font-size: 19px;
+  padding: 5px 10px 10px 10px;
+  width: 20rem;
+  height: 5rem;
+  border-radius: 5px;
+  margin-top: 3rem;
+  margin-left: 3.4rem;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+.new-video:hover {
+  background-color: #c82525;
+}
+
+/*  RESPONSIVE DESIGN */
+
+@media screen and (max-width: 1070px) {
   .titles {
-    margin-top: 2rem;
-    margin-right: -4rem;
+    width: 90%;
+    margin-top: 5%;
+    margin-left: -5%;
   }
-  
-  .selected-title {
-    font-size: 22px;
-    font-weight: 500;
+
+  .video-titles {
+    width: 90%;
   }
-  
-  .selected-paragraph {
-    font-size: 16px;
-    font-weight: 450;
-  }
-  
-  .apply-btn {
-    width: 16rem;
-    height: 4rem;
-    background-color: rgba(51,104,150,255);
-    color: whitesmoke;
-    font-size: 15px;
-    font-weight: 500;
-    border-radius: 5px;
-    padding: 0.6rem 0 0.6rem;
-    cursor: pointer;
-    transition: .3s;
-    margin-left: 19rem;
-    margin-top: 1.5rem;
-    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
-  }
-  
-  .apply-btn:hover {
-    background-color: rgb(7, 75, 132);
-  }
-  
+
   .new-video {
-    background-color: rgb(230, 69, 69);
-    color: white;
-    font-weight: 500;
-    font-size: 19px;
-    padding: 5px 10px 10px 10px;
-    width: 20rem;
-    height: 5rem;
-    border-radius: 5px;
-    margin-top: 3rem;
-    margin-left: 3.4rem;
-    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
-    transition: .3s;
-    cursor: pointer;
+    width: 40%;
+    height: 8%;
+    margin-top: 5%;
+    margin-left: 7%;
+    font-size: 14px;
+    padding-top: 3%;
   }
-  
-  .new-video:hover {
-    background-color: #c82525;
+}
+
+@media screen and (max-width: 1070px) {
+  .titles {
+    width: 90%;
+    margin-top: 5%;
+    margin-left: -5%;
   }
 
-  /*  RESPONSIVE DESIGN */
-
-  @media screen and (max-width: 1070px) {
-
-    .titles {
-      width: 90%;
-      margin-top: 5%;
-      margin-left: -5%;
-    }
-
-    .apply-btn {
-      width: 40%;
-      height: 6%;
-      margin-top: 5%;
-      margin-left: 40%;
-      padding-bottom: 5%;
-
-    }
-
-    .video-titles {
-      width: 90%;
-    }
-
-    .new-video {
-      width: 40%;
-      height: 8%;
-      margin-top: 5%;
-      margin-left: 7%;
-      font-size: 14px;
-      padding-top: 3%;
-    }
+  .video-titles {
+    width: 90%;
   }
 
-  @media screen and (max-width: 1070px) {
-
-    .titles {
-      width: 90%;
-      margin-top: 5%;
-      margin-left: -5%;
-    }
-
-    .apply-btn {
-      width: 40%;
-      height: 6%;
-      margin-top: 5%;
-      margin-left: 40%;
-      padding-bottom: 5%;
-
-    }
-
-    .video-titles {
-      width: 90%;
-    }
-
-    .new-video {
-      width: 40%;
-      height: 8%;
-      margin-top: 5%;
-      margin-left: 7%;
-      font-size: 14px;
-      padding-top: 3%;
-    }
-
+  .new-video {
+    width: 40%;
+    height: 8%;
+    margin-top: 5%;
+    margin-left: 7%;
+    font-size: 14px;
+    padding-top: 3%;
   }
+}

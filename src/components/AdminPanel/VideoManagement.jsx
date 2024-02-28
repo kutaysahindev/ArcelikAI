@@ -1,15 +1,13 @@
-import { useState, useEffect } from 'react';
-import Guidence from './Guidence';
-import './VideoManagement.css';
-
+import { useState, useEffect } from "react";
+import Guidence from "./Guidence";
+import "./VideoManagement.css";
 
 // import BothSelectednPool from './ManagementPanelComponents/BothSelectednPool';
-import SortedVideo from './SelectedVideos/SortedVideo.jsx';
-import VideoPool from './VideoPool/VideoPool';
+import SortedVideo from "./SelectedVideos/SortedVideo.jsx";
+import VideoPool from "./VideoPool/VideoPool";
 import { DndContext, closestCorners } from "@dnd-kit/core";
 import { arrayMove, sortableKeyboardCoordinates } from "@dnd-kit/sortable";
 import { getVideoProgress, updateVideoOrderInDatabase } from "../../api.jsx";
-
 
 // export default function VideoManagement() {
 //   const [videos, setVideos] = useState([
@@ -20,9 +18,9 @@ import { getVideoProgress, updateVideoOrderInDatabase } from "../../api.jsx";
 //     { id: 5, title: "fifthVideo.mp4"},
 //   ]);
 
-//   const getVideosPosition = id => 
+//   const getVideosPosition = id =>
 //   videos.findIndex(visual => visual.id === id);
-  
+
 //   const handleDragEnd = e => {
 //     const {active, over} = e
 
@@ -53,13 +51,15 @@ export default function VideoManagement() {
   //   fetchVideos();
   // }, []);
 
-  const handleDragEnd = async e => {
+  const handleDragEnd = async (e) => {
     const { active, over } = e;
 
     if (active.id === over.id) return;
 
-    const originalPosition = videos.findIndex(visual => visual.id === active.id);
-    const newPosition = videos.findIndex(visual => visual.id === over.id);
+    const originalPosition = videos.findIndex(
+      (visual) => visual.id === active.id
+    );
+    const newPosition = videos.findIndex((visual) => visual.id === over.id);
 
     const updatedVideos = arrayMove(videos, originalPosition, newPosition);
 
@@ -68,7 +68,7 @@ export default function VideoManagement() {
       await updateVideoOrderInDatabase(updatedVideos);
       setVideos(updatedVideos);
     } catch (error) {
-      console.error('Error updating video order:', error);
+      console.error("Error updating video order:", error);
     }
   };
 
@@ -76,20 +76,25 @@ export default function VideoManagement() {
 
   return (
     <>
-      <Guidence title="Video Management"/>
-
-      <div className='both-video-area'>
-        <VideoPool/>
+      <div className="both-video-area">
+        <VideoPool />
         {/* <ul>
           {numbers.map((number) => (
           <li key={number}>{number}</li>
           ))}
         </ul> */}
-        <DndContext onDragEnd={handleDragEnd} collisionDetection={closestCorners}>
-          <SortedVideo videos={videos}/>
+        <DndContext
+          onDragEnd={handleDragEnd}
+          collisionDetection={closestCorners}
+        >
+          <SortedVideo videos={videos} />
         </DndContext>
+      </div>
+      <div className="apply-btn-cont">
+        <button type="submit" className="apply-btn">
+          Apply Changes
+        </button>
       </div>
     </>
   );
 }
-

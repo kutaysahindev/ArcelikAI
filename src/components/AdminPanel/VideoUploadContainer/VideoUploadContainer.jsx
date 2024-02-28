@@ -1,10 +1,10 @@
-import { useState, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import { useState, useRef } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import "./VideoUploadContainer.css";
 
 export const VideoUploadContainer = () => {
-  const [title, setTitle] = useState('');
+  const [title, setTitle] = useState("");
   const [videoFile, setVideoFile] = useState(null); // Tek bir video dosyası
   const [selectedVideo, setSelectedVideo] = useState(null); // Silinecek video
   const [isDragging, setIsDragging] = useState(false); // Drag and drop durumu
@@ -13,7 +13,7 @@ export const VideoUploadContainer = () => {
   const navigate = useNavigate();
 
   const handleAddNewVideo = () => {
-    navigate('/');
+    navigate("/");
   };
 
   // Drag and drop bölgesine dosya bırakıldığında
@@ -35,18 +35,18 @@ export const VideoUploadContainer = () => {
 
   // Seçilen dosyanın MP4 formatında olup olmadığını kontrol eder
   const isMP4Video = (file) => {
-    return file.type === 'video/mp4';
+    return file.type === "video/mp4";
   };
 
   // Dosya yükleme işlemi için
-const handleFileInputChange = (e) => {
-  const selectedFile = e.target.files[0];
-  if (selectedFile && isMP4Video(selectedFile)) {
-    setVideoFile(selectedFile);
-  } else {
-    alert("You can only upload an MP4 file.");
-  }
-};
+  const handleFileInputChange = (e) => {
+    const selectedFile = e.target.files[0];
+    if (selectedFile && isMP4Video(selectedFile)) {
+      setVideoFile(selectedFile);
+    } else {
+      alert("You can only upload an MP4 file.");
+    }
+  };
 
   // Dosyanın kaldırılması için
   const handleRemoveVideo = (file, event) => {
@@ -71,49 +71,52 @@ const handleFileInputChange = (e) => {
   const handleTitle = (e) => {
     setTitle(e.target.value);
   };
-  
+
   // Formun gönderilmesi
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!videoFile) {
-      alert('Please select a video file');
+      alert("Please select a video file");
       return;
     }
 
     const formData = new FormData();
-    formData.append('title', title);
-    console.log({title})
-    formData.append('video', videoFile, videoFile.name);
-    console.log({videoFile}, videoFile.name)
+    formData.append("title", title);
+    console.log({ title });
+    formData.append("video", videoFile, videoFile.name);
+    console.log({ videoFile }, videoFile.name);
 
     try {
       const response = await axios.post(
-        'https://6582f75e02f747c8367abde3.mockapi.io/api/v1/videos',
+        "https://6582f75e02f747c8367abde3.mockapi.io/api/v1/videos",
         formData,
         {
           headers: {
-            'Content-Type': 'multipart/form-data',
+            "Content-Type": "multipart/form-data",
           },
         }
       );
 
-      console.log('Video uploaded successfully:', response.data);
-      console.log('formData: ', formData);
-      setTitle('');
+      console.log("Video uploaded successfully:", response.data);
+      console.log("formData: ", formData);
+      setTitle("");
       setVideoFile(null);
     } catch (error) {
-      console.error('Error uploading video:', error);
+      console.error("Error uploading video:", error);
     }
   };
 
   return (
-    <div className='form-area'>
+    <div className="form-area">
       <form onSubmit={handleSubmit}>
-        <div className='dnd-bar'>
-          <label htmlFor='videoFile' className='page-title'>Choose an MP4 File:</label>
+        <div className="dnd-bar">
+          <label htmlFor="videoFile" className="page-title">
+            Choose an MP4 File:
+          </label>
 
-          <div className="drag-drop-area"
+          <div
+            className="drag-drop-area"
             onDragOver={(e) => e.preventDefault()}
             onDrop={handleDrop}
             onDragLeave={() => setIsDragging(false)}
@@ -122,36 +125,52 @@ const handleFileInputChange = (e) => {
             <input
               type="file"
               ref={fileInputRef}
-              style={{ display: 'none' }}
+              style={{ display: "none" }}
               onChange={handleFileInputChange}
               accept=".mp4"
             />
-            <h2 className='up-text'>Drag and Drop Area</h2>
-            <p className='down-text'>Drag and drop MP4 files here or Browse.</p>
+            <h2 className="up-text">Drag and Drop Area</h2>
+            <p className="down-text">Drag and drop MP4 files here or Browse.</p>
           </div>
         </div>
-        <div className='video-remove-bar'>
+        <div className="video-remove-bar">
           {videoFile && (
             <div className="file-list">
               <ul>
-                <li className='span-btn'>
-                  <span className='span'>{videoFile.name}</span>
-                  <button className="first-remove-btn" onClick={(event) => handleRemoveVideo(videoFile, event)}>Remove</button>
+                <li className="span-btn">
+                  <span className="span">{videoFile.name}</span>
+                  <button
+                    className="first-remove-btn"
+                    onClick={(event) => handleRemoveVideo(videoFile, event)}
+                  >
+                    Remove
+                  </button>
                 </li>
               </ul>
             </div>
           )}
           {selectedVideo && (
             <div className="video-remove-modal">
-              <h2 className='confirm-text'>Are you sure you want to remove {selectedVideo.name}?</h2>
-              <button className="remove-confirm" onClick={confirmRemoveVideo}>Remove</button>
-              <button className="remove-cancel" onClick={() => setSelectedVideo(null)}>Cancel</button>
+              <h2 className="confirm-text">
+                Are you sure you want to remove {selectedVideo.name}?
+              </h2>
+              <button className="remove-confirm" onClick={confirmRemoveVideo}>
+                Remove
+              </button>
+              <button
+                className="remove-cancel"
+                onClick={() => setSelectedVideo(null)}
+              >
+                Cancel
+              </button>
             </div>
           )}
         </div>
-        <div className='title-bar'>
-          <label htmlFor='title' className='video-head'>Video Title:</label>
-          <input 
+        <div className="title-bar">
+          <label htmlFor="title" className="video-head">
+            Video Title:
+          </label>
+          <input
             type="text"
             id="video-title"
             value={title}
@@ -159,10 +178,13 @@ const handleFileInputChange = (e) => {
           />
         </div>
         <div className="add-to-pool-container">
-          <button type='submit' className="add-to-pool-btn" onClick={handleSubmit}>Add to All Videos</button>
-        </div>
-        <div className='route-video-management'>
-          <button type='submit' className='route-btn' onClick={handleAddNewVideo}>Go to Video Management</button>
+          <button
+            type="submit"
+            className="add-to-pool-btn"
+            onClick={handleSubmit}
+          >
+            Add to All Videos
+          </button>
         </div>
       </form>
     </div>
