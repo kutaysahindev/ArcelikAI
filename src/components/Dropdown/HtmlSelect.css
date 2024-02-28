@@ -1,0 +1,38 @@
+.select-item {
+  position: relative;
+}
+.select-item label {
+  position: absolute;
+  cursor: default;
+  font-size: 11px;
+  top: -5px;
+  left: 5px;
+  z-index: 2;
+  font-weight: bold;
+  background: #242424;
+  padding: 0 5px;
+  color: #999;
+  transition: all 0.3s ease;
+}
+.select-item select:focus + label {
+  color: #a32424;
+}
+.select-item select {
+  transition: all 0.3s ease;
+}
+.select-item select:focus {
+  border-color: #a32424;
+}
+.qt-select {
+  padding: 12px 10px;
+  border-radius: 10px;
+  border: solid 1px #ccc;
+  outline: none;
+  background: transparent;
+  color: white;
+  width: 400px;
+}
+.qt-select option {
+  background: #000;
+  border: none;
+}

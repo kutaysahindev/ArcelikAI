@@ -34,10 +34,10 @@ ul {
 .option:hover {
   background: rgb(213, 213, 213);
 }
-.selected {
+.option.selected {
   background-color: rgb(93, 200, 200);
 }
-.selected:hover {
+.option.selected:hover {
   background-color: rgb(78, 172, 172);
 }
 

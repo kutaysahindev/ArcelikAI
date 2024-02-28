@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { questions } from "../utils/questions";
 
 const initialState = {
   isQuizWindowOpen: true,
@@ -66,8 +65,6 @@ export const quizSlice = createSlice({
       const index = state.responsesToBeSended.findIndex(
         (q) => q.ReceivedQuestionID === qID
       );
-      // console.log("index: ", index);
-      // state.responsesToBeSended.find((q) => q.ReceivedQuestionID === qID) = {
       if (index >= 0) {
         state.responsesToBeSended[index] = {
           ReceivedQuestionID: qID,
@@ -77,15 +74,6 @@ export const quizSlice = createSlice({
           ReceivedSortingOrder: order,
         };
       } 
-      // else {
-      //   state.responsesToBeSended.push({
-      //     ReceivedQuestionID: qID,
-      //     ReceivedQuestionType: qType,
-      //     ReceivedChoiceID: oIDarr,
-      //     ReceivedTextAnswer: text,
-      //     ReceivedSortingOrder: order,
-      //   });
-      // }
     },
   },
 });
@@ -99,7 +87,8 @@ export const {
   setResponsesToBeSended,
   defaultResponses,
   quizFailed,
-  quizPassed
+  quizPassed,
+  setResult
 } = quizSlice.actions;
 
 export default quizSlice.reducer;

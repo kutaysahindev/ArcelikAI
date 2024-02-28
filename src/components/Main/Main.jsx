@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import { useOktaAuth } from "@okta/okta-react";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -6,67 +6,89 @@ import {
   setAccessToken,
   setIsLoading,
   setIsTutorialDone,
+  setNotification,
   setStatus,
   signUserIn,
   userInfoUpdate,
 } from "../../redux/userSlice";
 import { useNavigate } from "react-router-dom";
 import LoadingLayer from "../Loading/LoadingLayer";
-
 import "./Main.css";
 import contentList from "./ContentData";
-import { getQuestions, getSettings, getVideoProgress, validateToken } from "../../api"; // Import the validateToken function
 import {
-  closeVideoWindow,
+  getQuestions,
+  getQuizStatus,
+  getSettings,
+  getVideoProgress,
+  validateToken,
+} from "../../api";
+import {
   completeAll,
-  completeVideo,
   proceedAt,
-  setSelectedVideo,
   setVideoCount,
-  setVideoMark,
   setVideos,
 } from "../../redux/videoSlice";
 import { updateSettings } from "../../redux/settingSlice";
-import { defaultResponses, setQuestions, setSelectedQuestion } from "../../redux/quizSlice";
+import {
+  setQuestions,
+  setResult,
+  setSelectedQuestion,
+} from "../../redux/quizSlice";
+import { closeWindow } from "../../redux/windowSlice";
+import { questionFormatter } from "../../utils/questionFormatter";
 
 const Main = () => {
   const { authState, oktaAuth } = useOktaAuth();
   const nav = useSelector((slices) => slices.nav);
   const user = useSelector((slices) => slices.user);
-  const { videoCount } = useSelector((slices) => slices.video);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const isValidIndex = nav.index >= 0 && nav.index < contentList.length;
 
-  useEffect(() => {
+  const userInfoHandler = () => {
     oktaAuth
       .getUser()
       .then((user) => {
         const myDate = new Date(user.headers.date);
-        const newDate = myDate.toLocaleString("en-US", {
-          timezone: "Europe/Istanbul",
-        });
-        dispatch(
-          userInfoUpdate({ name: user.name, email: user.email, date: newDate })
-        );
+        const newDate = myDate.toLocaleString("en-US", {timezone: "Europe/Istanbul"});
+        dispatch(userInfoUpdate({ name: user.name, email: user.email, date: newDate }));
       })
       .catch((error) => console.error("Error fetching user info:", error));
-  }, [oktaAuth, dispatch]);
+  }
+
+  const accessTokenValidation = () => {
+    const accessToken = authState.accessToken.accessToken;
+    dispatch(setAccessToken(accessToken));
+    validateToken(accessToken)
+      .then(() => dispatch(signUserIn()))
+      .catch((error) => {
+        dispatch(logUserOut());
+        dispatch(setStatus("f"));
+        dispatch(setNotification({type: "error", text: "Failed to sign in"}))
+        console.error("Error validating token:", error);
+      })
+      .finally(() => setTimeout(() => dispatch(setIsLoading(false)), 2000));
+  }
+  // const accessTokenValidation = async() => {
+  //   const accessToken = authState.accessToken.accessToken;
+  //   dispatch(setAccessToken(accessToken));
+  //   try {
+  //     const res = await validateToken(accessToken)
+  //     console.log("SIGNED IN SUCCESSFULLY ", res)
+  //   } catch (error) {
+  //     dispatch(logUserOut());
+  //     dispatch(setStatus("f"));
+  //     console.error("Error validating token:", error);
+  //   } finally {
+  //     setTimeout(() => dispatch(setIsLoading(false)), 1000);
+  //   }
+  // }
 
   useEffect(() => {
     if (authState && authState.isAuthenticated) {
-      const accessToken = authState.accessToken.accessToken;
-      dispatch(setAccessToken(accessToken));
-
-      validateToken(accessToken)
-        .then(() =>  dispatch(signUserIn()))
-        .catch((error) => {
-          dispatch(logUserOut());
-          dispatch(setStatus("f"));
-          console.error("Error validating token:", error);
-          // dispatch(setIsLoading(false));
-        })
+      userInfoHandler();
+      accessTokenValidation();
     } else {
       dispatch(logUserOut());
     }
@@ -75,73 +97,67 @@ const Main = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const video = await getVideoProgress(user.accessToken);
-        // console.log("video (fetch): ", video);
+        const [video, settings, quiz, quizStatus] = await Promise.all([
+          getVideoProgress(user.accessToken),
+          getSettings(user.accessToken),
+          getQuestions(user.accessToken),
+          getQuizStatus(user.accessToken),
+        ]);
+        console.log("PROMISE ALL")
+        // VIDEO
         dispatch(setVideos(video.VideoDetails));
         dispatch(setVideoCount(video.VideoCount));
-        if(video.isTutorialDone)dispatch(setIsTutorialDone("0done"));
-        if (video.isWatchedAll) dispatch(completeAll());
-        else
+        if (video.isTutorialDone) dispatch(setIsTutorialDone("0done"));
+        if (video.isWatchedAll) {
+          dispatch(completeAll());
+          dispatch(closeWindow());
+        } else {
           dispatch(
             proceedAt({
-              video: video.WatchedVideoId,
+              // video: video.WatchedVideoId,
+              video: video.VideoDetails.indexOf(video.VideoDetails.find(v => v.Id === video.WatchedVideoId)),
               time: video.WatchedTimeInSeconds,
             })
           );
-      } catch (error) {
-        throw error;
-      }
-    };
-    const fetchSettings = async () => {
-      try {
-        const settings = await getSettings(user.accessToken);
-        // console.log("ayar ", settings);
+        }
+        // SETTINGS
         dispatch(updateSettings(settings));
+        // QUIZ
+        const newQuiz = questionFormatter(quiz);
+        dispatch(setQuestions(newQuiz));
+        // dispatch(setSelectedQuestion(newQuiz[0].Id));
+        dispatch(setSelectedQuestion(0));
+        if (quizStatus[0]) dispatch(setResult("passed"));
       } catch (error) {
-        throw error;
+        console.error("Error fetching data:", error);
+        dispatch(setNotification({type: "error", text: "Failed to fetch video and quiz content"}))
       }
     };
-    const fetchQuiz = async () => {
-      try {
-        const quiz = await getQuestions(user.accessToken);
-        // console.log('quiz: ', quiz)
-        const newQuiz = quiz.map(q => {
-          const newChoices = q.Choices.map(c => {return {oID: c.ChoiceID, option: c.ChoiceText}})
-          return({
-            Id: q.QuestionID,
-            questionType: q.QuestionType,
-            question: q.QuestionText,
-            options: newChoices,
-          })})
-        dispatch(setQuestions(newQuiz))
-        // dispatch(defaultResponses())
-        dispatch(setSelectedQuestion(newQuiz[0].Id))
-      } catch (error) {
-        throw error;
-      }
-    };
+
     if (user.isSignedIn && user.accessToken) {
       fetchData();
-      fetchSettings();
-      fetchQuiz();
     }
   }, [user.isSignedIn, user.accessToken]);
-
-  const contentStyles = {
-    fontSize: isValidIndex && nav.index === 0 ? "2.2rem" : "1.5rem",
-  };
 
   useEffect(() => {
     let timerId;
     if (user.isLoading) {
       timerId = setTimeout(() => {
-        if (user.isSignedIn) navigate("/form");
-        dispatch(setIsLoading(false));
-      }, 4500);
+        if (user.isSignedIn) navigate("/home/form");
+        // dispatch(setIsLoading(false));
+      }, 3000);
     }
     return () => clearInterval(timerId);
   }, [user.isLoading, dispatch, navigate, user.isSignedIn]);
 
+  // If the access token could not be validated, the user will be signed out
+  // useEffect(() => {
+  //   if (!user.isLoading && authState?.isAuthenticated && !user.isSignedIn) {
+  //     console.log("You were taken out")
+  //     oktaAuth.signOut();
+  //   }
+  // }, [user.isLoading]);
+  
   return (
     <>
       {user.isLoading && (
@@ -162,7 +178,7 @@ const Main = () => {
             >
               {contentList[nav.index].title}
             </p>
-            <p className="main-text" style={contentStyles}>
+            <p className="main-text" style={{fontSize: isValidIndex && nav.index === 0 ? "2.2rem" : "1.5rem"}}>
               {contentList[nav.index].content}{" "}
             </p>
             {authState && authState.isAuthenticated && nav.index === 0 && (

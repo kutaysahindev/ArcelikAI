@@ -1,0 +1,114 @@
+.border {
+  height: 40px;
+  position: relative;
+  --border-weight: 3px;
+  --theme-color: #e43c61;
+}
+.select-container {
+  position: relative;
+  /* width: 420px; */
+  width: 400px;
+  overflow: hidden;
+  border-radius: 10px 10px 0 0;
+  user-select: none;
+  transition: padding 600ms;
+  cursor: pointer;
+}
+.select-container.expand {
+  padding-bottom: 220px;
+  /* overflow: visible; */
+}
+.qt-label {
+  position: absolute;
+  cursor: default;
+  font-size: 1.2rem;
+  top: -5px;
+  left: 5px;
+  font-weight: bold;
+  /* background: #242424; */
+  background: #faf5f5;
+  padding: 0 5px;
+  /* color: #999; */
+  color: #999;
+  /* z-index: 3; */
+  user-select: none;
+  transition: all 0.6s ease;
+}
+.qt-label.open {
+  color: var(--theme-color);
+}
+.qt-selector {
+  /* width: 400px; */
+  height: 40px;
+  box-sizing: border-box;
+  position: relative;
+  padding: 0 1.5rem;
+  border-radius: 10px;
+  border: solid var(--border-weight) #ccc;
+  outline: none;
+  /* background: #242424; */
+  background: #faf5f5;
+  /* background: red; */
+  /* color: white; */
+  color: black;
+  font-weight: 700;
+  font-size: 1.2rem;
+  /* z-index: 2; */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.6s ease;
+}
+.qt-selector.open {
+  border-color: var(--theme-color);
+}
+.qt-selector .icon {
+  display: flex;
+  align-items: center;
+  transform-origin: center;
+  transform: rotate(0deg);
+  transition: transform 0.6s ease;
+}
+.qt-selector .icon.open {
+  transform: rotate(180deg);
+  color: var(--theme-color);
+}
+
+.qt-options {
+  box-sizing: border-box;
+  /* width: 400px; */
+  width: 100%;
+  padding: 20px 10px 10px 10px;
+  position: absolute;
+  top: -200px;
+  /* z-index: 1; */
+  border: solid var(--border-weight) #ccc;
+  border-radius: 0 0 10px 10px;
+  /* background: #3d3d3d; */
+  background: #ece6e6;
+  /* color: white; */
+  color: black;
+  transition: all 600ms;
+  cursor: default;
+  /* box-shadow: 2px 5px 5px black; */
+}
+.qt-options.expand {
+  top: 30px;
+  border-color: var(--theme-color);
+}
+.qt-option {
+  border-left: 3px solid transparent;
+  border-radius: 0 8px 8px 0;
+  padding: 7px 9px;
+  margin-bottom: 5px;
+  cursor: pointer;
+  transition: all 200ms;
+}
+.qt-option:hover {
+  border-left: 3px solid var(--theme-color);
+  /* background: #4e4e4e; */
+  background: #faf5f5;
+}
+.qt-option:last-child {
+  margin-bottom: 0;
+}

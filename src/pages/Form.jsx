@@ -11,13 +11,11 @@ import {
   createApp,
   getAiModals,
   postVideoProgress,
-  postTutorialProgress,
 } from "../api";
 import { formDriver1, formDriver2 } from "../utils/guides";
 import { driver } from "driver.js";
 import "driver.js/dist/driver.css";
-import { setAccessToken, setIsTutorialDone } from "../redux/userSlice";
-import { useOktaAuth } from "@okta/okta-react";
+import { setIsTutorialDone } from "../redux/userSlice";
 import Window from "../components/Window/Window";
 import FormHeader from "../components/Form/FormHeader";
 
@@ -49,79 +47,12 @@ export default function Form() {
   const [files, setFiles] = useState([]);
   const [aiModals, setAiModals] = useState(null);
   const [state, dispatchR] = useReducer(reducer, initialState);
-  const { isVideoWindowOpen, allCompleted } = useSelector(
-    (state) => state.video
-  );
-  const { isWindowOpen, windowContent } = useSelector(
-    (state) => state.window
-  );
-  const { isQuizWindowOpen } = useSelector((state) => state.quiz);
+  const { allCompleted } = useSelector((state) => state.video);
+  const { isWindowOpen, windowContent } = useSelector((state) => state.window);
   const user = useSelector((state) => state.user);
+  const { LandingUrl } = useSelector((state) => state.settings);
   const dispatch = useDispatch();
   const stepCount = 2;
-  const { authState, oktaAuth } = useOktaAuth();
-
-  const { LandingUrl } = useSelector((state) => state.settings);
-
-  useEffect(() => {
-    if (isWindowOpen) document.body.style.overflow = "hidden";
-    else document.body.style.overflow = "auto";
-    return () => (document.body.style.overflow = "auto");
-  }, [isWindowOpen]);
-
-  useEffect(() => {
-    const postVideo = async () => {
-      try {
-        const videoProg = await postVideoProgress(user.accessToken, {
-          isWatchedAll: true,
-          WatchedVideoId: 1,
-          WatchedTimeInseconds: 0,
-        });
-      } catch (error) {
-        throw error;
-      }
-    };
-    if (allCompleted && user.accessToken.length > 1) postVideo();
-  }, [allCompleted, user.accessToken]);
-
-  useEffect(() => {
-    const postTProgress = async () => {
-      try {
-        await postTutorialProgress(user.accessToken);
-      } catch (error) {
-        throw error;
-      }
-    };
-    if (!isWindowOpen && user.isTutorialDone !== "second") {
-      if (step === 1 && user.isTutorialDone === "none") {
-        driver(formDriver1).drive();
-        dispatch(setIsTutorialDone("first"));
-        postTProgress();
-      }
-      else if (step === 2 && user.isTutorialDone === "first") {
-        driver(formDriver2).drive();
-        dispatch(setIsTutorialDone("second"));
-        postTProgress();
-      }
-      else return;
-    }
-  }, [step, isWindowOpen]);
-
-  useEffect(() => {
-    if (user.isSignedIn && authState && !user.accessToken) {
-      const aT = authState.accessToken.accessToken;
-      dispatch(setAccessToken(aT));
-    }
-    const fetchData = async () => {
-      try {
-        const models = await getAiModals(user.accessToken);
-        setAiModals(models);
-      } catch (error) {
-        throw error;
-      }
-    };
-    if (user.isSignedIn && user.accessToken) fetchData();
-  }, [authState, user.accessToken, user.isSignedIn]);
 
   const handleInputChange = (field, value) => {
     dispatchR({ type: "SET_INPUT", field, value });
@@ -133,9 +64,65 @@ export default function Form() {
     else setStep((prev) => prev + 1);
   };
 
-  const uploadHandler = async (e) => {
-    e.preventDefault();
+  useEffect(() => {
+    if (isWindowOpen) document.body.style.overflow = "hidden";
+    else document.body.style.overflow = "auto";
+    return () => (document.body.style.overflow = "auto");
+  }, [isWindowOpen]);
 
+  useEffect(() => {
+    const postVideo = async () => {
+      try {
+        await postVideoProgress(user.accessToken, {
+          isWatchedAll: true,
+          WatchedVideoId: 1,
+          WatchedTimeInseconds: 0,
+        });
+      } catch (error) {
+        throw error;
+      }
+    };
+    if (allCompleted && user.accessToken.length > 1) {
+      postVideo();
+      // console.log("hepsi bitti !!!")
+    }
+  }, [allCompleted, user.accessToken]);
+
+  useEffect(() => {
+    // const postTProgress = async () => {
+    //   try {
+    //     await postTutorialProgress(user.accessToken);
+    //   } catch (error) {
+    //     throw error;
+    //   }
+    // };
+    if (!isWindowOpen && user.isTutorialDone !== "second") {
+      if (step === 1 && user.isTutorialDone === "none") {
+        driver(formDriver1).drive();
+        dispatch(setIsTutorialDone("first"));
+        // postTProgress();
+      } else if (step === 2 && user.isTutorialDone === "first") {
+        driver(formDriver2).drive();
+        dispatch(setIsTutorialDone("second"));
+        // postTProgress();
+      } else return;
+    }
+  }, [step, isWindowOpen]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const models = await getAiModals(user.accessToken);
+        setAiModals(models);
+      } catch (error) {
+        throw error;
+      }
+    };
+    if (user.isSignedIn && user.accessToken) fetchData();
+  }, [user.accessToken, user.isSignedIn]);
+
+  
+  const formDataHandler = () => {
     const fd = new FormData();
     fd.append("AppName", state.appName);
     fd.append("WelcomeMessage", state.welcomeMessage);
@@ -149,17 +136,23 @@ export default function Form() {
     files.forEach((file) => {
       fd.append("Pdfs", file);
     });
+    return fd;
+  };
 
-    const sendForm = async (fd, accessToken) => {
-      try {
-        const response = await createApp(fd, accessToken);
-        setIsCreating(response);
-        window.location.href = LandingUrl;
-      } catch (error) {
-        console.log("Error sending form:", error);
-      }
-    };
-    await sendForm(fd, authState?.accessToken.accessToken);
+  const sendForm = async (fd, accessToken) => {
+    try {
+      const response = await createApp(fd, accessToken);
+      setIsCreating(response);
+      window.location.href = LandingUrl;
+    } catch (error) {
+      console.log("Error sending form:", error);
+    }
+  };
+
+  const uploadHandler = async (e) => {
+    e.preventDefault();
+    const formData = formDataHandler();
+    await sendForm(formData, user.accessToken);
   };
 
   return (
@@ -167,9 +160,8 @@ export default function Form() {
       {user.isSignedIn ? (
         <div>
           <Window content={windowContent} visibility={isWindowOpen} />
-          {/* {isWindowOpen && <Window content={windowContent} visiblity={isWindowOpen} />} */}
           <form className="form-container">
-            <FormHeader step={step}/>
+            <FormHeader step={step} />
             <StepBar step={step} stepCount={stepCount} />
 
             <div className="bottom">
