@@ -2,7 +2,10 @@ import React, { useState } from "react";
 import "./AiButtons.css";
 
 function AiButton({ handleInputChange, aiModals }) {
+
+
   const [selectedButton, setSelectedButton] = useState(null);
+
 
   const handleButtonClick = (modal) => {
     setSelectedButton(modal.Id);

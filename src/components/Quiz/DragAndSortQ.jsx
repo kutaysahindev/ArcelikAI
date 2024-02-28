@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import "./Questions.css";
-import { RiListOrdered2 } from "react-icons/ri";
-import { PiSortAscendingBold, PiSortDescendingBold } from "react-icons/pi";
+// import { RiListOrdered2 } from "react-icons/ri";
+import { PiSortAscendingBold } from "react-icons/pi";
+// import { PiSortAscendingBold, PiSortDescendingBold } from "react-icons/pi";
 import { useSelector } from "react-redux";
 
 

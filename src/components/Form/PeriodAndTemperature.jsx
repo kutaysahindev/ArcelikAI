@@ -1,4 +1,7 @@
 import "./PeriodAndTemperature.css";
+import { driver } from "driver.js";
+import "driver.js/dist/driver.css";
+import React, { useState, useReducer, useRef, useEffect } from "react";
 
 function PeriodAndTemperature({ state, handleInputChange }) {
   //Step 2 - Model Temperature & Retention period settings
