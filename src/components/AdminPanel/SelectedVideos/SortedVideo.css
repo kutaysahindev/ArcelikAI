@@ -99,5 +99,36 @@
       font-size: 14px;
       padding-top: 3%;
     }
+  }
+
+  @media screen and (max-width: 1070px) {
+
+    .titles {
+      width: 90%;
+      margin-top: 5%;
+      margin-left: -5%;
+    }
+
+    .apply-btn {
+      width: 40%;
+      height: 6%;
+      margin-top: 5%;
+      margin-left: 40%;
+      padding-bottom: 5%;
+
+    }
+
+    .video-titles {
+      width: 90%;
+    }
+
+    .new-video {
+      width: 40%;
+      height: 8%;
+      margin-top: 5%;
+      margin-left: 7%;
+      font-size: 14px;
+      padding-top: 3%;
+    }
 
   }

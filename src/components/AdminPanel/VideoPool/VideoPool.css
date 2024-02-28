@@ -16,7 +16,6 @@
   background-color: #f2f2f3;
   padding: 20px;
   width: 25vw;
-  height: 50vh;
   border-radius: 5px;
   margin-top: 1rem;
   position: relative;
@@ -28,9 +27,10 @@
 }
 
 .video-item {
+  font-size: 14px;
+  align-items: center;
   display: flex;
   position:relative;
-  font-size: 15px;
   justify-content: space-between;
   background-color: white; /* Video satırı arka plan rengi */
   padding: 10px;
@@ -49,6 +49,19 @@
   /* margin-left: 18.5rem; */
   position: relative;
 }
+
+.done-icon {
+  margin-left: 8.5rem;
+  /* margin-bottom: 0.4rem; */
+  position: relative;
+}
+
+.input-field {
+  border: 2px solid black;
+  border-radius: 5px;
+  /* padding-left: 5px; */
+}
+
 
 .pagination {
   display: flex;
@@ -70,14 +83,30 @@
 
 /* RESPONSIVE DESIGN */
 
-@media screen and (max-width: 1300px) {
+@media screen and (max-width: 1070px) {
+.titles{
+  width: 90%;
+  margin-left: 5%;
+  margin-top: 5%;
+}
+
+.video-pool {
+  width: 90%;
+}
+}
+
+@media screen and (max-width: 713px) {
   .titles{
-    width: 90%;
+    width: 100%;
     margin-left: 5%;
     margin-top: 5%;
   }
 
   .video-pool {
-    width: 90%;
+    width: 100%;
+  }
+  
+  .video-item {
+    
   }
 }

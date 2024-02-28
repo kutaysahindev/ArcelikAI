@@ -40,18 +40,18 @@ export default function VideoManagement() {
   const [videos, setVideos] = useState([]);
 
   // Veritabanından videoları çekme
-  useEffect(() => {
-    const fetchVideos = async () => {
-      try {
-        const fetchedVideos = await getVideoProgress();
-        setVideos(fetchedVideos);
-      } catch (error) {
-        console.error('Error fetching videos:', error);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchVideos = async () => {
+  //     try {
+  //       const fetchedVideos = await getVideoProgress();
+  //       setVideos(fetchedVideos);
+  //     } catch (error) {
+  //       console.error('Error fetching videos:', error);
+  //     }
+  //   };
 
-    fetchVideos();
-  }, []);
+  //   fetchVideos();
+  // }, []);
 
   const handleDragEnd = async e => {
     const { active, over } = e;

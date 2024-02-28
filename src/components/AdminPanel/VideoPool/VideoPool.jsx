@@ -1,64 +1,52 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import './VideoPool.css';
 import { CiEdit, CiTrash } from "react-icons/ci";
-import { useNavigate } from 'react-router-dom';
-import { fetchVideoNamesFromDatabase } from "../../../api.jsx";
-import { deleteVideoFromDatabase } from "../../../api.jsx";
+import { IoCheckmarkOutline } from "react-icons/io5";
 
 
 const VideoPool = () => {
-  const [currentPage, setCurrentPage] = useState(1); 
-  const videosPerPage = 10; 
-  const [allVideos, setAllVideos] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1); // Aktif sayfa numarası
+  const [videosPerPage] = useState(10); // Sayfa başına gösterilecek video sayısı
+  const [allVideos, setAllVideos] = useState([
+    'adres gezgini ',
+    'canva 100.yıl',
+    'lol12345 aa ',
+    'Video 4 ',
+    'Video 5 ',
+    'Video 6 ',
+    'Video 7 ',
+    'Video 8 ',
+    'Video 9 ',
+    'Video 10',
+  ]);
+  const [editingIndex, setEditingIndex] = useState(-1);
+  const [editedName, setEditedName] = useState('');
 
-  useEffect(() => {
-    const fetchVideos = async () => {
-      try {
-        const videoNames = await fetchVideoNamesFromDatabase();
-        setAllVideos(videoNames);
-      } catch (error) {
-        console.error('Error fetching videos:', error);
-      }
-    };
-
-    fetchVideos();
-  }, []);
-
-  // video list of current page
   const indexOfLastVideo = currentPage * videosPerPage;
   const indexOfFirstVideo = indexOfLastVideo - videosPerPage;
   const currentVideos = allVideos.slice(indexOfFirstVideo, indexOfLastVideo);
 
-  // change page number
-  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+  // const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
-  // video deleting func
-  const handleDelete = async (index) => {
-    try {
-      // Silinecek videoyu belirlemek için video index'ini kullanabilirsiniz
-      const videoToDelete = allVideos[indexOfFirstVideo + index];
-
-      // Veritabanından videoyu silme isteği gönderiyoruz
-      await deleteVideoFromDatabase(videoToDelete.id);
-
-      // Silme işlemi başarılı olduktan sonra listeden de kaldırıyoruz
-      const updatedVideos = [...allVideos];
-      updatedVideos.splice(indexOfFirstVideo + index, 1);
-      setAllVideos(updatedVideos);
-
-      // Sayfa numarasını azaltma
-      if (currentVideos.length === 1 && currentPage > 1) {
-        setCurrentPage(currentPage - 1);
-      }
-    } catch (error) {
-      console.error('Error deleting video:', error);
+  const handleDelete = (index) => {
+    const updatedVideos = [...allVideos];
+    updatedVideos.splice(indexOfFirstVideo + index, 1);
+    setAllVideos(updatedVideos);
+    if (currentVideos.length === 1 && currentPage > 1) {
+      setCurrentPage(currentPage - 1);
     }
   };
 
-  const navigate = useNavigate();
+  const handleEdit = (index) => {
+    setEditingIndex(indexOfFirstVideo + index);
+    setEditedName(allVideos[indexOfFirstVideo + index]);
+  };
 
-  const handleEdit = () => {
-    navigate('/ChangeExistingVideo');
+  const handleSaveEdit = (index) => {
+    const updatedVideos = [...allVideos];
+    updatedVideos[indexOfFirstVideo + index] = editedName;
+    setAllVideos(updatedVideos);
+    setEditingIndex(-1);
   };
 
   return (
@@ -71,22 +59,48 @@ const VideoPool = () => {
         <div className="video-list">
           {currentVideos.map((video, index) => (
             <div className="video-item" key={index}>
-              {video}
+              {editingIndex === index + indexOfFirstVideo ? (
+                <div className="edit-container">
+                  <input
+                    className='input-field'
+                    type="text"
+                    value={editedName}
+                    onChange={(e) => setEditedName(e.target.value)}
+                  />
+                  <IoCheckmarkOutline 
+                    className="done-icon"
+                    size='1.7rem'
+                    cursor='pointer'
+                    onClick={() => handleSaveEdit(index)}
+                  />
+                </div>
+              ) : (
+                <span>{video}</span>
+              )}
               <div className="item-pack">
-                <CiEdit className='item' size='1.2rem' cursor='pointer' onClick={handleEdit} />
-                <CiTrash className='item-2' size='1.2rem' cursor='pointer' onClick={() => handleDelete(index)} />
+                <CiEdit
+                  className='item'
+                  size='1.7rem'
+                  cursor='pointer'
+                  onClick={() => handleEdit(index)}
+                />
+                <CiTrash
+                  className='item-2'
+                  size='1.7rem'
+                  cursor='pointer'
+                  onClick={() => handleDelete(index)}
+                />
               </div>
             </div>
           ))}
         </div>
-        <div className="pagination">
-          {/* Sayfa numaralarını oluştur */}
+        {/* <div className="pagination">
           {[...Array(Math.ceil(allVideos.length / videosPerPage)).keys()].map((number) => (
             <div key={number} onClick={() => paginate(number + 1)} className="page-number">
               {number + 1}
             </div>
           ))}
-        </div>
+        </div> */}
       </div>
     </div>
   );

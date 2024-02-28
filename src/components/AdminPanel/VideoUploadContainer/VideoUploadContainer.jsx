@@ -1,27 +1,22 @@
 import { useState, useRef } from 'react';
-import './VideoUploadContainer.css';
-import { formData } from "../../../api.jsx";
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import "./VideoUploadContainer.css";
 
-const VideoUploadContainer = ({ files, setFiles }) => {
-  const [isDragging, setIsDragging] = useState(false);
-  const fileInputRef = useRef(null);
-  const [selectedVideo, setSelectedVideo] = useState(null);  // for video remove modal
-  const [videoTitle, setVideoTitle] = useState('');  // for input of video title
+export const VideoUploadContainer = () => {
+  const [title, setTitle] = useState('');
+  const [videoFile, setVideoFile] = useState(null); // Tek bir video dosyası
+  const [selectedVideo, setSelectedVideo] = useState(null); // Silinecek video
+  const [isDragging, setIsDragging] = useState(false); // Drag and drop durumu
+  const fileInputRef = useRef(null); // Dosya girişi için referans
 
-  const isMP4Video = (file) => {
-    return file.type === 'video/mp4';
+  const navigate = useNavigate();
+
+  const handleAddNewVideo = () => {
+    navigate('/');
   };
 
-  const handleDragLeave = (e) => {
-    e.preventDefault();
-    setIsDragging(false);
-  };
-
-  const handleDragOver = (e) => {
-    e.preventDefault();
-    setIsDragging(true);
-  };
-
+  // Drag and drop bölgesine dosya bırakıldığında
   const handleDrop = (e) => {
     e.preventDefault();
     setIsDragging(false);
@@ -30,128 +25,146 @@ const VideoUploadContainer = ({ files, setFiles }) => {
     if (droppedFiles && droppedFiles.length > 0) {
       const mp4Files = droppedFiles.filter(isMP4Video);
       if (mp4Files.length > 0) {
-        // MP4 dosyalarını işleme al
-        handleFiles(mp4Files);
+        // Sadece bir video dosyası alınacak
+        setVideoFile(mp4Files[0]);
       } else {
-        alert("You can only upload MP4 a file.");
+        alert("You can only upload an MP4 file.");
       }
     }
   };
 
-  const handleFileInputChange = (e) => {
-    const selectedFile = e.target.files[0];
-    if (selectedFile && isMP4Video(selectedFile)) {
-      handleFiles([selectedFile]);
-    } else {
-      alert("You can only upload MP4 a file.");
-    }
+  // Seçilen dosyanın MP4 formatında olup olmadığını kontrol eder
+  const isMP4Video = (file) => {
+    return file.type === 'video/mp4';
   };
 
-  const handleRemoveVideo = (file) => {
+  // Dosya yükleme işlemi için
+const handleFileInputChange = (e) => {
+  const selectedFile = e.target.files[0];
+  if (selectedFile && isMP4Video(selectedFile)) {
+    setVideoFile(selectedFile);
+  } else {
+    alert("You can only upload an MP4 file.");
+  }
+};
+
+  // Dosyanın kaldırılması için
+  const handleRemoveVideo = (file, event) => {
+    event.preventDefault(); // Butona tıklanınca varsayılan davranışı engeller
     setSelectedVideo(file);
   };
 
+  // Dosyanın kaldırılmasını onaylama
   const confirmRemoveVideo = () => {
-    const newFiles = files.filter((f) => f !== selectedVideo);
-    setFiles(newFiles);
-    setSelectedVideo(null);
+    if (selectedVideo) {
+      setVideoFile(null);
+      setSelectedVideo(null);
+    }
   };
 
-  const handleVideoTitleChange = (e) => {
-    e.persist();
-    setVideoTitle({...videoTitle, [e.target.title]: e.target.value});
-  };
+  // const handleTitle = (e) => {
+  //   if (e.target.files && e.target.files.length > 0) {
+  //     setVideoFile(e.target.files[0]);
+  //   }
+  // };
 
-  const handleAddToPool = async (accessToken) => {
+  const handleTitle = (e) => {
+    setTitle(e.target.value);
+  };
+  
+  // Formun gönderilmesi
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!videoFile) {
+      alert('Please select a video file');
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append('title', title);
+    console.log({title})
+    formData.append('video', videoFile, videoFile.name);
+    console.log({videoFile}, videoFile.name)
+
     try {
-      console.log("Video Title:", videoTitle);
-      console.log("Uploaded Files:", files);
-  
-      // Video ve dosyaları bir nesne olarak oluşturun
-      const videoData = new FormData();
-      videoData.append('videoTitle', videoTitle);
-      for (const file of files) {
-        videoData.append('files', file);
-      }
-  
-      // formData fonksiyonunu kullanarak verileri API'ye gönderin
-      const response = await formData(accessToken, videoData);
-  
-      console.log("Response:", response);
-  
-      if (response.ok) {
-        console.log("Video uploaded succesfully!");
-        // Yükleme işlemi tamamlandıktan sonra state'leri sıfırlayabilirsiniz
-        setVideoTitle('');
-        setFiles([]);
-      } else {
-        console.error("An error occurred while uploading the video!");
-      }
+      const response = await axios.post(
+        'https://6582f75e02f747c8367abde3.mockapi.io/api/v1/videos',
+        formData,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        }
+      );
+
+      console.log('Video uploaded successfully:', response.data);
+      console.log('formData: ', formData);
+      setTitle('');
+      setVideoFile(null);
     } catch (error) {
-      console.error("An error occurred while uploading the video:", error);
+      console.error('Error uploading video:', error);
     }
   };
 
-  const handleFiles = (newFiles) => {
-    if (files.length === 0) {
-      setFiles(newFiles.slice(0, 1)); 
-    } else {
-      alert("You can only choose one file.");
-    }
-  };
+  return (
+    <div className='form-area'>
+      <form onSubmit={handleSubmit}>
+        <div className='dnd-bar'>
+          <label htmlFor='videoFile' className='page-title'>Choose an MP4 File:</label>
 
-    return ( 
-        <div className='video-container'>
-            {/* <div className='info'>
-                <img className="i-symbol" src={info}></img>
-            </div> */}
-            <h1 className='page-title'>Choose MP4 Files</h1>
-            <div className="drag-drop-area"
-                onDragOver={handleDragOver}
-                onDrop={handleDrop}
-                onDragLeave={handleDragLeave}
-                onClick={() => fileInputRef.current.click()}
-            >
+          <div className="drag-drop-area"
+            onDragOver={(e) => e.preventDefault()}
+            onDrop={handleDrop}
+            onDragLeave={() => setIsDragging(false)}
+            onClick={() => fileInputRef.current.click()}
+          >
             <input
-                type="file"
-                ref={fileInputRef}
-                style={{ display: 'none' }}
-                onChange={handleFileInputChange}
-                accept=".mp4"
+              type="file"
+              ref={fileInputRef}
+              style={{ display: 'none' }}
+              onChange={handleFileInputChange}
+              accept=".mp4"
             />
             <h2 className='up-text'>Drag and Drop Area</h2>
             <p className='down-text'>Drag and drop MP4 files here or Browse.</p>
-            </div>
-            {files.length > 0 && (
-                <div className="file-list">
-                    {/* <h3>Uploaded Files:</h3> */}
-                    <ul>
-                        {files.map((file, index) => (
-                            <li key={index}>
-                                <span>{file.name}</span>
-                                <button className="first-remove-btn" onClick={() => handleRemoveVideo(file)}>Remove</button>
-                            </li>
-                        ))}
-                    </ul>
-                </div>
-            )}
-            {selectedVideo && (
-                <div className="video-remove-modal">
-                    <h2 className='confirm-text'>Are you sure you want to remove {selectedVideo.name}?</h2>
-                    <button className="remove-confirm" onClick={() => confirmRemoveVideo()}>Remove</button>
-                    <button className="remove-cancel" onClick={() => setSelectedVideo(null)}>Cancel</button>
-                </div>
-            )}
-                <div className="video-title-container">
-                    <label htmlFor="video-title" className='video-head'>Video Title:</label>
-                    <input type="text" id="video-title" placeholder='example: First Training Video' value={videoTitle.title} onChange={handleVideoTitleChange} />
-                </div>
-
-                 <div className="add-to-pool-container">
-                    <button type='submit' className="add-to-pool-btn" onClick={handleAddToPool}>Add to All Videos</button>
-                </div>
+          </div>
         </div>
-    );
+        <div className='video-remove-bar'>
+          {videoFile && (
+            <div className="file-list">
+              <ul>
+                <li className='span-btn'>
+                  <span className='span'>{videoFile.name}</span>
+                  <button className="first-remove-btn" onClick={(event) => handleRemoveVideo(videoFile, event)}>Remove</button>
+                </li>
+              </ul>
+            </div>
+          )}
+          {selectedVideo && (
+            <div className="video-remove-modal">
+              <h2 className='confirm-text'>Are you sure you want to remove {selectedVideo.name}?</h2>
+              <button className="remove-confirm" onClick={confirmRemoveVideo}>Remove</button>
+              <button className="remove-cancel" onClick={() => setSelectedVideo(null)}>Cancel</button>
+            </div>
+          )}
+        </div>
+        <div className='title-bar'>
+          <label htmlFor='title' className='video-head'>Video Title:</label>
+          <input 
+            type="text"
+            id="video-title"
+            value={title}
+            onChange={handleTitle}
+          />
+        </div>
+        <div className="add-to-pool-container">
+          <button type='submit' className="add-to-pool-btn" onClick={handleSubmit}>Add to All Videos</button>
+        </div>
+        <div className='route-video-management'>
+          <button type='submit' className='route-btn' onClick={handleAddNewVideo}>Go to Video Management</button>
+        </div>
+      </form>
+    </div>
+  );
 };
-
-export default VideoUploadContainer;

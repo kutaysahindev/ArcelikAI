@@ -1,213 +1,256 @@
 .page-title {
-    font-weight: 500;
-    font-size: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 7vh;
-}
-
-.info{
-    width: 2rem;
-    height: 2rem;
-    display: flex;
-    flex-direction: column;
-    margin-left: 96vw;
-    margin-top: 0.50rem;
-    cursor: pointer;
+  font-weight: 500;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 7vh;
 }
 
 .drag-drop-area {
-    border: 2px dashed #ccc;
-    /* padding: 50px 0 70px 50px; */
-    text-align: center;
-    background-color: #f9f9f9;
-    border-radius: 5px;
-    cursor: pointer;
-    width: 30vw;
-    height: 30vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin-left: 1rem;
-    margin-top: 3vh;
-    transition: .4s;
+  border: 2px dashed #ccc;
+  text-align: center;
+  background-color: #f9f9f9;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 30vw;
+  height: 30vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-left: 32%;
+  margin-top: 3vh;
+  transition: .4s;
 }
 
 .drag-drop-area:hover {
-  background-color:#e1e1e1c4;
+background-color:#e1e1e1c4;
 }
 
 .up-text {
-    padding-bottom: 0.5rem;
-    font-weight: 500;
-    font-size: 17px;
+  padding-bottom: 0.5rem;
+  font-weight: 500;
+  font-size: 17px;
 }
 
 .down-text {
-    padding-bottom: 0.5rem;
+  padding-bottom: 0.5rem;
 }
 
 .file-list {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top:0.50rem;
-    width: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top:0.50rem;
+  width: auto;
 }
 
 .video-remove-modal {
-    background-color: rgb(175, 62, 62);
-    color: #ccc;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    width: 30vw;
-    padding: 10px 10px 20px;
-    margin-left: 1rem;
-    border-radius: 5px;
-    margin-top: 0.50rem;
-    font-weight: 500;
+  background-color: rgb(175, 62, 62);
+  color: #ccc;
+  display: flex;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 30vw;
+  padding: 10px 10px 20px;
+  margin-left: 32%;
+  border-radius: 5px;
+  margin-top: 0.50rem;
+  font-weight: 500;
+}
+
+.remove-confirm,
+.remove-cancel {
+  /* margin-left: 0.50rem; */
+  margin-top: 0.5rem;
+  padding: 5px 0 7px;
+  border-radius: 5px;
+  width: 80px;
+  font-weight: 500;
+  font-size: 14px;
+  cursor: pointer;
+  transition: .4s;
+}
+
+.remove-confirm:hover,
+.remove-cancel:hover{
+  background-color: #c0c0c0;
+}
+
+.first-remove-btn {
+  font-size: 14px;
+  font-weight: 550;
+  margin-left: 0.65rem;
+  padding: 8px 0 7px;
+  width: 65px;
+  border-radius: 5px;
+  background-color: #eaeaea;
+  color: rgb(93, 19, 19);
+  cursor: pointer;
+  transition: .4s;
+}
+
+.first-remove-btn:hover {
+  background-color: #c0c0c0;
+}
+
+.span-btn {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.span{
+  font-size: 14px;
+}
+
+.confirm-text {
+  font-size: 13px;
+  width: 100%;
+  padding-bottom: 10px;
+}
+
+.title-bar {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 0.9rem;
+}
+
+.video-head {
+  font-size: 18px;
+  font-weight: 500;
+}
+
+#video-title {
+  background-color: #fbfbfb;
+  border-radius: 5px;
+  border: 1.5px solid rgb(45, 45, 45);
+  padding: 5px 15px 7px;
+  font-size: 14px;
+  width: 30vw;
+  height: 6vh;
+  margin-top:0.5rem;
+  margin-left: 1rem;
+  transition: .4s;
+}
+
+#video-title:hover {
+  background-color: #eaeaea;
+}
+
+.add-to-pool-container {
+  display: flex;
+  align-items: center;
+  justify-content:center;
+  margin-top: 1.7rem;
+  margin-left: 50rem;
+  padding-bottom: 10vh;
+}
+
+.add-to-pool-btn {
+  width: 15rem;
+  height: 4rem;
+  background-color: rgba(51,104,150,255);
+  color: whitesmoke;
+  font-size: 17px;
+  font-weight: 500;
+  border-radius: 5px;
+  padding: 5px 10px 7px;
+  margin-top: 2rem;
+  cursor: pointer;
+  transition: .3s;
+}
+
+.add-to-pool-btn:hover {
+  background-color: rgb(7, 75, 132);
+}
+
+.route-video-management {
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  margin-left: 2rem;
+  margin-top: -3rem;
+  padding-bottom: 10vh;
+}
+
+.route-btn {
+  width: 15rem;
+  height: 6rem;
+  background-color: rgb(196, 40, 40);
+  color: whitesmoke;
+  font-size: 17px;
+  font-weight: 500;
+  border-radius: 5px;
+  padding: 5px 10px 7px;
+  cursor: pointer;
+  transition: .3s;
+}
+
+.route-btn:hover {
+  background-color: rgb(132, 7, 7);
+}
+
+/* RESPONSIVE DESIGN */
+
+@media screen and (max-width: 1070px) {
+
+  .drag-drop-area, .video-remove-modal, .add-to-pool-container {
+    margin-left: 10%;
+    width: 80%;
   }
 
-  .remove-confirm,
-  .remove-cancel {
-    /* margin-left: 0.50rem; */
-    margin-top: 0.5rem;
-    padding: 5px 0 7px;
-    border-radius: 5px;
-    width: 80px;
-    font-weight: 500;
-    font-size: 14px;
-    cursor: pointer;
-    transition: .4s;
+  .title-bar {
+    width: 100%;
   }
 
-  .remove-confirm:hover,
-  .remove-cancel:hover{
-    background-color: #c0c0c0;
-  }
-  
-  .first-remove-btn {
-    font-size: 14px;
-    font-weight: 550;
-    margin-left: 0.65rem;
-    padding: 8px 0 7px;
-    width: 65px;
-    border-radius: 5px;
-    background-color: #eaeaea;
-    color: rgb(93, 19, 19);
-    cursor: pointer;
-    transition: .4s;
-  }
-
-  .first-remove-btn:hover {
-    background-color: #c0c0c0;
-  }
-
-  .confirm-text {
-    padding-bottom: 10px;
-  }
-
-  .video-title-container {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    margin-top: 0.9rem;
-  }
-
-  .video-head {
-    font-size: 18px;
-    font-weight: 500;
-  }
-
-  #video-title {
-    background-color: #fbfbfb;
-    border-radius: 5px;
-    border: 1.5px solid rgb(45, 45, 45);
-    padding: 5px 15px 7px;
-    width: 30vw;
-    height: 6vh;
-    margin-top:0.5rem;
-    margin-left: 1rem;
-    transition: .4s;
-  }
-
-  #video-title:hover {
-    background-color: #eaeaea;
+  .route-video-management {
+    margin-top: 2%;
+    margin-left: 10%;
+    width: 80%;
   }
 
   .add-to-pool-container {
-    display: flex;
-    align-items: center;
-    justify-content:center;
-    margin-top: 1.7rem;
-    margin-left: 50rem;
-    padding-bottom: 10vh;
+    margin-left: 10%;
+  }
+
+  .remove-confirm, .remove-cancel {
+    width: 20%;
+  }
+
+  .first-remove-btn {
+    width: 40%;
+  }
+
+}
+
+@media screen and (max-width: 500px) {
+  .drag-drop-area, .video-remove-modal, .add-to-pool-container {
+    margin-left: 5%;
+    width: 90%;
+  }
+
+  .title-bar {
+    width: 100%;
+  }
+
+  .route-video-management {
+    margin-top: 1%;
+    margin-left: 5%;
+    width: 90%;
   }
 
   .add-to-pool-btn {
-    width: 15rem;
-    height: 4rem;
-    background-color: rgba(51,104,150,255);
-    color: whitesmoke;
-    font-size: 17px;
-    font-weight: 500;
-    border-radius: 5px;
-    padding: 5px 10px 7px;
-    margin-top: 2rem;
-    cursor: pointer;
-    transition: .3s;
+    margin-left: 4%;
   }
 
-  .add-to-pool-btn:hover {
-    background-color: rgb(7, 75, 132);
+  .remove-confirm, .remove-cancel, .first-remove-btn {
+    width: 50%;
   }
-
-  /* RESPONSIVE DESIGN */
-
-  @media screen and (max-width: 1070px) {
-
-    .drag-drop-area, .video-remove-modal, .add-to-pool-container {
-      margin-left: 10%;
-      width: 80%;
-    }
-
-    .video-title-container {
-      width: 100%;
-    }
-
-    .route-video-management {
-      margin-top: 10%;
-      margin-left: 10%;
-      width: 80%;
-    }
-  
-    .add-to-pool-container {
-      margin-left: -1%;
-    }
-
-  }
-  
-  @media screen and (max-width: 500px) {
-    .drag-drop-area, .video-remove-modal, .add-to-pool-container {
-      margin-left: 5%;
-      width: 90%;
-    }
-
-    .video-title-container {
-      width: 100%;
-    }
-
-    .route-video-management {
-      margin-top: 5%;
-      margin-left: 5%;
-      width: 90%;
-    }
-  
-    .add-to-pool-container {
-      margin-left: 5%;
-    }
-  }
+}
