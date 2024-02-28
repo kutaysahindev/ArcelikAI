@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { getVideos } from "../api";
+import { videosArray } from "../utils/videos";
 
 const localLastCompleted = localStorage.getItem("lastCompleted")
   ? Number(localStorage.getItem("lastCompleted"))
@@ -18,7 +19,7 @@ const localVideos = localStorage.getItem("videos")
 
 const initialState = {
   isVideoWindowOpen: true,
-  selectedVideo: 1,
+  selectedVideo: 0,
   lastCompleted: localLastCompleted,
   allCompleted: localAllCompleted,
   completion: {
@@ -65,6 +66,7 @@ export const videoSlice = createSlice({
     },
     proceedAt: (state, action) => {
       const { video, time } = action.payload;
+      const indx = state.videos.indexOf(video)
       state.allCompleted = false;
       localStorage.setItem("allCompleted", false);
       state.videoMark = action.payload;
@@ -80,6 +82,7 @@ export const videoSlice = createSlice({
       localStorage.setItem("allCompleted", true);
       state.videoMark = {};
       localStorage.setItem("videoMark", {});
+      state.selectedVideo = state.videos[0].Id;
     },
     setVideoMark: (state, action) => {
       // const { video, time } = action.payload

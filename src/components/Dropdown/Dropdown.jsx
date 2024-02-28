@@ -32,18 +32,19 @@ export const Dropdown = ({
     <div className="border" >
       <div
         className={`select-container ${isSelectorOpen ? 'expand' : ''}`}
-        onClick={() => setIsSelectorOpen((prev) => !prev)}
+        
         ref={dropdownRef}
       >
         <div
           className={`qt-selector ${isSelectorOpen ? 'open' : ''}`}
+          onClick={() => setIsSelectorOpen((prev) => !prev)}
           value={selected.value}
           onChange={handleSelectionChange}
           style={{ zIndex: 2 + z }}
         >
           {selected.label}
           <span className={`icon ${isSelectorOpen ? 'open' : ''}`}>
-            <FaChevronDown />
+            <FaChevronDown size={14} />
           </span>
         </div>
         <div
@@ -54,7 +55,10 @@ export const Dropdown = ({
             <div
               className="qt-option"
               key={type.value}
-              onClick={() => selector(type)}
+              onClick={() => {
+                selector(type)
+                setIsSelectorOpen(false)
+              }}
             >
               {type.label}
             </div>

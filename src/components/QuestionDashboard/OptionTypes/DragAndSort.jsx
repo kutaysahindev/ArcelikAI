@@ -4,7 +4,7 @@ import { RxDragHandleDots1 } from 'react-icons/rx';
 import { FaArrowsAltV, FaRegTrashAlt } from 'react-icons/fa';
 import './DragAndSort.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteChoiceHandler, setAnswer, setChoices } from '../../../redux/uploadDBSlice';
+import { deleteChoiceHandler, setAnswer, setChoices, setMultipleAnswer, setSortingAnswer } from '../../../redux/uploadDBSlice';
 import { AddChoiceInput } from '../Input/AddChoiceInput';
 import { useEffect } from 'react';
 
@@ -18,11 +18,11 @@ export const DragAndSort = () => {
     const [reorderedItem] = items.splice(result.source.index, 1);
     items.splice(result.destination.index, 0, reorderedItem);
     dispatch(setChoices(items));
+    dispatch(setSortingAnswer(items));
   }
 
   useEffect(() => {
-    const joint = choices.map(m => m.option).join("")
-    dispatch(setAnswer(joint))
+    dispatch(setSortingAnswer(choices));
   }, [choices])
   
   return (
@@ -60,7 +60,7 @@ export const DragAndSort = () => {
                             onClick={() => dispatch(deleteChoiceHandler(oID))}
                             className="btn trash"
                           />
-                          <RxDragHandleDots1 className={`btn handle`} />
+                          <FaArrowsAltV size={13} className={`btn handle`} />
                         </ChoiceInput>
                       </div>
                     )}

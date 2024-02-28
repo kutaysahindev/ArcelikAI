@@ -23,8 +23,8 @@ export const MultiSelect = () => {
         >
           <FaRegCheckSquare
             size={13}
-            onClick={() => dispatch(setMultipleAnswer(c.oID))}
-            className={`btn m-check ${answer?.includes(c.oID) ? "selected" : ""}`}
+            onClick={() => dispatch(setMultipleAnswer(c))}
+            className={`btn m-check ${answer?.includes(c) ? "selected" : ""}`}
           />
           <FaRegTrashAlt
             size={13}

@@ -26,7 +26,7 @@ export const SingleSelectQ = ({ id, questionType, addRes, question, options }) =
           {options.map(({oID, option}) => (
             <li
             key={oID}
-            className={selectedOption === oID ? 'selected option' : 'option'}
+            className={selectedOption === oID ? 'option selected' : 'option'}
             onClick={() => handleOptionSelect(oID)}
             >
               {option}

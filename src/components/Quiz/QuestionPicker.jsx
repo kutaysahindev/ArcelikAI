@@ -13,9 +13,9 @@ import { useEffect } from "react";
 
 const QuestionPicker = () => {
   const { selectedQuestion, questions, responsesToBeSended } = useSelector((state) => state.quiz);
-  const user = useSelector((state) => state.user);
-  // const { questionType, question, options, Id } = questions.at(selectedQuestion-1);
-  const { questionType, question, options, Id } = questions.find((q) => q.Id === selectedQuestion);
+  // const user = useSelector((state) => state.user);
+  // const { questionType, question, options, Id } = questions.find((q) => q.Id === selectedQuestion);
+  const { questionType, question, options, Id } = questions.at(selectedQuestion);
   const dispatch = useDispatch();
   let qElement;
 

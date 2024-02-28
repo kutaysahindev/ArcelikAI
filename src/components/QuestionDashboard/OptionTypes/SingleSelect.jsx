@@ -18,12 +18,12 @@ export const SingleSelect = () => {
           choice={c}
         >
           <FaRegCheckCircle
-            size={13}
-            onClick={() => dispatch(setAnswer(c.oID))}
-            className={`btn s-check ${answer === c.oID ? 'selected' : ''}`}
+            size={16}
+            onClick={() => dispatch(setAnswer(c))}
+            className={`btn s-check ${answer?.oID === c.oID ? 'selected' : ''}`}
           />
           <FaRegTrashAlt
-            size={13}
+            size={16}
             onClick={() => dispatch(deleteChoiceHandler(c.oID))}
             className="btn trash"
           />

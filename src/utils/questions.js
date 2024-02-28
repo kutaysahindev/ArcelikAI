@@ -1,6 +1,6 @@
 //This will be deprecated after backend connection
 
-export const questions = [
+export const questionsArray = [
   {
     Id: 11,
     questionType: "MultipleChoice",

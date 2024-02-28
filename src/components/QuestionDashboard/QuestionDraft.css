@@ -1,6 +1,8 @@
 .question-draft {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
   gap: 20px;
   min-height: 80vh;
   /* align-items: flex-start; */
@@ -9,8 +11,11 @@
 .uploadDB-button {
   width: fit-content;
   padding: 1rem 2rem;
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: #bc3200;
   border-radius: 10px;
-  background: #eedbdb;
+  background: #ffd0c0;
   cursor: pointer;
   transition: all 200ms;
 }
@@ -19,4 +24,8 @@
 }
 .uploadDB-button:active {
   transform: scale(1.02);
+}
+.uploadDB-button:disabled {
+  color: #bc3200;
+  background: #ffd0c0;
 }

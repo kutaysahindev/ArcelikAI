@@ -58,9 +58,19 @@
   color:rgb(189, 0, 0)
 }
 
-.question-pool .apply-btn {
+.question-pool .btnss {
+  display: flex;
+  gap: 1rem;
+}
+.question-pool .action-btn {
   padding: 1rem;
-  background: #e35353;
   color: white;
   border-radius: 10px;
+  cursor: pointer;
+}
+.question-pool .action-btn.reset {
+  background: #e35353;
+}
+.question-pool .action-btn.apply {
+  background: #5385e3;
 }

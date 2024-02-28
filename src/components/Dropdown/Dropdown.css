@@ -5,7 +5,7 @@
   --theme-color: #e43c61;
 }
 .select-container {
-  position: absolute;
+  position: relative;
   /* width: 420px; */
   width: 400px;
   overflow: hidden;
@@ -21,7 +21,7 @@
 .qt-label {
   position: absolute;
   cursor: default;
-  font-size: 11px;
+  font-size: 1.2rem;
   top: -5px;
   left: 5px;
   font-weight: bold;
@@ -42,24 +42,29 @@
   height: 40px;
   box-sizing: border-box;
   position: relative;
-  padding: 10px 12px;
+  padding: 0 1.5rem;
   border-radius: 10px;
   border: solid var(--border-weight) #ccc;
   outline: none;
   /* background: #242424; */
   background: #faf5f5;
+  /* background: red; */
   /* color: white; */
   color: black;
-  font-weight: 500;
+  font-weight: 700;
+  font-size: 1.2rem;
   /* z-index: 2; */
   display: flex;
   justify-content: space-between;
+  align-items: center;
   transition: all 0.6s ease;
 }
 .qt-selector.open {
   border-color: var(--theme-color);
 }
 .qt-selector .icon {
+  display: flex;
+  align-items: center;
   transform-origin: center;
   transform: rotate(0deg);
   transition: transform 0.6s ease;
