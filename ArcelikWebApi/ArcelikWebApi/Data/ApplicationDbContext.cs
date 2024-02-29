@@ -1,11 +1,6 @@
-﻿using System;
-using static System.Net.Mime.MediaTypeNames;
-using System.Collections.Generic;
-using System.Reflection.Emit;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using ArcelikWebApi.Models;
 using ArcelikWebApi.Models.Quiz;
-using Microsoft.Extensions.Options;
 
 namespace ArcelikWebApi.Data
 {
@@ -20,7 +15,7 @@ namespace ArcelikWebApi.Data
         public DbSet<Users> Users { get; set; }
         public DbSet<Video> Videos { get; set; }
         public DbSet<ApplicationSettings> ApplicationSettings { get; set; }
-        public DbSet<Choices> Choices { get; set; }   
+        public DbSet<Choices> Choices { get; set; }
         public DbSet<Questions> Questions { get; set; }
         public DbSet<CorrectChoices> CorrectChoices { get; set; }
         public DbSet<CorrectText> CorrectText { get; set; }
@@ -29,10 +24,6 @@ namespace ArcelikWebApi.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Users>()
-                .HasOne(u => u.WatchedVideo)
-                .WithMany()
-                .HasForeignKey(u => u.WatchedVideoId);
 
             //Relationship between choices and Questions
             modelBuilder.Entity<Choices>()
@@ -69,12 +60,13 @@ namespace ArcelikWebApi.Data
                 .HasForeignKey<CorrectText>(c => c.QuestionID)
                 .OnDelete(DeleteBehavior.Restrict);
 
+            /* unnecessary
             modelBuilder.Entity<Video>().HasData(
-                new Video { Id = 1, Title = "Video 1", VideoDuration = 5, BlobStorageUrl = "https://arcelikstorage.blob.core.windows.net/videos/sample1.mp4" },
-                new Video { Id = 2, Title = "Video 2", VideoDuration = 8, BlobStorageUrl = "https://arcelikstorage.blob.core.windows.net/videos/sample2.mp4" },
-                new Video { Id = 3, Title = "Video 3", VideoDuration = 10, BlobStorageUrl = "https://arcelikstorage.blob.core.windows.net/videos/sample3.mp4" },
-                new Video { Id = 4, Title = "Video 4", VideoDuration = 11, BlobStorageUrl = "https://arcelikstorage.blob.core.windows.net/videos/sample3.mp4" }
+                new Video { Id = 2, Title = "Video 2", BlobStorageUrl = "https://arcelikstorage.blob.core.windows.net/videos/sample2.mp4" },
+                new Video { Id = 3, Title = "Video 3", BlobStorageUrl = "https://arcelikstorage.blob.core.windows.net/videos/sample3.mp4" },
+                new Video { Id = 4, Title = "Video 4", BlobStorageUrl = "https://arcelikstorage.blob.core.windows.net/videos/sample3.mp4" }
             );
+            */
 
             modelBuilder.Entity<Questions>().HasData(
                 // 3 MultipleChoice QuestionType
@@ -202,10 +194,9 @@ namespace ArcelikWebApi.Data
                 .HasData(
                 new ApplicationSettings { id = 1, LandingUrl = "Somelink will be here", SupportedFileTypes = "Pdf" });
 
-       
 
         }
 
-    } 
+    }
 }
 

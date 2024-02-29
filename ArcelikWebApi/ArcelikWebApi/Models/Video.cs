@@ -12,7 +12,8 @@ namespace ArcelikWebApi.Models
 
         public string BlobStorageUrl { get; set; }
 
-        public int VideoDuration { get; set; }
+        public int DurationInSeconds { get; set; }
+
     }
 }
 

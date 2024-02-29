@@ -1,8 +1,10 @@
-import React, { useState, useRef } from "react";
+import  { useState, useRef } from "react";
 import "./UploadContainer.css";
 import { useSelector } from "react-redux";
 
+
 const UploadContainer = ({ files, setFiles }) => {
+
   const [isDragging, setIsDragging] = useState(false);
   const [isHover, setIsHover] = useState(false);
   const fileInputRef = useRef(null);

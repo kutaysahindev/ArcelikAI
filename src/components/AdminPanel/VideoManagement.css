@@ -1,0 +1,13 @@
+
+.both-video-area {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+  }
+
+  @media screen and (max-width: 770px) {
+    .both-video-area{
+      margin-left:10%;
+      width: 90%;
+    }
+  }

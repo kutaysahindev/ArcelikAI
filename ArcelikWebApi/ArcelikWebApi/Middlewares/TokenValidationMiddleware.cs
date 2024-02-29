@@ -1,15 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
-using Microsoft.IdentityModel.Protocols;
+﻿using Microsoft.IdentityModel.Protocols;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Microsoft.IdentityModel.Tokens;
-using System;
 using System.IdentityModel.Tokens.Jwt;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http.Abstractions;
-using System.Security.Claims;
-using System.Net.NetworkInformation;
 
 namespace ArcelikWebApi.Middlewares
 {
@@ -46,6 +38,7 @@ namespace ArcelikWebApi.Middlewares
 
             // Accessing the claims from the validated token
             var userEmailClaim = validatedToken.Claims.FirstOrDefault(c => c.Type == "sub");
+            var userRoleClaim = validatedToken.Claims.FirstOrDefault(c => c.Type == "userRole");
 
             if (userEmailClaim != null && !string.IsNullOrEmpty(userEmailClaim.Value))
             {
@@ -55,7 +48,15 @@ namespace ArcelikWebApi.Middlewares
                 context.Items["UserEmail"] = userEmail;
             }
 
-            context.Response.StatusCode = 200;
+            if (userRoleClaim != null && !string.IsNullOrEmpty(userRoleClaim.Value))
+            {
+                var userRole = userRoleClaim.Value;
+
+                // Attach user role to the request
+                context.Items["UserRole"] = userRole;
+            }
+
+            // Call the next middleware in the pipeline
             await next(context);
         }
 
@@ -91,51 +92,15 @@ namespace ArcelikWebApi.Middlewares
 
                 return (JwtSecurityToken)rawValidatedToken;
             }
-            catch (ArgumentException ex)
+            catch (SecurityTokenException ex)
             {
                 _logger.LogError(ex, "Token validation failed: {ErrorMessage}", ex.Message);
 
-                if (ex.Message.Contains("IDX10503")) // Token format issue
-                {
-                    context.Response.StatusCode = 422;
-                    await context.Response.WriteAsync("Invalid token format.");
-                }
-                else if (ex.Message.Contains("IDX12729")) // Token length or structure issue
-                {
-                    context.Response.StatusCode = 422;
-                    await context.Response.WriteAsync("Invalid token structure or length.");
-                }
-                else
-                {
-                    context.Response.StatusCode = 401;
-                    await context.Response.WriteAsync("Invalid token.");
-                }
+                context.Response.StatusCode = 401;
+                await context.Response.WriteAsync("Invalid token.");
 
                 return null;
             }
-            catch (SecurityTokenValidationException ex)
-            {
-                _logger.LogError(ex, "Token validation failed: {ErrorMessage}", ex.Message);
-
-                if (ex.Message.Contains("IDX10503")) // Token format issue
-                {
-                    context.Response.StatusCode = 422;
-                    await context.Response.WriteAsync("Invalid token format.");
-                }
-                else if (ex.Message.Contains("IDX12729")) // Token length or structure issue
-                {
-                    context.Response.StatusCode = 422;
-                    await context.Response.WriteAsync("Invalid token structure or length.");
-                }
-                else
-                {
-                    context.Response.StatusCode = 401;
-                    await context.Response.WriteAsync("Invalid token.");
-                }
-
-                return null;
-            }
-
         }
     }
 }

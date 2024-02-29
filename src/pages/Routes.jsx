@@ -7,6 +7,8 @@ import Home from "./Home";
 import Form from "./Form";
 import NotFound from "./NotFound";
 import Anteroom from "./Anteroom";
+import AddNewVideo from '../components/AdminPanel/VideoUploadContainer/AddNewVideo';
+
 
 import { LoginCallback } from "@okta/okta-react";
 import ErrorComponent from "../components/ErrorComponent";
@@ -20,7 +22,12 @@ export const router = createBrowserRouter([
   {
     path: "/admin",
     element: <AdminLayout />,
-    // children
+    children: [
+      {
+        path: "/admin/adminvideo",
+        element: <AddNewVideo />
+      }
+    ]
   },
   {
     path: "/home",
