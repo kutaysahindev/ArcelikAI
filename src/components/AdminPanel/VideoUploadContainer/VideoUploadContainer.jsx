@@ -100,18 +100,23 @@ export const VideoUploadContainer = () => {
 
       console.log("Video uploaded successfully");
       console.log("formData: ", formData);
-      dispatch(setNotification({type: "success", text: "Video has been uploaded successfully"}))
+      dispatch(
+        setNotification({
+          type: "success",
+          text: "Video has been uploaded successfully",
+        })
+      );
       setTitle("");
       setVideoFile(null);
       setDuration(null);
     } catch (error) {
       // console.error("Error uploading video:", error);
-      dispatch(setNotification({type: "error", text: "Video upload failed"}))
+      dispatch(setNotification({ type: "error", text: "Video upload failed" }));
     }
   };
 
   return (
-    <div className="form-area">
+    <div className="form-area-video">
       <form onSubmit={handleSubmit}>
         <div className="dnd-bar">
           <label htmlFor="videoFile" className="page-title">
