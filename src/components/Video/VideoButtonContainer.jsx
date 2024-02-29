@@ -27,7 +27,7 @@ const VideoButtonContainer = ({ watchAgain, isHovered }) => {
     dispatch(setSelectedVideo(selectedVideo + num));
 
   const rightButtonSelector = () => {
-    if (selectedVideo < videoCount) {
+    if (selectedVideo < videoCount-1) {
       btnProps = {
         class: "next",
         onClick: () => videoSelector(1),
@@ -35,7 +35,7 @@ const VideoButtonContainer = ({ watchAgain, isHovered }) => {
         text: "Next",
         icon: <FaForward />,
       };
-    } else if (selectedVideo === videoCount && result !== "passed") {
+    } else if (selectedVideo === videoCount-1 && result !== "passed") {
       btnProps = {
         class: "quiz",
         onClick: showModal,
@@ -83,7 +83,7 @@ const VideoButtonContainer = ({ watchAgain, isHovered }) => {
       <button
         className="btns previous"
         onClick={() => videoSelector(-1)}
-        disabled={selectedVideo <= 1}
+        disabled={selectedVideo <= 0}
       >
         <FaBackward />
         <span>Previous</span>

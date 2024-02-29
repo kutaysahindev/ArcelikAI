@@ -48,8 +48,8 @@ const ReduxPanel = () => {
   }
 
   return (
-    <div className={`redux-panel ${isHovered ? "expand" : ""}`} onMouseEnter={expandPanel} onMouseLeave={collapsePanel}>
-      {/* <div className=''><LiaWindowMinimize/></div> */}
+    <div className={`redux-panel ${(isHovered && !minimize) ? "expand" : ""}  ${minimize ? "minimized" : ""}`} onMouseEnter={expandPanel} onMouseLeave={collapsePanel}>
+      <div className='minimize-btn' onClick={() => setMinimize(s => !s)}><LiaWindowMinimize size={19}/></div>
       <div className='accordions'>
         <Accordion title={"Notification"}>
           <input type='text' className='rp-i' value={input.notificationType} onChange={(e) => setText("notificationType", e.target.value)} placeholder='type' style={{width: "50px"}}/>

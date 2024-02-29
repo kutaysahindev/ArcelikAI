@@ -71,12 +71,12 @@ export const videoSlice = createSlice({
       localStorage.setItem("allCompleted", false);
       state.videoMark = action.payload;
       state.selectedVideo = video;
-      state.completion["video" + video - 1] = true;
-      state.lastCompleted = video - 1;
-      localStorage.setItem("lastCompleted", video - 1);
+      // state.completion["video" + video - 1] = true;
+      state.lastCompleted = video;
+      localStorage.setItem("lastCompleted", video);
     },
     completeAll: (state) => {
-      state.lastCompleted = state.videoCount;
+      state.lastCompleted = state.videoCount-1;
       localStorage.setItem("lastCompleted", state.videoCount);
       state.allCompleted = true;
       localStorage.setItem("allCompleted", true);
