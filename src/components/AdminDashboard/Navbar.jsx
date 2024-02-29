@@ -7,7 +7,7 @@ const Navbar = () => {
       <img src={logo} alt="Logo" className="admin-logo" />
       <input type="text" placeholder="Search" className="search-input" />
       <div className="user-info">
-        <span className="username">Kutay Şahin</span>
+        <span className="username">Admin User</span>
         <FiUser className="user-icon" />
       </div>
     </nav>
