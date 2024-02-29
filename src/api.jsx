@@ -169,7 +169,12 @@ export const uploadVideos = async (accessToken, video) => {
   const endpoint = "/api/adminvideo/upload";
   try {
     setAuthHeader(accessToken);
-    const response = await instance.post(endpoint, video);
+    const response = await instance.post(endpoint, video, {
+      headers: {
+        "Custom-Header": "value",
+        "Content-Type": "multipart/form-data",
+      },
+    });
     return response.data;
   } catch (error) {
     throw error;
@@ -203,10 +208,11 @@ export const updateVideoOrderInDatabase = async (
 };
 
 // Video detaylarını güncellemek için bir fonksiyon (videoupdating.jsx)
-export const updateVideoDetailsInDatabase = async (updatedVideoDetails) => {
+export const updateVideoDetailsInDatabase = async (accessToken, updatedVideoDetails) => {
   const endpoint = "/api/update-video-details";
+  setAuthHeader(accessToken);
   try {
-    const response = await instance.put(endpoint, updatedVideoDetails);
+    const response = await instance.put(endpoint, accessToken, updatedVideoDetails);
     return response.data;
   } catch (error) {
     throw error;
@@ -214,10 +220,11 @@ export const updateVideoDetailsInDatabase = async (updatedVideoDetails) => {
 };
 
 // Veritabanından video isimlerini çekmek için bir fonksiyon (VideoPool.jsx)
-export const fetchVideoNamesFromDatabase = async () => {
-  const endpoint = "/api/videos";
+export const fetchVideoNamesFromDatabase = async (accessToken) => {
+  const endpoint = "/api/adminvideo";
+  setAuthHeader(accessToken);
   try {
-    const response = await instance.get(endpoint);
+    const response = await instance.get(endpoint, accessToken);
     return response.data;
   } catch (error) {
     throw error;
@@ -225,8 +232,9 @@ export const fetchVideoNamesFromDatabase = async () => {
 };
 
 // Belirli bir videoyu veritabanından silmek için bir fonksiyon (videopool.jsx)
-export const deleteVideoFromDatabase = async (videoId) => {
+export const deleteVideoFromDatabase = async (accessToken, videoId) => {
   const endpoint = `/api/adminvideo/${videoId}`;
+  setAuthHeader(accessToken);
   try {
     const response = await instance.delete(endpoint);
     return response.data;

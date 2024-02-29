@@ -1,11 +1,10 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useOktaAuth } from "@okta/okta-react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   logUserOut,
   setAccessToken,
   setIsLoading,
-  setIsTutorialDone,
   setNotification,
   setStatus,
   signUserIn,
@@ -60,8 +59,13 @@ const Main = () => {
   const accessTokenValidation = () => {
     const accessToken = authState.accessToken.accessToken;
     dispatch(setAccessToken(accessToken));
-    validateToken(accessToken)
-      .then(() => dispatch(signUserIn()))
+    if(!user.isSignedIn) {
+      // console.log('user.isSignedIn: ', user.isSignedIn)
+      validateToken(accessToken)
+      .then(() => {
+        dispatch(signUserIn())
+        setTimeout(() => navigate("/home/form"), 2000);
+      })
       .catch((error) => {
         dispatch(logUserOut());
         dispatch(setStatus("f"));
@@ -69,6 +73,7 @@ const Main = () => {
         console.error("Error validating token:", error);
       })
       .finally(() => setTimeout(() => dispatch(setIsLoading(false)), 2000));
+    }
   }
   // const accessTokenValidation = async() => {
   //   const accessToken = authState.accessToken.accessToken;
@@ -86,13 +91,14 @@ const Main = () => {
   // }
 
   useEffect(() => {
+    // if (user.isSignedIn) return
     if (authState && authState.isAuthenticated) {
       userInfoHandler();
       accessTokenValidation();
     } else {
       dispatch(logUserOut());
     }
-  }, [authState]);
+  }, [authState, user.isSignedIn]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -111,9 +117,11 @@ const Main = () => {
         // console.log('video: ', video)
         // console.log('video: ', video.WatchedVideoId)
         const lastWatchedVideoIndex = video.VideoDetails.indexOf(video.VideoDetails.find(v => v.Id === video.WatchedVideoId))
-        if (video.isWatchedAll) {
+        console.log('video: ', video)
+        console.log('video.IsWatchedAll: ', video.IsWatchedAll)
+        if (video.IsWatchedAll) {
           dispatch(completeAll());
-          dispatch(closeWindow());
+          // dispatch(closeWindow());
         } else {
           dispatch(
             proceedAt({
@@ -142,16 +150,16 @@ const Main = () => {
     }
   }, [user.isSignedIn, user.accessToken]);
 
-  useEffect(() => {
-    let timerId;
-    if (user.isLoading) {
-      timerId = setTimeout(() => {
-        if (user.isSignedIn) navigate("/home/form");
-        // dispatch(setIsLoading(false));
-      }, 3000);
-    }
-    return () => clearInterval(timerId);
-  }, [user.isLoading, dispatch, navigate, user.isSignedIn]);
+  // useEffect(() => {
+  //   let timerId;
+  //   if (user.isLoading) {
+  //     timerId = setTimeout(() => {
+  //       if (user.isSignedIn) navigate("/home/form");
+  //       // dispatch(setIsLoading(false));
+  //     }, 3000);
+  //   }
+  //   return () => clearInterval(timerId);
+  // }, [user.isLoading, dispatch, navigate, user.isSignedIn]);
 
   // If the access token could not be validated, the user will be signed out
   // useEffect(() => {
@@ -189,6 +197,7 @@ const Main = () => {
                 <button
                   className="login-button"
                   onClick={() => {
+                    dispatch(logUserOut());
                     oktaAuth.signOut();
                   }}
                 >

@@ -42,23 +42,23 @@ export const QuestionDraft = () => {
   componentPicker();
 
   const postQuestion = () => {
-    const correctAnswerFormatter = () => {
-      if (questionType.value === "MultipleChoice") return [answer.option];
-      if (questionType.value === "MultipleChoiceAndAnswers") return answer.map(a => a.option);
-      if (questionType.value === "Sorting") return choices.map(a => a.option);
-      if (questionType.value === "FillInTheBlank") return [answer];
-      if (questionType.value === "TrueFalse") return answer;
-    }
-    let queToBeSent = {
-      QuestionType: questionType.value,
-      QuestionText: question,
-      Choices: choices ? choices.map(c => c.option) : null,
-      CorrectAnswers : correctAnswerFormatter()
-    }
-    console.log('queToBeSent: ', queToBeSent)
     const errorMessage = checkQuestionDB(uploadDB);
     if (errorMessage) dispatch(setNotification({type: "error", text: errorMessage}));
     else {
+      const correctAnswerFormatter = () => {
+        if (questionType.value === "MultipleChoice") return [answer.option];
+        if (questionType.value === "MultipleChoiceAndAnswers") return answer.map(a => a.option);
+        if (questionType.value === "Sorting") return choices.map(a => a.option);
+        if (questionType.value === "FillInTheBlank") return [answer];
+        if (questionType.value === "TrueFalse") return answer;
+      }
+      let queToBeSent = {
+        QuestionType: questionType.value,
+        QuestionText: question,
+        Choices: choices ? choices.map(c => c.option) : null,
+        CorrectAnswers : correctAnswerFormatter()
+      }
+      console.log('queToBeSent: ', queToBeSent)
       const uploadQue = async () => {
         try {
           const response = await uploadQuestionDB(accessToken , queToBeSent);

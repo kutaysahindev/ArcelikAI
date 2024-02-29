@@ -4,7 +4,7 @@ import { completeVideo } from "../redux/videoSlice";
 import { postVideoProgress } from "../api";
 
 const useVideoPlayer = () => {
-  const { selectedVideo, completion, videoMark, allCompleted, videoCount } = useSelector((state) => state.video);
+  const { selectedVideo, completion, videoMark, allCompleted, videoCount, videos } = useSelector((state) => state.video);
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const videoRef = useRef(null);
@@ -83,20 +83,22 @@ const useVideoPlayer = () => {
 
 
   useEffect(() => {
-    const postVideo = async () => {
-      try {
-        await postVideoProgress(user.accessToken, {
-          isWatchedAll: selectedVideo < videoCount ? allCompleted : true,
-          WatchedVideoId: selectedVideo < videoCount ? selectedVideo+1 : 1,
-          WatchedTimeInseconds: 0
-        });
-      } catch (error) {
-        throw error;
-      }
-    };
+    // const postVideo = async () => {
+    //   const lastWatchedVideoId = videos[selectedVideo].Id;
+    //   try {
+    //     await postVideoProgress(user.accessToken, {
+    //       // isWatchedAll: selectedVideo < videoCount ? allCompleted : true,
+    //       WatchedVideoId: lastWatchedVideoId+1,
+    //       WatchedTimeInseconds: 0
+    //     });
+    //     console.log("PVP: useVideoPlayer")
+    //   } catch (error) {
+    //     throw error;
+    //   }
+    // };
     if (isCompleted && !allCompleted) {
       dispatch(completeVideo(selectedVideo));
-      postVideo();
+      // postVideo();
       console.log("useVideoPlayer")
     }
     // if (allCompleted) {

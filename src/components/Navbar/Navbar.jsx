@@ -8,7 +8,7 @@ import { useOktaAuth } from "@okta/okta-react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { setIndex } from "../../redux/navIndexSlice";
-import { setIsLoading } from "../../redux/userSlice";
+import { logUserOut, setIsLoading } from "../../redux/userSlice";
 
 const Navbar = () => {
   const [isPopup, setIsPopup] = useState(false);
@@ -99,7 +99,10 @@ const Navbar = () => {
             <div className="logout">
               <p className="info">{user.userInfo.name}</p>
               <p className="info">{user.userInfo.email}</p>
-              <p className="btn" onClick={() => oktaAuth.signOut()}>
+              <p className="btn" onClick={() => {
+                oktaAuth.signOut()
+                dispatch(logUserOut());
+              }}>
                 <LuLogOut />
                 Log out
               </p>

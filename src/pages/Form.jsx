@@ -70,23 +70,24 @@ export default function Form() {
     return () => (document.body.style.overflow = "auto");
   }, [isWindowOpen]);
 
-  useEffect(() => {
-    const postVideo = async () => {
-      try {
-        await postVideoProgress(user.accessToken, {
-          isWatchedAll: true,
-          WatchedVideoId: 1,
-          WatchedTimeInseconds: 0,
-        });
-      } catch (error) {
-        throw error;
-      }
-    };
-    if (allCompleted && user.accessToken.length > 1) {
-      postVideo();
-      // console.log("hepsi bitti !!!")
-    }
-  }, [allCompleted, user.accessToken]);
+  // useEffect(() => {
+  //   const postVideo = async () => {
+  //     try {
+  //       await postVideoProgress(user.accessToken, {
+  //         // isWatchedAll: true,
+  //         WatchedVideoId: 1,
+  //         WatchedTimeInseconds: 0,
+  //       });
+  //       console.log("PVP: Form")
+  //     } catch (error) {
+  //       throw error;
+  //     }
+  //   };
+  //   if (allCompleted && user.accessToken.length > 1) {
+  //     postVideo();
+  //     // console.log("hepsi bitti !!!")
+  //   }
+  // }, [allCompleted, user.accessToken]);
 
   useEffect(() => {
     // const postTProgress = async () => {

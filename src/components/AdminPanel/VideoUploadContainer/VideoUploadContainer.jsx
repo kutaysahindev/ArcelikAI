@@ -2,6 +2,8 @@ import { useState, useRef } from "react";
 import "./VideoUploadContainer.css";
 import { uploadVideos } from "../../../api";
 import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { setNotification } from "../../../redux/userSlice";
 
 export const VideoUploadContainer = () => {
   const [title, setTitle] = useState("");
@@ -9,7 +11,7 @@ export const VideoUploadContainer = () => {
   const [selectedVideo, setSelectedVideo] = useState(null); // Silinecek video
   const [isDragging, setIsDragging] = useState(false); // Drag and drop durumu
   const fileInputRef = useRef(null); // Dosya girişi için referans
-
+  const dispatch = useDispatch();
   const [duration, setDuration] = useState(null);
 
   const user = useSelector((state) => state.user);
@@ -48,7 +50,7 @@ export const VideoUploadContainer = () => {
         // console.log("Video duration:", parseInt(video.duration));
       };
       // Append the video element to the document
-      document.body.appendChild(video);
+      // document.body.appendChild(video);
     } else {
       alert("You can only upload an MP4 file.");
     }
@@ -89,22 +91,22 @@ export const VideoUploadContainer = () => {
 
     const formData = new FormData();
     formData.append("Title", title);
-    console.log({ title });
-    formData.append("Video", videoFile, videoFile.name);
-    console.log({ videoFile }, videoFile.name);
+    formData.append("VideoFile", videoFile);
     formData.append("DurationInSeconds", duration);
-    console.log("yollanan durasyon: ", duration);
+    console.log("type", typeof formData);
 
     try {
       await uploadVideos(user.accessToken, formData);
 
       console.log("Video uploaded successfully");
       console.log("formData: ", formData);
+      dispatch(setNotification({type: "success", text: "Video has been uploaded successfully"}))
       setTitle("");
       setVideoFile(null);
       setDuration(null);
     } catch (error) {
-      console.error("Error uploading video:", error);
+      // console.error("Error uploading video:", error);
+      dispatch(setNotification({type: "error", text: "Video upload failed"}))
     }
   };
 

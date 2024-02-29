@@ -32,11 +32,11 @@ const SortedVideo = ({ videos }) => {
           ))}
       </ul> */}
       <div className="video-titles">
-        <SortableContext items={videos} strategy={verticalListSortingStrategy}>
+        {/* <SortableContext items={videos} strategy={verticalListSortingStrategy}>
           {videos.map((visual) => (
             <Visual id={visual.id} title={visual.title} key={visual.id} />
           ))}
-        </SortableContext>
+        </SortableContext> */}
       </div>
       {/* we'll add an endpoint for that button */}
     </div>
