@@ -7,10 +7,10 @@ import { Security } from "@okta/okta-react";
 
 import { DropNotification } from "./components/DropNotification/DropNotification";
 import { useSelector } from "react-redux";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { setNotification, setNotificationDirection } from "./redux/userSlice";
-import { router } from "./pages/Routes";
+import { adminRouter, clientRouter } from "./pages/Routes";
 import ReduxPanel from "./components/DevTools/ReduxPanel";
 
 const oktaAuth = new OktaAuth({
@@ -25,7 +25,8 @@ const restoreOriginalUri = async (_oktaAuth, originalUri) => {
 };
 
 function App() {
-  const { notificationType, notificationText, notificationTime } = useSelector(
+  const [selectedRoute, setSelectedRoute] = useState(clientRouter);
+  const { notificationType, notificationText, notificationTime, userRole } = useSelector(
     (slices) => slices.user
   );
   const dispatch = useDispatch();
@@ -43,6 +44,10 @@ function App() {
     }
   }, [notificationText]);
 
+  useEffect(() => {
+    if (userRole === "admin") setSelectedRoute(adminRouter)
+  }, [userRole])
+
   return (
     <Security oktaAuth={oktaAuth} restoreOriginalUri={restoreOriginalUri}>
       <ReduxPanel />
@@ -58,7 +63,7 @@ function App() {
         txt={notificationText}
         time={notificationTime}
       />
-      <RouterProvider router={router} />
+      <RouterProvider router={selectedRoute} />
     </Security>
   );
 }

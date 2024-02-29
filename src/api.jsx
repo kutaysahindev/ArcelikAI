@@ -208,11 +208,16 @@ export const updateVideoOrderInDatabase = async (
 };
 
 // Video detaylarını güncellemek için bir fonksiyon (videoupdating.jsx)
-export const updateVideoDetailsInDatabase = async (accessToken, updatedVideoDetails) => {
-  const endpoint = "/api/update-video-details";
+export const updateVideoDetailsInDatabase = async (accessToken, title, id) => {
+  const endpoint = "/api/adminvideo/"+id;
   setAuthHeader(accessToken);
   try {
-    const response = await instance.put(endpoint, accessToken, updatedVideoDetails);
+    const response = await instance.put(endpoint, title, {
+      headers: {
+        "Custom-Header": "value",
+        "Content-Type": "multipart/form-data",
+      },
+    });
     return response.data;
   } catch (error) {
     throw error;
@@ -224,7 +229,7 @@ export const fetchVideoNamesFromDatabase = async (accessToken) => {
   const endpoint = "/api/adminvideo";
   setAuthHeader(accessToken);
   try {
-    const response = await instance.get(endpoint, accessToken);
+    const response = await instance.get(endpoint);
     return response.data;
   } catch (error) {
     throw error;
@@ -238,6 +243,19 @@ export const deleteVideoFromDatabase = async (accessToken, videoId) => {
   try {
     const response = await instance.delete(endpoint);
     return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+
+// GET USER ROLE
+export const getUserRole = async (accessToken) => {
+  const endpoint = `/api/admin/dashboard`;
+  setAuthHeader(accessToken);
+  try {
+    const response = await instance.get(endpoint);
+    return response;
   } catch (error) {
     throw error;
   }

@@ -28,17 +28,19 @@ h2.second-title {
 }
 
 .video-pool {
-  background-color: #f2f2f3;
+  background-color: rgb(255, 184, 184);
   padding: 20px;
   width: 25vw;
   border-radius: 5px;
-  margin: 0 auto;
+  margin: 1rem auto 0 auto;
   position: relative;
 }
 
 .video-list {
   display: flex;
   flex-direction: column;
+  gap: 1rem;
+
 }
 
 .video-item {
@@ -49,7 +51,7 @@ h2.second-title {
   justify-content: space-between;
   background-color: white;
   padding: 10px;
-  margin-bottom: 10px;
+  /* margin-bottom: 10px; */
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
   border-radius: 5px;
   transition: all ease-in-out 0.2s;

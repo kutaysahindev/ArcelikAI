@@ -56,18 +56,29 @@ const VideoPool = () => {
     }
   };
 
+  useEffect(() => {
+    console.log("editedName: ", editedName);
+    console.log("allVideos: ", allVideos);
+  }, [editedName, allVideos]);
+
   const handleEdit = (index) => {
-    setEditingIndex(indexOfFirstVideo + index);
-    setEditedName(allVideos[indexOfFirstVideo + index]);
+    setEditingIndex(index);
+    setEditedName(allVideos[index].Title);
   };
 
   const handleSaveEdit = async (index) => {
     const updatedVideos = [...allVideos];
-    updatedVideos[indexOfFirstVideo + index] = editedName;
+    updatedVideos[index].Title = editedName;
     setAllVideos(updatedVideos);
     setEditingIndex(-1);
+    const formData = new FormData();
+    formData.append("Title", editedName);
     try {
-      await updateVideoDetailsInDatabase(user.accessToken, updatedVideos);
+      await updateVideoDetailsInDatabase(
+        user.accessToken,
+        formData,
+        allVideos[index].Id
+      );
     } catch (error) {
       console.error(error.message);
     }
@@ -86,12 +97,12 @@ const VideoPool = () => {
         <div className="video-list">
           {allVideos.map((video, index) => (
             <div className="video-item" key={index}>
-              {editingIndex === index + indexOfFirstVideo ? (
+              {editingIndex === index ? (
                 <div className="edit-container">
                   <input
                     className="input-field"
                     type="text"
-                    value={editedName.Title}
+                    value={editedName}
                     onChange={(e) => setEditedName(e.target.value)}
                   />
                   <IoCheckmarkOutline
