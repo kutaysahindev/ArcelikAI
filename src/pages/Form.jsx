@@ -74,10 +74,11 @@ export default function Form() {
     const postVideo = async () => {
       try {
         await postVideoProgress(user.accessToken, {
-          isWatchedAll: true,
+          // isWatchedAll: true,
           WatchedVideoId: 1,
           WatchedTimeInseconds: 0,
         });
+        console.log("PVP: Form")
       } catch (error) {
         throw error;
       }

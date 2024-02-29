@@ -61,7 +61,10 @@ const Main = () => {
     const accessToken = authState.accessToken.accessToken;
     dispatch(setAccessToken(accessToken));
     validateToken(accessToken)
-      .then(() => dispatch(signUserIn()))
+      .then(() => {
+        dispatch(signUserIn())
+        setTimeout(() => navigate("/home/form"), 2000);
+      })
       .catch((error) => {
         dispatch(logUserOut());
         dispatch(setStatus("f"));
@@ -86,7 +89,7 @@ const Main = () => {
   // }
 
   useEffect(() => {
-    if (authState && authState.isAuthenticated) {
+    if (authState && authState.isAuthenticated && !user.isSignedIn) {
       userInfoHandler();
       accessTokenValidation();
     } else {
@@ -142,16 +145,16 @@ const Main = () => {
     }
   }, [user.isSignedIn, user.accessToken]);
 
-  useEffect(() => {
-    let timerId;
-    if (user.isLoading) {
-      timerId = setTimeout(() => {
-        if (user.isSignedIn) navigate("/home/form");
-        // dispatch(setIsLoading(false));
-      }, 3000);
-    }
-    return () => clearInterval(timerId);
-  }, [user.isLoading, dispatch, navigate, user.isSignedIn]);
+  // useEffect(() => {
+  //   let timerId;
+  //   if (user.isLoading) {
+  //     timerId = setTimeout(() => {
+  //       if (user.isSignedIn) navigate("/home/form");
+  //       // dispatch(setIsLoading(false));
+  //     }, 3000);
+  //   }
+  //   return () => clearInterval(timerId);
+  // }, [user.isLoading, dispatch, navigate, user.isSignedIn]);
 
   // If the access token could not be validated, the user will be signed out
   // useEffect(() => {

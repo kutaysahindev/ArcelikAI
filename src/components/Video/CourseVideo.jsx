@@ -21,14 +21,16 @@ const CourseVideo = () => {
 
   const postCurrentTime = (curr, progress) => {
     const postVideo = async () => {
+      const lastWatchedVideoId = videos[selectedVideo].Id;
       try {
         const videoProg = await postVideoProgress(user.accessToken, {
-          isWatchedAll: progress > 90 ? true : false,
+          // isWatchedAll: progress > 90 ? true : false,
           WatchedVideoId:
-            selectedVideo === lastCompleted ? selectedVideo + 1 : selectedVideo,
+            selectedVideo === lastCompleted ? lastWatchedVideoId + 1 : lastWatchedVideoId,
           WatchedTimeInseconds:
             selectedVideo === lastCompleted ? 0 : Math.floor(curr),
         });
+        console.log("PVP: Course Video")
       } catch (error) {
         throw error;
       }

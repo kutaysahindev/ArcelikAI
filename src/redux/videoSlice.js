@@ -4,7 +4,7 @@ import { videosArray } from "../utils/videos";
 
 const localLastCompleted = localStorage.getItem("lastCompleted")
   ? Number(localStorage.getItem("lastCompleted"))
-  : 0;
+  : -1;
 const localAllCompleted =
   localStorage.getItem("allCompleted") === "true" ? true : false;
 const localVideoCount = localStorage.getItem("videoCount")
@@ -72,8 +72,8 @@ export const videoSlice = createSlice({
       state.videoMark = action.payload;
       state.selectedVideo = video;
       // state.completion["video" + video - 1] = true;
-      state.lastCompleted = video;
-      localStorage.setItem("lastCompleted", video);
+      state.lastCompleted = video - 1;
+      localStorage.setItem("lastCompleted", video - 1);
     },
     completeAll: (state) => {
       state.lastCompleted = state.videoCount-1;
