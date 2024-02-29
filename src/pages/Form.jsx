@@ -15,7 +15,7 @@ import {
 import { formDriver1, formDriver2 } from "../utils/guides";
 import { driver } from "driver.js";
 import "driver.js/dist/driver.css";
-import { setIsTutorialDone } from "../redux/userSlice";
+import { setIsTutorialDone, setNotification } from "../redux/userSlice";
 import Window from "../components/Window/Window";
 import FormHeader from "../components/Form/FormHeader";
 
@@ -142,10 +142,12 @@ export default function Form() {
   const sendForm = async (fd, accessToken) => {
     try {
       const response = await createApp(fd, accessToken);
+      dispatch(setNotification({type: "succcess", text: "Form has been successfully sent"}))
       setIsCreating(response);
       window.location.href = LandingUrl;
     } catch (error) {
       console.log("Error sending form:", error);
+      dispatch(setNotification({type: "error", text: "Failed to send the form"}))
     }
   };
 

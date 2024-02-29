@@ -2,6 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const localLoading =
   localStorage.getItem("isLoading") === "true" ? true : false;
+const localTour =
+  localStorage.getItem("isTutorialDone") ? localStorage.getItem("isTutorialDone") : "none";
 
 const initialState = {
   // isSignedIn: false,
@@ -14,7 +16,7 @@ const initialState = {
     email: "",
     date: "",
   },
-  isTutorialDone: "",
+  isTutorialDone: localTour,
   notificationType: "", // success - message - warning - error
   notificationText: "", 
   notificationTime: 0,  // 3 - 5 - 10 - 20
@@ -50,6 +52,7 @@ export const userSlice = createSlice({
     },
     setIsTutorialDone: (state, action) => {
       state.isTutorialDone = action.payload;
+      localStorage.setItem("isTutorialDone", action.payload);
     },
     setNotification: (state, action) => {
       state.notificationTime = action.payload.time ? action.payload.time*1000 : 5000;

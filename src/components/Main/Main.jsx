@@ -107,7 +107,10 @@ const Main = () => {
         // VIDEO
         dispatch(setVideos(video.VideoDetails));
         dispatch(setVideoCount(video.VideoCount));
-        if (video.isTutorialDone) dispatch(setIsTutorialDone("0done"));
+        // if (video.isTutorialDone) dispatch(setIsTutorialDone("0done"));
+        // console.log('video: ', video)
+        // console.log('video: ', video.WatchedVideoId)
+        const lastWatchedVideoIndex = video.VideoDetails.indexOf(video.VideoDetails.find(v => v.Id === video.WatchedVideoId))
         if (video.isWatchedAll) {
           dispatch(completeAll());
           dispatch(closeWindow());
@@ -115,7 +118,7 @@ const Main = () => {
           dispatch(
             proceedAt({
               // video: video.WatchedVideoId,
-              video: video.VideoDetails.indexOf(video.VideoDetails.find(v => v.Id === video.WatchedVideoId)),
+              video: lastWatchedVideoIndex < 0 ? 0 : lastWatchedVideoIndex,
               time: video.WatchedTimeInSeconds,
             })
           );
