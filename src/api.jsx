@@ -208,10 +208,11 @@ export const updateVideoOrderInDatabase = async (
 };
 
 // Video detaylarını güncellemek için bir fonksiyon (videoupdating.jsx)
-export const updateVideoDetailsInDatabase = async (updatedVideoDetails) => {
+export const updateVideoDetailsInDatabase = async (accessToken, updatedVideoDetails) => {
   const endpoint = "/api/update-video-details";
+  setAuthHeader(accessToken);
   try {
-    const response = await instance.put(endpoint, updatedVideoDetails);
+    const response = await instance.put(endpoint, accessToken, updatedVideoDetails);
     return response.data;
   } catch (error) {
     throw error;
@@ -221,6 +222,7 @@ export const updateVideoDetailsInDatabase = async (updatedVideoDetails) => {
 // Veritabanından video isimlerini çekmek için bir fonksiyon (VideoPool.jsx)
 export const fetchVideoNamesFromDatabase = async (accessToken) => {
   const endpoint = "/api/adminvideo";
+  setAuthHeader(accessToken);
   try {
     const response = await instance.get(endpoint, accessToken);
     return response.data;
@@ -230,8 +232,9 @@ export const fetchVideoNamesFromDatabase = async (accessToken) => {
 };
 
 // Belirli bir videoyu veritabanından silmek için bir fonksiyon (videopool.jsx)
-export const deleteVideoFromDatabase = async (videoId) => {
+export const deleteVideoFromDatabase = async (accessToken, videoId) => {
   const endpoint = `/api/adminvideo/${videoId}`;
+  setAuthHeader(accessToken);
   try {
     const response = await instance.delete(endpoint);
     return response.data;

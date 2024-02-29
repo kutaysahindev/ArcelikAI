@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import './VideoPool.css';
 import { CiEdit, CiTrash } from "react-icons/ci";
 import { IoCheckmarkOutline } from "react-icons/io5";
-import { fetchVideoNamesFromDatabase } from '../../../api';
+import { fetchVideoNamesFromDatabase, updateVideoDetailsInDatabase } from '../../../api';
 import { deleteVideoFromDatabase } from '../../../api';
 import { useSelector } from 'react-redux';
 
@@ -13,7 +13,7 @@ const VideoPool = () => {
   const videosPerPage = 10; 
   const [editingIndex, setEditingIndex] = useState(-1);
   const [editedName, setEditedName] = useState('');
-  const [allVideos, setAllVideos] = useState(['adres gezgini',]);
+  const [allVideos, setAllVideos] = useState([]);
   const user = useSelector((slices) => slices.user);
   useEffect(() => {
     const fetchVideos = async () => {
@@ -39,8 +39,8 @@ const VideoPool = () => {
   // video deleting func
   const handleDelete = async (index) => {
     try {
-      const videoToDelete = allVideos[indexOfFirstVideo + index];
-      await deleteVideoFromDatabase(videoToDelete.id);
+      const videoToDelete = allVideos[index];
+      await deleteVideoFromDatabase(user.accessToken, videoToDelete.Id);
       // if deleting is successful then remove the video name from the list
       const updatedVideos = [...allVideos];
       updatedVideos.splice(indexOfFirstVideo + index, 1);
@@ -61,11 +61,16 @@ const VideoPool = () => {
     setEditedName(allVideos[indexOfFirstVideo + index]);
   };
 
-  const handleSaveEdit = (index) => {
+  const handleSaveEdit = async(index) => {
     const updatedVideos = [...allVideos];
     updatedVideos[indexOfFirstVideo + index] = editedName;
     setAllVideos(updatedVideos);
     setEditingIndex(-1);
+    try {
+      await updateVideoDetailsInDatabase(user.accessToken, updatedVideos)
+    } catch (error) {
+      console.error(error.message)
+    }
   };
 
   return (
@@ -76,14 +81,14 @@ const VideoPool = () => {
       </div>
       <div className="video-pool">
         <div className="video-list">
-          {currentVideos.map((video, index) => (
+          {allVideos.map((video, index) => (
             <div className="video-item" key={index}>
               {editingIndex === index + indexOfFirstVideo ? (
                 <div className="edit-container">
                   <input
                     className='input-field'
                     type="text"
-                    value={editedName}
+                    value={editedName.Title}
                     onChange={(e) => setEditedName(e.target.value)}
                   />
                   <IoCheckmarkOutline 
@@ -94,7 +99,7 @@ const VideoPool = () => {
                   />
                 </div>
               ) : (
-                <span>{video}</span>
+                <span>{video.Title}</span>
               )}
               <div className="item-pack">
                 <CiEdit
