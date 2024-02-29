@@ -78,17 +78,6 @@ export default function VideoManagement() {
     <>
       <div className="both-video-area">
         <VideoPool />
-        {/* <ul>
-          {numbers.map((number) => (
-          <li key={number}>{number}</li>
-          ))}
-        </ul> */}
-        <DndContext
-          onDragEnd={handleDragEnd}
-          collisionDetection={closestCorners}
-        >
-          <SortedVideo videos={videos} />
-        </DndContext>
       </div>
       <div className="apply-btn-cont">
         <button type="submit" className="apply-btn">

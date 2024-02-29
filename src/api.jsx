@@ -219,10 +219,10 @@ export const updateVideoDetailsInDatabase = async (updatedVideoDetails) => {
 };
 
 // Veritabanından video isimlerini çekmek için bir fonksiyon (VideoPool.jsx)
-export const fetchVideoNamesFromDatabase = async () => {
-  const endpoint = "/api/videos";
+export const fetchVideoNamesFromDatabase = async (accessToken) => {
+  const endpoint = "/api/adminvideo";
   try {
-    const response = await instance.get(endpoint);
+    const response = await instance.get(endpoint, accessToken);
     return response.data;
   } catch (error) {
     throw error;

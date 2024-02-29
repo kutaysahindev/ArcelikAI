@@ -4,6 +4,7 @@ import { CiEdit, CiTrash } from "react-icons/ci";
 import { IoCheckmarkOutline } from "react-icons/io5";
 import { fetchVideoNamesFromDatabase } from '../../../api';
 import { deleteVideoFromDatabase } from '../../../api';
+import { useSelector } from 'react-redux';
 
 
 
@@ -13,11 +14,11 @@ const VideoPool = () => {
   const [editingIndex, setEditingIndex] = useState(-1);
   const [editedName, setEditedName] = useState('');
   const [allVideos, setAllVideos] = useState(['adres gezgini',]);
-
+  const user = useSelector((slices) => slices.user);
   useEffect(() => {
     const fetchVideos = async () => {
       try {
-        const videoNames = await fetchVideoNamesFromDatabase();
+        const videoNames = await fetchVideoNamesFromDatabase(user.accessToken);
         setAllVideos(videoNames);
       } catch (error) {
         console.error('Error fetching videos:', error);
