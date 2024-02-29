@@ -7,6 +7,7 @@ import {
   setIsLoading,
   setNotification,
   setStatus,
+  setUserRole,
   signUserIn,
   userInfoUpdate,
 } from "../../redux/userSlice";
@@ -18,6 +19,7 @@ import {
   getQuestions,
   getQuizStatus,
   getSettings,
+  getUserRole,
   getVideoProgress,
   validateToken,
 } from "../../api";
@@ -75,6 +77,22 @@ const Main = () => {
       .finally(() => setTimeout(() => dispatch(setIsLoading(false)), 2000));
     }
   }
+
+  const userRoleHandler = async() => {
+    try {
+      const response = await getUserRole(user.accessToken)
+      // console.log('response.status: ', response.status)
+      // console.log('response.data: ', response.data)
+      dispatch(setUserRole("admin"))
+      // console.log('user: ', "admin")
+      // navigate("/admin")
+    } catch (error) {
+      // console.log("hata geldi")
+      dispatch(setUserRole("client"))
+      // console.log('user: ', "client")
+    }
+  }
+
   // const accessTokenValidation = async() => {
   //   const accessToken = authState.accessToken.accessToken;
   //   dispatch(setAccessToken(accessToken));
@@ -92,13 +110,14 @@ const Main = () => {
 
   useEffect(() => {
     // if (user.isSignedIn) return
+    if(!user.role)userRoleHandler();
     if (authState && authState.isAuthenticated) {
       userInfoHandler();
       accessTokenValidation();
     } else {
       dispatch(logUserOut());
     }
-  }, [authState, user.isSignedIn]);
+  }, [authState, user.isSignedIn, user.role]);
 
   useEffect(() => {
     const fetchData = async () => {

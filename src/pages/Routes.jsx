@@ -13,7 +13,7 @@ import AddNewVideo from '../components/AdminPanel/VideoUploadContainer/AddNewVid
 import { LoginCallback } from "@okta/okta-react";
 import ErrorComponent from "../components/ErrorComponent";
 
-export const router = createBrowserRouter([
+export const adminRouter = createBrowserRouter([
   {
     path: "/",
     index: true,
@@ -59,9 +59,51 @@ export const router = createBrowserRouter([
     redirectUri: "/home",
     element: <LoginCallback />,
   },
-  // {
-  //   path: "*",
-  //   element: <NotFound />,
-  // },
+  {
+    path: "*",
+    element: <NotFound />,
+  },
+  ]);
+  
+export const clientRouter = createBrowserRouter([
+  {
+    path: "/",
+    index: true,
+    element: <Navigate replace to="home" />,
+  },
+  {
+    path: "/home",
+    element: <RootLayout />,
+    errorElement: <ErrorComponent />,
+    children: [
+      {
+        path: "/home",
+        element: <Home />,
+      },
+      {
+        path: "login/callback",
+        redirectUri: "/anteroom",
+        element: <LoginCallback />,
+      },
+      {
+        path: "form",
+        element: <Form />,
+        
+      },
+      {
+        path: "anteroom",
+        element: <Anteroom />,
+      },
+    ],
+  },
+  {
+    path: "login/callback",
+    redirectUri: "/home",
+    element: <LoginCallback />,
+  },
+  {
+    path: "*",
+    element: <NotFound />,
+  },
   ]);
   
