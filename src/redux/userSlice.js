@@ -8,7 +8,7 @@ const localTour =
 const localAccessToken = JSON.parse(localStorage.getItem("okta-token-storage"))?.accessToken ? JSON.parse(localStorage.getItem("okta-token-storage")).accessToken.accessToken : ""
 
 const initialState = {
-  // isSignedIn: false,
+  userRole: "",
   isSignedIn: localStorage.getItem("isSignedIn") === "true" ? true : false,
   isLoading: localLoading,
   accessToken: localAccessToken,
@@ -37,6 +37,9 @@ export const userSlice = createSlice({
     logUserOut: (state) => {
       state.isSignedIn = false;
       localStorage.setItem("isSignedIn", false);
+    },
+    setUserRole: (state, action) => {
+      state.userRole = action.payload;
     },
     setStatus: (state, action) => {
       state.status = action.payload;
@@ -73,6 +76,7 @@ export const userSlice = createSlice({
 export const {
   signUserIn,
   logUserOut,
+  setUserRole,
   userInfoUpdate,
   setIsLoading,
   setStatus,
