@@ -2,6 +2,7 @@ import { useState, useRef } from "react";
 import "./VideoUploadContainer.css";
 import { uploadVideos } from "../../../api";
 import { useSelector } from "react-redux";
+import { toast, Toaster } from 'react-hot-toast';
 
 export const VideoUploadContainer = () => {
   const [title, setTitle] = useState("");
@@ -26,7 +27,7 @@ export const VideoUploadContainer = () => {
         // Sadece bir video dosyası alınacak
         setVideoFile(mp4Files[0]);
       } else {
-        alert("You can only upload an MP4 file.");
+        alert("You can only upload a MP4 file.");
       }
     }
   };
@@ -41,6 +42,7 @@ export const VideoUploadContainer = () => {
     const selectedFile = e.target.files[0];
     if (selectedFile && isMP4Video(selectedFile)) {
       setVideoFile(selectedFile);
+      console.log(selectedFile);
       const video = document.createElement("video");
       video.src = URL.createObjectURL(selectedFile); // Set the video source
       video.onloadedmetadata = () => {
@@ -83,7 +85,21 @@ export const VideoUploadContainer = () => {
     e.preventDefault();
 
     if (!videoFile) {
-      alert("Please select a video file");
+      toast('Please select a video file', {
+        icon:'📁',
+        style: {
+        border: '3px solid #cc1526',
+        padding: '16px',
+        color: 'white',
+        backgroundColor: 'rgb(230, 69, 69)',
+        fontSize: "14px",
+        marginLeft: "13rem",
+      },
+      iconTheme: {
+        primary: '#713200',
+        secondary: '#FFFAEE',
+      },
+    });
       return;
     }
 
@@ -104,6 +120,18 @@ export const VideoUploadContainer = () => {
       setVideoFile(null);
       setDuration(null);
     } catch (error) {
+      toast.error('Error Uploading Video', {
+        style: {
+        border: '2px solid #cc1526',
+        padding: '16px',
+        color: '#cc1526',
+        fontSize: "14px",
+      },
+      iconTheme: {
+        primary: '#cc1526',
+        secondary: '#FFFAEE',
+      },
+    });
       console.error("Error uploading video:", error);
     }
   };
