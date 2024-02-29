@@ -169,7 +169,12 @@ export const uploadVideos = async (accessToken, video) => {
   const endpoint = "/api/adminvideo/upload";
   try {
     setAuthHeader(accessToken);
-    const response = await instance.post(endpoint, video);
+    const response = await instance.post(endpoint, video, {
+      headers: {
+        "Custom-Header": "value",
+        "Content-Type": "multipart/form-data",
+      },
+    });
     return response.data;
   } catch (error) {
     throw error;

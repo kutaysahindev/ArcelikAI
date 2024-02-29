@@ -1,11 +1,10 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useOktaAuth } from "@okta/okta-react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   logUserOut,
   setAccessToken,
   setIsLoading,
-  setIsTutorialDone,
   setNotification,
   setStatus,
   signUserIn,
@@ -60,7 +59,9 @@ const Main = () => {
   const accessTokenValidation = () => {
     const accessToken = authState.accessToken.accessToken;
     dispatch(setAccessToken(accessToken));
-    validateToken(accessToken)
+    if(!user.isSignedIn) {
+      // console.log('user.isSignedIn: ', user.isSignedIn)
+      validateToken(accessToken)
       .then(() => {
         dispatch(signUserIn())
         setTimeout(() => navigate("/home/form"), 2000);
@@ -72,6 +73,7 @@ const Main = () => {
         console.error("Error validating token:", error);
       })
       .finally(() => setTimeout(() => dispatch(setIsLoading(false)), 2000));
+    }
   }
   // const accessTokenValidation = async() => {
   //   const accessToken = authState.accessToken.accessToken;
@@ -89,13 +91,14 @@ const Main = () => {
   // }
 
   useEffect(() => {
-    if (authState && authState.isAuthenticated && !user.isSignedIn) {
+    // if (user.isSignedIn) return
+    if (authState && authState.isAuthenticated) {
       userInfoHandler();
       accessTokenValidation();
     } else {
       dispatch(logUserOut());
     }
-  }, [authState]);
+  }, [authState, user.isSignedIn]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -114,9 +117,11 @@ const Main = () => {
         // console.log('video: ', video)
         // console.log('video: ', video.WatchedVideoId)
         const lastWatchedVideoIndex = video.VideoDetails.indexOf(video.VideoDetails.find(v => v.Id === video.WatchedVideoId))
-        if (video.isWatchedAll) {
+        console.log('video: ', video)
+        console.log('video.IsWatchedAll: ', video.IsWatchedAll)
+        if (video.IsWatchedAll) {
           dispatch(completeAll());
-          dispatch(closeWindow());
+          // dispatch(closeWindow());
         } else {
           dispatch(
             proceedAt({
@@ -192,6 +197,7 @@ const Main = () => {
                 <button
                   className="login-button"
                   onClick={() => {
+                    dispatch(logUserOut());
                     oktaAuth.signOut();
                   }}
                 >

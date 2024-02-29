@@ -8,6 +8,10 @@ import "./CourseVideo.css";
 import VideoButtonContainer from "./VideoButtonContainer";
 import ProgressBar from "./ProgressBar";
 import FullProgressBar from "./FullProgressBar";
+import { useOktaAuth } from "@okta/okta-react";
+import { useDispatch } from "react-redux";
+import { setNotification } from "../../redux/userSlice";
+import { completeAll } from "../../redux/videoSlice";
 
 const CourseVideo = () => {
   const [isHovered, setIsHovered] = useState(false);
@@ -18,8 +22,12 @@ const CourseVideo = () => {
   const { currentTime, progress, isCompleted, status } = videoDetails;
   stateRef.current = currentTime;
   stateRef.progress = progress;
+  // const { authState } = useOktaAuth();
+  const dispatch = useDispatch();
 
   const postCurrentTime = (curr, progress) => {
+    // const accessToken = localStorage.getItem("okta-token-storage");
+    // console.log('accessToken: ', accessToken)
     const postVideo = async () => {
       const lastWatchedVideoId = videos[selectedVideo].Id;
       try {
@@ -31,13 +39,15 @@ const CourseVideo = () => {
             selectedVideo === lastCompleted ? 0 : Math.floor(curr),
         });
         console.log("PVP: Course Video")
+        console.log('videoProg: ', videoProg)
+        if (videoProg) dispatch(completeAll())
       } catch (error) {
-        throw error;
+        dispatch(setNotification({type: "error", text: error.response.request.responseText}));
       }
     };
     if (user.accessToken.length > 1 && selectedVideo > lastCompleted && (progress < 90) ) {
       postVideo();
-      // console.log("CourseVideo", progress)
+      console.log("CourseVideo", progress)
     }
   };
 

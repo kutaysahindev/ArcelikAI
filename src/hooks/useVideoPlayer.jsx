@@ -83,22 +83,22 @@ const useVideoPlayer = () => {
 
 
   useEffect(() => {
-    const postVideo = async () => {
-      const lastWatchedVideoId = videos[selectedVideo].Id;
-      try {
-        await postVideoProgress(user.accessToken, {
-          // isWatchedAll: selectedVideo < videoCount ? allCompleted : true,
-          WatchedVideoId: selectedVideo < videoCount-1 ? lastWatchedVideoId+1 : 1,
-          WatchedTimeInseconds: 0
-        });
-        console.log("PVP: useVideoPlayer")
-      } catch (error) {
-        throw error;
-      }
-    };
+    // const postVideo = async () => {
+    //   const lastWatchedVideoId = videos[selectedVideo].Id;
+    //   try {
+    //     await postVideoProgress(user.accessToken, {
+    //       // isWatchedAll: selectedVideo < videoCount ? allCompleted : true,
+    //       WatchedVideoId: lastWatchedVideoId+1,
+    //       WatchedTimeInseconds: 0
+    //     });
+    //     console.log("PVP: useVideoPlayer")
+    //   } catch (error) {
+    //     throw error;
+    //   }
+    // };
     if (isCompleted && !allCompleted) {
       dispatch(completeVideo(selectedVideo));
-      postVideo();
+      // postVideo();
       console.log("useVideoPlayer")
     }
     // if (allCompleted) {

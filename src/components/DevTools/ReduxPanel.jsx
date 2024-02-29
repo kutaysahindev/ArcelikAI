@@ -53,7 +53,7 @@ const ReduxPanel = () => {
 
   const videoDeleter = async () => {
     try {
-      await deleteVideoDB(accessToken, 3);
+      // await deleteVideoDB(accessToken, 3);
     } catch (err) {
       console.error(err.message);
     }

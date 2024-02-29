@@ -5,11 +5,13 @@ const localLoading =
 const localTour =
   localStorage.getItem("isTutorialDone") ? localStorage.getItem("isTutorialDone") : "none";
 
+const localAccessToken = JSON.parse(localStorage.getItem("okta-token-storage"))?.accessToken ? JSON.parse(localStorage.getItem("okta-token-storage")).accessToken.accessToken : ""
+
 const initialState = {
   // isSignedIn: false,
   isSignedIn: localStorage.getItem("isSignedIn") === "true" ? true : false,
   isLoading: localLoading,
-  accessToken: "",
+  accessToken: localAccessToken,
   status: "c",
   userInfo: {
     name: "",
