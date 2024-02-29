@@ -6,6 +6,7 @@
   min-height: 80vh;
   gap: 3rem;
   font-size: 1.5rem;
+  transition: all ease-in 0.2s;
 }
 .question-pool .info {
   font-style: italic;
@@ -49,13 +50,13 @@
   transition: all 200ms;
 }
 .que-container .que-item .buttons .fill {
-  color:rgb(0, 174, 0)
+  color: rgb(0, 174, 0);
 }
 .que-container .que-item .buttons .blank:hover {
-  color:green
+  color: green;
 }
 .que-container .que-item .buttons .delete:hover {
-  color:rgb(189, 0, 0)
+  color: rgb(189, 0, 0);
 }
 
 .question-pool .btnss {
@@ -69,8 +70,14 @@
   cursor: pointer;
 }
 .question-pool .action-btn.reset {
-  background: #e35353;
+  background: #cc1526;
 }
+
+.question-pool .action-btn:.reset:hover {
+  transform: scale(2);
+  background-color: rgb(230, 69, 69);
+}
+
 .question-pool .action-btn.apply {
   background: #5385e3;
 }

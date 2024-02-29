@@ -13,9 +13,9 @@
   padding: 1rem 2rem;
   font-size: 1.6rem;
   font-weight: 600;
-  color: #bc3200;
+  color: #ffd0c0;
   border-radius: 10px;
-  background: #ffd0c0;
+  background: #cc1526;
   cursor: pointer;
   transition: all 200ms;
 }
