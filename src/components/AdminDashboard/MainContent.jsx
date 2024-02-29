@@ -7,6 +7,8 @@ import { QuestionDraft } from "../QuestionDashboard/QuestionDraft";
 import { QuestionPool } from "../QuestionDashboard/QuestionPool";
 import AddNewVideo from "../AdminPanel/VideoUploadContainer/AddNewVideo";
 import VideoManagement from "../AdminPanel/VideoManagement";
+import CloudPricing from "./Tabs/CloudPricing/CloudPricing";
+import ToDoList from "./Tabs/ToDoList/ToDoList";
 
 const MainContent = () => {
   const { adminIndex } = useSelector((state) => state.nav);
@@ -53,6 +55,14 @@ const MainContent = () => {
 
   if (adminIndex === "Create Questions") {
     content = <QuestionDraft />;
+  }
+
+  if (adminIndex === "Cloud Pricing") {
+    content = <CloudPricing />;
+  }
+
+  if (adminIndex === "To-Do") {
+    content = <ToDoList />;
   }
 
   return <div className="main-content">{content}</div>;
