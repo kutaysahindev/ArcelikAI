@@ -42,8 +42,8 @@ const Sidebar = () => {
     "Question Pool",
     "Cloud Pricing",
     "To-Do",
-    "Client App",
     "Settings",
+    "Client App",
     "Logout",
   ];
 

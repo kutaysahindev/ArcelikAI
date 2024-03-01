@@ -1,18 +1,19 @@
-import { useState, useEffect } from 'react';
-import './VideoPool.css';
+import { useState, useEffect } from "react";
+import "./VideoPool.css";
 import { CiEdit, CiTrash } from "react-icons/ci";
 import { IoCheckmarkOutline } from "react-icons/io5";
-import { fetchVideoNamesFromDatabase, updateVideoDetailsInDatabase } from '../../../api';
-import { deleteVideoFromDatabase } from '../../../api';
-import { useSelector } from 'react-redux';
-
-
+import {
+  fetchVideoNamesFromDatabase,
+  updateVideoDetailsInDatabase,
+} from "../../../api";
+import { deleteVideoFromDatabase } from "../../../api";
+import { useSelector } from "react-redux";
 
 const VideoPool = () => {
-  const [currentPage, setCurrentPage] = useState(1); 
-  const videosPerPage = 10; 
+  const [currentPage, setCurrentPage] = useState(1);
+  const videosPerPage = 10;
   const [editingIndex, setEditingIndex] = useState(-1);
-  const [editedName, setEditedName] = useState('');
+  const [editedName, setEditedName] = useState("");
   const [allVideos, setAllVideos] = useState([]);
   const user = useSelector((slices) => slices.user);
   useEffect(() => {
@@ -21,7 +22,7 @@ const VideoPool = () => {
         const videoNames = await fetchVideoNamesFromDatabase(user.accessToken);
         setAllVideos(videoNames);
       } catch (error) {
-        console.error('Error fetching videos:', error);
+        console.error("Error fetching videos:", error);
       }
     };
 
@@ -51,40 +52,46 @@ const VideoPool = () => {
       //   setCurrentPage(currentPage - 1);
       // }
     } catch (error) {
-      console.error('Error deleting video:', error);
+      console.error("Error deleting video:", error);
     }
   };
 
   useEffect(() => {
-    console.log('editedName: ', editedName)
-    console.log('allVideos: ', allVideos)
-  }, [editedName, allVideos])
-
+    console.log("editedName: ", editedName);
+    console.log("allVideos: ", allVideos);
+  }, [editedName, allVideos]);
 
   const handleEdit = (index) => {
     setEditingIndex(index);
     setEditedName(allVideos[index].Title);
   };
 
-  const handleSaveEdit = async(index) => {
+  const handleSaveEdit = async (index) => {
     const updatedVideos = [...allVideos];
     updatedVideos[index].Title = editedName;
     setAllVideos(updatedVideos);
     setEditingIndex(-1);
-    const formData = new FormData()
-    formData.append("Title", editedName)
+    const formData = new FormData();
+    formData.append("Title", editedName);
     try {
-      await updateVideoDetailsInDatabase(user.accessToken, formData, allVideos[index].Id)
+      await updateVideoDetailsInDatabase(
+        user.accessToken,
+        formData,
+        allVideos[index].Id
+      );
     } catch (error) {
-      console.error(error.message)
+      console.error(error.message);
     }
   };
 
   return (
-    <div className='Container'>
-      <div className='titles'>
-        <h1 className='first-title'>All Videos</h1>
-        <h2 className='second-title'>View and browse all videos, edit video details, secure video deletion. All in one.</h2>
+    <div className="container-pool">
+      <div className="titles">
+        <h1 className="first-title">All Videos</h1>
+        <h2 className="second-title">
+          View and browse all videos, edit video details, secure video deletion.
+          All in one.
+        </h2>
       </div>
       <div className="video-pool">
         <div className="video-list">
@@ -93,15 +100,15 @@ const VideoPool = () => {
               {editingIndex === index ? (
                 <div className="edit-container">
                   <input
-                    className='input-field'
+                    className="input-field"
                     type="text"
                     value={editedName}
                     onChange={(e) => setEditedName(e.target.value)}
                   />
-                  <IoCheckmarkOutline 
+                  <IoCheckmarkOutline
                     className="done-icon"
-                    size='1.7rem'
-                    cursor='pointer'
+                    size="1.7rem"
+                    cursor="pointer"
                     onClick={() => handleSaveEdit(index)}
                   />
                 </div>
@@ -110,28 +117,21 @@ const VideoPool = () => {
               )}
               <div className="item-pack">
                 <CiEdit
-                  className='item'
-                  size='1.7rem'
-                  cursor='pointer'
+                  className="item"
+                  size="1.7rem"
+                  cursor="pointer"
                   onClick={() => handleEdit(index)}
                 />
                 <CiTrash
-                  className='item-2'
-                  size='1.7rem'
-                  cursor='pointer'
+                  className="item-2"
+                  size="1.7rem"
+                  cursor="pointer"
                   onClick={() => handleDelete(index)}
                 />
               </div>
             </div>
           ))}
         </div>
-        {/* <div className="pagination">
-          {[...Array(Math.ceil(allVideos.length / videosPerPage)).keys()].map((number) => (
-            <div key={number} onClick={() => paginate(number + 1)} className="page-number">
-              {number + 1}
-            </div>
-          ))}
-        </div> */}
       </div>
     </div>
   );
