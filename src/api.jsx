@@ -161,6 +161,17 @@ export const uploadQuestionDB = async (accessToken, question) => {
     throw error;
   }
 };
+// Question Delete DB
+export const deleteQuestionDB = async (accessToken, qID) => {
+  const endpoint = `/api/adminquestion/${qID}`;
+  setAuthHeader(accessToken);
+  try {
+    const response = await instance.delete(endpoint);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
 
 // VIDEO
 

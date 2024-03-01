@@ -43,7 +43,7 @@ export const Dropdown = ({
           style={{ zIndex: 2 + z }}
         >
           {selected.label}
-          <span className={`icon ${isSelectorOpen ? 'open' : ''}`}>
+          <span className={`chevron-icon ${isSelectorOpen ? 'open' : ''}`}>
             <FaChevronDown size={14} />
           </span>
         </div>
