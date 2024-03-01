@@ -31,7 +31,7 @@ const initialState = {
     video2: false,
     video3: false,
   },
-  videoCount: localVideoCount,
+  videoCount: 0,
   videoMark: localVideoMark,
   videos: localVideos,
 };
@@ -42,6 +42,7 @@ export const videoSlice = createSlice({
   reducers: {
     setVideos: (state, action) => {
       state.videos = action.payload;
+      state.videoCount = action.payload.length;
       localStorage.setItem("videos", JSON.stringify(action.payload));
     },
     closeVideoWindow: (state) => {
@@ -66,7 +67,7 @@ export const videoSlice = createSlice({
     },
     setVideoCount: (state, action) => {
       state.videoCount = action.payload;
-      localStorage.setItem("videoCount", action.payload);
+      // localStorage.setItem("videoCount", action.payload);
     },
     proceedAt: (state, action) => {
       const { video, time } = action.payload;
