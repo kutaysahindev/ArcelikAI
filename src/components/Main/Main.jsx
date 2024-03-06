@@ -131,7 +131,7 @@ const Main = () => {
         console.log("PROMISE ALL")
         // VIDEO
         dispatch(setVideos(video.VideoDetails));
-        dispatch(setVideoCount(video.VideoCount));
+        // dispatch(setVideoCount(video.VideoCount));
         // if (video.isTutorialDone) dispatch(setIsTutorialDone("0done"));
         // console.log('video: ', video)
         // console.log('video: ', video.WatchedVideoId)
