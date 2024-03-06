@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 
-import "../components/AdminDashboard/Admin.css";
+import "../components/AdminDashboard/admin.css";
 
 import Navbar from "../components/AdminDashboard/Navbar";
 import Sidebar from "../components/AdminDashboard/Sidebar";
@@ -13,11 +13,10 @@ const AdminLayout = () => {
   const { authState } = useOktaAuth();
   const dispatch = useDispatch();
 
-
   useEffect(() => {
     const accessToken = authState?.accessToken.accessToken;
     dispatch(setAccessToken(accessToken));
-  }, [authState])
+  }, [authState]);
 
   return (
     <div className="admin-dashboard">
