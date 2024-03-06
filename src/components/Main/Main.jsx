@@ -235,6 +235,11 @@ const Main = () => {
                 Login with Okta
               </button>
             )}
+            <div className='sample-user'>
+              <h1>Sample User</h1>
+              <p><span>Username: </span>normaluser@gmail.com</p>
+              <p><span>Password: </span>!2345678</p>
+            </div>
           </div>
         )}
         {!isValidIndex && (

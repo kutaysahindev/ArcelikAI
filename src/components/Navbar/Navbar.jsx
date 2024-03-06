@@ -25,7 +25,7 @@ const Navbar = () => {
         <img className="" src={arclk} alt="arcelik" />
         {/* <p>Arçelik</p> */}
       </div>
-      {location.pathname === "/" ? (
+      {location.pathname === "/home" ? (
         <div className="steps">
           <div
             onClick={() => dispatch(setIndex(0))}
