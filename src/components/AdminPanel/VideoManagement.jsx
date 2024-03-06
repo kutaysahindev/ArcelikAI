@@ -78,11 +78,11 @@ export default function VideoManagement() {
     <>
       <div className="both-video-area">
         <VideoPool />
-        <div className="apply-btn-cont">
+        {/* <div className="apply-btn-cont">
           <button type="submit" className="apply-btn">
             Apply Changes
           </button>
-        </div>
+        </div> */}
       </div>
     </>
   );

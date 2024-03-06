@@ -81,6 +81,20 @@ ul li {
   margin-bottom: 2.5rem;
 }
 
+.main-container .sample-user {
+  margin-top: -1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-size: 1.5rem;
+}
+.main-container .sample-user h1 {
+  font-weight: bold;
+}
+.main-container .sample-user span {
+  user-select: none;
+}
+
 /* Media query for phone screens */
 @media only screen and (max-width: 767px) {
   html {

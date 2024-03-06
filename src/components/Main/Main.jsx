@@ -131,7 +131,7 @@ const Main = () => {
         console.log("PROMISE ALL")
         // VIDEO
         dispatch(setVideos(video.VideoDetails));
-        dispatch(setVideoCount(video.VideoCount));
+        // dispatch(setVideoCount(video.VideoCount));
         // if (video.isTutorialDone) dispatch(setIsTutorialDone("0done"));
         // console.log('video: ', video)
         // console.log('video: ', video.WatchedVideoId)
@@ -235,6 +235,11 @@ const Main = () => {
                 Login with Okta
               </button>
             )}
+            <div className='sample-user'>
+              <h1>Sample User</h1>
+              <p><span>Username: </span>normaluser@gmail.com</p>
+              <p><span>Password: </span>!2345678</p>
+            </div>
           </div>
         )}
         {!isValidIndex && (

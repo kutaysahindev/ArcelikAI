@@ -62,14 +62,16 @@
 .qt-selector.open {
   border-color: var(--theme-color);
 }
-.qt-selector .icon {
+.qt-selector .chevron-icon {
+  /* flex-grow: unset; */
   display: flex;
   align-items: center;
   transform-origin: center;
   transform: rotate(0deg);
   transition: transform 0.6s ease;
+  /* background: #ad7676; */
 }
-.qt-selector .icon.open {
+.qt-selector .chevron-icon.open {
   transform: rotate(180deg);
   color: var(--theme-color);
 }

@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 
 const WindowButtons = ({ content, onClose, onInfoClick }) => {
   const { allCompleted } = useSelector((state) => state.video);
+  const { result } = useSelector((state) => state.quiz);
   const dispatch = useDispatch();
 
   const showModal = () => {
@@ -38,7 +39,7 @@ const WindowButtons = ({ content, onClose, onInfoClick }) => {
           <IoIosArrowBack size={30} />
         </button>
       ) : (
-        <button className="w-btn x" onClick={onClose} disabled={!allCompleted}>
+        <button className="w-btn x" onClick={onClose} disabled={!allCompleted || result !== "passed"}>
           <IoCloseOutline size={30} />
         </button>
       )}

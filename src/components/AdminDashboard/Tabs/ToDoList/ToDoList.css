@@ -71,7 +71,7 @@
   background-color: rgb(230, 69, 69);
 }
 
-span {
+.todo-text {
   flex-grow: 1;
 }
 

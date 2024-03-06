@@ -52,7 +52,7 @@ const ToDoList = () => {
             className={todo.completed ? "todo-item completed" : "todo-item"}
             onClick={() => handleToggle(todo.id)}
           >
-            <span>{todo.text}</span>
+            <span className="todo-text">{todo.text}</span>
             {todo.completed && <FaCheck className="check-icon" />}
           </li>
         ))}
