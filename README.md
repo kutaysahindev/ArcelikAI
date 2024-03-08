@@ -2,6 +2,8 @@
 
 This repository contains a web application built using React for the Front-end and ASP.NET for the Back-end. The project leverages various technologies and tools to enhance its functionality and user experience.
 
+**Disclaimer:** This project is not officially affiliated with Arçelik. It is solely a side project developed by the contributors, including interns. The project has been created independently and does not have any official endorsement or support from Arçelik. Any views or opinions expressed in this project are those of the contributors and do not necessarily reflect the views or opinions of Arçelik.
+
 ## Technologies Used
 
 - **React**: A JavaScript library for building user interfaces.
