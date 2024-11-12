@@ -17,7 +17,7 @@
     "@emotion/styled": "^11.11.0",
     "@mui/material": "^5.15.11",
     "@mui/x-charts": "^6.19.5",
-    "@okta/okta-auth-js": "^7.5.0",
+    "@okta/okta-auth-js": "^7.8.1",
     "@okta/okta-react": "^6.7.0",
     "@reduxjs/toolkit": "^2.0.1",
     "axios": "^1.6.5",
